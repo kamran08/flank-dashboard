@@ -7,10 +7,10 @@ module.exports = {
   ** Headers of the page
   */
   modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/bootstrap-vue',
+    '@nuxtjs/axios'
+    
     // With options
-    ['@nuxtjs/bootstrap-vue', { css: false }]
+    
   ],
   // build: {
   //   plugins: [
@@ -47,11 +47,21 @@ module.exports = {
         rel: 'icon',
         type: 'image/x-icon',
         href: 'favicon.ico'
-      }
+      },
       // { rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' }
+      { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.7.2/css/all.css' },
+      { rel: 'stylesheet', href: '/css/custom-plugin.css' },
+      { rel: 'stylesheet', href: '/css/owl.carousel.min.css' },
+      { rel: 'stylesheet', href: '/css/owl.theme.default.min.css' },
+      
+      { rel: 'stylesheet', href: '/css/style.css' }
+      
+      
     ],
     script: [
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js' }
+      { src: '/js/plugin-js/jquery-1.12.0.min.js' },
+      { src: '/js/plugin-js/owl.carousel.min.js' },
+      { src: '/js/script.js' }
     ]
     
   },
@@ -59,7 +69,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/css/main.css',
+    
   ],
   /*
   ** Customize the progress-bar color

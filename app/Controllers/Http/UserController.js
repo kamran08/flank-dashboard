@@ -46,40 +46,26 @@ class UserController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {  
-    // const validation = await validate(request.all(), {
-    //   name: 'required|min:3|max:255',
-    //   email: 'required|email|unique:users,email',
-    //   password: 'required|min:6'
-    // })
-
-    // if(validation.fails()){
-    //     session.withErrors(validation.messages()).flashAll() 
-    //     return response.redirect('back')
-    // }
+    
     const formInfo = request.all()
     delete formInfo.password_confirmation
     const data = await User.create(formInfo)
     return data
   }
 
-  async userLogin({ request, response, auth, session }){
+  async userLogin({ request, response, auth, session }){ 
 
     const data = request.all()
 
     try {
-      console.log(data)
       let user = await auth.query().attempt(data.email, data.password)  
       return user
     } catch (e) {
-        console.log(e.message)
-        return response.status(401).json(
-            {
-                'msg': 'Invalid email or password. Please try again.'
-            }
-        )
+      return response.status(401).json({
+        'message': 'Invalid email or password. Please try again.'
+      })
     }
-
-}
+  }
 
   /**
    * Display a single user.
@@ -90,7 +76,7 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params, request, response, view }) {  
   }
 
   /**
@@ -127,7 +113,52 @@ class UserController {
   async destroy ({ params, request, response }) {
   }
 
+  async logout ({auth}) {
+    try {
+      await auth.logout()
+      return
+    } catch (e) { 
+      return false
+    }
+  }
+  
+  async sendResetLinkEmail ({request,response}){
+      
+    let email = request.all().email
+    const check = await User.query().where('email', email).getCount()
+    // eslint-disable-next-line eqeqeq
+    if (check == 0) {
+      return response.status(404).json({
+        'message': "404 Email doesn't exist!."
+      })
+    }
+    let token = suid (16)
+    let data = {
+      token: token
+    }
+    console.log(data)
+    // await Mail.send('emails.forgotpassword', data, (message) => {
+    //   message
+    //     .to(email)
+    //     .from('Support@worldtradebuddy.com', 'Support @ WorldTradeBuddy')
+    //     .subject('Reset Password')
+    // })
+    await User.query().where('email', email).update({"passwordToken": token})
 
+    return
+  }
+  async initdata({request, response, auth}){
+    try {
+
+      const user = await auth.getUser()
+      return {
+        user: user
+      }
+    } catch (error) {
+      console.log(error.message)
+      return false
+    }
+  }
 
 }
 

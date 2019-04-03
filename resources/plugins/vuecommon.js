@@ -1,25 +1,24 @@
 import Vue from 'vue'
+import {mapGetters} from 'vuex'
 Vue.mixin({
-  
   methods: {
-    async callApi(method, url, dataObj){
-       
-        try{
-
-            let data = await this.$axios({
-                method: method,
-                url: url,
-                data: dataObj
-            })
-            return data 
-            
-        }catch(e){
-            
-            return e.response
-        }
-    },
+    async callApi (method, url, dataObj) {
+      try {
+        let data = await this.$axios({
+          method: method,
+          url: url,
+          data: dataObj
+        })
+        return data
+      } catch (e) {
+        return e.response
+      }
+    }
   },
-  created(){
-   
+  computed: {
+    ...mapGetters({
+      authInfo: 'getAuthInfo',
+      isLoggedIn: 'getIsLoggedIn'
+    })
   }
 })
