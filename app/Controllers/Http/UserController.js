@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const User = use('App/Models/User')
+const Legend = use('App/Models/Legend')
 /**
  * Resourceful controller for interacting with users
  */
@@ -50,10 +51,20 @@ class UserController {
     const formInfo = request.all()
     delete formInfo.password_confirmation
     const data = await User.create(formInfo)
-    return data
+    // eslint-disable-next-line eqeqeq
+    if (data.packType == 1) { return data }
+    else{
+      const ledata ={
+        user_id: data.id,
+        name: data.firstName
+      }
+      await Legend.create(ledata)
+      return data
+    }
+    
   }
 
-  async userLogin({ request, response, auth, session }){ 
+  async userLogin ({ request, response, auth, session }){ 
 
     const data = request.all()
 
@@ -77,6 +88,7 @@ class UserController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {  
+   
   }
 
   /**

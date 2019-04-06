@@ -29,7 +29,7 @@
                    </div>
                    <div class="buynow-box">
                        <div class="buy-now-title">
-                           <h2>EXCLUSIVE FOUNDER’S LOOT PINATA PACKS {{signInfo.title}}</h2>
+                           <h2>Sign Up for {{signInfo.title | packName }}</h2>
                            <p>MORE DETAILS BELOW...</p>
                            <p class="rate">{{signInfo.rate}}</p>
                        </div>
@@ -49,7 +49,7 @@
                         <div class="presentation pre-one" @click="SignUpBox(1)" >
                             <div class="presentation-title">
                                 <span>PVP</span>
-                                <h2>Battle Royale</h2>
+                                <h2>Standard Flanker</h2>
                             </div>
                             <div class="title-right">
                                 <h3>Free</h3>
@@ -58,19 +58,19 @@
                         <div class="presentation pre-two" @click="SignUpBox(2)" >
                             <div class="presentation-title">
                                 <span>PVP</span>
-                                <h2>Battle Royale</h2>
+                                <h2>Local Legend</h2>
                             </div>
                             <div class="title-right">
-                                <h3>Free</h3>
+                                <h3>Paid</h3>
                             </div>
                         </div>
                         <div class="presentation pre-three" @click="SignUpBox(3)" >
                             <div class="presentation-title">
                                 <span>PVP</span>
-                                <h2>Battle Royale</h2>
+                                <h2>Product Hero</h2>
                             </div>
                             <div class="title-right">
-                                <h3>Free</h3>
+                                <h3>Paid</h3>
                             </div>
                         </div>
                     </div>
@@ -198,6 +198,7 @@
 
 <script>
 export default {
+    middleware: 'guest',
     data(){
         return{
             formData:{
@@ -265,14 +266,21 @@ export default {
             if(i==2) {
                 this.signInfo.bColor = this.bColor2
                 this.signInfo.title = 2
-                this.signInfo.rate = '$10.00'
+                this.signInfo.rate = '$19.99 (Monthly)'
             } 
             if(i==3) {
                 this.signInfo.bColor = this.bColor3
                 this.signInfo.title = 3
-                this.signInfo.rate = '$20.00'
+                this.signInfo.rate = '$19.99'
             } 
         },
+    },
+    filters:{
+        packName(type){
+            if(type == 1) return "Standerd Flank";
+            else if(type == 2) return "Local Legend";
+            if(type == 3) return "Product Hero";
+        }
     },
     created(){
         this.signInfo.bColor = this.bColor1;

@@ -687,7 +687,6 @@ h1 small {
 
 .reviewItem {
   margin-top: 50px;
-  background: #fff;
   position: relative;
   z-index: 1; }
   .reviewItem h2 span {
@@ -747,7 +746,6 @@ h1 small {
   .reviewItem .searchByReview .star-review {
     text-align: center;
     margin-top: 15px;
-    background: #eee;
     border: 1px solid rgba(151, 151, 151, 0.6);
     border-radius: 3px;
     padding: 25px 10px;
@@ -769,7 +767,6 @@ h1 small {
           color: darkorange; }
     .reviewItem .searchByReview .review-final .star-review {
       border: 0;
-      background: #fff;
       text-align: left;
       padding-top: 0; }
       .reviewItem .searchByReview .review-final .star-review span {
@@ -799,7 +796,7 @@ h1 small {
 
 .review-option {
   float: right;
-  margin-top: -95px;
+  margin-top: -70px;
   width: 380px;
   position: relative; }
   .review-option button {
@@ -899,7 +896,7 @@ h1:hover a {
     border: 0;
     border-radius: 0;
     margin-top: 20px;
-    padding: 0;
+    padding: 15px;
     resize: none; }
     .wr-page textarea:active, .wr-page textarea:focus {
       border: 0;
@@ -2129,3 +2126,97 @@ footer.advertise-section .section-content .arrange-unit {
       font-size: 2.3em;
       margin: 0;
       text-transform: uppercase; }
+
+.review-content-title {
+  margin-bottom: 15px;
+  position: relative; }
+  .review-content-title h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0; }
+
+.big-input input {
+  width: 260px;
+  height: 40px;
+  font-size: 36px; }
+
+.adress-input {
+  margin-bottom: 10px;
+  font-size: 13px; }
+
+.review-time-content ul {
+  border: 1px solid #E6E6E6;
+  padding: 15px 0 50px 15px;
+  border-radius: 3px; }
+  .review-time-content ul li {
+    list-style: none;
+    width: 100%;
+    float: left; }
+    .review-time-content ul li .biz-hours-icon {
+      float: left;
+      display: table-cell;
+      vertical-align: middle;
+      width: 10%;
+      margin: 0;
+      padding-right: 9px;
+      text-align: center; }
+      .review-time-content ul li .biz-hours-icon span {
+        font-size: 20px; }
+    .review-time-content ul li .biz-hours-time {
+      float: left;
+      position: relative;
+      width: 90%; }
+      .review-time-content ul li .biz-hours-time .short-def-list {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; }
+        .review-time-content ul li .biz-hours-time .short-def-list .attribute-key {
+          margin-right: 0.25em; }
+      .review-time-content ul li .biz-hours-time input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 38px;
+        width: 100%; }
+
+.section-left-border {
+  border-left: 1px solid #e6e6e6;
+  height: 100vh;
+  padding-left: 20px; }
+
+.table-simple-biz-hour tr {
+  position: relative; }
+  .table-simple-biz-hour tr td {
+    padding-left: 10px;
+    font-size: 15px; }
+  .table-simple-biz-hour tr .table-data {
+    position: absolute;
+    width: 100%;
+    margin-top: 3px; }
+  .table-simple-biz-hour tr .table-input {
+    position: absolute;
+    width: 100%; }
+    .table-simple-biz-hour tr .table-input input {
+      height: 19px;
+      margin-top: 3px;
+      font-size: 15px; }
+
+.extra {
+  color: #0088cc;
+  position: absolute;
+  right: 0;
+  margin-top: 3px; }
+
+.full-text-area-box {
+  float: left;
+  width: 65%; }
+
+.text-area-checkbox {
+  width: 35%;
+  float: left;
+  padding-left: 15px; }
+  .text-area-checkbox ul li {
+    list-style: none;
+    margin-bottom: 7px; }

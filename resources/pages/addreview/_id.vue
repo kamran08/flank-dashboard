@@ -1,5 +1,5 @@
 <template>
-    <div>
+<div>
         
         <!-- Header-->
         
@@ -24,20 +24,31 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="wr-page-title">
-                                <h1><a href="review-details.html"><strong>Katz's Delicatessen</strong></a></h1>
+                                <h1><a @click="$router.push(`/profile/${legendData.id}`)"><strong>{{legendData.name}}</strong></a></h1>
                                 <p><a href="">Read our review guidelines</a></p>
                             </div>
                             <br>
-                            <div class="textarea">
-                                <div class="star-review">
-                                    <p><span class=""><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><small>Select your rating</small></p>
+                            <div class="full-text-area-box">
+                                <div class="textarea">
+                                    <div class="star-review" style="background: #fff; text-align: center;" >
+                                        <p><small>Select your rating</small></p>
+                                        <Rate v-model="rating" icon="md-star" @on-change="reviewData.rating=rating" />
+                                    </div>
+                                    <textarea v-model="reviewData.content" class="form-control" id="my_textarea" rows="15" placeholder="Your review helps others learn about great local businesses. 
+                                    Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees." name="message"></textarea>
+                                    
                                 </div>
-                                <textarea class="form-control" id="my_textarea" rows="15" placeholder="Your review helps others learn about great local businesses. 
-                                
-Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees." name="message"></textarea>
-                                
+                                <button @click="postReview">Post a Review</button>
                             </div>
-                            <button type="submit">Post a Review</button>
+                            <div class="text-area-checkbox">
+                                <ul>
+                                    <li><span>Does He ride the storm?</span>&nbsp;&nbsp;<input v-model="reviewData.q1" type="checkbox"></li>
+                                    <li><span>Cookie Cutter approach?</span>&nbsp;&nbsp;<input v-model="reviewData.q2"  type="checkbox"></li>
+                                    <li><span>Does he pass the sniff test?</span>&nbsp;&nbsp;<input v-model="reviewData.q3"  type="checkbox"></li>
+                                    <li><span>Does he bring supplies?</span>&nbsp;&nbsp;<input v-model="reviewData.q4"  type="checkbox"></li>
+                                    <li><span>Quick heals for games?</span>&nbsp;&nbsp;<input v-model="reviewData.q5"  type="checkbox"></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,10 +124,105 @@ Please don't review this business if you received a freebie for writing this rev
 
 <script>
 export default {
-
+    data(){
+        return{
+            reviewData:{
+                reviewFor:'',
+                content:"",
+                rating:'',
+                q1:false,
+                q2:false,
+                q3:false,
+                q4:false,
+                q5:false,
+            },
+            legendData:{},
+            userData:{},
+            rating:0,
+            
+            
+        }
+    },
+    methods:{
+        async getUserInfo(id){
+            const res = await this.callApi('get',`/legends/${id}`)
+            if(res.status ===200){
+                this.legendData = res.data.legend
+                this.userData = res.data.user
+                this.reviewData.reviewFor = this.userData.id
+            }
+            else{
+                this.swr()
+            }
+        },
+        async postReview(){
+            if(this.reviewData.content == ''){
+                this.i("You must write something in the review box!")
+                return
+            }
+            if(this.reviewData.content == ''){
+                this.i('Please rate this coach !')
+                return;
+            }
+            if(this.isLoggedIn == false){
+                this.i('Please login first !')
+                this.$router.push('/login');
+            }
+            const res = await this.callApi('post','reviews',this.reviewData)
+            if(res.status===200){
+                this.s('Review posted successfully!')
+                this.$router.push('/profile/'+legendData.id)
+            }
+            else{
+                this.swr();
+            }
+            
+        },
+         
+    },
+    created(){
+        
+         this.getUserInfo(this.$route.params.id)
+    }
 }
 </script>
 
-<style>
-
+<style scoped>
+.demo-upload-list{
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #fff;
+        position: relative;
+        box-shadow: 0 1px 1px rgba(0,0,0,.2);
+        margin-right: 4px;
+    }
+    .demo-upload-list img{
+        width: 100%;
+        height: 100%;
+    }
+    .demo-upload-list-cover{
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.6);
+    }
+    .demo-upload-list:hover .demo-upload-list-cover{
+        display: block;
+    }
+    .demo-upload-list-cover i{
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        margin: 0 2px;
+    }
 </style>
+

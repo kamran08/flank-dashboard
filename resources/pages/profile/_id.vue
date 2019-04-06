@@ -36,12 +36,12 @@
                             </div>
                         </div>
                    </form>
-                   <div class="pull-right">
+                   <!-- <div class="pull-right">
                        <ul class="logsign">
                            <li><a href="">Log In</a></li>
                            <li><a href="">Sign Up</a></li>
                        </ul>
-                   </div>
+                   </div> -->
                 </div>
             </div>
             <div class="header-nav">
@@ -108,9 +108,18 @@
             <div class="container">
                 <div class="section-content">
                     <div class="review-content">
-                        <h1><strong>Name of Coach</strong> <small><i class="fas fa-check-circle"></i> Claimed</small></h1>
+                        <h1 v-if="!isEdit" ><strong>{{legendData.name}}</strong> <small><i class="fas fa-check-circle"></i> Claimed</small>&nbsp;&nbsp;&nbsp; <strong v-if="isLoggedIn && user_id == userData.id" > <a v-if="!isEdit" @click="editOn" >Edit</a></strong></h1>
+                        <div class="header-input big-input" v-else >
+                                <input v-model="formData.name" type="text"> <h1 v-if="isEdit" @click="legendUpdate"><a >Save</a></h1>
+                            </div>
                         <div class="coach-review star-review">
-                            <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;746 reviews
+                            <p>
+                                <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                <span class=""><i class="fas fa-star"></i></span>
+                                &nbsp;746 reviews
                             <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span>
                             </p>
                         </div>
@@ -123,16 +132,19 @@
                                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.1319108944804!2d91.86157565011207!3d24.893481749986655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3750552cd77aff43%3A0x77aa5c2368933e2d!2sNirvana+Inn!5e0!3m2!1sbn!2sbd!4v1468246452415"></iframe>  
                                         </div>
                                         <div class="map-details">
-                                           <p><i class="fas fa-map-marker-alt"></i><span>&nbsp;&nbsp;&nbsp;<strong>3489 16th St <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;San Francisco, CA 94114</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b/t Dehon St & Sanchez St Castro</span></p>
+                                           <p v-if="!isEdit"><i class="fas fa-map-marker-alt"></i><span>&nbsp;&nbsp;&nbsp;<strong>{{legendData.address}}</strong></span></p>
+                                            <input type="text"  v-model="formData.address"  v-else class="adress-input">
                                            <p><i class="fas fa-directions"></i>&nbsp;&nbsp;<a href="">Get Directions</a></p>
-                                           <p><i class="fas fa-phone"></i>&nbsp;&nbsp;(415) 796-3633</p>
+                                           <p v-if="!isEdit"><i class="fas fa-phone"></i>&nbsp;&nbsp;{{legendData.phone}}</p>
+                                           <input type="text" v-model="formData.phone"  v-else class="adress-input">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="review-gallary">
                                         <div class="review-option">
-                                            <button onclick="window.location.href='writereview.html'"><i class="fas fa-star"></i>&nbsp;Write a Review</button>
+                                            <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
+                                            
                                             <ul>
                                                 <li><a href=""><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
                                                 <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
@@ -199,7 +211,7 @@
                                             <p class="moreD"><a href="">Start your review of <strong>New Coach</strong>.</a></p>
                                         </div>
                                         <hr>
-                                        <div class="review-final">
+                                        <div class="review-final" v-for="(item,index) in reviews" :key="index" >
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6">
                                                     <div class="media">
@@ -207,7 +219,7 @@
                                                             <img class="media-object" src="/image/80.png" alt="">
                                                         </div>
                                                         <div class="media-body">
-                                                            <p><strong><a href="">Franny A.</a></strong></p>
+                                                            <p><strong><a href="">{{item.reviwer.firstName}}</a></strong></p>
                                                             <small><strong>San Francisco Bay Area, CA</strong></small>
                                                             <p><span><i class="fas fa-male"></i>&nbsp;856</span><span><i class="fas fa-male"></i>&nbsp;1304</span><span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span></p>
                                                         </div>
@@ -216,9 +228,16 @@
                                                 <div class="col-md-6 col-sm-6">
                                                     <div class="read-review">
                                                         <div class="star-review">
-                                                            <p><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high"><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                            <p>
+                                                                <span :class="(item.rating>0)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                <span :class="(item.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                &nbsp;<small>3/3/2019</small>
+                                                            </p>
                                                         </div>
-                                                        <p>The best tongue sandwich in NYC. If  you just want a,snake, give a hot dog.</p>
+                                                        <p>{{item.content}}</p>
                                                         <br><br><br>
                                                         <p id="resultReview"><strong>Was the review...?</strong></p>
                                                         <ul>
@@ -246,108 +265,86 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="business-info-sec reviewComment">
+                                    <h3>More  info</h3>
+                                    <div class="business-name">
+                                        <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>5/10</strong></span></p>
+                                        <p>Cookie Cutter approach? &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
+                                        <p>Does he pass the sniff test? &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
+                                        <p>Does he bring supplies?  &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
+                                        <p>Quick heals for games? &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <hr>
-       
-        <footer class="section-margin">
-            <div class="container">
-                <div class="section-content">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>About</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                        <li><a href="about.html">About Flank</a></li>
-                                        <li><a href="guidelines.html">Current Guidelines</a></li>
-                                        <li><a href="terms.html">Terms of Services</a></li>
-                                        <li><a href="privacy.html">Privacy Policy</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>Discover</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                        <li><a href="blog.html">Flank BLog</a></li>
-                                        <li><a href="support.html">Support</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>Flank for Business <br> Owners</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                        <li><a href="advertise.html">Advertise on Flank</a></li>
-                                        <li><a href="business-blog.html">Flank Blog for Business Owners</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!--<div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>Languages</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                            <li>
-                                                <input id="language" type="checkbox" name="menu"/>
-                                                <label for="language">English&nbsp;<i class="fas fa-sort-down"></i></label>
-                                                <ul class="submenu">
-                                                    <li><a href="#">Bahasha Malaysia</a></li>
-                                                    <li><a href="#">English (Australia)</a></li>
-                                                    <li><a href="#">English (UK)</a></li>
-                                                    <li><a href="#">English (US)</a></li>
-                                                    <li><a href="#">English (Canada)</a></li>
-                                                    <li><a href="#">Bangla</a></li>
-                                                    <li><a href="#">French</a></li>
-                                                </ul>
-                                            </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="foo-individual">
-                                <h3>Country</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                            <li>
-                                                <input id="country" type="checkbox" name="menu"/>
-                                                <label for="country">United States&nbsp;<i class="fas fa-sort-down"></i></label>
-                                                <ul class="submenu">
-                                                    <li><a href="#">Bangladesh</a></li>
-                                                    <li><a href="#">Australia</a></li>
-                                                    <li><a href="#">United Kingdom</a></li>
-                                                    <li><a href="#">Germany</a></li>
-                                                    <li><a href="#">Canada</a></li>
-                                                    <li><a href="#">United States</a></li>
-                                                    <li><a href="#">Franch</a></li>
-                                                </ul>
-                                            </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        -->
-                    </div>
-                    <div class="footer-bg"></div>
-                    <div class="text-center"><small class="main-footer_copyright">Copyright © 2004–2019 Yelp Inc. Yelp, <img src="/image/logo_desktop_xsmall_outline.png" alt="">, <img src="/image/burst_desktop_xsmall_outline.png" alt=""> and related marks are registered trademarks of Yelp.</small></div>
-                </div>
-            </div>
-        </footer>
     </div>
 </template>
 
 <script>
 export default {
-
+    data(){
+        return{
+            isEdit:false,
+            legendData:{},
+            userData:{},
+            formData:{
+                name:'',
+                address:'',
+                phone:''
+            },
+            reviews:[],
+            user_id:0,
+        }
+    },
+    methods:{
+        async getUserInfo(id){
+            const res = await this.callApi('get',`/legends/${id}`)
+            if(res.status ===200){
+                this.legendData = res.data.legend
+                this.userData = res.data.user
+                this.reviews = res.data.user.reviews
+            }
+            else{
+                this.swr()
+            }
+        },
+        
+        async editOn(){
+            this.formData.name = this.legendData.name
+            this.formData.address = this.legendData.address
+            this.formData.phone = this.legendData.phone
+            this.isEdit = true
+        },
+        async legendUpdate(){
+            if(this.formData.name == ''|| this.formData.address =='' || this.formData.phone == ''){
+                this.i("All fields must be filled !")
+                console.log('All fields must be filled !')
+                return;
+            }
+            const res = await this.callApi('put',`/legends/${this.legendData.id}`,this.formData)
+            if(res.status===200){
+                this.s("Change have been made Successfully!")
+                this.legendData.name = this.formData.name
+                this.legendData.address = this.formData.address
+                this.legendData.phone = this.formData.phone
+                this.isEdit=false
+            }
+            else{
+                this.swr();
+            }
+        }
+    },
+    created(){
+        if(this.isLoggedIn) this.user_id = authInfo.id
+        this.getUserInfo(this.$route.params.id)
+       
+    }
 }
 </script>
 

@@ -178,46 +178,21 @@
                       <div class="text-center">
                           <h3>Good & Bad Coaches</h3>
                       </div>
-                       <div class="row">
-                           <div class="col-md-4 col-sm-4">
+                       <div class="row" v-if="legendList.length" >
+                           <div class="col-md-4 col-sm-4" v-for="(item,index) in legendList" :key="index"  >
                                <div class="review-photo">
                                    <figure>
-                                       <img src="/image/l.jpg" alt="">
+                                       <img :src="item.img" alt="">
                                    </figure>
                                    <figcaption class="figcap-border">
-                                       <h4><strong><a href="">Hanon</a></strong></h4>
+                                       <h4 @click="$router.push(`/profile/${item.id}`)" ><strong><a >{{item.name}}</a></strong></h4>
                                         <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;16 reviews</p>
                                         <p>Japanese, Noodles, Tapas/Small Plates Williamsburg - North Side</p>
                                         <p class="fire"><i class="fas fa-fire"></i>&nbsp;Submitted 4 weeks ago</p>
                                    </figcaption>
                                </div>
                            </div>
-                           <div class="col-md-4 col-sm-4">
-                               <div class="review-photo">
-                                   <figure>
-                                       <img src="/image/l.jpg" alt="">
-                                   </figure>
-                                   <figcaption class="figcap-border">
-                                       <h4><strong><a href="">Hanon</a></strong></h4>
-                                        <p><span class=" high rating-bg"><i class="fas fa-star"></i></span><span class=" high rating-bg"><i class="fas fa-star"></i></span><span class=" high rating-bg"><i class="fas fa-star"></i></span><span class=" high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg" ><i class="fas fa-star"></i></span>&nbsp;16 reviews</p>
-                                        <p>Japanese, Noodles, Tapas/Small Plates Williamsburg - North Side</p>
-                                        <p class="fire"><i class="fas fa-fire"></i>&nbsp;Submitted 4 weeks ago</p>
-                                   </figcaption>
-                               </div>
-                           </div>
-                           <div class="col-md-4 col-sm-4">
-                               <div class="review-photo">
-                                   <figure>
-                                       <img src="/image/l.jpg" alt="">
-                                   </figure>
-                                   <figcaption class="figcap-border">
-                                       <h4><strong><a href="">Hanon</a></strong></h4>
-                                        <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;16 reviews</p>
-                                        <p>Japanese, Noodles, Tapas/Small Plates Williamsburg - North Side</p>
-                                        <p class="fire"><i class="fas fa-fire"></i>&nbsp;Submitted 4 weeks ago</p>
-                                   </figcaption>
-                               </div>
-                           </div>
+                           
                        </div>
                    </div>
                    <div class="text-center">
@@ -561,14 +536,23 @@
 export default {
   data(){
     return{
-      name:''
+      name:'',
+      legendList:[]
     }
   },
   methods:{
-   
+    async getAllLegendList(){
+        const res = await this.callApi('get',"/legends")
+        if(res.status==200){
+            this.legendList = res.data
+        }
+        else{
+            this.swr();
+        }
+    },
   },
   created(){
-    
+    this.getAllLegendList();
   }
 }
 </script>

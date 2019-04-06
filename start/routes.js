@@ -22,7 +22,11 @@ Route.resource('users', 'UserController').validator(new Map([
 Route.post('/authentication/login', 'UserController.userLogin').middleware(['guest'])
 Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
-Route.get('app/initdata', 'UserController.initdata')
 
+Route.resource('legends', 'LegendController')
+Route.resource('reviews', 'ReviewController')
+
+
+Route.get('app/initdata', 'UserController.initdata')
 Route.any('*', 'NuxtController.render')
 
