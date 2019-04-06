@@ -57,7 +57,6 @@ module.exports = {
       
       { rel: 'stylesheet', href: '/css/style.css' }
       
-      
     ],
     script: [
       { src: '/js/plugin-js/jquery-1.12.0.min.js' },
