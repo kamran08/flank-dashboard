@@ -24,7 +24,9 @@ Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
 
 Route.resource('legends', 'LegendController')
+Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
 Route.resource('reviews', 'ReviewController')
+Route.post('/app/upload-review-file', 'ReviewController.uploadReviewFile')
 
 
 Route.get('app/initdata', 'UserController.initdata')

@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Review = use('App/Models/Review')
+const ReviewImage = use('App/Models/ReviewImage')
+const Helpers = use('Helpers')
 /**
  * Resourceful controller for interacting with reviews
  */
@@ -43,7 +45,20 @@ class ReviewController {
   async store ({ request, response, auth }) {
     let data = request.all()
     data.reviwer_id = await auth.user.id
-    return await Review.create(data)
+    let uploadList = []
+    const tempUpload = data.uploadList
+    delete data.uploadList
+    const rdata = await Review.create(data)
+
+    for (let i of tempUpload) {
+      let ob = {
+        url: i,
+        review_id: rdata.id
+      }
+      uploadList.push(ob)
+    }
+    await ReviewImage.createMany(uploadList)
+    return rdata
   }
 
   /**
@@ -92,6 +107,27 @@ class ReviewController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+  }
+
+  async uploadReviewFile ({request, response}) {
+
+    const profilePic = request.file('file', {
+      types: ['png', 'jpg', 'jpeg'],
+      size: '2mb'
+      })
+    const name = `${new Date().getTime()}` + '.' + profilePic._subtype
+    // UPLOAD THE IMAGE TO UPLOAD FOLDER 
+    await profilePic.move(Helpers.publicPath('uploads'), {
+      name: name
+    })
+    if (!profilePic.moved()) {
+      return profilePic.error()
+    }
+
+    return response.status(200).json({
+      msg: 'Image has been uploaded successfully!',
+      file: `/uploads/${name}`
+    })
   }
 }
 

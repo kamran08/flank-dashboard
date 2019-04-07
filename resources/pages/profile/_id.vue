@@ -146,16 +146,16 @@
                                             <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
                                             
                                             <ul>
-                                                <li><a href=""><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
-                                                <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
-                                                <li><a href=""><i class="fas fa-bookmark"></i>&nbsp;Save</a></li>
+                                                <li @click="addImageModal=true" ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
+                                                <!-- <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
+                                                <li><a href=""><i class="fas fa-bookmark"></i>&nbsp;Save</a></li> -->
                                             </ul>
                                         </div>
                                         <div class="figure">
                                             <ul>
-                                                <li><img src="/image/ls%20(1).jpg" alt=""></li>
-                                                <li><img src="/image/ls%20(1).jpg" alt=""></li>
-                                                <li><img src="/image/ls%20(1).jpg" alt=""></li>
+                                                <li><img src="/uploads/default.png" alt=""></li>
+                                                <li><img src="/uploads/default.png" alt=""></li>
+                                                <li><img src="/uploads/default.png" alt=""></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -283,6 +283,45 @@
                 </div>
             </div>
         </section>
+        <Modal title="View Image" v-model="addImageModal">
+           <div class="">
+                <div >
+                 <img :src="imgName" style="width: 100%">
+            </div>
+            <div class="demo-upload-list" v-for="(item,index) in uploadList" :key="index">
+                <template >
+                    <img :src="item">
+                    <div class="demo-upload-list-cover">
+                        <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
+                        <Icon type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
+                    </div>
+                </template>
+            </div>
+            <Upload
+                ref="upload"
+                :show-upload-list="false"
+                :default-file-list="defaultList"
+                :on-success="handleSuccess"
+                :format="['jpg','jpeg','png']"
+                :max-size="2048"
+                :on-format-error="handleFormatError"
+                :on-exceeded-size="handleMaxSize"
+                :before-upload="handleBeforeUpload"
+                multiple
+                type="drag"
+                action="/app/upload-review-file"
+                style="display: inline-block;width:58px;">
+                <div style="width: 58px;height:58px;line-height: 58px;" v-if="uploadList.length<3" >
+                    <Icon type="ios-camera" size="20"></Icon>
+                </div>
+            </Upload>
+           </div>
+           <div slot="footer">
+                <Button  @click="addImageModal=false">Cancle</Button>
+                <Button type="info" @click="uploadsPhotos">Upload</Button>
+            </div>
+        </Modal>
+
     </div>
 </template>
 
@@ -300,6 +339,20 @@ export default {
             },
             reviews:[],
             user_id:0,
+            addImageModal:false,
+            defaultList: [
+                    {
+                        'name': 'a42bdcc1178e62b4694c830f028db5c0',
+                        'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
+                    },
+                    {
+                        'name': 'bc7521e033abdd1e92222d733590f104',
+                        'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
+                    }
+            ],
+            imgName: '/uploads/default.png',
+            visible: false,
+            uploadList: []
         }
     },
     methods:{
@@ -338,16 +391,101 @@ export default {
             else{
                 this.swr();
             }
+        },
+        async uploadsPhotos(){
+            if(this.uploadList.length<1){
+                this.i("you didn't select any photos")
+                return
+            }
+
+            const res = await this.callApi('post','/uploadLegendPhotos',{uploadList: this.uploadList})
+            if(res.status===200){
+                this.s("Images have been uploaded successfully!")
+                this.addImageModal = false
+            }
+            else{
+                this.swr();
+            }
+        },
+        handleView (item) {
+                this.imgName = item;
+                this.visible = true;
+        },
+        handleRemove (index) {
+            this.uploadList.splice(index, 1);
+        },
+        handleSuccess (res, file) {
+            console.log(res)
+            this.uploadList.push(res.file)
+            // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
+            // file.name = '7eb99afb9d5f317c912f08b5212fd69a';
+        },
+        handleFormatError (file) {
+            this.$Notice.warning({
+                title: 'The file format is incorrect',
+                desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+            });
+        },
+        handleMaxSize (file) {
+            this.$Notice.warning({
+                title: 'Exceeding file size limit',
+                desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+            });
+        },
+        handleBeforeUpload () {
+            const check = this.uploadList.length < 3;
+            if (!check) {
+                this.$Notice.warning({
+                    title: 'Up to 3 pictures can be uploaded.'
+                });
+            }
+            return check;
         }
+         
     },
     created(){
-        if(this.isLoggedIn) this.user_id = authInfo.id
+        if(this.isLoggedIn) this.user_id = this.authInfo.id
         this.getUserInfo(this.$route.params.id)
        
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+.demo-upload-list{
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #fff;
+        position: relative;
+        box-shadow: 0 1px 1px rgba(0,0,0,.2);
+        margin-right: 4px;
+    }
+    .demo-upload-list img{
+        width: 100%;
+        height: 100%;
+    }
+    .demo-upload-list-cover{
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.6);
+    }
+    .demo-upload-list:hover .demo-upload-list-cover{
+        display: block;
+    }
+    .demo-upload-list-cover i{
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        margin: 0 2px;
+    }
 </style>

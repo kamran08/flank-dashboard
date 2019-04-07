@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Legend = use('App/Models/Legend')
 const User = use('App/Models/User')
+const LegendImage = use('App/Models/LegendImage')
 /**
  * Resourceful controller for interacting with legends
  */
@@ -103,6 +104,23 @@ class LegendController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+  }
+
+  async uploadLegendPhotos({ request, auth }){
+    let data = request.all()
+    const user_id = await auth.user.id
+    const legend = await Legend.find(user_id)
+    let uploadList = []
+    for (let i of data.uploadList) {
+      let ob = {
+        url: i,
+        legend_id: legend.id
+      }
+      uploadList.push(ob)
+    }
+    await LegendImage.query().where('legend_id', legend.id).delete()
+    return await LegendImage.createMany(uploadList)
+
   }
 }
 

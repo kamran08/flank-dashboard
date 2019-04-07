@@ -46,6 +46,7 @@
                 </ul>
                 <ul>
                     <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
+                    <li v-if="isLoggedIn" @click="$router.push(`/profile/${authInfo.id}`)" ><a >Profile</a></li>
                     <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                     <li><a href="">Download</a></li>
                 </ul>
