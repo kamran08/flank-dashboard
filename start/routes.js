@@ -15,6 +15,8 @@
 
 const Route = use('Route')
 
+
+
 Route.resource('users', 'UserController').validator(new Map([
                                                                 [['users.store'], ['StoreUser']],
                                                                 // [['users.update'], ['UpdateUser']]
@@ -24,6 +26,8 @@ Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
 
 Route.resource('legends', 'LegendController')
+Route.resource('questions', 'QuestionController')
+Route.resource('answers', 'AnswerController')
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
 Route.resource('reviews', 'ReviewController')
 Route.post('/app/upload-review-file', 'ReviewController.uploadReviewFile')

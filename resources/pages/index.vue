@@ -537,22 +537,21 @@ export default {
   data(){
     return{
       name:'',
-      legendList:[]
     }
   },
+   async asyncData({app, store,redirect, params}){
+        try {
+            let {data} = await app.$axios.get(`/legends`)
+          
+            return{
+                legendList : data
+            }
+		}catch (error) {
+            //return redirect('/404')
+		}
+   },
   methods:{
-    async getAllLegendList(){
-        const res = await this.callApi('get',"/legends")
-        if(res.status==200){
-            this.legendList = res.data
-        }
-        else{
-            this.swr();
-        }
-    },
+    
   },
-  created(){
-    this.getAllLegendList();
-  }
 }
 </script>

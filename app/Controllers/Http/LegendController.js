@@ -57,17 +57,29 @@ class LegendController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const legendData = await Legend.find(params.id)
-    const userData = await User.query()
+    const legendData = await Legend.query()
+                                  .where('id',params.id)
+                                  .with('reviews')
+                                  .with('reviews.reviwer')
+                                  .with('legendimages')
+                                  .with('questions')
+                                  //.withCount('avgRev')
+                                  .first()
+    if(legendData){
+      const userData = await User.query()
                                 .where('id', legendData.user_id)
-                                .with('reviews')
-                                .with('reviews.reviwer')
-                                //.withCount('avgRev')
                                 .first()
     return {
       legend: legendData,
       user: userData
     } 
+    }
+    else{
+      return response.status(404).json({
+        'message': 'User not found!.'
+      })
+    }
+    
   }
 
   /**
@@ -113,7 +125,7 @@ class LegendController {
     let uploadList = []
     for (let i of data.uploadList) {
       let ob = {
-        url: i,
+        url: i.url,
         legend_id: legend.id
       }
       uploadList.push(ob)

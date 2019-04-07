@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2019 at 06:12 PM
+-- Generation Time: Apr 08, 2019 at 12:36 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -45,7 +45,24 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (5, '1554389852524_review_schema', 2, '2019-04-04 15:10:16'),
 (7, '1554390189840_legend_schema', 3, '2019-04-04 15:17:16'),
 (8, '1554641568596_legend_image_schema', 4, '2019-04-07 12:55:21'),
-(9, '1554641581168_review_image_schema', 4, '2019-04-07 12:55:21');
+(9, '1554641581168_review_image_schema', 4, '2019-04-07 12:55:21'),
+(10, '1554675365235_question_schema', 5, '2019-04-07 22:19:45'),
+(11, '1554675402398_answers_schema', 5, '2019-04-07 22:19:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `answers`
+--
+
+CREATE TABLE `answers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `content` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -93,7 +110,32 @@ CREATE TABLE `legend_images` (
 --
 
 INSERT INTO `legend_images` (`id`, `legend_id`, `url`, `created_at`, `updated_at`) VALUES
-(3, 1, '/uploads/1554648218786.png', '2019-04-07 20:43:40', '2019-04-07 20:43:40');
+(9, 1, '/uploads/1554673241080.jpeg', '2019-04-08 03:41:24', '2019-04-08 03:41:24'),
+(10, 1, '/uploads/1554673251270.jpeg', '2019-04-08 03:41:24', '2019-04-08 03:41:24'),
+(11, 1, '/uploads/1554673281154.jpeg', '2019-04-08 03:41:24', '2019-04-08 03:41:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `questions`
+--
+
+CREATE TABLE `questions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `legend_id` int(11) DEFAULT NULL,
+  `content` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`id`, `user_id`, `legend_id`, `content`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'This is First Question!', '2019-04-08 04:29:05', '2019-04-08 04:29:05'),
+(2, 1, 1, 'This is the Second Question?', '2019-04-08 04:34:14', '2019-04-08 04:34:14');
 
 -- --------------------------------------------------------
 
@@ -215,6 +257,12 @@ ALTER TABLE `adonis_schema`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `answers`
+--
+ALTER TABLE `answers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `legends`
 --
 ALTER TABLE `legends`
@@ -224,6 +272,12 @@ ALTER TABLE `legends`
 -- Indexes for table `legend_images`
 --
 ALTER TABLE `legend_images`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `questions`
+--
+ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -261,7 +315,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adonis_schema`
 --
 ALTER TABLE `adonis_schema`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `answers`
+--
+ALTER TABLE `answers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `legends`
@@ -273,7 +333,13 @@ ALTER TABLE `legends`
 -- AUTO_INCREMENT for table `legend_images`
 --
 ALTER TABLE `legend_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reviews`

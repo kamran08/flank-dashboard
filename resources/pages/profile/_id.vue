@@ -146,16 +146,16 @@
                                             <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
                                             
                                             <ul>
-                                                <li @click="addImageModal=true" ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
+                                                <li @click="openImageModal" ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
                                                 <!-- <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
                                                 <li><a href=""><i class="fas fa-bookmark"></i>&nbsp;Save</a></li> -->
                                             </ul>
                                         </div>
                                         <div class="figure">
                                             <ul>
-                                                <li><img src="/uploads/default.png" alt=""></li>
-                                                <li><img src="/uploads/default.png" alt=""></li>
-                                                <li><img src="/uploads/default.png" alt=""></li>
+                                                <li><img :src="(uploadList[1])? uploadList[1].url  : '/uploads/default.png' " alt=""></li>
+                                                <li><img :src="(uploadList[0])? uploadList[0].url  : '/uploads/default.png' " alt=""></li>
+                                                <li><img :src="(uploadList[2])? uploadList[2].url  : '/uploads/default.png' " alt=""></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -181,6 +181,7 @@
                                             </div>
                                         </div>
                                         <p><a href="">View 22 more answers</a></p>
+                                         <Button @click="askModal=true" >Ask a question</Button>
                                     </div>
                                     <hr>
                                 </div>
@@ -285,14 +286,14 @@
         </section>
         <Modal title="View Image" v-model="addImageModal">
            <div class="">
-                <div >
+            <div >
                  <img :src="imgName" style="width: 100%">
             </div>
             <div class="demo-upload-list" v-for="(item,index) in uploadList" :key="index">
                 <template >
-                    <img :src="item">
+                    <img :src="item.url">
                     <div class="demo-upload-list-cover">
-                        <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
+                        <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
                         <Icon type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
                     </div>
                 </template>
@@ -321,6 +322,20 @@
                 <Button type="info" @click="uploadsPhotos">Upload</Button>
             </div>
         </Modal>
+        <Modal title="Ask the Community" v-model="askModal">
+           <div class="">
+            <Form  :label-width="80">
+              
+               <FormItem label="Question">
+                   <Input v-model="askData.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Ask your question ..."></Input>
+               </FormItem>
+            </Form>
+           </div>
+           <div slot="footer">
+                <Button  @click="askModal=false">Cancle</Button>
+                <Button type="info" @click="askQuestion">Ask</Button>
+            </div>
+        </Modal>
 
     </div>
 </template>
@@ -330,44 +345,50 @@ export default {
     data(){
         return{
             isEdit:false,
-            legendData:{},
-            userData:{},
             formData:{
                 name:'',
                 address:'',
                 phone:''
             },
-            reviews:[],
             user_id:0,
             addImageModal:false,
-            defaultList: [
-                    {
-                        'name': 'a42bdcc1178e62b4694c830f028db5c0',
-                        'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
-                    },
-                    {
-                        'name': 'bc7521e033abdd1e92222d733590f104',
-                        'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
-                    }
-            ],
+            defaultList: [],
             imgName: '/uploads/default.png',
-            visible: false,
-            uploadList: []
+            askModal:false,
+            askData:{
+                content:'',
+            }
+            
         }
     },
     methods:{
-        async getUserInfo(id){
-            const res = await this.callApi('get',`/legends/${id}`)
-            if(res.status ===200){
-                this.legendData = res.data.legend
-                this.userData = res.data.user
-                this.reviews = res.data.user.reviews
+        openImageModal(){
+            if(this.uploadList.length>0) this.imgName = this.uploadList[(this.uploadList.length-1)].url
+
+            this.addImageModal=true
+        },
+        async askQuestion(){
+            if(this.askData.content == ''){
+                this.i('You question field is empty!')
+                return
+            }
+            if(this.isLoggedIn == false){
+                this.i('Please login first !')
+                this.$router.push('/login');
+                return
+            }
+            this.askData.legend_id = this.legendData.id
+            const res = await this.callApi('post','/questions',this.askData)
+            if(res.status===200){
+                this.s("Your question has been posted successfully!")
+                this.questionList.unshift(res.data)
+                this.askModal = false
             }
             else{
-                this.swr()
+                this.swr();
             }
+
         },
-        
         async editOn(){
             this.formData.name = this.legendData.name
             this.formData.address = this.legendData.address
@@ -409,14 +430,18 @@ export default {
         },
         handleView (item) {
                 this.imgName = item;
-                this.visible = true;
+                
         },
         handleRemove (index) {
             this.uploadList.splice(index, 1);
         },
         handleSuccess (res, file) {
             console.log(res)
-            this.uploadList.push(res.file)
+            let ob = {
+                url:res.file
+            }
+            this.imgName = res.file
+            this.uploadList.push(ob)
             // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
             // file.name = '7eb99afb9d5f317c912f08b5212fd69a';
         },
@@ -443,9 +468,26 @@ export default {
         }
          
     },
+    async asyncData({app, store,redirect, params}){
+        try {
+            let {data} = await app.$axios.get(`/legends/${params.id}`)
+          
+            return{
+                legendData : data.legend,
+                userData : data.user,
+                reviews : data.legend.reviews,
+                uploadList : data.legend.legendimages,
+                questionList : data.legend.questions
+            }
+		}catch (error) {
+            console.log(error)
+            return redirect('/')
+		}
+    },
+   
     created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
-        this.getUserInfo(this.$route.params.id)
+        
        
     }
 }

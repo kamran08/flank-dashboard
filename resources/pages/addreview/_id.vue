@@ -166,8 +166,6 @@ export default {
                 q4:false,
                 q5:false,
             },
-            legendData:{},
-            userData:{},
             rating:0,
             defaultList: [
                     {
@@ -186,18 +184,20 @@ export default {
             
         }
     },
+     async asyncData({app, store,redirect, params}){
+        try {
+            let {data} = await app.$axios.get(`/legends/${params.id}`)
+          
+            return{
+                legendData : data.legend,
+                userData : data.user,
+            }
+		}catch (error) {
+            console.log(error)
+            return redirect('/')
+		}
+    },
     methods:{
-        async getUserInfo(id){
-            const res = await this.callApi('get',`/legends/${id}`)
-            if(res.status ===200){
-                this.legendData = res.data.legend
-                this.userData = res.data.user
-                this.reviewData.reviewFor = this.legendData.id
-            }
-            else{
-                this.swr()
-            }
-        },
         async postReview(){
             if(this.reviewData.content == ''){
                 this.i("You must write something in the review box!")
@@ -210,6 +210,7 @@ export default {
             if(this.isLoggedIn == false){
                 this.i('Please login first !')
                 this.$router.push('/login');
+                return
             }
             
             this.reviewData.uploadList = this.uploadList
@@ -260,8 +261,7 @@ export default {
          
     },
     created(){
-        
-         this.getUserInfo(this.$route.params.id)
+    this.reviewData.reviewFor = this.legendData.id
     }
 }
 </script>

@@ -33,14 +33,7 @@ class User extends Model {
   static get hidden () {
     return ['password', 'passwordToken', 'accountActivationToken']
   }
-  reviews () {
-    return this.hasMany('App/Models/Review', 'id', 'reviewFor')
-  }
-  // avgRev () {
-  //   return this.hasOne('App/Models/Review', 'id', 'reviewFor')
-  //   .select('id', 'reviewFor', Database.raw('cast(AVG(rating) as decimal(10,2)) AS averageRating'))
-  //   .groupBy('reviewFor')
-  // }
+  
 }
 
 module.exports = User
