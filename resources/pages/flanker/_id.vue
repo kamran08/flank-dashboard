@@ -276,27 +276,27 @@
                                     <table>
                                         <tr>
                                             <td class="histogram-label histogram-label-1">5 Stars</td>
-                                            <td class="histogram-bar histogram-bar-1" :style="{ padding:'0px '+(ratingD[4].total | paddingCal)+'px'}" ></td>
+                                            <td class="histogram-bar histogram-bar-1" :style="{ padding:'0px '+ratingD[4].padding+'px'}" ></td>
                                             <td class="histogram-number">{{ratingD[4].total}}</td>
                                         </tr>
                                         <tr>
                                             <td class="histogram-label histogram-label-2">4 Stars</td>
-                                            <td class="histogram-bar histogram-bar-2" :style="{ padding:'0px '+(ratingD[3].total )+'px'}" ></td>
+                                            <td class="histogram-bar histogram-bar-2" :style="{ padding:'0px '+ratingD[3].padding +'px'}" ></td>
                                             <td class="histogram-number">{{ratingD[3].total}}</td>
                                         </tr>
                                         <tr>
                                             <td class="histogram-label histogram-label-3">3 Stars</td>
-                                            <td class="histogram-bar histogram-bar-3" :style="{ padding:'0px '+ratingD[2].total+'px'}" ></td>
+                                            <td class="histogram-bar histogram-bar-3" :style="{ padding:'0px '+ratingD[2].padding+'px'}" ></td>
                                             <td class="histogram-number">{{ratingD[2].total}}</td>
                                         </tr>
                                         <tr>
                                             <td class="histogram-label histogram-label-4">2 Stars</td>
-                                            <td class="histogram-bar histogram-bar-4" :style="{ padding:'0px '+ratingD[1].total+'px'}" ></td>
+                                            <td class="histogram-bar histogram-bar-4" :style="{ padding:'0px '+ratingD[1].padding+'px'}" ></td>
                                             <td class="histogram-number">{{ratingD[1].total}}</td>
                                         </tr>
                                         <tr>
                                             <td class="histogram-label histogram-label-5">1 Stars</td>
-                                            <td class="histogram-bar histogram-bar-5" :style="{ padding:'0px '+ratingD[0].total+'px'}" ></td>
+                                            <td class="histogram-bar histogram-bar-5" :style="{ padding:'0px '+ratingD[0].padding+'px'}" ></td>
                                             <td class="histogram-number">{{ratingD[0].total}}</td>
                                         </tr>
                                     </table>
@@ -305,21 +305,17 @@
 
                                 <div class="about-side-bar">
                                     <p>Review Votes</p>
-                                    <ul>
-                                        <li><span><i class="fas fa-grin-beam"></i></span> <span>Useful <strong>17</strong></span></li>
-                                        <li><span><i class="fas fa-grin-beam"></i></span> <span>Funny <strong>7</strong></span></li>
-                                        <li><span><i class="fas fa-grin-beam"></i></span> <span>Cool <strong>12</strong></span></li>
+                                    <ul v-if="imosCount.length" >
+                                        <li v-for="(item,index) in imosCount" :key="index" ><span><i :class="item.imo | getIcon"></i></span> <span>{{item.imo}} <strong>{{item.total}}</strong></span></li>
                                     </ul>
-                                </div>
-
-                                <div class="about-side-bar">
-                                    <p>Stats</p>
-                                    <ul>
+                                    <ul v-else >
                                         <li><span><i class="fas fa-grin-beam"></i></span> <span>Bookmarks <strong>17</strong></span></li>
                                         <li><span><i class="fas fa-grin-beam"></i></span> <span>First <strong>7</strong></span></li>
                                         <li><span><i class="fas fa-grin-beam"></i></span> <span>Followers <strong>12</strong></span></li>
                                     </ul>
                                 </div>
+
+                                
 
                                 <div class="about-side-bar">
                                     <p>2 Compliments</p>
@@ -395,6 +391,7 @@ export default {
             return{
                 userData : data.user,
                 ratingD : data.reviewRatings,
+                imosCount : data.imosCount,
             }
 		}catch (error) {
             console.log(error)
@@ -435,6 +432,13 @@ export default {
             this.userData.img = res.file 
         },
 
+    },
+    filters:{
+        getIcon(value){
+            if(value == 'Useful' ) return "fas fa-lightbulb";
+            else if(value == 'Funny' ) return "far fa-laugh-wink"; 
+            else if(value == 'Cool' ) return "fas fa-grin-beam";
+        }
     },
     
     async created(){

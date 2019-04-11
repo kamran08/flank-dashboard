@@ -99,6 +99,7 @@ class UserController {
                                 // })
                                 .first()
     const reviewRatings =   await Database.raw("SELECT rating,COUNT(rating) as total FROM `reviews` WHERE `reviwer_id`= ? GROUP by rating ORDER by rating ASC", [params.id])
+    const imosCount =   await Database.raw("SELECT users.id, users.firstName,COUNT(reviewimos.imo) as total,reviewimos.imo from reviews INNER JOIN users on reviews.reviwer_id = users.id INNER join reviewimos on reviewimos.review_id = reviews.id where reviews.reviwer_id = ? GROUP by reviewimos.imo", [params.id])
     let ratingD  = []
     for(let i = 0; i < 5; i++){
       let ob = {
@@ -113,15 +114,16 @@ class UserController {
       }
       ratingD.push(ob)
     }
-    const maxv= Math.max.apply(Math, this.ratingD.map(function(d) { return d.total; }))
+    const maxv= Math.max.apply(Math, ratingD.map(function(d) { return d.total; }))
     for(let d of ratingD){
-      d.padding = parseInt((80*d.total)  maxv)
+      d.padding = parseInt((80*d.total)/  maxv)
     }
 
     if (userData) { 
       return {
         user: userData,
-        reviewRatings: ratingD
+        reviewRatings: ratingD,
+        imosCount: imosCount[0]
       } 
     }
     else {
