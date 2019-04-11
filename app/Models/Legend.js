@@ -13,10 +13,13 @@ class Legend extends Model {
       //   .groupBy('reviewFor')
       // }
       legendimages(){
-          return this.hasMany('App/Models/LegendImage','id','legend_id')
+          return this.hasMany('App/Models/LegendImage', 'id', 'legend_id')
       }
       questions(){
-          return this.hasMany('App/Models/Question','id','legend_id')
+          return this.hasMany('App/Models/Question', 'id', 'legend_id')
+      }
+      hours(){
+          return this.hasMany('App/Models/BusniessHour', 'id', 'legend_id')
       }
 }
 

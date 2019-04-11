@@ -6,6 +6,7 @@
 
 const User = use('App/Models/User')
 const Legend = use('App/Models/Legend')
+const Database = use('Database')
 /**
  * Resourceful controller for interacting with users
  */
@@ -88,7 +89,46 @@ class UserController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {  
-   
+      const userData = await User.query()
+                                .where('id', params.id)
+                                .with('reviews')
+                                .with('reviews.reviewfor') 
+                                .with('reviews.images')
+                                // .with('ratinginfo', (builder) => {
+                                //   builder.where('rating', 5)
+                                // })
+                                .first()
+    const reviewRatings =   await Database.raw("SELECT rating,COUNT(rating) as total FROM `reviews` WHERE `reviwer_id`= ? GROUP by rating ORDER by rating ASC", [params.id])
+    let ratingD  = []
+    for(let i = 0; i < 5; i++){
+      let ob = {
+        rating: (i + 1),
+        padding: 0,
+        total: 0
+      }
+      for (let d of reviewRatings[0] ){
+        if ( ob.rating == d.rating){
+          ob.total = d.total
+        }
+      }
+      ratingD.push(ob)
+    }
+    const maxv= Math.max.apply(Math, this.ratingD.map(function(d) { return d.total; }))
+    for(let d of ratingD){
+      d.padding = parseInt((80*d.total)  maxv)
+    }
+
+    if (userData) { 
+      return {
+        user: userData,
+        reviewRatings: ratingD
+      } 
+    }
+    else {
+      return response.status(404).json({
+        'message': 'User not found!.'
+      })
+    }
   }
 
   /**
@@ -111,7 +151,17 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params, request, response, auth }) {
+    const data = request.all()
+    // eslint-disable-next-line camelcase
+    const user_id = await auth.user.id
+    // eslint-disable-next-line camelcase
+    if (user_id != params.id) {
+      return response.status(401).json({
+        'message': 'You are not authorized!'
+      })
+    }
+    return await User.query().where('id', user_id).update(data)
   }
 
   /**
@@ -125,8 +175,9 @@ class UserController {
   async destroy ({ params, request, response }) {
   }
 
-  async logout ({auth}) {
+  async logout ({auth, session}) {
     try {
+      session.clear()
       await auth.logout()
       return
     } catch (e) { 
@@ -170,6 +221,33 @@ class UserController {
       console.log(error.message)
       return false
     }
+  }
+  async updateProfileImage ({request, response, auth}){
+    const user_id = await auth.user().id
+    const profilePic = request.file('file', {
+      types: ['png', 'jpg', 'jpeg'],
+      size: '2mb'
+      })
+    const name = `${new Date().getTime()}` + '.' + profilePic._subtype
+    // UPLOAD THE IMAGE TO UPLOAD FOLDER 
+    await profilePic.move(Helpers.publicPath('uploads'), {
+      name: name
+    })
+    if (!profilePic.moved()) {
+      return profilePic.error()
+    }
+    const file = `/uploads/${name}`
+    let data = {
+      img :file
+    }
+
+    await User.query().where('id', user_id).update(data)
+
+    return response.status(200).json({
+      msg: 'Image has been uploaded successfully!',
+      file: `/uploads/${name}`
+    })
+
   }
 
 }

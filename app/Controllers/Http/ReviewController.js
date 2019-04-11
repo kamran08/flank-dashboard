@@ -4,8 +4,10 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Review = use('App/Models/Review')
+const Reviewimo = use('App/Models/Reviewimo')
 const ReviewImage = use('App/Models/ReviewImage')
 const Helpers = use('Helpers')
+const Database = use('Database')
 /**
  * Resourceful controller for interacting with reviews
  */
@@ -129,6 +131,26 @@ class ReviewController {
       file: `/uploads/${name}`
     })
   }
+
+  async stoteReviewImo ({ request, response, auth }){
+    let data = request.all()
+    data.user_id = await auth.user.id
+    return await Reviewimo.create(data)
+  }
+  async test ({ request, response, auth }){
+    
+  //  return await Database.raw("SELECT `imo` , COUNT(imo) as total FROM `reviewimos` GROUP by `imo`")
+  // return await Review.query().select('imo').count('imo as total').groupBy('imo').orderBy('id')
+  //  return await Review.query()
+  //  .with('imos', (builder) => {
+  //   builder.select('imo').count('imo as total')
+  // })
+  //  .fetch()
+
+  //  return await Review.query()
+  //  .with('imos')
+  //  .fetch()
+   }
 }
 
 module.exports = ReviewController

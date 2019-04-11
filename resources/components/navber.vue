@@ -29,7 +29,7 @@
             <div class="navbar-logo">
                 <ul>
                     <li><a href=""><img src="/image/downloa.png" alt=""></a></li>
-                    <li><a href=""><img src="/image/download.png" alt=""></a></li>
+                    <li><a @click="$router.push('/')" ><img src="/image/download.png" alt=""></a></li>
                 </ul>
             </div>
             <div class="navbar-item">
@@ -46,7 +46,8 @@
                 </ul>
                 <ul>
                     <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
-                    <li v-if="isLoggedIn" @click="$router.push(`/profile/${authInfo.id}`)" ><a >Profile</a></li>
+                    <li v-if="isLoggedIn && packType==1 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
+                    <li v-if="isLoggedIn && packType !=1 " @click="$router.push(`/profile/${authInfo.id}`)" ><a >Profile</a></li>
                     <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                     <li><a href="">Download</a></li>
                 </ul>
@@ -57,6 +58,11 @@
 
 <script>
     export default {
+        data(){
+            return{
+                packType:0,
+            }
+        },
         computed:{
            
         },
@@ -70,6 +76,9 @@
                     console.log(error);
                 }
             },
+        },
+        created(){
+             if(this.isLoggedIn) this.packType = this.authInfo.packType
         }
     }
 </script>

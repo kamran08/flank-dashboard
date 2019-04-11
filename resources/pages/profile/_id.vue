@@ -146,7 +146,7 @@
                                             <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
                                             
                                             <ul>
-                                                <li @click="openImageModal" ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
+                                                <li @click="openImageModal" v-if=" isLoggedIn && user_id === userData.id"  ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
                                                 <!-- <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
                                                 <li><a href=""><i class="fas fa-bookmark"></i>&nbsp;Save</a></li> -->
                                             </ul>
@@ -165,31 +165,57 @@
 
                         <div class="row">
                             <div class="col-md-8 col-sm-8">
-                                <div class="reviewComment">
+                                <div class="reviewComment " v-if=" isLoggedIn && user_id !== userData.id">
                                     <h2>Ask the Community</h2>
                                     <hr>
                                     <div class="comment-individual">
-                                        <p><strong>Is it okay to order a pastrami sandwich to share?</strong></p>
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <img src="/image/30s.jpg" alt="">
-                                            </div>
-
-                                            <div class="media-body">
-                                                <p>Perfectly fine. It's actually what my girlfriend and I did on our trip and then we had room to also include some other sides like the very delicious matzo ball soup.</p>
-                                                <span><small>1 year ago</small></span>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span><small>7 people found this helpful</small></span>
-                                            </div>
-                                        </div>
-                                        <p><a href="">View 22 more answers</a></p>
+                                        <!-- <p><strong>Is it okay to order a pastrami sandwich to share?</strong></p> -->
+                                        <!-- <p><a href="">View 22 more answers</a></p> -->
                                          <Button @click="askModal=true" >Ask a question</Button>
                                     </div>
                                     <hr>
                                 </div>
+                                <div class="reviewComment askCommunity"  >
+                                    <h2>Ask the Community</h2>
+                                    <div class="question-set" v-if="questionList.length>0" v-for="(item,index) in questionList" :key="index" >
+                                        <div class="comment-individual">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <p><strong>Question:</strong></p>
+                                                </div>
+    
+                                                <div class="media-body">
+                                                    <p>{{item.content}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <template v-if="item.answers" >
+                                        <div class="comment-individual" v-for="(ans,i) in item.answers" :key="i" >
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <p><strong>Answer:</strong></p>
+                                                </div>
+    
+                                                <div class="media-body">
+                                                    <p>{{ans.content}}</a></p>
+                                                    <span><small>{{ans.user.firstName}}</small></span>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span><small>{{item.created_at}}</small></span>
+                                                    <!-- <p><a href="">View 1 more answer</a></p> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </template>
+                                        <a ><p @click="answerModalOpen(item,index)" >Answer this question</p></a>
+                                       
+                                    </div>
+                                    <h4 v-if="questionList.length<1" class="noReview" >No question yet!</h4>
+                                    <!-- <p class="all-que"><a href="">See all 9 questions for Bonjour Professional iPhone iPad Repair & Electronic Center</a></p> -->
+                                    <hr>
+                                </div>
                                 <div class="reviewItem">
-                                    <h2>Recommended Reviews <span>for Name of Coach</span></h2>
+                                    <h2>Recommended Reviews <span>for {{legendData.name}}</span></h2>
                                     <hr>
                                     <div class="searchByReview">
-                                        <div class="searchReview">
+                                        <!-- <div class="searchReview">
                                             <input type="text" class="form-control" placeholder="Search within the reviews">
                                             <button><i class="fas fa-search"></i></button>
                                             <div class="sortTag">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i>
@@ -204,24 +230,24 @@
                                             </div>
                                             
                                             <hr>
-                                        </div>
+                                        </div> -->
                                         
-                                        <div class="star-review">
+                                        <!-- <div class="star-review">
                                             <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span></p>
                                             <hr>
                                             <p class="moreD"><a href="">Start your review of <strong>New Coach</strong>.</a></p>
-                                        </div>
+                                        </div> -->
                                         <hr>
                                         <div class="review-final" v-for="(item,index) in reviews" :key="index" >
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6">
                                                     <div class="media">
                                                         <div class="media-left">
-                                                            <img class="media-object" src="/image/80.png" alt="">
+                                                            <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
                                                         </div>
                                                         <div class="media-body">
                                                             <p><strong><a href="">{{item.reviwer.firstName}}</a></strong></p>
-                                                            <small><strong>San Francisco Bay Area, CA</strong></small>
+                                                            <small><strong>{{item.reviwer.address}}</strong></small>
                                                             <p><span><i class="fas fa-male"></i>&nbsp;856</span><span><i class="fas fa-male"></i>&nbsp;1304</span><span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span></p>
                                                         </div>
                                                     </div>
@@ -239,19 +265,26 @@
                                                             </p>
                                                         </div>
                                                         <p>{{item.content}}</p>
-                                                        <br><br><br>
+                                                        <div class="profile-gallary">
+                                                            <ul>
+                                                                <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
+                                                                <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
+                                                                <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
+                                                            </ul>
+                                                        </div>
                                                         <p id="resultReview"><strong>Was the review...?</strong></p>
                                                         <ul>
-                                                            <li><i class="fas fa-grin-beam"></i>&nbsp;Useful</li>
-                                                            <li><i class="fas fa-grin-beam"></i>&nbsp;Funny</li>
-                                                            <li><i class="fas fa-grin-beam"></i>&nbsp;Useful</li>
+                                                            <li @click="reviewImo('Useful',index)"><i class="fas fa-grin-beam"></i>&nbsp;Useful</li>
+                                                            <li @click="reviewImo('Funny',index)" ><i class="fas fa-grin-beam"></i>&nbsp;Funny</li>
+                                                            <li @click="reviewImo('Cool',index)" ><i class="fas fa-grin-beam"></i>&nbsp;Cool</li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
-                                        <div class="pageCount">
+                                        <h4 v-if="reviews.length<1" class="noReview" >No Review for {{legendData.name}}</h4>
+                                        <!-- <div class="pageCount">
                                             <p>Page 1 of 531</p>
                                             <ul>
                                                 <li class="active"><a href="">1</a></li>
@@ -261,13 +294,119 @@
                                                 <li><a href="">5</a></li>
                                                 <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                         <hr>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-4">
-                                <div class="business-info-sec reviewComment">
+                            <div class="col-md-4 reviewComment">
+                                <!-- <div class="review-time-content">
+                                    <ul>
+                                        <li>
+                                            <div class="biz-hours-icon">
+                                                <span><i class="far fa-clock"></i></span>
+                                            </div>
+                                            <div class="biz-hours-time">
+                                                <div class="short-def-list">
+                                                    <span class="attribute-key">Today</span>
+                                                    <span>
+                                                        <strong class="u-space-r-half"><span class="nowrap">5:00 pm</span> - <span class="nowrap">10:00 pm</span></strong>
+                                                            <p class="nowrap closed">Closed now</p>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                                <div class="section-left-border">
+                                    <div class="widget-biz-hour">
+                                        <h3>Business Hours</h3>
+                                        <table class="table-simple-biz-hour">
+                                            <tr>
+                                                <th>Mon</th>
+                                                <td class="table-input table_extra_p" v-if="isEdit" >
+                                                     <TimePicker v-model="businessHour[0].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                     <Checkbox v-model="businessHour[0].active">Active</Checkbox>
+                                                </td>
+                                                <td class="table-data" v-else  >
+                                                    <span v-if="showBusinessHour[0].active" class="nowrap">{{showBusinessHour[0].time}}</span>
+                                                    <span v-else class="nowrap">Closed</span>
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <th>Tue</th>
+                                                <td class="table-input" v-if="isEdit" >
+                                                     <TimePicker v-model="businessHour[1].time"  format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                     <Checkbox v-model="businessHour[1].active">Active</Checkbox>
+                                                </td>
+                                                <td class="table-data" v-else >
+                                                     <span v-if="showBusinessHour[1].active" class="nowrap">{{showBusinessHour[1].time}}</span>
+                                                    <span v-else class="nowrap">Closed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Wed</th>
+                                                <td class="table-input" v-if="isEdit" >
+                                                     <TimePicker v-model="businessHour[2].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                     <Checkbox v-model="businessHour[2].active">Active</Checkbox>
+                                                </td>
+                                                <td class="table-data" v-else >
+                                                     <span v-if="showBusinessHour[2].active" class="nowrap">{{showBusinessHour[2].time}}</span>
+                                                    <span v-else class="nowrap">Closed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Thu</th>
+                                                <td class="table-input" v-if="isEdit" >
+                                                     <TimePicker v-model="businessHour[3].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                     <Checkbox v-model="businessHour[3].active">Active</Checkbox>
+                                                </td>
+                                                <td class="table-data" v-else >
+                                                     <span v-if="showBusinessHour[3].active" class="nowrap">{{showBusinessHour[3].time}}</span>
+                                                    <span v-else class="nowrap">Closed</span>
+                                                </td>
+                                                <!-- <td class="extra">
+                                                    <span class="nowrap closed"></span>
+                                                </td> -->
+                                            </tr>
+                                            <tr>
+                                                <th>Fri</th>
+                                                <td class="table-input" v-if="isEdit" >
+                                                    <TimePicker v-model="businessHour[4].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                     <Checkbox v-model="businessHour[4].active">Active</Checkbox>
+                                                </td>
+                                                <td class="table-data" v-else >
+                                                     <span v-if="showBusinessHour[4].active" class="nowrap">{{showBusinessHour[4].time}}</span>
+                                                    <span v-else class="nowrap">Closed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Sat</th>
+                                                <td class="table-input" v-if="isEdit" >
+                                                     <TimePicker v-model="businessHour[5].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                     <Checkbox v-model="businessHour[5].active">Active</Checkbox>
+                                                </td>
+                                                <td class="table-data" v-else >
+                                                     <span v-if="showBusinessHour[5].active" class="nowrap">{{showBusinessHour[5].time}}</span>
+                                                    <span v-else class="nowrap">Closed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Sun</th>
+                                                <td class="table-input" v-if="isEdit" >
+                                                     <TimePicker v-model="businessHour[6].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                     <Checkbox v-model="businessHour[6].active">Active</Checkbox>
+                                                </td>
+                                                <td class="table-data" v-else >
+                                                     <span v-if="showBusinessHour[6].active" class="nowrap">{{showBusinessHour[6].time}}</span>
+                                                    <span v-else class="nowrap">Closed</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="business-info-sec reviewComment">
                                     <h3>More  info</h3>
                                     <div class="business-name">
                                         <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>5/10</strong></span></p>
@@ -277,6 +416,7 @@
                                         <p>Quick heals for games? &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
                                         
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -336,6 +476,20 @@
                 <Button type="info" @click="askQuestion">Ask</Button>
             </div>
         </Modal>
+        <Modal title="Answer Question" v-model="answerModal">
+           <div class="">
+            <Form  :label-width="80">
+              
+               <FormItem label="answer">
+                   <Input v-model="answerData.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Ask your question ..."></Input>
+               </FormItem>
+            </Form>
+           </div>
+           <div slot="footer">
+                <Button  @click="answerModal=false">Cancle</Button>
+                <Button type="info" @click="answerQuestion">Answer</Button>
+            </div>
+        </Modal>
 
     </div>
 </template>
@@ -355,9 +509,95 @@ export default {
             defaultList: [],
             imgName: '/uploads/default.png',
             askModal:false,
+            answerModal:false,
             askData:{
                 content:'',
-            }
+            },
+            answerData:{
+                content:'',
+            },
+            tempAIndex:'',
+            businessHour:[
+
+                {  day : 'Monday',
+                    time:[],
+                    active:false,
+
+                },
+                {  day : 'Tuesday',
+                    time:[],
+                    active:false,
+
+                },
+                {  day : 'Wednesday',
+                    time:[],
+                    active:false,
+
+                },
+                {  day : 'Thursday',
+                    time:[],
+                    active:false,
+
+                },
+                {  day : 'Friday',
+                    time:[],
+                    active:false,
+
+                },
+                {  day : 'Saturday',
+                    time:[],
+                    active:false,
+
+                },
+                {  day : 'Sunday',
+                    time:[],
+                    active:false,
+
+                },
+                
+            ],
+            showBusinessHour:[
+
+                {  day : 'Monday',
+                    time:'',
+                    active:false,
+
+                },
+                {  day : 'Tuesday',
+                    time:'',
+                    active:false,
+
+                },
+                {  day : 'Wednesday',
+                    time:'',
+                    active:false,
+
+                },
+                {  day : 'Thursday',
+                    time:'',
+                    active:false,
+
+                },
+                {  day : 'Friday',
+                    time:'',
+                    active:false,
+
+                },
+                {  day : 'Saturday',
+                    time:'',
+                    active:false,
+
+                },
+                {  day : 'Sunday',
+                    time:'',
+                    active:false,
+
+                },
+                
+            ]
+
+               
+            
             
         }
     },
@@ -366,6 +606,12 @@ export default {
             if(this.uploadList.length>0) this.imgName = this.uploadList[(this.uploadList.length-1)].url
 
             this.addImageModal=true
+        },
+        async answerModalOpen(item,index){
+            this.answerData.question_id = item.id
+            this.tempAIndex = index
+            this.answerModal = true
+
         },
         async askQuestion(){
             if(this.askData.content == ''){
@@ -389,18 +635,90 @@ export default {
             }
 
         },
+        async reviewImo(imo,index){
+            if(this.isLoggedIn == false){
+                this.i('Please login first !')
+                this.$router.push('/login');
+                return
+            }
+            let imoData = {
+                review_id:this.reviews[index].id,
+                imo:imo
+            }
+            const res = await this.callApi('post','/stoteReviewImo',imoData)
+            if(res.status===200){
+                this.s("you marked this review as "+imo+ "!")
+                
+            }
+            else{
+                this.swr();
+            }
+
+        },
+        async answerQuestion(){
+            if(this.answerData.content == ''){
+                this.i('You asnwerfield field is empty!')
+                return
+            }
+            if(this.isLoggedIn == false){
+                this.i('Please login first !')
+                this.$router.push('/login');
+                return
+            }
+            const res = await this.callApi('post','/answers',this.answerData)
+            if(res.status===200){
+                this.s("Your answer has been posted successfully!")
+                this.questionList[this.tempAIndex].answers.push(res.data)
+                this.tempAIndex = ''
+                this.answerModal = false
+            }
+            else{
+                this.swr();
+            }
+
+        },
         async editOn(){
             this.formData.name = this.legendData.name
             this.formData.address = this.legendData.address
             this.formData.phone = this.legendData.phone
+            for(let i in this.showBusinessHour){
+                if(this.showBusinessHour[i].active == true){
+                    let tp = this.showBusinessHour[i].time.split('-')
+                    this.businessHour[i].time[0] = tp[0]
+                    this.businessHour[i].time[1] = tp[1]
+                    this.businessHour[i].active = true
+                    console.log(tp)
+                   
+                }
+            }
             this.isEdit = true
         },
         async legendUpdate(){
+           console.log(this.businessHour)
+
             if(this.formData.name == ''|| this.formData.address =='' || this.formData.phone == ''){
                 this.i("All fields must be filled !")
                 console.log('All fields must be filled !')
                 return;
             }
+             let hourData = []
+            for(let i of this.businessHour ){
+                if(i.active == true){
+                    if(i.time[0] == ''){
+                        this.i("Please select time for "+i.day)
+                        return;
+                    }
+                    let ob = {
+                        legend_id: this.legendData.id,
+                        day: i.day,
+                        time: i.time[0] + '-' + i.time[1]
+                    }
+                    hourData.push(ob)
+                }
+                
+            }
+            
+            this.formData.businessHour = hourData
             const res = await this.callApi('put',`/legends/${this.legendData.id}`,this.formData)
             if(res.status===200){
                 this.s("Change have been made Successfully!")
@@ -465,6 +783,12 @@ export default {
                 });
             }
             return check;
+        },
+        async getPaginateData(id){
+            const res = await this.callApi('get', `/pagenateData/${id}`)
+            if(res.status===200){
+                console.log(res.data)
+            }
         }
          
     },
@@ -477,7 +801,9 @@ export default {
                 userData : data.user,
                 reviews : data.legend.reviews,
                 uploadList : data.legend.legendimages,
-                questionList : data.legend.questions
+                questionList : data.legend.questions,
+                reviewimos : data.reviewimos,
+                hours : data.legend.hours
             }
 		}catch (error) {
             console.log(error)
@@ -487,6 +813,18 @@ export default {
    
     created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
+        if(this.hours.length>0){
+            for(let d of this.hours){
+                for(let sd of this.showBusinessHour){
+                    if(d.day == sd.day){
+                        sd.active = true
+                        sd.time = d.time
+                        break
+                    }
+                }
+            }
+        }
+       // this.getPaginateData(this.$route.params.id)
         
        
     }
@@ -494,6 +832,10 @@ export default {
 </script>
 
 <style scoped>
+.profile_picU{
+    width: 40px;
+    
+}
 .demo-upload-list{
         display: inline-block;
         width: 60px;
@@ -529,5 +871,12 @@ export default {
         font-size: 20px;
         cursor: pointer;
         margin: 0 2px;
+    }
+    .noReview[data-v-2c068581] {
+        text-align: center;
+        padding: 10px;
+    }
+    .table_extra_p{
+
     }
 </style>

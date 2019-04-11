@@ -2,7 +2,7 @@
 
 const Model = use('Model')
 const Database = use('Database')
-
+ 
 class User extends Model {
   static boot () {
     super.boot()
@@ -14,7 +14,7 @@ class User extends Model {
      * Look at `app/Models/Hooks/User.js` file to
      * check the hashPassword method
      */
-    this.addHook('beforeSave', 'User.hashPassword')
+    this.addHook('beforeSave', 'User.hashPassword') 
   }
 
   /**
@@ -27,6 +27,12 @@ class User extends Model {
    *
    * @return {Object}
    */
+  reviews () {
+    return this.hasMany('App/Models/Review', 'id', 'reviwer_id')
+  }
+  ratinginfo () {
+    return this.hasMany('App/Models/Review', 'id', 'reviwer_id').select('id', 'reviwer_id', 'rating')
+  }
   tokens () {
     return this.hasMany('App/Models/Token')
   }

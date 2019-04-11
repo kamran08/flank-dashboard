@@ -24,14 +24,20 @@ Route.resource('users', 'UserController').validator(new Map([
 Route.post('/authentication/login', 'UserController.userLogin').middleware(['guest'])
 Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
+Route.get('/app/user/updateProfileImage', 'UserController.updateProfileImage')
 
 Route.resource('legends', 'LegendController')
 Route.resource('questions', 'QuestionController')
 Route.resource('answers', 'AnswerController')
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
-Route.resource('reviews', 'ReviewController')
-Route.post('/app/upload-review-file', 'ReviewController.uploadReviewFile')
 
+// Review Controller
+Route.post('/stoteReviewImo', 'ReviewController.stoteReviewImo')
+Route.post('/app/upload-review-file', 'ReviewController.uploadReviewFile')
+Route.get('/test', 'ReviewController.test')
+Route.resource('reviews', 'ReviewController')
+
+Route.get('/pagenateData/:id', 'LegendController.paginatedata')
 
 Route.get('app/initdata', 'UserController.initdata')
 Route.any('*', 'NuxtController.render')

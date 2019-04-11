@@ -3,7 +3,7 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
+const Answer = use('App/Models/Answer')
 /**
  * Resourceful controller for interacting with answers
  */
@@ -40,7 +40,11 @@ class AnswerController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, response, auth }) {
+    const user_id = await auth.user.id
+    let data = request.all()
+    data.user_id = user_id 
+    return await Answer.create(data)
   }
 
   /**

@@ -6,6 +6,7 @@
 const Legend = use('App/Models/Legend')
 const User = use('App/Models/User')
 const LegendImage = use('App/Models/LegendImage')
+const BusniessHour = use('App/Models/BusniessHour')
 /**
  * Resourceful controller for interacting with legends
  */
@@ -61,13 +62,18 @@ class LegendController {
                                   .where('id',params.id)
                                   .with('reviews')
                                   .with('reviews.reviwer')
+                                  .with('reviews.images')
                                   .with('legendimages')
                                   .with('questions')
+                                  .with('questions.user')
+                                  .with('questions.answers')
+                                  .with('questions.answers.user')
+                                  .with('hours')
                                   //.withCount('avgRev')
                                   .first()
     if(legendData){
       const userData = await User.query()
-                                .where('id', legendData.user_id)
+                                .where('id', legendData.user_id) 
                                 .first()
     return {
       legend: legendData,
@@ -79,7 +85,6 @@ class LegendController {
         'message': 'User not found!.'
       })
     }
-    
   }
 
   /**
@@ -104,7 +109,12 @@ class LegendController {
    */
   async update ({ params, request, response }) {
     const data = request.all()
-    return await Legend.query().where('id',params.id).update(data);
+    const busniessHours = data.businessHour
+    delete data.businessHour
+    await BusniessHour.query().where('legend_id', params.id).delete()
+    await BusniessHour.createMany(busniessHours)
+   
+    return await Legend.query().where('id', params.id).update(data)
   }
 
   /**
@@ -133,6 +143,32 @@ class LegendController {
     await LegendImage.query().where('legend_id', legend.id).delete()
     return await LegendImage.createMany(uploadList)
 
+  }
+
+  async paginatedata ({ params, request, response, view }) {
+    const page = 1
+    return await User.query().paginate(page)
+    // const legendData = await Legend.query()
+    //                               .where('id',params.id)
+    //                               .with('reviews')
+    //                               .with('reviews.reviwer')
+    //                               .with('legendimages')
+    //                               .with('questions')
+    //                               //.withCount('avgRev')
+    //                               .paginate(page)
+    // if (legendData) {
+    //   const userData = await User.query()
+    //                             .where('id', legendData.user_id)
+    //                             .first()
+    //   return {
+    //     legend: legendData,
+    //     user: userData
+    //   }
+    // } else {
+    //   return response.status(404).json({
+    //     'message': 'User not found!.'
+    //   })
+    // }
   }
 }
 
