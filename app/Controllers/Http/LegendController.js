@@ -21,7 +21,7 @@ class LegendController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) { 
+  async index ({ request, response, view }) {
     const data = await Legend.all()
     return data
   }
@@ -63,29 +63,28 @@ class LegendController {
                                   .where('id', params.id)
                                   .with('reviews')
                                   .withCount('totalReview')
-                                  // .with('reviews.reviwer')
-                                  // // .with('reviews', (builder) => builder.withCount('reviwer.reviews as totalreviewbyuser'))
-                                  // .with('reviews.images')
-                                  // .with('legendimages')
-                                  // .with('questions')
-                                  // .with('questions.user')
-                                  // .with('questions.answers')
-                                  // .with('questions.answers.user')
-                                  // .with('hours')
-                                  //.withCount('avgRev') 
+                                   .with('reviews.reviwer')
+                                  .with('reviews.reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+                                  .with('reviews.images')
+                                  .with('legendimages')
+                                  .with('questions')
+                                  .with('questions.user')
+                                  .with('questions.answers')
+                                  .with('questions.answers.user')
+                                  .with('hours')
+                                  
                                   .first()
-    const averageRating =     await Database.raw("SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?", [params.id])
-    if(legendData){
+    const averageRating = await Database.raw('SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?', [params.id])
+    if (legendData) {
       const userData = await User.query()
-                                .where('id', legendData.user_id) 
+                                .where('id', legendData.user_id)
                                 .first()
-    return {
-      legend: legendData,
-      user: userData,
-      averageRating: averageRating[0][0]
-    } 
-    }
-    else{
+      return {
+        legend: legendData,
+        user: userData,
+        averageRating: averageRating[0][0]
+      }
+    } else {
       return response.status(404).json({
         'message': 'User not found!.'
       })
@@ -118,7 +117,7 @@ class LegendController {
     delete data.businessHour
     await BusniessHour.query().where('legend_id', params.id).delete()
     await BusniessHour.createMany(busniessHours)
-   
+
     return await Legend.query().where('id', params.id).update(data)
   }
 
@@ -133,7 +132,7 @@ class LegendController {
   async destroy ({ params, request, response }) {
   }
 
-  async uploadLegendPhotos({ request, auth }){
+  async uploadLegendPhotos ({ request, auth }) {
     let data = request.all()
     const user_id = await auth.user.id
     const legend = await Legend.find(user_id)
@@ -147,7 +146,6 @@ class LegendController {
     }
     await LegendImage.query().where('legend_id', legend.id).delete()
     return await LegendImage.createMany(uploadList)
-
   }
 
   async paginatedata ({ params, request, response, view }) {

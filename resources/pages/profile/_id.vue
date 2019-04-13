@@ -126,6 +126,7 @@
 
                         <div class="review-map-section">
                             <div class="row">
+
                                 <!-- <div class="col-md-4 col-sm-4">
                                     <div class="review-map">
                                         <div id="googleMap">
@@ -187,7 +188,7 @@
                                             <span class="rating-bg"><i class="fas fa-star"></i></span>
                                             <span class="rating-bg"><i class="fas fa-star"></i></span>
                                             <span class=""><i class="fas fa-star"></i></span>
-                                            &nbsp;<small class="review-number">746 reviews</small>
+                                            &nbsp;<small class="review-number">{{legendData.__meta__.totalReview_count}} reviews</small>
                                             <!-- <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span> -->
                                         </p>
                                     </div>
