@@ -108,7 +108,7 @@
             <div class="container">
                 <div class="section-content">
                     <div class="review-content">
-                        <h1 v-if="!isEdit" ><strong>{{legendData.name}}</strong> <small><i class="fas fa-check-circle"></i> Claimed</small>&nbsp;&nbsp;&nbsp; <strong v-if="isLoggedIn && user_id == userData.id" > <a v-if="!isEdit" @click="editOn" >Edit</a></strong></h1>
+                        <!-- <h1 v-if="!isEdit" ><strong>{{legendData.name}}</strong> <small><i class="fas fa-check-circle"></i> Claimed</small>&nbsp;&nbsp;&nbsp; <strong v-if="isLoggedIn && user_id == userData.id" > <a v-if="!isEdit" @click="editOn" >Edit</a></strong></h1>
                         <div class="header-input big-input" v-else >
                                 <input v-model="formData.name" type="text"> <h1 v-if="isEdit" @click="legendUpdate"><a >Save</a></h1>
                             </div>
@@ -122,11 +122,11 @@
                                 &nbsp;746 reviews
                             <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span>
                             </p>
-                        </div>
+                        </div> -->
 
                         <div class="review-map-section">
                             <div class="row">
-                                <div class="col-md-4 col-sm-4">
+                                <!-- <div class="col-md-4 col-sm-4">
                                     <div class="review-map">
                                         <div id="googleMap">
                                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.1319108944804!2d91.86157565011207!3d24.893481749986655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3750552cd77aff43%3A0x77aa5c2368933e2d!2sNirvana+Inn!5e0!3m2!1sbn!2sbd!4v1468246452415"></iframe>  
@@ -139,24 +139,33 @@
                                            <input type="text" v-model="formData.phone"  v-else class="adress-input">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-8 col-sm-8">
+                                </div> -->
+                                <div class="col-md-12">
                                     <div class="review-gallary">
-                                        <div class="review-option">
+                                        <!-- <div class="review-option">
                                             <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
                                             
                                             <ul>
                                                 <li @click="openImageModal" v-if=" isLoggedIn && user_id === userData.id"  ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
-                                                <!-- <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
-                                                <li><a href=""><i class="fas fa-bookmark"></i>&nbsp;Save</a></li> -->
+                                                 <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
+                                                <li><a href=""><i class="fas fa-bookmark"></i>&nbsp;Save</a></li> 
                                             </ul>
-                                        </div>
+                                        </div> -->
                                         <div class="figure">
                                             <ul>
                                                 <li><img :src="(uploadList[1])? uploadList[1].url  : '/uploads/default.png' " alt=""></li>
                                                 <li><img :src="(uploadList[0])? uploadList[0].url  : '/uploads/default.png' " alt=""></li>
                                                 <li><img :src="(uploadList[2])? uploadList[2].url  : '/uploads/default.png' " alt=""></li>
+                                                <li><img :src="(uploadList[2])? uploadList[2].url  : '/uploads/default.png' " alt=""></li>
                                             </ul>
+                                            <div class="gallary-button">
+                                                <div class="button-left">
+                                                    <span><i class="fas fa-chevron-left"></i></span>
+                                                </div>
+                                                <div class="button-right">
+                                                    <span><i class="fas fa-chevron-right"></i></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +174,39 @@
 
                         <div class="row">
                             <div class="col-md-8 col-sm-8">
+                                <div class="review-section-title">
+                                    <h1>
+                                        <strong>{{legendData.name}}</strong>
+
+                                                <!-- <small><i class="fas fa-check-circle"></i> Claimed</small> -->
+                                    </h1>
+                                    <div class="coach-review star-review">
+                                        <p>
+                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
+                                            <span class=""><i class="fas fa-star"></i></span>
+                                            &nbsp;<small class="review-number">746 reviews</small>
+                                            <!-- <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span> -->
+                                        </p>
+                                    </div>
+                                    <!-- <div class="detail-content">
+                                        <p>$$ &nbsp;&#8226;&nbsp;<span><a href="">Pizza</a>,<a href="">Italian</a></span>&nbsp;<span class="edit-button">Edit</span></p>
+                                    </div> -->
+                                     <div class="review-option">
+                                        <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
+                                        
+                                        <ul>
+                                            <li @click="openImageModal" v-if="isLoggedIn && user_id == userData.id" ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
+                                            <!-- <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li> -->
+                                            <li v-if="isLoggedIn && user_id == userData.id" > <a v-if="!isEdit" @click="editOn" ><i class="fas fa-bookmark"></i>&nbsp;Edit</a>
+                                            <a v-else @click="legendUpdate"><i class="fas fa-bookmark"></i>&nbsp;Save</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                                 <div class="reviewComment " v-if=" isLoggedIn && user_id !== userData.id">
                                     <h2>Ask the Community</h2>
                                     <hr>
@@ -188,6 +230,10 @@
                                                     <p>{{item.content}}</p>
                                                 </div>
                                             </div>
+                                            <div class="comment-button">
+                                                <span>Delete</span>
+                                                <span>Update</span>
+                                            </div>
                                         </div>
                                         <template v-if="item.answers" >
                                         <div class="comment-individual" v-for="(ans,i) in item.answers" :key="i" >
@@ -202,6 +248,10 @@
                                                     <!-- <p><a href="">View 1 more answer</a></p> -->
                                                 </div>
                                             </div>
+                                            <div class="comment-button">
+                                                <span>Delete</span>
+                                                <span>Update</span>
+                                            </div>
                                         </div>
                                         </template>
                                         <a ><p @click="answerModalOpen(item,index)" >Answer this question</p></a>
@@ -210,33 +260,41 @@
                                     <h4 v-if="questionList.length<1" class="noReview" >No question yet!</h4>
                                     <!-- <p class="all-que"><a href="">See all 9 questions for Bonjour Professional iPhone iPad Repair & Electronic Center</a></p> -->
                                     <hr>
+
+                                    <div class="pageCount">
+                                        <ul>
+                                            <li><a href=""><i class="fas fa-chevron-left"></i>&nbsp;Prev</a></li>
+                                            <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <hr>
                                 </div>
                                 <div class="reviewItem">
                                     <h2>Recommended Reviews <span>for {{legendData.name}}</span></h2>
                                     <hr>
                                     <div class="searchByReview">
-                                        <!-- <div class="searchReview">
+                                        <div class="searchReview">
                                             <input type="text" class="form-control" placeholder="Search within the reviews">
                                             <button><i class="fas fa-search"></i></button>
-                                            <div class="sortTag">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i>
+                                            <div class="sortTagOne">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i>
                                                   
                                                </span>
                                                 <ul>
-                                                        <li><a href="">Flank Sort</a></li>
-                                                        <li><a href="">Newest Sort</a></li>
-                                                    </ul>
+                                                    <li><a href="">Flank Sort</a></li>
+                                                    <li><a href="">Newest Sort</a></li>
+                                                </ul>
                                                 </strong>
                                                 
                                             </div>
                                             
                                             <hr>
-                                        </div> -->
+                                        </div>
                                         
-                                        <!-- <div class="star-review">
+                                        <div class="star-review">
                                             <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span></p>
                                             <hr>
                                             <p class="moreD"><a href="">Start your review of <strong>New Coach</strong>.</a></p>
-                                        </div> -->
+                                        </div>
                                         <hr>
                                         <div class="review-final" v-for="(item,index) in reviews" :key="index" >
                                             <div class="row">
@@ -248,7 +306,11 @@
                                                         <div class="media-body">
                                                             <p><strong><a href="">{{item.reviwer.firstName}}</a></strong></p>
                                                             <small><strong>{{item.reviwer.address}}</strong></small>
-                                                            <p><span><i class="fas fa-male"></i>&nbsp;856</span><span><i class="fas fa-male"></i>&nbsp;1304</span><span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span></p>
+                                                            <p>
+                                                                <span><i class="fas fa-star"></i>&nbsp;856</span>
+                                                                <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span>
+                                                                <span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span> -->
+                                                                </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -284,23 +346,18 @@
                                         </div>
                                         <hr>
                                         <h4 v-if="reviews.length<1" class="noReview" >No Review for {{legendData.name}}</h4>
-                                        <!-- <div class="pageCount">
-                                            <p>Page 1 of 531</p>
+                                        <div class="pageCount">
                                             <ul>
-                                                <li class="active"><a href="">1</a></li>
-                                                <li><a href="">2</a></li>
-                                                <li><a href="">3</a></li>
-                                                <li><a href="">4</a></li>
-                                                <li><a href="">5</a></li>
+                                                <li><a href=""><i class="fas fa-chevron-left"></i>&nbsp;Prev</a></li>
                                                 <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
                                             </ul>
-                                        </div> -->
+                                        </div>
                                         <hr>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 reviewComment">
-                                <!-- <div class="review-time-content">
+                                <div class="review-time-content">
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
@@ -317,7 +374,23 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div> -->
+                                </div>
+                                <div class="review-time-content">
+                                    <ul>
+                                        <li>
+                                            <div class="biz-hours-icon">
+                                                <span><i class="fas fa-map-marker-alt"></i></span>
+                                            </div>
+                                            <div class="biz-hours-time">
+                                                <div class="short-def-list">
+                                                    <span>
+                                                         <strong class="u-space-r-half">{{legendData.address}}</strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div class="section-left-border">
                                     <div class="widget-biz-hour">
                                         <h3>Business Hours</h3>
@@ -366,9 +439,6 @@
                                                      <span v-if="showBusinessHour[3].active" class="nowrap">{{showBusinessHour[3].time}}</span>
                                                     <span v-else class="nowrap">Closed</span>
                                                 </td>
-                                                <!-- <td class="extra">
-                                                    <span class="nowrap closed"></span>
-                                                </td> -->
                                             </tr>
                                             <tr>
                                                 <th>Fri</th>
@@ -409,11 +479,21 @@
                                     <div class="business-info-sec reviewComment">
                                     <h3>More  info</h3>
                                     <div class="business-name">
-                                        <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>5/10</strong></span></p>
-                                        <p>Cookie Cutter approach? &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
-                                        <p>Does he pass the sniff test? &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
-                                        <p>Does he bring supplies?  &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
-                                        <p>Quick heals for games? &nbsp;&nbsp;<span><strong>5/10</strong></span></p>
+                                        <ul>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
+                                        </ul>
+                                        <!-- <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>{{(skillCount.first != null )? skillCount.first + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Cookie Cutter approach? &nbsp;&nbsp;<span><strong>{{(skillCount.second != null )? skillCount.second + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Does he pass the sniff test? &nbsp;&nbsp;<span><strong>{{(skillCount.third != null )? skillCount.third + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Does he bring supplies?  &nbsp;&nbsp;<span><strong>{{(skillCount.fourth != null )? skillCount.fourth + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Quick heals for games? &nbsp;&nbsp;<span><strong>{{(skillCount.fifth != null )? skillCount.fifth + '/' : ''}}{{skillCount.total}}</strong></span></p> -->
                                         
                                     </div>
                                 </div>
@@ -803,7 +883,8 @@ export default {
                 uploadList : data.legend.legendimages,
                 questionList : data.legend.questions,
                 reviewimos : data.reviewimos,
-                hours : data.legend.hours
+                hours : data.legend.hours,
+                averageRating : data.averageRating
             }
 		}catch (error) {
             console.log(error)

@@ -1041,41 +1041,64 @@ h1 {
         }
     }
     
-    #showReviewDetails {
-        margin-left: 5px;
+    
+}
+
+.review-number {
+    font-size: 16px;
+}
+
+#showReviewDetails {
+    margin-left: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    position: relative;
+    
+    small {
+        position: absolute;
+        top: -40px;
+        right: -20px;
+        background: black;
+        width: 100px;
+        text-align: center;
+        padding: 8px;
         font-size: 12px;
-        cursor: pointer;
-        position: relative;
+        font-weight: 600;
+        visibility: hidden;
+        
+        &:after {
+            content: "";
+            position: absolute;
+            border: 5px solid;
+            border-color: #000 transparent transparent transparent;
+            top: 100%;
+            left: 45%;
+            
+        }
+    }
+    
+    &:hover {
         
         small {
-            position: absolute;
-            top: -40px;
-            right: -20px;
-            background: black;
-            width: 100px;
-            text-align: center;
-            padding: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            visibility: hidden;
-            
-            &:after {
-                content: "";
-                position: absolute;
-                border: 5px solid;
-                border-color: #000 transparent transparent transparent;
-                top: 100%;
-                left: 45%;
-                
-            }
+            visibility: visible;
         }
-        
-        &:hover {
-            
-            small {
-                visibility: visible;
-            }
-        }
+    }
+}
+
+.detail-content {
+
+    p {
+        font-size: 16px;
+    }
+
+    .edit-button {
+        border: 1px solid #c3c3c3;
+        padding: 4px;
+        font-size: 11px;
+        border-radius: 3px;
+        color: #000;
+        cursor: pointer;
+        margin-left: 10px;
     }
 }
 
@@ -1115,6 +1138,7 @@ h1 {
 }
 
 .review-gallary {
+    position: relative;
     
     .figure {
         margin-left: -30px;
@@ -1122,25 +1146,60 @@ h1 {
         
         ul {
             display: flex;
+            flex-direction: row;
+            flex-basis: wrap;
 
             li {
-                flex-basis: 33.33%;
+                //flex-basis: 33.33%;
                 list-style: none;
+                width: 33.33%;
+                height: 33.33%;
+                padding: 0 5px;
 
                 img {
                     width: 100%;
+                    height: 100%;
                 }
             }
 
             li:nth-child(2) {
 
                 img {
-                    transform: scale(1.1);
-                    -webkit-box-shadow: 0 0 20px 0 #000;
-                    box-shadow: 0 0 20px 0 #000;
+                    // transform: scale(1.1);
+                    // -webkit-box-shadow: 0 0 20px 0 #000;
+                    // box-shadow: 0 0 20px 0 #000;
                 }
             }
         }
+    }
+}
+
+.gallary-button {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    .button-left {
+        position: absolute;
+        top: 45%;
+        left: 2%;
+
+        span {
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+
+    .button-right {
+        position: absolute;
+        top: 45%;
+        right: -1%;
+    }
+
+    span {
+        font-size: 20px;
+        cursor: pointer;
     }
 }
 
@@ -1150,6 +1209,7 @@ h1 {
     z-index: 1;
     
     h2 {
+        margin-bottom: 5px !important;
         
         span {
             color: #666;
@@ -1158,29 +1218,30 @@ h1 {
     }
     
     .searchByReview {
+        padding-top: 10px;
         
         .searchReview {
             width: 100%;
             position: relative;
             
             input {
-                width: 40%;
+                width: 80%;
             }
             
             button {
                 position: absolute;
                 top: 0;
-                left: 39%;
+                right: 20%;
                 border: 0;
-                padding: 7px 12px;
+                padding: 8px 12px;
                 background: $blue;
                 color: #fff;
             }
             
-            .sortTag {
+            .sortTagOne {
                 position: absolute;
                 top: 15%;
-                left: 48%;
+                right: 0%;
                 
                 strong {
                     color: #666;
@@ -1334,6 +1395,10 @@ h1 {
                         margin-right: 5px;
                         cursor: pointer;
                         color: #666;
+
+                        &:active, &:focus {
+                            background: #ccc;
+                        }
                     }
                 }
 
@@ -1353,8 +1418,6 @@ h1 {
 }
 
 .review-option {
-    float: right;
-    margin-top: -70px;
     width: 380px;
     position: relative;
 
@@ -1372,7 +1435,7 @@ h1 {
         border: 1px solid rgba(151,151,151,0.5);
         position: absolute;
         top: 4px;
-        right: 0;
+        right: 35px;
         padding: 2px 0;
 
         li {
@@ -1397,6 +1460,22 @@ h1 {
     }
 }
 
+.review-section-title {
+    margin-top: 30px;
+
+    h1 {
+        margin-bottom: 5px;
+    }
+
+    .star-review {
+        margin-bottom: 5px;
+    }
+
+    .detail-content {
+        margin-bottom: 5px;
+    }
+}
+
 .reviewComment {
     margin-top: 50px;
 }
@@ -1404,6 +1483,7 @@ h1 {
 .comment-individual {
     margin-top: 20px;
     margin-bottom: 20px;
+    position: relative;
 
     p {
         margin-top: 10px;
@@ -1416,8 +1496,12 @@ h1 {
     }
 
     .media {
+        // float: left;
+        // width: 80%;
 
         .media-body {
+            width: 70%;
+            float: left;
 
             p {
                 margin-top: -4px;
@@ -1428,16 +1512,34 @@ h1 {
             }
         }
     }
+
+    .comment-button {
+        // float: left;
+        // width: 20%;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        span {
+            cursor: pointer;
+            color: $blue;
+            font-size: 15px;
+        }
+    }
 }
 
 .pageCount {
     position: relative;
     padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 5px;
+    margin-bottom: 12px;
 
     ul {
         position: absolute;
         top: 0;
-        right: 0;
+        left: 50%;
+        margin-left: -25px;
 
         li {
             display: inline;
@@ -3605,6 +3707,7 @@ footer.advertise-section {
 }
 
 .review-time-content {
+    margin-bottom: 10px;
 
     ul {
         border: 1px solid #E6E6E6;
@@ -4003,7 +4106,7 @@ footer.advertise-section {
     padding-right: 15px;
 
     .star-review {
-        margin: 0;
+        margin: 0 0 10px 0 !important;
         padding: 0;
     }
     
@@ -4353,4 +4456,21 @@ footer.advertise-section {
             color: $blue;
         }
     }
+}
+
+.business-name {
+
+    ul {
+        margin-top: 10px;
+
+        li {
+            font-size: 15px;
+            list-style: none;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+h2 {
+    margin-bottom: 5px !important;
 }

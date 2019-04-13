@@ -4,6 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Legend = use('App/Models/Legend')
+const Database = use('Database')
 const User = use('App/Models/User')
 const LegendImage = use('App/Models/LegendImage')
 const BusniessHour = use('App/Models/BusniessHour')
@@ -59,25 +60,29 @@ class LegendController {
    */
   async show ({ params, request, response, view }) {
     const legendData = await Legend.query()
-                                  .where('id',params.id)
+                                  .where('id', params.id)
                                   .with('reviews')
-                                  .with('reviews.reviwer')
-                                  .with('reviews.images')
-                                  .with('legendimages')
-                                  .with('questions')
-                                  .with('questions.user')
-                                  .with('questions.answers')
-                                  .with('questions.answers.user')
-                                  .with('hours')
-                                  //.withCount('avgRev')
+                                  .withCount('totalReview')
+                                  // .with('reviews.reviwer')
+                                  // // .with('reviews', (builder) => builder.withCount('reviwer.reviews as totalreviewbyuser'))
+                                  // .with('reviews.images')
+                                  // .with('legendimages')
+                                  // .with('questions')
+                                  // .with('questions.user')
+                                  // .with('questions.answers')
+                                  // .with('questions.answers.user')
+                                  // .with('hours')
+                                  //.withCount('avgRev') 
                                   .first()
+    const averageRating =     await Database.raw("SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?", [params.id])
     if(legendData){
       const userData = await User.query()
                                 .where('id', legendData.user_id) 
                                 .first()
     return {
       legend: legendData,
-      user: userData
+      user: userData,
+      averageRating: averageRating[0][0]
     } 
     }
     else{

@@ -171,17 +171,17 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="user-profile-action">
+                                <div class="user-profile-action"> <i class=""></i>
                                    
                                     <ul>
                                         
-                                        <li v-if="isEdit" @click=" updateProfile" ><a><h4> <Icon type="ios-document" />Save </h4></a></li>
-                                        <li  v-else-if=" !isEdit && userData.id==user_id" @click="EditProfileOn" ><a><h4><Icon type="ios-settings" />Edit Profile</h4></a></li>
-                                        <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Add Friend</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Add Friend</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Add Friend</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Add Friend</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Add Friend</span></a></li>
+                                        <li v-if="isEdit" @click=" updateProfile" ><a ><span><i class="far fa-save"></i></span>&nbsp;&nbsp;<span>Save</span></a></li>
+                                        <li  v-else-if=" !isEdit && userData.id==user_id" @click="EditProfileOn" ><a ><span><i class="fas fa-wrench"></i></span>&nbsp;&nbsp;<span>Edit Profile</span></a></li>
+                                        <li><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Add Friend</span></a></li>
+                                        <li><a href=""><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Compliment</span></a></li>
+                                        <li><a href=""><span><i class="fas fa-envelope"></i></span>&nbsp;&nbsp;<span>Send Message</span></a></li>
+                                        <li><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Follow Bryan B.</span></a></li>
+                                        <li><a href=""><span><i class="fas fa-sync"></i></span>&nbsp;&nbsp;<span>Simillar Reviews</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -199,14 +199,14 @@
                             <div class="profile-link">
                                 <h2>{{userData.firstName}}'s Profile</h2>
                                 <ul>
-                                    <li class="active-line"><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
+                                   <li class="active-line"><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
+                                    <li><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Friends</span></a></li>
+                                    <li><a href=""><span class="high"><i class="fas fa-star"></i></span>&nbsp;&nbsp;<span>Reviews</span></a></li>
+                                    <li><a href=""><span><i class="fas fa-camera"></i></span>&nbsp;&nbsp;<span>Business Photos</span></a></li>
+                                    <li><a href=""><span><i class="far fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Compliments</span></a></li>
+                                    <li><a href=""><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Tips</span></a></li>
+                                    <li><a href=""><span><i class="far fa-bookmark"></i></span>&nbsp;&nbsp;<span>Bookmarks</span></a></li>
+                                    <li><a href=""><span><i class="fas fa-bookmark"></i></span>&nbsp;&nbsp;<span>Collections</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -302,32 +302,32 @@
                                     </table>
                                     <p><a href="">View more graphs</a></p>
                                 </div>
-
                                 <div class="about-side-bar">
                                     <p>Review Votes</p>
                                     <ul v-if="imosCount.length" >
                                         <li v-for="(item,index) in imosCount" :key="index" ><span><i :class="item.imo | getIcon"></i></span> <span>{{item.imo}} <strong>{{item.total}}</strong></span></li>
                                     </ul>
-                                    <ul v-else >
+                                </div>
+
+                                <!-- <div class="about-side-bar">
+                                    <p>Stats</p>
+                                    <ul>
                                         <li><span><i class="fas fa-grin-beam"></i></span> <span>Bookmarks <strong>17</strong></span></li>
                                         <li><span><i class="fas fa-grin-beam"></i></span> <span>First <strong>7</strong></span></li>
                                         <li><span><i class="fas fa-grin-beam"></i></span> <span>Followers <strong>12</strong></span></li>
                                     </ul>
-                                </div>
-
-                                
-
-                                <div class="about-side-bar">
+                                </div> -->
+                                <!-- <div class="about-side-bar">
                                     <p>2 Compliments</p>
                                     <ul class="icon-bg">
                                         <li><span><i class="fas fa-grin-beam"></i></span> <small>1</small></li>
                                         <li><span><i class="fas fa-grin-beam"></i></span> <small>1</small></li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                                 <div class="about-side-bar">
                                     <p>Locations</p>
-                                    <p class="in-ab">San Francisco, CA</p>
+                                    <p class="in-ab">{{userData.address}}</p>
                                 </div>
                                 <div class="about-side-bar">
                                     <p>Yelping Since</p>
