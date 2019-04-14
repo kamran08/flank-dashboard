@@ -177,7 +177,11 @@
                             <div class="col-md-8 col-sm-8">
                                 <div class="review-section-title">
                                     <h1>
-                                        <strong>{{legendData.name}}</strong>
+                                        <strong>{{legendData.name}} <span @click="storePulse(1)" ><i class="fas fa-thumbs-up"></i></span> <span @click="storePulse(2)"><i class="fas fa-thumbs-down"></i></span>
+                                         <span v-if="healthPulse.GoodCount > healthPulse.BadCount"><i class="fas fa-heartbeat"></i></span>
+                                          <span v-else-if="healthPulse.BadCount > healthPulse.GoodCount" ><i class="fas fa-heart-broken"></i></span> 
+                                          <span v-else ><i class="far fa-heart"></i></span>
+                                           </strong>
 
                                                 <!-- <small><i class="fas fa-check-circle"></i> Claimed</small> -->
                                     </h1>
@@ -683,6 +687,30 @@ export default {
         }
     },
     methods:{
+        async  storePulse(flag){
+           
+            let pulseData = {
+                legend_id:this.legendData.id,
+                
+            }
+            if(flag == 1) pulseData.good = 1
+            else pulseData.bad = 1
+            const res = await this.callApi('post','pulses',pulseData)
+            if(res.status == 200){
+                 console.log("value is " + flag)
+                if(flag==1) {
+                    this.healthPulse.GoodCount +=1
+                    this.s('you up-voted this user! ')
+                }
+                else {
+                     this.healthPulse.BadCount +=1
+                     this.i('you down-voted this user!')
+                }
+            }
+            else{
+                this.swr();
+            }
+        },
         openImageModal(){
             if(this.uploadList.length>0) this.imgName = this.uploadList[(this.uploadList.length-1)].url
 
@@ -885,7 +913,8 @@ export default {
                 questionList : data.legend.questions,
                 reviewimos : data.reviewimos,
                 hours : data.legend.hours,
-                averageRating : data.averageRating
+                averageRating : data.averageRating,
+                healthPulse : data.healthPulse,
             }
 		}catch (error) {
             console.log(error)

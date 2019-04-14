@@ -29,6 +29,7 @@ Route.get('/app/user/updateProfileImage', 'UserController.updateProfileImage')
 Route.resource('legends', 'LegendController')
 Route.resource('questions', 'QuestionController')
 Route.resource('answers', 'AnswerController')
+Route.resource('pulses', 'PulseController')
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
 
 // Review Controller

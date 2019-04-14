@@ -75,6 +75,7 @@ class LegendController {
                                   
                                   .first()
     const averageRating = await Database.raw('SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?', [params.id])
+    const healthPulse = await Database.raw('select SUM(good) as GoodCount , SUM(bad) as BadCount FROM `pulses` WHERE `legend_id` = ?', [params.id])
     if (legendData) {
       const userData = await User.query()
                                 .where('id', legendData.user_id)
@@ -82,7 +83,8 @@ class LegendController {
       return {
         legend: legendData,
         user: userData,
-        averageRating: averageRating[0][0]
+        averageRating: averageRating[0][0],
+        healthPulse: healthPulse[0][0]
       }
     } else {
       return response.status(404).json({

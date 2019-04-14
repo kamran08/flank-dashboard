@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2019 at 06:42 PM
+-- Generation Time: Apr 14, 2019 at 05:39 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -49,7 +49,8 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (10, '1554675365235_question_schema', 5, '2019-04-07 22:19:45'),
 (11, '1554675402398_answers_schema', 5, '2019-04-07 22:19:45'),
 (12, '1554883104457_reviewimo_schema', 6, '2019-04-10 08:00:45'),
-(13, '1554898110876_busniess_hour_schema', 7, '2019-04-10 12:30:30');
+(13, '1554898110876_busniess_hour_schema', 7, '2019-04-10 12:30:30'),
+(14, '1555240536646_pulse_schema', 8, '2019-04-14 11:39:19');
 
 -- --------------------------------------------------------
 
@@ -157,6 +158,47 @@ INSERT INTO `legend_images` (`id`, `legend_id`, `url`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pulses`
+--
+
+CREATE TABLE `pulses` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `legend_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `good` int(11) NOT NULL DEFAULT '0',
+  `bad` int(11) NOT NULL DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pulses`
+--
+
+INSERT INTO `pulses` (`id`, `legend_id`, `user_id`, `good`, `bad`, `created_at`, `updated_at`) VALUES
+(1, 3, 3, 1, 0, '2019-04-14 18:42:20', '2019-04-14 18:42:20'),
+(2, 3, 3, 0, 1, '2019-04-14 18:47:05', '2019-04-14 18:47:05'),
+(3, 3, 3, 0, 1, '2019-04-14 18:47:09', '2019-04-14 18:47:09'),
+(4, 3, 3, 1, 0, '2019-04-14 19:18:09', '2019-04-14 19:18:09'),
+(5, 3, 3, 1, 0, '2019-04-14 19:18:13', '2019-04-14 19:18:13'),
+(6, 3, 3, 0, 1, '2019-04-14 19:25:48', '2019-04-14 19:25:48'),
+(7, 3, 3, 0, 1, '2019-04-14 19:36:25', '2019-04-14 19:36:25'),
+(8, 3, 3, 1, 0, '2019-04-14 19:37:43', '2019-04-14 19:37:43'),
+(9, 3, 3, 1, 0, '2019-04-14 19:40:16', '2019-04-14 19:40:16'),
+(10, 3, 3, 1, 0, '2019-04-14 19:40:20', '2019-04-14 19:40:20'),
+(11, 3, 3, 0, 1, '2019-04-14 19:40:37', '2019-04-14 19:40:37'),
+(12, 3, 3, 1, 0, '2019-04-14 19:40:45', '2019-04-14 19:40:45'),
+(13, 3, 3, 1, 0, '2019-04-14 19:41:11', '2019-04-14 19:41:11'),
+(14, 3, 3, 0, 1, '2019-04-14 19:41:14', '2019-04-14 19:41:14'),
+(15, 3, 3, 0, 1, '2019-04-14 19:41:16', '2019-04-14 19:41:16'),
+(16, 3, 3, 0, 1, '2019-04-14 19:41:19', '2019-04-14 19:41:19'),
+(17, 3, 3, 0, 1, '2019-04-14 19:41:21', '2019-04-14 19:41:21'),
+(18, 3, 3, 1, 0, '2019-04-14 19:41:23', '2019-04-14 19:41:23'),
+(19, 3, 3, 1, 0, '2019-04-14 19:41:24', '2019-04-14 19:41:24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `questions`
 --
 
@@ -211,7 +253,16 @@ INSERT INTO `reviewimos` (`id`, `review_id`, `user_id`, `imo`, `created_at`, `up
 (9, 14, 3, 'Funny', '2019-04-10 14:53:34', '2019-04-10 14:53:34'),
 (10, 14, 3, 'Cool', '2019-04-10 14:53:35', '2019-04-10 14:53:35'),
 (11, 15, 3, 'Useful', '2019-04-10 14:53:37', '2019-04-10 14:53:37'),
-(12, 15, 3, 'Cool', '2019-04-10 14:53:38', '2019-04-10 14:53:38');
+(12, 15, 3, 'Cool', '2019-04-10 14:53:38', '2019-04-10 14:53:38'),
+(13, 17, 3, 'Useful', '2019-04-13 15:35:22', '2019-04-13 15:35:22'),
+(14, 17, 3, 'Funny', '2019-04-13 15:35:22', '2019-04-13 15:35:22'),
+(15, 17, 3, 'Cool', '2019-04-13 15:35:22', '2019-04-13 15:35:22'),
+(16, 17, 3, 'Useful', '2019-04-13 18:01:33', '2019-04-13 18:01:33'),
+(17, 18, 3, 'Cool', '2019-04-13 18:57:49', '2019-04-13 18:57:49'),
+(18, 18, 3, 'Cool', '2019-04-13 18:57:50', '2019-04-13 18:57:50'),
+(19, 18, 3, 'Cool', '2019-04-13 18:57:58', '2019-04-13 18:57:58'),
+(20, 18, 3, 'Cool', '2019-04-13 18:57:59', '2019-04-13 18:57:59'),
+(21, 18, 3, 'Cool', '2019-04-13 19:17:36', '2019-04-13 19:17:36');
 
 -- --------------------------------------------------------
 
@@ -225,11 +276,11 @@ CREATE TABLE `reviews` (
   `reviwer_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `rating` int(1) NOT NULL DEFAULT '0',
-  `q1` int(11) DEFAULT NULL,
-  `q2` int(11) DEFAULT NULL,
-  `q3` int(11) DEFAULT NULL,
-  `q4` int(11) DEFAULT NULL,
-  `q5` int(11) DEFAULT NULL,
+  `q1` int(11) DEFAULT '0',
+  `q2` int(11) DEFAULT '0',
+  `q3` int(11) DEFAULT '0',
+  `q4` int(11) DEFAULT '0',
+  `q5` int(11) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -323,7 +374,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `birthday`, `zip`, `address`, `img`, `packType`, `accountActivationToken`, `passwordToken`, `created_at`, `updated_at`) VALUES
 (1, 'Nazmul', 'Chowdhury', 'nazmul@gmail.com', '$2a$10$2IL0iJW53DuuyE9hOXAWqek3Pq8mkWHEkx6XSvx9xFX1G8PIdtUFS', '2000-04-29T18:00:00.000Z', '3210', 'Sreemangal,Sylhet,Bangladesh', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-03 20:20:09', '2019-04-09 22:38:16'),
 (2, 'sadek', 'hossain', 'sadek@gmail.com', '$2a$10$74hKKbdqOoB30dDPmTHNme/6xrMSxwENg4yAqOFWgkOrY6u7Itr1G', '2019-04-23T18:00:00.000Z', 'as', '', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-03 20:56:19', '2019-04-03 20:56:19'),
-(3, 'Ashraf', 'Hakimi', 'ashraf@gmail.com', '$2a$10$oSQAkhdVNZoDEKJ5ZYfC/u2Wr/zfDKsp2EsJ426Chop.3KYovo7kG', '', '3210', '', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-04 21:23:13', '2019-04-04 21:23:13'),
+(3, 'Ashraf', 'Hakimi', 'ashraf@gmail.com', '$2a$10$oSQAkhdVNZoDEKJ5ZYfC/u2Wr/zfDKsp2EsJ426Chop.3KYovo7kG', '', '3210', 'Sylhet,Bangladesh', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-04 21:23:13', '2019-04-12 19:25:47'),
 (4, 'Kamran', 'Ahmed', 'kamran@gmail.com', '$2a$10$FVg.RimiYbj1Os.mNgY46.0fLo58o2a4RAHiQtPNt.HiaUtbw25Ne', '', '3210', '', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-04 21:30:30', '2019-04-04 21:30:30'),
 (5, 'Sakil ', 'Rahman', 'sakil@gmail.com', '$2a$10$ybgVFc20M1JB2TH9FfZlpux1UrIGTnHDrn/yHhNgIeZLvCYo3QG0.', '', '3210', '', '/uploads/profile.png ', 1, NULL, NULL, '2019-04-04 23:07:42', '2019-04-04 23:07:42'),
 (6, 'Kollol', 'Cahk', 'kollol@gmail.com', '$2a$10$gFw38St07Ogy9Q4ln8ud4e6KmSA6FSPM547Cl8p/lzKZVUnI5ggxS', '', '3210', '', '/uploads/profile.png ', 1, NULL, NULL, '2019-04-04 23:13:34', '2019-04-04 23:13:34'),
@@ -361,6 +412,12 @@ ALTER TABLE `legends`
 -- Indexes for table `legend_images`
 --
 ALTER TABLE `legend_images`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pulses`
+--
+ALTER TABLE `pulses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -410,7 +467,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adonis_schema`
 --
 ALTER TABLE `adonis_schema`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `answers`
@@ -437,6 +494,12 @@ ALTER TABLE `legend_images`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `pulses`
+--
+ALTER TABLE `pulses`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
@@ -446,7 +509,7 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `reviewimos`
 --
 ALTER TABLE `reviewimos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `reviews`
