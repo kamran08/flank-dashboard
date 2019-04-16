@@ -72,11 +72,14 @@
                                     <img :src="imgName" v-if="visible" style="width: 100%">
                                 </Modal>
                                 <ul>
-                                    <li><span>Does He ride the storm?</span>&nbsp;&nbsp;<input v-model="reviewData.q1" type="checkbox"></li>
-                                    <li><span>Cookie Cutter approach?</span>&nbsp;&nbsp;<input v-model="reviewData.q2"  type="checkbox"></li>
+                                    <li>Atrrtibute  Yes No </li>
+                                    <li v-for="(item,index) in AttributeInfo" :key="index" ><span>{{item.content}}</span> <span>&nbsp;&nbsp;<input v-model="item.isPositive" type="checkbox"></span> <span>&nbsp;&nbsp;<input v-model="item.isNegative" type="checkbox"></span> </li>
+
+
+                                    <!-- <li><span>Cookie Cutter approach?</span>&nbsp;&nbsp;<input v-model="reviewData.q2"  type="checkbox"></li>
                                     <li><span>Does he pass the sniff test?</span>&nbsp;&nbsp;<input v-model="reviewData.q3"  type="checkbox"></li>
                                     <li><span>Does he bring supplies?</span>&nbsp;&nbsp;<input v-model="reviewData.q4"  type="checkbox"></li>
-                                    <li><span>Quick heals for games?</span>&nbsp;&nbsp;<input v-model="reviewData.q5"  type="checkbox"></li>
+                                    <li><span>Quick heals for games?</span>&nbsp;&nbsp;<input v-model="reviewData.q5"  type="checkbox"></li> -->
                                 </ul>
                             </div>
                         </div>
@@ -160,11 +163,6 @@ export default {
                 reviewFor:'',
                 content:"",
                 rating:'',
-                q1:false,
-                q2:false,
-                q3:false,
-                q4:false,
-                q5:false,
             },
             rating:0,
             defaultList: [
@@ -191,6 +189,7 @@ export default {
             return{
                 legendData : data.legend,
                 userData : data.user,
+                AttributeInfo : data.AttributeInfo,
             }
 		}catch (error) {
             console.log(error)
@@ -199,6 +198,11 @@ export default {
     },
     methods:{
         async postReview(){
+             if(this.isLoggedIn == false){
+                this.i('Please login first !')
+                this.$router.push('/login');
+                return
+            }
             if(this.reviewData.content == ''){
                 this.i("You must write something in the review box!")
                 return
@@ -207,13 +211,11 @@ export default {
                 this.i('Please rate this coach !')
                 return;
             }
-            if(this.isLoggedIn == false){
-                this.i('Please login first !')
-                this.$router.push('/login');
-                return
-            }
+           
             
             this.reviewData.uploadList = this.uploadList
+            this.reviewData.AttributeInfo = this.AttributeInfo
+
             const res = await this.callApi('post','reviews',this.reviewData)
             if(res.status===200){
                 this.s('Review posted successfully!')

@@ -483,7 +483,18 @@
 
                                     <div class="business-info-sec reviewComment">
                                     <h3>More  info</h3>
-                                    <div class="business-name">
+                                    <div class="business-name" v-if="atrrtributepoint.length>0" >
+                                        <ul>
+                                            <li v-for="(item,index) in atrrtributepoint" :key="index" ><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>{{item.content}} <strong>{{item | totalPercent}}</strong></span></span></li>
+                                        </ul>
+                                        <!-- <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>{{(skillCount.first != null )? skillCount.first + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Cookie Cutter approach? &nbsp;&nbsp;<span><strong>{{(skillCount.second != null )? skillCount.second + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Does he pass the sniff test? &nbsp;&nbsp;<span><strong>{{(skillCount.third != null )? skillCount.third + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Does he bring supplies?  &nbsp;&nbsp;<span><strong>{{(skillCount.fourth != null )? skillCount.fourth + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Quick heals for games? &nbsp;&nbsp;<span><strong>{{(skillCount.fifth != null )? skillCount.fifth + '/' : ''}}{{skillCount.total}}</strong></span></p>  -->
+                                        
+                                    </div>
+                                    <div class="business-name" v-else  >
                                         <ul>
                                             <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
                                             <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
@@ -679,7 +690,8 @@ export default {
 
                 },
                 
-            ]
+            ],
+            atrrtributepoint:'',
 
                
             
@@ -894,12 +906,18 @@ export default {
             return check;
         },
         async getPaginateData(id){
-            const res = await this.callApi('get', `/pagenateData/${id}`)
+            const res = await this.callApi('get', `/app/atrributeConteptData/${id}`)
             if(res.status===200){
+                this.atrrtributepoint = res.data
                 console.log(res.data)
             }
         }
          
+    },
+    filters:{
+        totalPercent(item){
+            return parseInt((item.totalPoints*100)/(item.points*item.totalvotes))+"%"
+        }
     },
     async asyncData({app, store,redirect, params}){
         try {
@@ -915,6 +933,7 @@ export default {
                 hours : data.legend.hours,
                 averageRating : data.averageRating,
                 healthPulse : data.healthPulse,
+                AttributeInfo : data.AttributeInfo,
             }
 		}catch (error) {
             console.log(error)
@@ -935,7 +954,8 @@ export default {
                 }
             }
         }
-       // this.getPaginateData(this.$route.params.id)
+
+        this.getPaginateData(this.$route.params.id)
         
        
     }

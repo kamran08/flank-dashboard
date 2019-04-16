@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2019 at 05:39 PM
+-- Generation Time: Apr 16, 2019 at 07:32 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -50,7 +50,9 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (11, '1554675402398_answers_schema', 5, '2019-04-07 22:19:45'),
 (12, '1554883104457_reviewimo_schema', 6, '2019-04-10 08:00:45'),
 (13, '1554898110876_busniess_hour_schema', 7, '2019-04-10 12:30:30'),
-(14, '1555240536646_pulse_schema', 8, '2019-04-14 11:39:19');
+(14, '1555240536646_pulse_schema', 8, '2019-04-14 11:39:19'),
+(15, '1555314652073_attribute_schema', 9, '2019-04-15 08:17:50'),
+(16, '1555314671143_review_attribute_schema', 9, '2019-04-15 08:17:50');
 
 -- --------------------------------------------------------
 
@@ -80,6 +82,31 @@ INSERT INTO `answers` (`id`, `question_id`, `user_id`, `content`, `created_at`, 
 (8, 5, 3, 'This is lot of answer!', '2019-04-10 23:50:52', '2019-04-10 23:50:52'),
 (9, 4, 3, 'this is some answer', '2019-04-10 23:57:52', '2019-04-10 23:57:52'),
 (10, 4, 3, 'answer!1', '2019-04-10 23:59:47', '2019-04-10 23:59:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attributes`
+--
+
+CREATE TABLE `attributes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `content` text,
+  `points` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `attributes`
+--
+
+INSERT INTO `attributes` (`id`, `content`, `points`, `created_at`, `updated_at`) VALUES
+(1, 'Does He ride the storm?', 5, '2019-04-15 00:00:00', NULL),
+(2, 'Cookie Cutter approach?', 5, '2019-04-15 00:00:00', NULL),
+(3, 'Does he bring supplies?', 10, '2019-04-15 00:00:00', NULL),
+(4, 'Quick heals for games?', 5, '2019-04-15 00:00:00', NULL),
+(5, 'Does he pass the sniff test?', 5, '2019-04-15 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -194,7 +221,24 @@ INSERT INTO `pulses` (`id`, `legend_id`, `user_id`, `good`, `bad`, `created_at`,
 (16, 3, 3, 0, 1, '2019-04-14 19:41:19', '2019-04-14 19:41:19'),
 (17, 3, 3, 0, 1, '2019-04-14 19:41:21', '2019-04-14 19:41:21'),
 (18, 3, 3, 1, 0, '2019-04-14 19:41:23', '2019-04-14 19:41:23'),
-(19, 3, 3, 1, 0, '2019-04-14 19:41:24', '2019-04-14 19:41:24');
+(19, 3, 3, 1, 0, '2019-04-14 19:41:24', '2019-04-14 19:41:24'),
+(20, 2, 3, 1, 0, '2019-04-16 23:31:05', '2019-04-16 23:31:05'),
+(21, 2, 3, 0, 1, '2019-04-16 23:31:07', '2019-04-16 23:31:07'),
+(22, 2, 3, 1, 0, '2019-04-16 23:31:08', '2019-04-16 23:31:08'),
+(23, 2, 3, 1, 0, '2019-04-16 23:31:09', '2019-04-16 23:31:09'),
+(24, 2, 3, 1, 0, '2019-04-16 23:31:11', '2019-04-16 23:31:11'),
+(25, 2, 3, 1, 0, '2019-04-16 23:31:14', '2019-04-16 23:31:14'),
+(26, 2, 3, 1, 0, '2019-04-16 23:31:14', '2019-04-16 23:31:14'),
+(27, 2, 3, 1, 0, '2019-04-16 23:31:14', '2019-04-16 23:31:14'),
+(28, 2, 3, 1, 0, '2019-04-16 23:31:15', '2019-04-16 23:31:15'),
+(29, 2, 3, 1, 0, '2019-04-16 23:31:15', '2019-04-16 23:31:15'),
+(30, 2, 3, 1, 0, '2019-04-16 23:31:15', '2019-04-16 23:31:15'),
+(31, 2, 3, 1, 0, '2019-04-16 23:31:15', '2019-04-16 23:31:15'),
+(32, 2, 3, 1, 0, '2019-04-16 23:31:17', '2019-04-16 23:31:17'),
+(33, 2, 3, 1, 0, '2019-04-16 23:31:18', '2019-04-16 23:31:18'),
+(34, 2, 3, 1, 0, '2019-04-16 23:31:19', '2019-04-16 23:31:19'),
+(35, 2, 3, 1, 0, '2019-04-16 23:31:20', '2019-04-16 23:31:20'),
+(36, 2, 3, 1, 0, '2019-04-16 23:31:21', '2019-04-16 23:31:21');
 
 -- --------------------------------------------------------
 
@@ -220,7 +264,8 @@ INSERT INTO `questions` (`id`, `user_id`, `legend_id`, `content`, `created_at`, 
 (2, 1, 1, 'This is the Second Question?', '2019-04-08 04:34:14', '2019-04-08 04:34:14'),
 (3, 1, 1, 'This is some question', '2019-04-09 23:33:39', '2019-04-09 23:33:39'),
 (4, 1, 2, 'This i', '2019-04-09 23:35:26', '2019-04-09 23:35:26'),
-(5, 1, 2, 'This i', '2019-04-09 23:35:26', '2019-04-09 23:35:26');
+(5, 1, 2, 'This i', '2019-04-09 23:35:26', '2019-04-09 23:35:26'),
+(6, 3, 2, 'hello world...................', '2019-04-16 23:30:34', '2019-04-16 23:30:34');
 
 -- --------------------------------------------------------
 
@@ -262,7 +307,8 @@ INSERT INTO `reviewimos` (`id`, `review_id`, `user_id`, `imo`, `created_at`, `up
 (18, 18, 3, 'Cool', '2019-04-13 18:57:50', '2019-04-13 18:57:50'),
 (19, 18, 3, 'Cool', '2019-04-13 18:57:58', '2019-04-13 18:57:58'),
 (20, 18, 3, 'Cool', '2019-04-13 18:57:59', '2019-04-13 18:57:59'),
-(21, 18, 3, 'Cool', '2019-04-13 19:17:36', '2019-04-13 19:17:36');
+(21, 18, 3, 'Cool', '2019-04-13 19:17:36', '2019-04-13 19:17:36'),
+(22, 24, 3, 'Useful', '2019-04-16 23:30:57', '2019-04-16 23:30:57');
 
 -- --------------------------------------------------------
 
@@ -276,11 +322,6 @@ CREATE TABLE `reviews` (
   `reviwer_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `rating` int(1) NOT NULL DEFAULT '0',
-  `q1` int(11) DEFAULT '0',
-  `q2` int(11) DEFAULT '0',
-  `q3` int(11) DEFAULT '0',
-  `q4` int(11) DEFAULT '0',
-  `q5` int(11) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -289,16 +330,59 @@ CREATE TABLE `reviews` (
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `reviewFor`, `reviwer_id`, `content`, `rating`, `q1`, `q2`, `q3`, `q4`, `q5`, `created_at`, `updated_at`) VALUES
-(10, 2, 1, 'He is a good coach', 5, 1, 1, 1, 1, 0, '2019-04-07 19:15:46', '2019-04-07 19:15:46'),
-(11, 2, 1, 'He is good coach', 5, 1, 1, 1, 1, 0, '2019-04-07 19:20:59', '2019-04-07 19:20:59'),
-(12, 2, 1, 'He is Awesome!', 5, 1, 1, 1, 1, 0, '2019-04-07 19:25:19', '2019-04-07 19:25:19'),
-(13, 2, 1, 'This coach uis good.', 5, 1, 1, 1, 1, 1, '2019-04-07 20:45:33', '2019-04-07 20:45:33'),
-(14, 2, 1, 'He is cool Page', 5, 1, 1, 1, 1, 0, '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
-(15, 2, 1, 'he is awesome coach', 5, 1, 1, 1, 0, 0, '2019-04-07 20:51:46', '2019-04-07 20:51:46'),
-(16, 2, 3, 'This is Review 3 Rating', 3, 0, 1, 1, 1, 1, '2019-04-11 00:34:33', '2019-04-11 00:34:33'),
-(17, 2, 3, 'This is Rating 5', 5, 1, 1, 1, 0, 0, '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
-(18, 2, 3, 'Review 3', 3, 1, 1, 1, 1, 1, '2019-04-11 00:53:43', '2019-04-11 00:53:43');
+INSERT INTO `reviews` (`id`, `reviewFor`, `reviwer_id`, `content`, `rating`, `created_at`, `updated_at`) VALUES
+(10, 2, 1, 'He is a good coach', 5, '2019-04-07 19:15:46', '2019-04-07 19:15:46'),
+(11, 2, 1, 'He is good coach', 5, '2019-04-07 19:20:59', '2019-04-07 19:20:59'),
+(12, 2, 1, 'He is Awesome!', 5, '2019-04-07 19:25:19', '2019-04-07 19:25:19'),
+(13, 2, 1, 'This coach uis good.', 5, '2019-04-07 20:45:33', '2019-04-07 20:45:33'),
+(14, 2, 1, 'He is cool Page', 5, '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
+(15, 2, 1, 'he is awesome coach', 5, '2019-04-07 20:51:46', '2019-04-07 20:51:46'),
+(16, 2, 3, 'This is Review 3 Rating', 3, '2019-04-11 00:34:33', '2019-04-11 00:34:33'),
+(17, 2, 3, 'This is Rating 5', 5, '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
+(18, 2, 3, 'Review 3', 3, '2019-04-11 00:53:43', '2019-04-11 00:53:43'),
+(19, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:35:23', '2019-04-16 16:35:23'),
+(20, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:41:13', '2019-04-16 16:41:13'),
+(21, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 4, '2019-04-16 16:48:10', '2019-04-16 16:48:10'),
+(22, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 4, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
+(23, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
+(24, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_attributes`
+--
+
+CREATE TABLE `review_attributes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `review_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `points` int(10) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `review_attributes`
+--
+
+INSERT INTO `review_attributes` (`id`, `review_id`, `attribute_id`, `user_id`, `points`, `created_at`, `updated_at`) VALUES
+(1, 22, 1, 3, 5, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
+(2, 22, 2, 3, 5, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
+(3, 22, 3, 3, -10, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
+(4, 22, 4, 3, -5, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
+(5, 22, 5, 3, 5, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
+(6, 23, 1, 3, 5, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
+(7, 23, 2, 3, 5, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
+(8, 23, 3, 3, 10, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
+(9, 23, 4, 3, 5, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
+(10, 23, 5, 3, 5, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
+(11, 24, 1, 3, -5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
+(12, 24, 2, 3, -5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
+(13, 24, 3, 3, 10, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
+(14, 24, 4, 3, 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
+(15, 24, 5, 3, 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53');
 
 -- --------------------------------------------------------
 
@@ -326,7 +410,11 @@ INSERT INTO `review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at
 (5, 14, '/uploads/1554648555064.jpeg', '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
 (6, 14, '/uploads/1554648557317.jpeg', '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
 (7, 17, '/uploads/1554921353824.png', '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
-(8, 17, '/uploads/1554921357561.png', '2019-04-11 00:35:59', '2019-04-11 00:35:59');
+(8, 17, '/uploads/1554921357561.png', '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
+(9, 20, '/uploads/1555411266050.undefined', '2019-04-16 16:41:13', '2019-04-16 16:41:13'),
+(10, 21, '/uploads/1555411687904.undefined', '2019-04-16 16:48:10', '2019-04-16 16:48:10'),
+(11, 22, '/uploads/1555411687904.undefined', '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
+(12, 23, '/uploads/1555411889030.undefined', '2019-04-16 16:51:35', '2019-04-16 16:51:35');
 
 -- --------------------------------------------------------
 
@@ -397,6 +485,12 @@ ALTER TABLE `answers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `attributes`
+--
+ALTER TABLE `attributes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `busniess_hours`
 --
 ALTER TABLE `busniess_hours`
@@ -439,6 +533,12 @@ ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `review_attributes`
+--
+ALTER TABLE `review_attributes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `review_images`
 --
 ALTER TABLE `review_images`
@@ -467,13 +567,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adonis_schema`
 --
 ALTER TABLE `adonis_schema`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `attributes`
+--
+ALTER TABLE `attributes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `busniess_hours`
@@ -497,31 +603,37 @@ ALTER TABLE `legend_images`
 -- AUTO_INCREMENT for table `pulses`
 --
 ALTER TABLE `pulses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `reviewimos`
 --
 ALTER TABLE `reviewimos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `review_attributes`
+--
+ALTER TABLE `review_attributes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `review_images`
 --
 ALTER TABLE `review_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tokens`

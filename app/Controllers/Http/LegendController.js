@@ -7,7 +7,14 @@ const Legend = use('App/Models/Legend')
 const Database = use('Database')
 const User = use('App/Models/User')
 const LegendImage = use('App/Models/LegendImage')
+const Attribute = use('App/Models/Attribute')
 const BusniessHour = use('App/Models/BusniessHour')
+const CircularJSON = require('circular-json')
+// import * as util from 'util' // has no default export
+// import { inspect } from 'util' // or directly
+// or
+
+const util = require('util')
 /**
  * Resourceful controller for interacting with legends
  */
@@ -72,20 +79,23 @@ class LegendController {
                                   .with('questions.answers')
                                   .with('questions.answers.user')
                                   .with('hours')
-                                  
+
                                   .first()
     const averageRating = await Database.raw('SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?', [params.id])
     const healthPulse = await Database.raw('select SUM(good) as GoodCount , SUM(bad) as BadCount FROM `pulses` WHERE `legend_id` = ?', [params.id])
+    const AttributeInfo = await Attribute.all()
     if (legendData) {
       const userData = await User.query()
                                 .where('id', legendData.user_id)
                                 .first()
-      return {
+      return response.status(200).json({
         legend: legendData,
         user: userData,
         averageRating: averageRating[0][0],
-        healthPulse: healthPulse[0][0]
-      }
+        healthPulse: healthPulse[0][0],
+        AttributeInfo: AttributeInfo
+        // atrrtributepoint: atrrtributepointData
+      })
     } else {
       return response.status(404).json({
         'message': 'User not found!.'

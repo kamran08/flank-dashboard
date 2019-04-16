@@ -223,6 +223,27 @@
 
 <script>
 export default {
+    data(){
+        return{
+
+        }
+    },
+    async asyncData({app, store,redirect, params, query}){
+        try {
+            let {data} = await app.$axios.get(`/app/SearchData?place=${query.place}&str=${query.str}`)
+          
+            return{
+                query : data
+               
+            }
+		}catch (error) {
+            console.log(error)
+           // return redirect('/')
+		}
+    },
+    created(){
+        console.log(this.$route)
+    }
 
 }
 </script>

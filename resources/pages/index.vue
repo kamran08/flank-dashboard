@@ -54,12 +54,12 @@
                                 <div class="equal-div">
                                     <div class="input-group" onclick="toggle_visibility('menu');">
                                         <span class="input-group-addon" id="basic-addon1">Find</span>
-                                        <input type="text" class="form-control" placeholder="accountants, burgers, spas, barbers..." aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"  v-model="searchTxt" placeholder="Different type of Sport Coaches" aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group">
                                        <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                        <input type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="San Francisco, CA">
-                                        <span class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                                        <input type="text" class="form-control" v-model='addressTxt' placeholder="Place" >
+                                        <span @click="$router.push(`/search?place=${addressTxt}&str=${searchTxt}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
                                     </div>
                                     <div class="left-dropdown">
                                         <ul>
@@ -537,6 +537,8 @@ export default {
   data(){
     return{
       name:'',
+      searchTxt:'',
+      addressTxt:'',
     }
   },
    async asyncData({app, store,redirect, params}){
@@ -551,7 +553,9 @@ export default {
 		}
    },
   methods:{
-    
+    async SearchData(){
+
+    }
   },
 }
 </script>

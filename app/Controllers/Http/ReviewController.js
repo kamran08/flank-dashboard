@@ -6,12 +6,13 @@
 const Review = use('App/Models/Review')
 const Reviewimo = use('App/Models/Reviewimo')
 const ReviewImage = use('App/Models/ReviewImage')
+const ReviewAttribute = use('App/Models/ReviewAttribute')
 const Helpers = use('Helpers')
 const Database = use('Database')
 /**
  * Resourceful controller for interacting with reviews
  */
-class ReviewController { 
+class ReviewController {
   /**
    * Show a list of all reviews.
    * GET reviews
@@ -46,8 +47,12 @@ class ReviewController {
    */
   async store ({ request, response, auth }) {
     let data = request.all()
-    data.reviwer_id = await auth.user.id
+    const user_id = await auth.user.id
+    data.reviwer_id = user_id
     let uploadList = []
+    const AttributeInfoAll = data.AttributeInfo
+    delete data.AttributeInfo
+
     const tempUpload = data.uploadList
     delete data.uploadList
     const rdata = await Review.create(data)
@@ -60,6 +65,21 @@ class ReviewController {
       uploadList.push(ob)
     }
     await ReviewImage.createMany(uploadList)
+    let AttributeInfo = []
+    for (let d of AttributeInfoAll) {
+      if (d.isNegative == true || d.isPositive == true) {
+        let ob = {
+          review_id: rdata.id,
+          attribute_id: d.id,
+          user_id: user_id,
+          points: (d.isNegative == true) ? (d.points * -1) : d.points
+
+        }
+        AttributeInfo.push(ob)
+      }
+    }
+
+    await ReviewAttribute.createMany(AttributeInfo)
     return rdata
   }
 
@@ -74,7 +94,6 @@ class ReviewController {
    */
   async show ({ params, request, response, view }) {
 
-  
   }
 
   /**
@@ -112,13 +131,12 @@ class ReviewController {
   }
 
   async uploadReviewFile ({request, response}) {
-
     const profilePic = request.file('file', {
       types: ['png', 'jpg', 'jpeg'],
       size: '2mb'
-      })
+    })
     const name = `${new Date().getTime()}` + '.' + profilePic._subtype
-    // UPLOAD THE IMAGE TO UPLOAD FOLDER 
+    // UPLOAD THE IMAGE TO UPLOAD FOLDER
     await profilePic.move(Helpers.publicPath('uploads'), {
       name: name
     })
@@ -132,13 +150,30 @@ class ReviewController {
     })
   }
 
-  async stoteReviewImo ({ request, response, auth }){
+  async stoteReviewImo ({ request, response, auth }) {
     let data = request.all()
     data.user_id = await auth.user.id
     return await Reviewimo.create(data)
   }
-  async test ({ request, response, auth }){
-    
+  async atrributeConteptData ({ params }){
+    return await Database
+    .table('review_attributes')
+    .select('attributes.content', 'attributes.points')
+    .sum('review_attributes.points as totalPoints')
+    .count('review_attributes.id as totalvotes')
+    .innerJoin('reviews', function () {
+      this
+        .on('review_attributes.review_id', 'reviews.id')
+    })
+    .innerJoin('attributes', function () {
+      this
+        .on('review_attributes.attribute_id', 'attributes.id')
+    })
+    .where('reviews.reviewFor', params.id)
+    .groupBy('attributes.content')
+  }
+  async test ({ request, response, auth }) {
+
   //  return await Database.raw("SELECT `imo` , COUNT(imo) as total FROM `reviewimos` GROUP by `imo`")
   // return await Review.query().select('imo').count('imo as total').groupBy('imo').orderBy('id')
   //  return await Review.query()
@@ -150,7 +185,7 @@ class ReviewController {
   //  return await Review.query()
   //  .with('imos')
   //  .fetch()
-   }
+  }
 }
 
 module.exports = ReviewController
