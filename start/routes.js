@@ -29,6 +29,7 @@ Route.resource('questions', 'QuestionController')
 Route.resource('answers', 'AnswerController')
 Route.resource('pulses', 'PulseController')
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
+Route.get('/app/getAdditionlegendInfo/:id', 'LegendController.getAdditionlegendInfo')
 
 // Review Controller
 Route.get('/app/atrributeConteptData/:id', 'ReviewController.atrributeConteptData')

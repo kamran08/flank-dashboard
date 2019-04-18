@@ -700,31 +700,35 @@ h1 small {
       .review-gallary .figure ul li {
         list-style: none;
         width: 33.33%;
-        height: 33.33%;
-        padding: 0 5px; }
+        height: 180px;
+        padding: 0 5px;
+        cursor: pointer; }
         .review-gallary .figure ul li img {
           width: 100%;
           height: 100%; }
 
 .gallary-button {
-  position: absolute;
-  top: 0;
   width: 100%;
   height: 100%; }
   .gallary-button .button-left {
     position: absolute;
     top: 45%;
-    left: 2%; }
+    left: -20px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 10px 2px 8px; }
     .gallary-button .button-left span {
       font-size: 20px;
       cursor: pointer; }
   .gallary-button .button-right {
     position: absolute;
     top: 45%;
-    right: -1%; }
+    right: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 10px 2px 8px; }
   .gallary-button span {
     font-size: 20px;
-    cursor: pointer; }
+    cursor: pointer;
+    color: #fff; }
 
 .reviewItem {
   margin-top: 50px;
@@ -2652,3 +2656,72 @@ footer.advertise-section .section-content .arrange-unit {
 
 h2 {
   margin-bottom: 5px !important; }
+
+  body {
+    padding-right: 0 !important;
+  }
+
+  .modal-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    height: 315px;
+    overflow: auto;
+  }
+
+  .modal-list li {
+    width: 60px;
+    height: 60px;
+    list-style: none;
+    margin: 0 5px 20px;
+    cursor: pointer;
+  }
+
+  .modal-list li.selected {
+    border: 5px solid #0088cc;
+  }
+
+  .modal-list li img {
+    width: 100%;
+    height: 100%;
+  }
+
+.modal-list::-webkit-scrollbar {
+    width: 0.7em;
+}
+ 
+.modal-list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.modal-list::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+.ivu-modal-body figure {
+  position: relative;
+}
+
+.modal-button {
+  width: 100%;
+  height: 100%; }
+  .modal-button .button-left {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 10px 2px 8px; }
+    .modal-button .button-left span {
+      font-size: 20px;
+      cursor: pointer; }
+  .modal-button .button-right {
+    position: absolute;
+    top: 45%;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 10px 2px 8px; }
+  .modal-button span {
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff; }

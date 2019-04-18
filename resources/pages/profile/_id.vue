@@ -108,62 +108,22 @@
             <div class="container">
                 <div class="section-content">
                     <div class="review-content">
-                        <!-- <h1 v-if="!isEdit" ><strong>{{legendData.name}}</strong> <small><i class="fas fa-check-circle"></i> Claimed</small>&nbsp;&nbsp;&nbsp; <strong v-if="isLoggedIn && user_id == userData.id" > <a v-if="!isEdit" @click="editOn" >Edit</a></strong></h1>
-                        <div class="header-input big-input" v-else >
-                                <input v-model="formData.name" type="text"> <h1 v-if="isEdit" @click="legendUpdate"><a >Save</a></h1>
-                            </div>
-                        <div class="coach-review star-review">
-                            <p>
-                                <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                <span class=""><i class="fas fa-star"></i></span>
-                                &nbsp;746 reviews
-                            <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span>
-                            </p>
-                        </div> -->
-
                         <div class="review-map-section">
                             <div class="row">
-
-                                <!-- <div class="col-md-4 col-sm-4">
-                                    <div class="review-map">
-                                        <div id="googleMap">
-                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.1319108944804!2d91.86157565011207!3d24.893481749986655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3750552cd77aff43%3A0x77aa5c2368933e2d!2sNirvana+Inn!5e0!3m2!1sbn!2sbd!4v1468246452415"></iframe>  
-                                        </div>
-                                        <div class="map-details">
-                                           <p v-if="!isEdit"><i class="fas fa-map-marker-alt"></i><span>&nbsp;&nbsp;&nbsp;<strong>{{legendData.address}}</strong></span></p>
-                                            <input type="text"  v-model="formData.address"  v-else class="adress-input">
-                                           <p><i class="fas fa-directions"></i>&nbsp;&nbsp;<a href="">Get Directions</a></p>
-                                           <p v-if="!isEdit"><i class="fas fa-phone"></i>&nbsp;&nbsp;{{legendData.phone}}</p>
-                                           <input type="text" v-model="formData.phone"  v-else class="adress-input">
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="col-md-12">
                                     <div class="review-gallary">
-                                        <!-- <div class="review-option">
-                                            <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
-                                            
-                                            <ul>
-                                                <li @click="openImageModal" v-if=" isLoggedIn && user_id === userData.id"  ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
-                                                 <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li>
-                                                <li><a href=""><i class="fas fa-bookmark"></i>&nbsp;Save</a></li> 
-                                            </ul>
-                                        </div> -->
                                         <div class="figure">
                                             <ul>
-                                                <li><img :src="(uploadList[1])? uploadList[1].url  : '/uploads/default.png' " alt=""></li>
-                                                <li><img :src="(uploadList[0])? uploadList[0].url  : '/uploads/default.png' " alt=""></li>
-                                                <li><img :src="(uploadList[2])? uploadList[2].url  : '/uploads/default.png' " alt=""></li>
-                                                <li><img :src="(uploadList[2])? uploadList[2].url  : '/uploads/default.png' " alt=""></li>
+                                                <li @click="galleryModalOn(img_index+0)" ><img  :src="(uploadList[img_index])? uploadList[img_index].url  : '/uploads/default.png' " ></li>
+                                                <li @click="galleryModalOn(img_index+1)" ><img :src="(uploadList[img_index+1])? uploadList[img_index+1].url  : '/uploads/default.png' " ></li>
+                                                <li @click="galleryModalOn(img_index+2)" ><img :src="(uploadList[img_index+3])? uploadList[img_index+2].url  : '/uploads/default.png' " ></li>
+                                                <li @click="galleryModalOn(img_index+3)" ><img :src="(uploadList[img_index+3])? uploadList[img_index+3].url  : '/uploads/default.png' " ></li>
                                             </ul>
                                             <div class="gallary-button">
-                                                <div class="button-left">
+                                                <div class="button-left" @click="prevImage" >
                                                     <span><i class="fas fa-chevron-left"></i></span>
                                                 </div>
-                                                <div class="button-right">
+                                                <div class="button-right" @click="nextImage" >
                                                     <span><i class="fas fa-chevron-right"></i></span>
                                                 </div>
                                             </div>
@@ -176,7 +136,7 @@
                         <div class="row">
                             <div class="col-md-8 col-sm-8">
                                 <div class="review-section-title">
-                                    <h1>
+                                    <h1 v-if="!isEdit" >
                                         <strong>{{legendData.name}} <span @click="storePulse(1)" ><i class="fas fa-thumbs-up"></i></span> <span @click="storePulse(2)"><i class="fas fa-thumbs-down"></i></span>
                                          <span v-if="healthPulse.GoodCount > healthPulse.BadCount"><i class="fas fa-heartbeat"></i></span>
                                           <span v-else-if="healthPulse.BadCount > healthPulse.GoodCount" ><i class="fas fa-heart-broken"></i></span> 
@@ -185,14 +145,17 @@
 
                                                 <!-- <small><i class="fas fa-check-circle"></i> Claimed</small> -->
                                     </h1>
+                                    <div class="header-input big-input" v-else >
+                                        <input v-model="formData.name" type="text">
+                                    </div>
                                     <div class="coach-review star-review">
                                         <p>
-                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                            <span class="rating-bg"><i class="fas fa-star"></i></span>
-                                            <span class=""><i class="fas fa-star"></i></span>
-                                            &nbsp;<small class="review-number">{{legendData.__meta__.totalReview_count}} reviews</small>
+                                            <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(averageRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(averageRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(averageRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(averageRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            &nbsp;<small class="review-number">{{totalReview}} reviews</small>
                                             <!-- <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span> -->
                                         </p>
                                     </div>
@@ -388,9 +351,33 @@
                                             </div>
                                             <div class="biz-hours-time">
                                                 <div class="short-def-list">
-                                                    <span>
+                                                    <span  v-if="!isEdit" >
                                                          <strong class="u-space-r-half">{{legendData.address}}</strong>
                                                     </span>
+                                                    <span v-else >
+                                                         <input type="text"  v-model="formData.address"  class="adress-input">
+                                                    </span>
+                                                   
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="review-time-content">
+                                    <ul>
+                                        <li>
+                                            <div class="biz-hours-icon">
+                                                <span><i class="fas fa-phone"></i></span>
+                                            </div>
+                                            <div class="biz-hours-time">
+                                                <div class="short-def-list">
+                                                    <span  v-if="!isEdit" >
+                                                         <strong class="u-space-r-half">{{legendData.phone}}</strong>
+                                                    </span>
+                                                    <span v-else >
+                                                         <input type="text"  v-model="formData.phone"  class="adress-input">
+                                                    </span>
+                                                   
                                                 </div>
                                             </div>
                                         </li>
@@ -543,12 +530,11 @@
                 :max-size="2048"
                 :on-format-error="handleFormatError"
                 :on-exceeded-size="handleMaxSize"
-                :before-upload="handleBeforeUpload"
                 multiple
                 type="drag"
                 action="/app/upload-review-file"
                 style="display: inline-block;width:58px;">
-                <div style="width: 58px;height:58px;line-height: 58px;" v-if="uploadList.length<3" >
+                <div style="width: 58px;height:58px;line-height: 58px;" >
                     <Icon type="ios-camera" size="20"></Icon>
                 </div>
             </Upload>
@@ -586,6 +572,30 @@
                 <Button type="info" @click="answerQuestion">Answer</Button>
             </div>
         </Modal>
+        <Modal title="Image Gallery" v-model="galleryModal">
+           <div class="row">
+               <div class="col-md-8">
+                    <figure>
+                        <img :src=" uploadList[galleryIndex]" style="width: 100%">
+                        <div data-v-2c068581="" class="modal-button"><div data-v-2c068581="" class="button-left"><span data-v-2c068581=""><i data-v-2c068581="" class="fas fa-chevron-left"></i></span></div> <div data-v-2c068581="" class="button-right"><span data-v-2c068581=""><i data-v-2c068581="" class="fas fa-chevron-right"></i></span></div></div>
+                        <button class="del-button">
+                            <span><i class="fas fa-trash-alt"></i></span>
+                        </button>
+                    </figure>
+               </div>
+               <div class="col-md-4">
+                   <ul class="modal-list" v-for="(item,index) in uploadList" :key="index" >
+                       <li :class="(index==galleryIndex)? 'selected' : ''"><img :src="item"></li>
+                   </ul>
+                   <!-- <div class="col-md-6"><img :src="imgName" style="width: 100%"></div>
+                   <div class="col-md-6"><img :src="imgName" style="width: 100%"></div> -->
+
+               </div>
+           </div>
+           <div slot="footer">
+                <Button type="info"  @click="galleryModal=false">Close</Button>
+            </div>
+        </Modal>
 
     </div>
 </template>
@@ -600,11 +610,13 @@ export default {
                 address:'',
                 phone:''
             },
+            img_index:0,
             user_id:0,
             addImageModal:false,
             defaultList: [],
             imgName: '/uploads/default.png',
             askModal:false,
+            galleryModal:false,
             answerModal:false,
             askData:{
                 content:'',
@@ -692,6 +704,12 @@ export default {
                 
             ],
             atrrtributepoint:'',
+            reviews:[],
+            uploadList:[],
+            questionList:[],
+            hours:[],
+            totalReview:0,
+            galleryIndex:0,
 
                
             
@@ -699,6 +717,22 @@ export default {
         }
     },
     methods:{
+        galleryModalOn(index){
+            console.log(index)
+           this.galleryIndex = index
+            
+           // this.galleryModal = true
+        },
+        prevImage(){
+            if(this.img_index>0){
+                this.img_index--;
+            }
+        },
+        nextImage(){
+            if(this.img_index+4<this.uploadList.length){
+                this.img_index++;
+            }
+        },
         async  storePulse(flag){
            
             let pulseData = {
@@ -896,22 +930,15 @@ export default {
                 desc: 'File  ' + file.name + ' is too large, no more than 2M.'
             });
         },
-        handleBeforeUpload () {
-            const check = this.uploadList.length < 3;
-            if (!check) {
-                this.$Notice.warning({
-                    title: 'Up to 3 pictures can be uploaded.'
-                });
-            }
-            return check;
-        },
-        async getPaginateData(id){
-            const res = await this.callApi('get', `/app/atrributeConteptData/${id}`)
-            if(res.status===200){
-                this.atrrtributepoint = res.data
-                console.log(res.data)
-            }
-        }
+        // handleBeforeUpload () {
+        //     const check = this.uploadList.length < 3;
+        //     if (!check) {
+        //         this.$Notice.warning({
+        //             title: 'Up to 3 pictures can be uploaded.'
+        //         });
+        //     }
+        //     return check;
+        // },
          
     },
     filters:{
@@ -926,11 +953,6 @@ export default {
             return{
                 legendData : data.legend,
                 userData : data.user,
-                reviews : data.legend.reviews,
-                uploadList : data.legend.legendimages,
-                questionList : data.legend.questions,
-                reviewimos : data.reviewimos,
-                hours : data.legend.hours,
                 averageRating : data.averageRating,
                 healthPulse : data.healthPulse,
                 AttributeInfo : data.AttributeInfo,
@@ -941,9 +963,24 @@ export default {
 		}
     },
    
-    created(){
+   async created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
-        if(this.hours.length>0){
+        const [res1, res2] = await Promise.all([
+            this.callApi('get', `/app/atrributeConteptData/${this.$route.params.id}`),
+            this.callApi('get', `/app/getAdditionlegendInfo/${this.$route.params.id}`),
+        ])
+        if(res1.status===200 && res2.status===200){
+            this.atrrtributepoint = res1.data
+            this.reviews = res2.data.reviews
+            this.uploadList = res2.data.legendimages
+            this.questionList = res2.data.questions
+            // this.reviewimos = res2.reviewimos
+            this.hours = res2.data.hours
+            this.totalReview = res2.data.__meta__.totalReview_count
+        } else{
+            this.swr()
+        }
+         if(this.hours.length>0){
             for(let d of this.hours){
                 for(let sd of this.showBusinessHour){
                     if(d.day == sd.day){
@@ -954,9 +991,6 @@ export default {
                 }
             }
         }
-
-        this.getPaginateData(this.$route.params.id)
-        
        
     }
 }

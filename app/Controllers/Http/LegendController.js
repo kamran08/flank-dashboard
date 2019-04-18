@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 'use strict'
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -68,22 +69,11 @@ class LegendController {
   async show ({ params, request, response, view }) {
     const legendData = await Legend.query()
                                   .where('id', params.id)
-                                  .with('reviews')
-                                  .withCount('totalReview')
-                                   .with('reviews.reviwer')
-                                  .with('reviews.reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
-                                  .with('reviews.images')
-                                  .with('legendimages')
-                                  .with('questions')
-                                  .with('questions.user')
-                                  .with('questions.answers')
-                                  .with('questions.answers.user')
-                                  .with('hours')
-
                                   .first()
     const averageRating = await Database.raw('SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?', [params.id])
     const healthPulse = await Database.raw('select SUM(good) as GoodCount , SUM(bad) as BadCount FROM `pulses` WHERE `legend_id` = ?', [params.id])
     const AttributeInfo = await Attribute.all()
+
     if (legendData) {
       const userData = await User.query()
                                 .where('id', legendData.user_id)
@@ -91,7 +81,7 @@ class LegendController {
       return response.status(200).json({
         legend: legendData,
         user: userData,
-        averageRating: averageRating[0][0],
+        averageRating: averageRating[0][0].averageRating,
         healthPulse: healthPulse[0][0],
         AttributeInfo: AttributeInfo
         // atrrtributepoint: atrrtributepointData
@@ -158,6 +148,24 @@ class LegendController {
     }
     await LegendImage.query().where('legend_id', legend.id).delete()
     return await LegendImage.createMany(uploadList)
+  }
+
+  async getAdditionlegendInfo ({response, params}) {
+    const legendData = await Legend.query()
+                                  .where('id', params.id)
+                                  .with('reviews')
+                                  .withCount('totalReview')
+                                   .with('reviews.reviwer')
+                                  .with('reviews.reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+                                  .with('reviews.images')
+                                  .with('legendimages')
+                                  .with('questions')
+                                  .with('questions.user')
+                                  .with('questions.answers')
+                                  .with('questions.answers.user')
+                                  .with('hours')
+                                  .first()
+    return legendData
   }
 
   async paginatedata ({ params, request, response, view }) {

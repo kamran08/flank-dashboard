@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2019 at 07:32 PM
+-- Generation Time: Apr 18, 2019 at 06:03 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -130,7 +130,13 @@ CREATE TABLE `busniess_hours` (
 INSERT INTO `busniess_hours` (`id`, `legend_id`, `time`, `day`, `created_at`, `updated_at`) VALUES
 (3, 3, '10:00 AM-03:00 PM', 'Monday', '2019-04-10 19:48:23', '2019-04-10 19:48:23'),
 (4, 3, '02:00 AM-07:00 AM', 'Tuesday', '2019-04-10 19:48:23', '2019-04-10 19:48:23'),
-(5, 3, '11:00 AM-03:00 PM', 'Wednesday', '2019-04-10 19:48:23', '2019-04-10 19:48:23');
+(5, 3, '11:00 AM-03:00 PM', 'Wednesday', '2019-04-10 19:48:23', '2019-04-10 19:48:23'),
+(6, 2, '11:00 AM-08:00 PM', 'Monday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
+(7, 2, '11:00 AM-08:00 PM', 'Tuesday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
+(8, 2, '11:00 AM-08:00 PM', 'Wednesday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
+(9, 2, '11:00 AM-08:00 PM', 'Thursday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
+(10, 2, '11:00 AM-08:00 PM', 'Saturday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
+(11, 2, '11:00 AM-08:00 PM', 'Sunday', '2019-04-18 15:24:08', '2019-04-18 15:24:08');
 
 -- --------------------------------------------------------
 
@@ -155,7 +161,7 @@ CREATE TABLE `legends` (
 
 INSERT INTO `legends` (`id`, `user_id`, `name`, `address`, `phone`, `img`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Nazmul', '', '', '/image/school logo.png', '2019-04-04 21:23:13', '2019-04-04 21:23:13'),
-(2, 2, 'Sadek', '', '', '/image/school logo.png', NULL, NULL),
+(2, 2, 'Appify Lab', 'Lotif-Monjil,Pathantula,Sylhet,Bangladesh', '+8801681189844', '/image/school logo.png', NULL, '2019-04-18 15:24:08'),
 (3, 3, 'Ashraf', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', NULL, '2019-04-10 19:48:23'),
 (4, 4, 'Kamran Ahmed', 'Sylhet,Bangladesh', '', '/image/school logo.png', '2019-04-04 21:30:30', '2019-04-04 23:06:42');
 
@@ -178,9 +184,11 @@ CREATE TABLE `legend_images` (
 --
 
 INSERT INTO `legend_images` (`id`, `legend_id`, `url`, `created_at`, `updated_at`) VALUES
-(9, 1, '/uploads/1554673241080.jpeg', '2019-04-08 03:41:24', '2019-04-08 03:41:24'),
-(10, 1, '/uploads/1554673251270.jpeg', '2019-04-08 03:41:24', '2019-04-08 03:41:24'),
-(11, 1, '/uploads/1554673281154.jpeg', '2019-04-08 03:41:24', '2019-04-08 03:41:24');
+(24, 2, '/uploads/1555598313120.jpeg', '2019-04-18 20:38:59', '2019-04-18 20:38:59'),
+(25, 2, '/uploads/1555598317645.jpeg', '2019-04-18 20:38:59', '2019-04-18 20:38:59'),
+(26, 2, '/uploads/1555598323470.png', '2019-04-18 20:38:59', '2019-04-18 20:38:59'),
+(27, 2, '/uploads/1555598329705.png', '2019-04-18 20:38:59', '2019-04-18 20:38:59'),
+(28, 2, '/uploads/1555598338385.jpeg', '2019-04-18 20:38:59', '2019-04-18 20:38:59');
 
 -- --------------------------------------------------------
 
@@ -398,24 +406,6 @@ CREATE TABLE `review_images` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `review_images`
---
-
-INSERT INTO `review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at`) VALUES
-(1, 12, '/uploads/1554643498542.jpeg', '2019-04-07 19:25:19', '2019-04-07 19:25:19'),
-(2, 12, '/uploads/1554643503060.jpeg', '2019-04-07 19:25:19', '2019-04-07 19:25:19'),
-(3, 13, '/uploads/1554648324981.jpeg', '2019-04-07 20:45:33', '2019-04-07 20:45:33'),
-(4, 13, '/uploads/1554648327032.jpeg', '2019-04-07 20:45:33', '2019-04-07 20:45:33'),
-(5, 14, '/uploads/1554648555064.jpeg', '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
-(6, 14, '/uploads/1554648557317.jpeg', '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
-(7, 17, '/uploads/1554921353824.png', '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
-(8, 17, '/uploads/1554921357561.png', '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
-(9, 20, '/uploads/1555411266050.undefined', '2019-04-16 16:41:13', '2019-04-16 16:41:13'),
-(10, 21, '/uploads/1555411687904.undefined', '2019-04-16 16:48:10', '2019-04-16 16:48:10'),
-(11, 22, '/uploads/1555411687904.undefined', '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
-(12, 23, '/uploads/1555411889030.undefined', '2019-04-16 16:51:35', '2019-04-16 16:51:35');
-
 -- --------------------------------------------------------
 
 --
@@ -585,7 +575,7 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT for table `busniess_hours`
 --
 ALTER TABLE `busniess_hours`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `legends`
@@ -597,7 +587,7 @@ ALTER TABLE `legends`
 -- AUTO_INCREMENT for table `legend_images`
 --
 ALTER TABLE `legend_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `pulses`
@@ -633,7 +623,7 @@ ALTER TABLE `review_attributes`
 -- AUTO_INCREMENT for table `review_images`
 --
 ALTER TABLE `review_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tokens`

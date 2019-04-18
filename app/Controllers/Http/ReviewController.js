@@ -135,7 +135,8 @@ class ReviewController {
       types: ['png', 'jpg', 'jpeg'],
       size: '2mb'
     })
-    const name = `${new Date().getTime()}` + '.' + profilePic._subtype
+    
+    const name = `${new Date().getTime()}` + '.' + profilePic.subtype
     // UPLOAD THE IMAGE TO UPLOAD FOLDER
     await profilePic.move(Helpers.publicPath('uploads'), {
       name: name
