@@ -114,10 +114,10 @@
                                     <div class="review-gallary">
                                         <div class="figure">
                                             <ul>
-                                                <li @click="galleryModalOn(img_index+0)" ><img  :src="(uploadList[img_index])? uploadList[img_index].url  : '/uploads/default.png' " ></li>
-                                                <li @click="galleryModalOn(img_index+1)" ><img :src="(uploadList[img_index+1])? uploadList[img_index+1].url  : '/uploads/default.png' " ></li>
-                                                <li @click="galleryModalOn(img_index+2)" ><img :src="(uploadList[img_index+3])? uploadList[img_index+2].url  : '/uploads/default.png' " ></li>
-                                                <li @click="galleryModalOn(img_index+3)" ><img :src="(uploadList[img_index+3])? uploadList[img_index+3].url  : '/uploads/default.png' " ></li>
+                                                <li @click="galleryModalOn(img_index)"><img  :src="(uploadList[img_index])? uploadList[img_index].url  : '/uploads/default.png' " ></li>
+                                                <li @click="galleryModalOn((img_index+1))" ><img :src="(uploadList[img_index+1])? uploadList[img_index+1].url  : '/uploads/default.png' " ></li>
+                                                <li @click="galleryModalOn((img_index+2))" ><img :src="(uploadList[img_index+2])? uploadList[img_index+2].url  : '/uploads/default.png' " ></li>
+                                                <li @click="galleryModalOn((img_index+3))" ><img :src="(uploadList[img_index+3])? uploadList[img_index+3].url  : '/uploads/default.png' " ></li>
                                             </ul>
                                             <div class="gallary-button">
                                                 <div class="button-left" @click="prevImage" >
@@ -576,16 +576,23 @@
            <div class="row">
                <div class="col-md-8">
                     <figure>
-                        <img :src=" uploadList[galleryIndex]" style="width: 100%">
-                        <div data-v-2c068581="" class="modal-button"><div data-v-2c068581="" class="button-left"><span data-v-2c068581=""><i data-v-2c068581="" class="fas fa-chevron-left"></i></span></div> <div data-v-2c068581="" class="button-right"><span data-v-2c068581=""><i data-v-2c068581="" class="fas fa-chevron-right"></i></span></div></div>
-                        <button class="del-button">
+                        <img v-if="uploadList[galleryIndex]" :src="uploadList[galleryIndex].url" style="width: 100%">
+                        <div data-v-2c068581="" class="modal-button">
+                            <div data-v-2c068581="" class="button-left">
+                                <span data-v-2c068581="" @click="prevModalImage" ><i data-v-2c068581="" class="fas fa-chevron-left"></i></span>
+                            </div> 
+                            <div data-v-2c068581="" class="button-right" @click="nextModalImage" >
+                                <span data-v-2c068581=""><i data-v-2c068581="" class="fas fa-chevron-right"></i></span>
+                            </div>
+                        </div>
+                        <button class="del-button" @click="deleteImage" v-if=" user_id !== userData.id" >
                             <span><i class="fas fa-trash-alt"></i></span>
                         </button>
                     </figure>
                </div>
                <div class="col-md-4">
-                   <ul class="modal-list" v-for="(item,index) in uploadList" :key="index" >
-                       <li :class="(index==galleryIndex)? 'selected' : ''"><img :src="item"></li>
+                   <ul class="modal-list" >
+                       <li  v-for="(item,index) in uploadList" :key="index" :class="(index==galleryIndex)? 'selected' : ''"><img :src="item.url" @click="galleryIndex=index" ></li>
                    </ul>
                    <!-- <div class="col-md-6"><img :src="imgName" style="width: 100%"></div>
                    <div class="col-md-6"><img :src="imgName" style="width: 100%"></div> -->
@@ -718,10 +725,32 @@ export default {
     },
     methods:{
         galleryModalOn(index){
-            console.log(index)
-           this.galleryIndex = index
-            
-           // this.galleryModal = true
+            if(this.uploadList[index]){
+                 this.galleryIndex = index
+                this.galleryModal = true
+            }
+        },
+        async deleteImage(){
+            if(!confirm("Are you sure to delete this Image")){
+                return;
+            }
+
+            let ob = {
+                id: this.uploadList[this.galleryIndex].id
+            }
+            const res = await this.callApi('delete','/app/deleteImage',ob)
+            if(res.status==200){
+                this.uploadList.splice(this.galleryIndex,1)
+                this.i("image has been deleted!")
+            }
+            else if (res.status==401){
+                this.e(res.data.message)
+            }
+            else{
+                this.swr()
+            }
+
+
         },
         prevImage(){
             if(this.img_index>0){
@@ -731,6 +760,16 @@ export default {
         nextImage(){
             if(this.img_index+4<this.uploadList.length){
                 this.img_index++;
+            }
+        },
+        prevModalImage(){
+            if(this.galleryIndex>0){
+                this.galleryIndex--;
+            }
+        },
+        nextModalImage(){
+            if(this.galleryIndex+1<this.uploadList.length){
+                this.galleryIndex++;
             }
         },
         async  storePulse(flag){
@@ -743,7 +782,6 @@ export default {
             else pulseData.bad = 1
             const res = await this.callApi('post','pulses',pulseData)
             if(res.status == 200){
-                 console.log("value is " + flag)
                 if(flag==1) {
                     this.healthPulse.GoodCount +=1
                     this.s('you up-voted this user! ')
@@ -752,6 +790,9 @@ export default {
                      this.healthPulse.BadCount +=1
                      this.i('you down-voted this user!')
                 }
+            }
+            else if(res.status==401){
+                this.i(res.data.message)
             }
             else{
                 this.swr();

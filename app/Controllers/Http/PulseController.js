@@ -43,6 +43,12 @@ class PulseController {
    */
   async store ({ request, response, auth }) {
     const user_id = await auth.user.id
+    const pulseData = await  Pulse.query().where('user_id', user_id).first()
+    if(pulseData){
+      return response.status(401).json({
+        'message': 'You already give your vote!.'
+      })
+    }
     let data = request.all()
     data.user_id = user_id
     return await Pulse.create(data)

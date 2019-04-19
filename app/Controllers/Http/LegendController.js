@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable quotes */
 'use strict'
 
@@ -10,12 +11,6 @@ const User = use('App/Models/User')
 const LegendImage = use('App/Models/LegendImage')
 const Attribute = use('App/Models/Attribute')
 const BusniessHour = use('App/Models/BusniessHour')
-const CircularJSON = require('circular-json')
-// import * as util from 'util' // has no default export
-// import { inspect } from 'util' // or directly
-// or
-
-const util = require('util')
 /**
  * Resourceful controller for interacting with legends
  */
@@ -166,6 +161,18 @@ class LegendController {
                                   .with('hours')
                                   .first()
     return legendData
+  }
+  async deleteImage ({ request, response, auth }) {
+    const data = request.all()
+    const user_id = await auth.user.id
+    const legend_id = await Legend.query().where('user_id', user_id).first()
+    const imageData = await LegendImage.query().where('id', data.id).first()
+    if (legend_id.id != imageData.legend_id) {
+      return response.status(401).json({
+        'message': 'Your are not authorized!.'
+      })
+    }
+    return await LegendImage.query().where('id', data.id).delete()
   }
 
   async paginatedata ({ params, request, response, view }) {
