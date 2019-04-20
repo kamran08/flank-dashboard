@@ -333,11 +333,21 @@
                                             </div>
                                             <div class="biz-hours-time">
                                                 <div class="short-def-list">
-                                                    <span class="attribute-key">Today</span>
-                                                    <span>
-                                                        <strong class="u-space-r-half"><span class="nowrap">5:00 pm</span> - <span class="nowrap">10:00 pm</span></strong>
-                                                            <p class="nowrap closed">Closed now</p>
-                                                    </span>
+                                                    <template v-if="todayHour.today==1" >
+                                                        <span class="attribute-key">Today</span>
+                                                        <span>
+                                                            <strong class="u-space-r-half"><span class="nowrap">{{todayHour.day.time}}</span></strong>
+                                                            <p class="nowrap closed" v-if="!todayHour.open" >Closed now</p>
+                                                        </span>
+                                                    </template>
+                                                    <template v-else >
+                                                        <span class="attribute-key">Today</span>
+                                                        <span>
+                                                            <p class="nowrap closed">Closed</p>
+                                                        </span>
+                                                    </template>
+                                                    
+                                                    
                                                 </div>
                                             </div>
                                         </li>
@@ -388,82 +398,121 @@
                                         <h3>Business Hours</h3>
                                         <table class="table-simple-biz-hour">
                                             <tr>
-                                                <th>Mon</th>
-                                                <td class="table-input table_extra_p" v-if="isEdit" >
-                                                     <TimePicker v-model="businessHour[0].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
-                                                     <Checkbox v-model="businessHour[0].active">Active</Checkbox>
+                                                <template  v-if="isEdit" >
+                                                    <th  >Mon</th>
+                                                    <td class="table-input table_extra_p">
+                                                        <TimePicker v-model="businessHour[0].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                        <Checkbox v-model="businessHour[0].active">Active</Checkbox>
+                                                    </td>
+                                                </template>
+                                                <template  v-else-if=" !isEdit && showBusinessHour[0].active">
+                                                    <th  >Mon</th>
+                                                    <td class="table-data"  >
+                                                    <span  class="nowrap">{{showBusinessHour[0].time}}</span>
+                                                    
                                                 </td>
-                                                <td class="table-data" v-else  >
-                                                    <span v-if="showBusinessHour[0].active" class="nowrap">{{showBusinessHour[0].time}}</span>
-                                                    <span v-else class="nowrap">Closed</span>
-                                                </td>
+                                                </template>
+                                                
+                                                
                                                 
                                             </tr>
                                             <tr>
-                                                <th>Tue</th>
-                                                <td class="table-input" v-if="isEdit" >
-                                                     <TimePicker v-model="businessHour[1].time"  format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
-                                                     <Checkbox v-model="businessHour[1].active">Active</Checkbox>
-                                                </td>
-                                                <td class="table-data" v-else >
-                                                     <span v-if="showBusinessHour[1].active" class="nowrap">{{showBusinessHour[1].time}}</span>
-                                                    <span v-else class="nowrap">Closed</span>
-                                                </td>
+                                                <template v-if="isEdit" >
+                                                    <th>Tue</th>
+                                                    <td class="table-input"  >
+                                                        <TimePicker v-model="businessHour[1].time"  format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                        <Checkbox v-model="businessHour[1].active">Active</Checkbox>
+                                                    </td>
+                                                </template>
+                                                <template v-else-if=" !isEdit && showBusinessHour[1].active" >
+                                                    <th>Tue</th>
+                                                    <td class="table-data"  >
+                                                        <span  class="nowrap">{{showBusinessHour[1].time}}</span>
+                                                        
+                                                    </td>
+                                                </template>
+                                                
+                                                
                                             </tr>
                                             <tr>
-                                                <th>Wed</th>
-                                                <td class="table-input" v-if="isEdit" >
-                                                     <TimePicker v-model="businessHour[2].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
-                                                     <Checkbox v-model="businessHour[2].active">Active</Checkbox>
-                                                </td>
-                                                <td class="table-data" v-else >
-                                                     <span v-if="showBusinessHour[2].active" class="nowrap">{{showBusinessHour[2].time}}</span>
-                                                    <span v-else class="nowrap">Closed</span>
-                                                </td>
+                                                <template v-if="isEdit" >
+                                                    <th>Wed</th>
+                                                    <td class="table-input" >
+                                                        <TimePicker v-model="businessHour[2].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                        <Checkbox v-model="businessHour[2].active">Active</Checkbox>
+                                                    </td>
+                                                </template>
+                                                <template v-else-if=" !isEdit && showBusinessHour[2].active">
+                                                    <th>Wed</th>
+                                                    <td class="table-data"   >
+                                                        <span class="nowrap">{{showBusinessHour[2].time}}</span>
+                                                        
+                                                    </td>
+                                                </template>
                                             </tr>
                                             <tr>
-                                                <th>Thu</th>
-                                                <td class="table-input" v-if="isEdit" >
-                                                     <TimePicker v-model="businessHour[3].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
-                                                     <Checkbox v-model="businessHour[3].active">Active</Checkbox>
-                                                </td>
-                                                <td class="table-data" v-else >
-                                                     <span v-if="showBusinessHour[3].active" class="nowrap">{{showBusinessHour[3].time}}</span>
-                                                    <span v-else class="nowrap">Closed</span>
-                                                </td>
+                                                <template v-if="isEdit">
+                                                    <th>Thu</th>
+                                                    <td class="table-input"  >
+                                                        <TimePicker v-model="businessHour[3].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                        <Checkbox v-model="businessHour[3].active">Active</Checkbox>
+                                                    </td>
+                                                </template>
+                                                <template v-else-if=" !isEdit && showBusinessHour[3].active">
+                                                    <th>Thu</th>
+                                                    <td class="table-data"   >
+                                                        <span  class="nowrap">{{showBusinessHour[3].time}}</span>
+                                                        
+                                                    </td>
+                                                </template>
                                             </tr>
                                             <tr>
-                                                <th>Fri</th>
-                                                <td class="table-input" v-if="isEdit" >
-                                                    <TimePicker v-model="businessHour[4].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
-                                                     <Checkbox v-model="businessHour[4].active">Active</Checkbox>
-                                                </td>
-                                                <td class="table-data" v-else >
-                                                     <span v-if="showBusinessHour[4].active" class="nowrap">{{showBusinessHour[4].time}}</span>
-                                                    <span v-else class="nowrap">Closed</span>
-                                                </td>
+                                                <template v-if="isEdit">
+                                                    <th>Fri</th>
+                                                    <td class="table-input"  >
+                                                        <TimePicker v-model="businessHour[4].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                        <Checkbox v-model="businessHour[4].active">Active</Checkbox>
+                                                    </td>
+                                                </template>
+                                                <template v-else-if=" !isEdit && showBusinessHour[4].active">
+                                                    <th>Fri</th>
+                                                    <td class="table-data"   >
+                                                        <span  class="nowrap">{{showBusinessHour[4].time}}</span>
+                                                        
+                                                    </td>
+                                                </template>
                                             </tr>
                                             <tr>
-                                                <th>Sat</th>
-                                                <td class="table-input" v-if="isEdit" >
-                                                     <TimePicker v-model="businessHour[5].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
-                                                     <Checkbox v-model="businessHour[5].active">Active</Checkbox>
+                                                <template v-if="isEdit">
+                                                    <th>Sat</th>
+                                                    <td class="table-input"  >
+                                                        <TimePicker v-model="businessHour[5].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                        <Checkbox v-model="businessHour[5].active">Active</Checkbox>
+                                                    </td>
+                                                </template>
+                                                <template  v-else-if=" !isEdit && showBusinessHour[5].active">
+                                                    <th>Sat</th>
+                                                    <td class="table-data"  >
+                                                     <span  class="nowrap">{{showBusinessHour[5].time}}</span>
+                                                    
                                                 </td>
-                                                <td class="table-data" v-else >
-                                                     <span v-if="showBusinessHour[5].active" class="nowrap">{{showBusinessHour[5].time}}</span>
-                                                    <span v-else class="nowrap">Closed</span>
-                                                </td>
+                                                </template>
                                             </tr>
                                             <tr>
-                                                <th>Sun</th>
-                                                <td class="table-input" v-if="isEdit" >
-                                                     <TimePicker v-model="businessHour[6].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
-                                                     <Checkbox v-model="businessHour[6].active">Active</Checkbox>
-                                                </td>
-                                                <td class="table-data" v-else >
-                                                     <span v-if="showBusinessHour[6].active" class="nowrap">{{showBusinessHour[6].time}}</span>
-                                                    <span v-else class="nowrap">Closed</span>
-                                                </td>
+                                                <template  v-if="isEdit" >
+                                                    <th>Sun</th>
+                                                    <td class="table-input" >
+                                                        <TimePicker v-model="businessHour[6].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                                                        <Checkbox v-model="businessHour[6].active">Active</Checkbox>
+                                                    </td>
+                                                </template>
+                                                <template  v-else-if=" !isEdit && showBusinessHour[6].active" >
+                                                    <th>Sun</th>
+                                                     <td class="table-data"  >
+                                                        <span class="nowrap">{{showBusinessHour[6].time}}</span>
+                                                        
+                                                    </td>
+                                                </template>
                                             </tr>
                                         </table>
                                     </div>
@@ -717,6 +766,8 @@ export default {
             hours:[],
             totalReview:0,
             galleryIndex:0,
+            todayHour:{},
+            rpagination:{},
 
                
             
@@ -1006,15 +1057,20 @@ export default {
    
    async created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
-        const [res1, res2] = await Promise.all([
+        const [res1, res2, res3, res4] = await Promise.all([
             this.callApi('get', `/app/atrributeConteptData/${this.$route.params.id}`),
             this.callApi('get', `/app/getAdditionlegendInfo/${this.$route.params.id}`),
+            this.callApi('get', `/app/getTodayBussinessHour/${this.$route.params.id}`),
+            this.callApi('get', `reviews/${this.$route.params.id}`),
         ])
-        if(res1.status===200 && res2.status===200){
+        if(res1.status===200 && res2.status===200 && res3.status === 200 && res4.status === 200){
             this.atrrtributepoint = res1.data
-            this.reviews = res2.data.reviews
+            this.reviews = res4.data.data
+            this.rpagination = res4.data.data
+            delete this.rpagination.data
             this.uploadList = res2.data.legendimages
             this.questionList = res2.data.questions
+            this.todayHour = res3.data
             // this.reviewimos = res2.reviewimos
             this.hours = res2.data.hours
             this.totalReview = res2.data.__meta__.totalReview_count

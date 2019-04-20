@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
 /* eslint-disable quotes */
 'use strict'
@@ -146,21 +147,41 @@ class LegendController {
   }
 
   async getAdditionlegendInfo ({response, params}) {
-    const legendData = await Legend.query()
+    let legendData = await Legend.query()
                                   .where('id', params.id)
-                                  .with('reviews')
                                   .withCount('totalReview')
-                                   .with('reviews.reviwer')
-                                  .with('reviews.reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
-                                  .with('reviews.images')
                                   .with('legendimages')
                                   .with('questions')
                                   .with('questions.user')
                                   .with('questions.answers')
                                   .with('questions.answers.user')
-                                  .with('hours')
+                                   .with('hours')
                                   .first()
+
     return legendData
+  }
+  async getTodayBussinessHour ({response, params}) {
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    var dd = new Date(Date.now())
+    const today = days[dd.getDay()]
+    let today_hour = dd.getHours()
+    let bhours = await BusniessHour.query().where('legend_id', params.id).fetch()
+
+    bhours = JSON.parse(JSON.stringify(bhours))
+    let data = {}
+    data.today = 0
+    for (let d of bhours) {
+      if (d.day == today) {
+        data.today = 1
+        data.day = d
+        let time = d.time.split('-')
+        time[0] = (time[0].charAt(6) == 'P') ? (parseInt(time[0].substr(0, 2)) + 12) : parseInt(time[0].substr(0, 2))
+        time[1] = (time[1].charAt(6) == 'P') ? (parseInt(time[1].substr(0, 2)) + 12) : parseInt(time[1].substr(0, 2))
+        if (today_hour > time[0] && today_hour < time[1]) data.open = true
+        else data.open = false
+      }
+    }
+    return data
   }
   async deleteImage ({ request, response, auth }) {
     const data = request.all()

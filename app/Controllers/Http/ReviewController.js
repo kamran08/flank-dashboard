@@ -94,6 +94,15 @@ class ReviewController {
    */
   async show ({ params, request, response, view }) {
 
+    // return request.all()
+
+    return  await  Review.query()
+                        .where('reviewFor', params.id)
+                        .with('reviwer')
+                        .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+                        .with('images')
+                        .paginate(1, 5)
+
   }
 
   /**

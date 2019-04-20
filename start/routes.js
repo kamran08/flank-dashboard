@@ -33,11 +33,14 @@ Route.resource('pulses', 'PulseController')
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
 Route.delete('/app/deleteImage', 'LegendController.deleteImage')
 Route.get('/app/getAdditionlegendInfo/:id', 'LegendController.getAdditionlegendInfo')
+Route.get('/app/getTodayBussinessHour/:id', 'LegendController.getTodayBussinessHour')
+
 // Review Controller
 Route.get('/app/atrributeConteptData/:id', 'ReviewController.atrributeConteptData')
 Route.post('/stoteReviewImo', 'ReviewController.stoteReviewImo')
 Route.post('/app/upload-review-file', 'ReviewController.uploadReviewFile')
 Route.get('/test', 'ReviewController.test')
+Route.get('/app/getAllReview/:id', 'ReviewController.getAllReview')
 Route.resource('reviews', 'ReviewController')
 // Search controller
 Route.get('/app/SearchData', 'SearchController.SearchData')
