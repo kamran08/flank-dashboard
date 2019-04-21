@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 'use strict'
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -7,6 +8,7 @@ const Review = use('App/Models/Review')
 const Reviewimo = use('App/Models/Reviewimo')
 const ReviewImage = use('App/Models/ReviewImage')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
+
 const Helpers = use('Helpers')
 const Database = use('Database')
 /**
@@ -93,16 +95,30 @@ class ReviewController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-
-    // return request.all()
-
-    return  await  Review.query()
+    let page = request.input('page') ? request.input('page') : 1
+    let imodata = ['Useful', 'Funny', 'Cool']
+    let data = await Review.query()
                         .where('reviewFor', params.id)
                         .with('reviwer')
                         .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+                        .with('imos')
                         .with('images')
-                        .paginate(1, 5)
-
+                        .paginate(page, 5)
+   data = data.toJSON()
+   let tempData = JSON.parse(JSON.stringify(data))
+    for (let r of tempData.data) {
+      for (let i of imodata) {
+        if (r.imos.findIndex(x => x.imo == i) == -1) {
+          let ob = {
+            'imo': i,
+            'total': 0
+          }
+          r.imos.push(ob)
+        }
+      }
+    }
+    
+    return tempData
   }
 
   /**
@@ -144,7 +160,7 @@ class ReviewController {
       types: ['png', 'jpg', 'jpeg'],
       size: '2mb'
     })
-    
+
     const name = `${new Date().getTime()}` + '.' + profilePic.subtype
     // UPLOAD THE IMAGE TO UPLOAD FOLDER
     await profilePic.move(Helpers.publicPath('uploads'), {
@@ -165,7 +181,7 @@ class ReviewController {
     data.user_id = await auth.user.id
     return await Reviewimo.create(data)
   }
-  async atrributeConteptData ({ params }){
+  async atrributeConteptData ({ params }) {
     return await Database
     .table('review_attributes')
     .select('attributes.content', 'attributes.points')

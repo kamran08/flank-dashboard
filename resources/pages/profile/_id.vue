@@ -275,7 +275,7 @@
                                                             <p><strong><a href="">{{item.reviwer.firstName}}</a></strong></p>
                                                             <small><strong>{{item.reviwer.address}}</strong></small>
                                                             <p>
-                                                                <span><i class="fas fa-star"></i>&nbsp;856</span>
+                                                                <span><i class="fas fa-star"></i>&nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}</span>
                                                                 <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span>
                                                                 <span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span> -->
                                                                 </p>
@@ -304,9 +304,9 @@
                                                         </div>
                                                         <p id="resultReview"><strong>Was the review...?</strong></p>
                                                         <ul>
-                                                            <li @click="reviewImo('Useful',index)"><i class="fas fa-grin-beam"></i>&nbsp;Useful</li>
-                                                            <li @click="reviewImo('Funny',index)" ><i class="fas fa-grin-beam"></i>&nbsp;Funny</li>
-                                                            <li @click="reviewImo('Cool',index)" ><i class="fas fa-grin-beam"></i>&nbsp;Cool</li>
+                                                            <template v-if="item.imos.length>0" >
+                                                                 <li v-for="(imoItem,imoIndex) in item.imos" :key="imoIndex"  @click="reviewImo(imoItem.imo,index,imoItem)" :class="(imoItem.action)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;{{imoItem.imo}}&nbsp;&nbsp;{{imoItem.total}}</li>
+                                                            </template>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -316,8 +316,8 @@
                                         <h4 v-if="reviews.length<1" class="noReview" >No Review for {{legendData.name}}</h4>
                                         <div class="pageCount">
                                             <ul>
-                                                <li><a href=""><i class="fas fa-chevron-left"></i>&nbsp;Prev</a></li>
-                                                <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
+                                                <li @click="pageniateReview(-1)" ><a><i class="fas fa-chevron-left"></i>&nbsp;Prev</a></li>
+                                                <li @click="pageniateReview(1)" ><a >Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
                                             </ul>
                                         </div>
                                         <hr>
@@ -775,6 +775,24 @@ export default {
         }
     },
     methods:{
+        async pageniateReview(index){
+             console.log(this.rpagination)
+            if(this.rpagination.page+index <=0 || this.rpagination.page+index > this.rpagination.lastPage){
+                this.i("No more pages left!")
+                return
+            }
+            this.rpagination.page = this.rpagination.page+index
+           
+            const res = await this.callApi('get', `reviews/${this.$route.params.id}?page=${this.rpagination.page}`)
+            if(res.status===200){
+                this.reviews = res.data.data
+                this.rpagination = res.data
+                delete this.rpagination.data
+            }
+            else{
+                this.swr()
+            }
+        },
         galleryModalOn(index){
             if(this.uploadList[index]){
                  this.galleryIndex = index
@@ -882,12 +900,14 @@ export default {
             }
 
         },
-        async reviewImo(imo,index){
+        async reviewImo(imo,index,imoItem){
             if(this.isLoggedIn == false){
                 this.i('Please login first !')
                 this.$router.push('/login');
                 return
             }
+            // console.log(this.reviews[index])
+            // return
             let imoData = {
                 review_id:this.reviews[index].id,
                 imo:imo
@@ -895,6 +915,8 @@ export default {
             const res = await this.callApi('post','/stoteReviewImo',imoData)
             if(res.status===200){
                 this.s("you marked this review as "+imo+ "!")
+                imoItem.total++
+                imoItem.action = true
                 
             }
             else{
@@ -1031,6 +1053,10 @@ export default {
         //     }
         //     return check;
         // },
+        getImoName(name,index){
+           return 
+           
+        }
          
     },
     filters:{
@@ -1066,7 +1092,7 @@ export default {
         if(res1.status===200 && res2.status===200 && res3.status === 200 && res4.status === 200){
             this.atrrtributepoint = res1.data
             this.reviews = res4.data.data
-            this.rpagination = res4.data.data
+            this.rpagination = res4.data
             delete this.rpagination.data
             this.uploadList = res2.data.legendimages
             this.questionList = res2.data.questions
@@ -1088,6 +1114,8 @@ export default {
                 }
             }
         }
+
+          
        
     }
 }
@@ -1097,6 +1125,9 @@ export default {
 .profile_picU{
     width: 40px;
     
+}
+.imo_back{
+    background: #62b4dc;
 }
 .demo-upload-list{
         display: inline-block;
