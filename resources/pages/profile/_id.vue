@@ -233,13 +233,13 @@
                                     <h4 v-else class="noReview" >No question yet!</h4>
                                     <hr>
 
-                                    <div class="pageCount">
+                                    <!-- <div class="pageCount">
                                         <ul>
                                             <li><a href=""><i class="fas fa-chevron-left"></i>&nbsp;Prev</a></li>
                                             <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
                                         </ul>
                                     </div>
-                                    <hr>
+                                    <hr> -->
                                 </div>
                                 <div class="reviewItem">
                                     <h2>Recommended Reviews <span>for {{legendData.name}}</span></h2>
@@ -262,7 +262,7 @@
                                             <hr>
                                         </div>
                                         
-                                        <div class="star-review">
+                                        <div class="star-review" v-if=" user_id !== userData.id" >
                                             <p>
                                                 <span :class="(reviewStar>0)? 'high rating-bg' : ''" @click="reviewPageWith(1)" ><i class="fas fa-star"></i></span>
                                                 <span :class="(reviewStar>1)? 'high rating-bg' : ''" @click="reviewPageWith(2)" ><i class="fas fa-star"></i></span>
@@ -1106,6 +1106,9 @@ export default {
     },
     filters:{
         totalPercent(item){
+            if(item.totalPoints<=0){
+                return '0%'
+            }
             return parseInt((item.totalPoints*100)/(item.points*item.totalvotes))+"%"
         }
     },

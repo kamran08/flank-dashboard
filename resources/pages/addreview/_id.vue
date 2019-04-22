@@ -231,6 +231,7 @@ export default {
         console.log(this.$route.query.star)
         if(this.$route.query.star){
              this.rating = parseInt(this.$route.query.star)
+             this.reviewData.rating = parseInt(this.$route.query.star)
         }
         this.reviewData.reviewFor = this.legendData.id
         const [res1] = await Promise.all([
