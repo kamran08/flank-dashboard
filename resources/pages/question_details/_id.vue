@@ -210,7 +210,40 @@
 
 <script>
 export default {
+    data(){
+        return{
 
+        }
+    },
+    async asyncData({app, store,redirect, params}){
+        try {
+            let {data} = await app.$axios.get(`/answers/${params.id}`)
+          
+            return{
+                questionData : data
+            }
+		}catch (error) {
+            console.log(error)
+            return redirect('/')
+		}
+    },
+    methods:{
+
+    },
+    async created(){
+        this.legend_id = this.questionData.legend_id
+         const [res1] = await Promise.all([
+            this.callApi('get', `legends/${this.legend_id}`),
+        ])
+        if(res1.status===200){ 
+                this.legendData = res1.data.legend
+                this.userData = res1.data.user
+                this.averageRating = res1.data.averageRating
+                this.healthPulse = res1.data.healthPulse
+        } else{
+            this.swr()
+        }
+    }
 }
 </script>
 

@@ -4,6 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Answer = use('App/Models/Answer')
+const Question = use('App/Models/Question')
 /**
  * Resourceful controller for interacting with answers
  */
@@ -57,6 +58,13 @@ class AnswerController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await Question.query()
+                          .where('legend_id',params.id) 
+                          .with('user')
+                          .with('allAnswers')
+                          .with('allAnswers.user')
+                          .orderBy('id','desc')
+                          .first()
   }
 
   /**

@@ -65,6 +65,8 @@ class LegendController {
   async show ({ params, request, response, view }) {
     const legendData = await Legend.query()
                                   .where('id', params.id)
+                                  .withCount('totalReview')
+                                  .with('firstImage')
                                   .first()
     const averageRating = await Database.raw('SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?', [params.id])
     const healthPulse = await Database.raw('select SUM(good) as GoodCount , SUM(bad) as BadCount FROM `pulses` WHERE `legend_id` = ?', [params.id])
@@ -79,7 +81,8 @@ class LegendController {
         user: userData,
         averageRating: averageRating[0][0].averageRating,
         healthPulse: healthPulse[0][0],
-        AttributeInfo: AttributeInfo
+        AttributeInfo: AttributeInfo,
+        
         // atrrtributepoint: atrrtributepointData
       })
     } else {
@@ -149,7 +152,6 @@ class LegendController {
   async getAdditionlegendInfo ({response, params}) {
     let legendData = await Legend.query()
                                   .where('id', params.id)
-                                  .withCount('totalReview')
                                   .with('legendimages')
                                   //.with('questions')
                                   .with('questions', (builder) => builder.limit(2))

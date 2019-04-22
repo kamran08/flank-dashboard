@@ -21,7 +21,7 @@ class QuestionController {
   }
 
   /**
-   * Render a form to be used for creating a new question.
+   * Render a form to be used for creating a new question. 
    * GET questions/create
    *
    * @param {object} ctx
@@ -57,6 +57,13 @@ class QuestionController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    return await Question.query()
+                          .where('legend_id',params.id) 
+                          .with('user')
+                          .with('answers')
+                          .with('answers.user')
+                          .orderBy('id','desc')
+                          .fetch()
   }
 
   /**

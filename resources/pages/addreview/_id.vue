@@ -207,7 +207,7 @@ export default {
         handleFormatError (file) {
             this.$Notice.warning({
                 title: 'The file format is incorrect',
-                desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+                desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.' 
             });
         },
         handleMaxSize (file) {

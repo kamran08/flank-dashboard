@@ -18,6 +18,9 @@ class Legend extends Model {
   legendimages () {
     return this.hasMany('App/Models/LegendImage', 'id', 'legend_id')
   }
+  firstImage () {
+    return this.hasOne('App/Models/LegendImage', 'id', 'legend_id')
+  }
   questions () {
     return this.hasMany('App/Models/Question', 'id', 'legend_id').orderBy('id', 'desc').limit(1)
   }
