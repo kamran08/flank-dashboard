@@ -92,62 +92,26 @@
                     
                     <div class="sidebar-inner">
                         <h2>Recent Review</h2>
-                        <div class="sidebar-review-individual">
+                        <template v-if="reviews.length>0" >
+                            <div class="sidebar-review-individual" v-for="(item,index) in reviews " :key="index" >
                                 <div class="media">
                                     <div class="media-left">
-                                        <img src="/image/30s.jpg" alt="">
+                                        <img class="profile_picU"  :src="item.reviwer.img" alt="">
                                     </div>
         
                                     <div class="media-body">
-                                        <p>Anthone C</p>
-                                        <p><span><i class="fas fa-male"></i>0</span><span><i class="fas fa-star"></i>3</span></p>
+                                        <p>{{item.reviwer.firstName}} {{item.reviwer.lastName}} </p>
+                                        <p>
+                                            <!-- <span><i class="fas fa-male"></i>0</span> -->
+                                            <span><i class="fas fa-star"></i>{{item.reviwer.__meta__.totalreviewbyuser}}</span>
+                                        </p>
                                     </div>
                                 </div>
                                 <p class="sidebar-rev"><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>3/5/2019</small></p>
-                                <p>The best tongue sandwich in NYC. If you just want a,snake, give a hot dog.</p>
+                                <p>{{item.content}}</p>
                             </div>
-                            <div class="sidebar-review-individual">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="/image/30s.jpg" alt="">
-                                    </div>
-        
-                                    <div class="media-body">
-                                        <p>Anthone C</p>
-                                        <p><span><i class="fas fa-male"></i>0</span><span><i class="fas fa-star"></i>3</span></p>
-                                    </div>
-                                </div>
-                                <p class="sidebar-rev"><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>3/5/2019</small></p>
-                                <p>The best tongue sandwich in NYC. If you just want a,snake, give a hot dog.</p>
-                            </div>
-                            <div class="sidebar-review-individual">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="/image/30s.jpg" alt="">
-                                    </div>
-        
-                                    <div class="media-body">
-                                        <p>Anthone C</p>
-                                        <p><span><i class="fas fa-male"></i>0</span><span><i class="fas fa-star"></i>3</span></p>
-                                    </div>
-                                </div>
-                                <p class="sidebar-rev"><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>3/5/2019</small></p>
-                                <p>The best tongue sandwich in NYC. If you just want a,snake, give a hot dog.</p>
-                            </div>
-                            <div class="sidebar-review-individual">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="/image/30s.jpg" alt="">
-                                    </div>
-        
-                                    <div class="media-body">
-                                        <p>Anthone C</p>
-                                        <p><span><i class="fas fa-male"></i>0</span><span><i class="fas fa-star"></i>3</span></p>
-                                    </div>
-                                </div>
-                                <p class="sidebar-rev"><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>3/5/2019</small></p>
-                                <p>The best tongue sandwich in NYC. If you just want a,snake, give a hot dog.</p>
-                            </div>
+                        </template>
+                        <h4 class="noReviewClass" v-else >No Recent Reviews</h4>
                     </div>
                 </div>
             </div>
@@ -177,7 +141,8 @@ export default {
             ],
             imgName: '',
             visible: false,
-            uploadList: []
+            uploadList: [],
+            reviews: []
             
             
         }
@@ -262,8 +227,20 @@ export default {
         }
          
     },
-    created(){
-    this.reviewData.reviewFor = this.legendData.id
+    async created(){
+        console.log(this.$route.query.star)
+        if(this.$route.query.star){
+             this.rating = parseInt(this.$route.query.star)
+        }
+        this.reviewData.reviewFor = this.legendData.id
+        const [res1] = await Promise.all([
+            this.callApi('get', `reviews/${this.$route.params.id}`),
+        ])
+        if(res1.status===200){
+            this.reviews = res1.data.data
+        } else{
+            this.swr()
+        }
     }
 }
 </script>
@@ -298,6 +275,13 @@ export default {
     }
     .demo-upload-list:hover .demo-upload-list-cover{
         display: block;
+    }
+    .profile_picU{
+    width: 40px;
+    
+    }
+    .noReviewClass{
+        margin-top: 40px;
     }
     .demo-upload-list-cover i{
         color: #fff;

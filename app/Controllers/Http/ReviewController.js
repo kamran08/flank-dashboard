@@ -96,16 +96,32 @@ class ReviewController {
    */
   async show ({ params, request, response, view }) {
     let page = request.input('page') ? request.input('page') : 1
+    let str = request.input('str') ? request.input('str') : ''
     let imodata = ['Useful', 'Funny', 'Cool']
-    let data = await Review.query()
+    let data = {}
+    if (str == '') {
+      data = await Review.query()
                         .where('reviewFor', params.id)
                         .with('reviwer')
                         .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
                         .with('imos')
                         .with('images')
+                        .orderBy('id', 'desc')
                         .paginate(page, 5)
-   data = data.toJSON()
-   let tempData = JSON.parse(JSON.stringify(data))
+    } else {
+      data = await Review.query()
+                        .where('reviewFor', params.id)
+                        .where('content', 'LIKE', '%' + str + '%')
+                        .with('reviwer')
+                        .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+                        .with('imos')
+                        .with('images')
+                        .orderBy('id', 'desc')
+                        .paginate(page, 5)
+    }
+
+    data = data.toJSON()
+    let tempData = JSON.parse(JSON.stringify(data))
     for (let r of tempData.data) {
       for (let i of imodata) {
         if (r.imos.findIndex(x => x.imo == i) == -1) {
@@ -117,7 +133,7 @@ class ReviewController {
         }
       }
     }
-    
+
     return tempData
   }
 

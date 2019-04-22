@@ -246,26 +246,34 @@
                                     <hr>
                                     <div class="searchByReview">
                                         <div class="searchReview">
-                                            <input type="text" class="form-control" placeholder="Search within the reviews">
-                                            <button><i class="fas fa-search"></i></button>
-                                            <div class="sortTagOne">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i>
+                                            <input type="text" class="form-control" v-model="reviewSearch" placeholder="Search within the reviews">
+                                            <button @click="SearchReviewResult" ><i class="fas fa-search"></i></button>
+                                            <!-- <div class="sortTagOne">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i>
                                                   
                                                </span>
                                                 <ul>
-                                                    <li><a href="">Flank Sort</a></li>
+                                                    <li><a href="">Flank Sort</a></li>reviewStar
                                                     <li><a href="">Newest Sort</a></li>
                                                 </ul>
                                                 </strong>
                                                 
-                                            </div>
+                                            </div> -->
                                             
                                             <hr>
                                         </div>
                                         
                                         <div class="star-review">
-                                            <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span></p>
+                                            <p>
+                                                <span :class="(reviewStar>0)? 'high rating-bg' : ''" @click="reviewPageWith(1)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>1)? 'high rating-bg' : ''" @click="reviewPageWith(2)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>2)? 'high rating-bg' : ''" @click="reviewPageWith(3)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>3)? 'high rating-bg' : ''" @click="reviewPageWith(4)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>4)? 'high rating-bg' : ''" @click="reviewPageWith(5)" ><i class="fas fa-star"></i></span>
+                                            </p>
                                             <hr>
-                                            <p class="moreD"><a href="">Start your review of <strong>New Coach</strong>.</a></p>
+                                            <p class="moreD" ><nuxt-link :to="{name: 'addreview-id', params: { id:legendData.id } }">Start your review of <strong>{{legendData.name}}</strong></nuxt-link>
+                                                
+                                            </p>
                                         </div>
                                         <hr>
                                         <div class="review-final" v-for="(item,index) in reviews" :key="index" >
@@ -773,6 +781,8 @@ export default {
             todayHour:{},
             rpagination:{},
             totalQuestion:0,
+            reviewSearch:'',
+            reviewStar:0,
 
                
             
@@ -780,6 +790,24 @@ export default {
         }
     },
     methods:{
+        reviewPageWith(num){
+            this.reviewStar = num
+            setTimeout(()=>{ this.$router.push(`/addreview/${this.legendData.id}?star=${this.reviewStar}`) }, 1000)
+            
+        },
+        async SearchReviewResult(){
+           
+            const res = await this.callApi('get', `reviews/${this.$route.params.id}?str=${this.reviewSearch}`)
+            if(res.status===200){
+                this.reviews = res.data.data
+                this.rpagination = res.data
+                delete this.rpagination.data
+            }
+            else{
+                this.swr()
+            }
+
+        },
         async pageniateReview(index){
              console.log(this.rpagination)
             if(this.rpagination.page+index <=0 || this.rpagination.page+index > this.rpagination.lastPage){
@@ -788,7 +816,7 @@ export default {
             }
             this.rpagination.page = this.rpagination.page+index
            
-            const res = await this.callApi('get', `reviews/${this.$route.params.id}?page=${this.rpagination.page}`)
+            const res = await this.callApi('get', `reviews/${this.$route.params.id}?page=${this.rpagination.page}&str=${this.reviewSearch}`)
             if(res.status===200){
                 this.reviews = res.data.data
                 this.rpagination = res.data
@@ -969,6 +997,8 @@ export default {
         },
         async legendUpdate(){
            console.log(this.businessHour)
+           console.log(this.showBusinessHour)
+
 
             if(this.formData.name == ''|| this.formData.address =='' || this.formData.phone == ''){
                 this.i("All fields must be filled !")
@@ -999,6 +1029,16 @@ export default {
                 this.legendData.name = this.formData.name
                 this.legendData.address = this.formData.address
                 this.legendData.phone = this.formData.phone
+                
+                for(let i in this.businessHour ){
+                    if(this.businessHour[i].active == true){
+                        this.showBusinessHour[i].active = true
+                        this.showBusinessHour[i].time =this.businessHour[i].time[0] + '-' + this.businessHour[i].time[1]
+                    }
+                    else{
+                        this.showBusinessHour[i].active = false
+                    }
+                }
                 this.isEdit=false
             }
             else{
