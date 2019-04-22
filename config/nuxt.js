@@ -55,7 +55,8 @@ module.exports = {
       { rel: 'stylesheet', href: '/css/owl.carousel.min.css' },
       { rel: 'stylesheet', href: '/css/owl.theme.default.min.css' },
       
-      { rel: 'stylesheet', href: '/css/style.css' }
+      { rel: 'stylesheet', href: '/css/style.css' },
+      { rel: 'stylesheet', href: '/css/style_one.css' }
       
     ],
     script: [
