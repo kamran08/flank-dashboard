@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class Legend extends Model {
   reviews () {
-    return this.hasMany('App/Models/Review', 'id', 'reviewFor').orderBy('id', 'desc').limit(2)
+    return this.hasMany('App/Models/Review', 'id', 'reviewFor').orderBy('id', 'desc').limit(2) 
   }
   reviewsall () {
     return this.hasOne('App/Models/Review', 'id', 'reviewFor')
@@ -19,7 +19,7 @@ class Legend extends Model {
     return this.hasMany('App/Models/LegendImage', 'id', 'legend_id')
   }
   questions () {
-    return this.hasMany('App/Models/Question', 'id', 'legend_id').orderBy('id', 'desc').limit(2)
+    return this.hasMany('App/Models/Question', 'id', 'legend_id').orderBy('id', 'desc').limit(1)
   }
   hours () {
     return this.hasMany('App/Models/BusniessHour', 'id', 'legend_id')

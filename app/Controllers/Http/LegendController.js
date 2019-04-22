@@ -151,11 +151,11 @@ class LegendController {
                                   .where('id', params.id)
                                   .withCount('totalReview')
                                   .with('legendimages')
-                                  .with('questions')
+                                  //.with('questions')
+                                  .with('questions', (builder) => builder.limit(2))
+                                  .withCount('questions as totalQuestion')
                                   .with('questions.user')
-                                  .with('questions.answers')
-                                  .with('questions.answers.user')
-                                   .with('hours')
+                                  .with('hours')
                                   .first()
 
     return legendData

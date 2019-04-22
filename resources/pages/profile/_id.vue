@@ -187,46 +187,50 @@
                                 </div>
                                 <div class="reviewComment askCommunity"  >
                                     <h2>Ask the Community</h2>
-                                    <div class="question-set" v-if="questionList.length>0" v-for="(item,index) in questionList" :key="index" >
-                                        <div class="comment-individual">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <p><strong>Question:</strong></p>
+                                    <template v-if="totalQuestion>0" >
+                                        <div class="question-set" v-for="(item,index) in questionList" :key="index" >
+                                            <div class="comment-individual">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <p><strong>Question:</strong></p>
+                                                    </div>
+        
+                                                    <div class="media-body">
+                                                        <p>{{item.content}}</p>
+                                                    </div>
                                                 </div>
-    
-                                                <div class="media-body">
-                                                    <p>{{item.content}}</p>
+                                                <!-- <div class="comment-button">
+                                                    <span>Delete</span>
+                                                    <span>Update</span>
+                                                </div> -->
+                                            </div>
+                                            <!-- <template v-if="item.answers" >
+                                            <div class="comment-individual" v-for="(ans,i) in item.answers" :key="i" >
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <p><strong>Answer:</strong></p>
+                                                    </div>
+        
+                                                    <div class="media-body">
+                                                        <p>{{ans.content}}</p>
+                                                        <span><small>{{ans.user.firstName}}</small></span>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span><small>{{item.created_at}}</small></span>
+                                                        <p><a href="">View 1 more answer</a></p>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-button">
+                                                    <span>Delete</span>
+                                                    <span>Update</span>
                                                 </div>
                                             </div>
-                                            <div class="comment-button">
-                                                <span>Delete</span>
-                                                <span>Update</span>
-                                            </div>
+                                            </template> -->
+                                            <!-- <a ><p @click="answerModalOpen(item,index)" >Answer this question</p></a> -->
+                                        
                                         </div>
-                                        <template v-if="item.answers" >
-                                        <div class="comment-individual" v-for="(ans,i) in item.answers" :key="i" >
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <p><strong>Answer:</strong></p>
-                                                </div>
-    
-                                                <div class="media-body">
-                                                    <p>{{ans.content}}</a></p>
-                                                    <span><small>{{ans.user.firstName}}</small></span>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span><small>{{item.created_at}}</small></span>
-                                                    <!-- <p><a href="">View 1 more answer</a></p> -->
-                                                </div>
-                                            </div>
-                                            <div class="comment-button">
-                                                <span>Delete</span>
-                                                <span>Update</span>
-                                            </div>
-                                        </div>
-                                        </template>
-                                        <a ><p @click="answerModalOpen(item,index)" >Answer this question</p></a>
-                                       
-                                    </div>
-                                    <h4 v-if="questionList.length<1" class="noReview" >No question yet!</h4>
-                                    <!-- <p class="all-que"><a href="">See all 9 questions for Bonjour Professional iPhone iPad Repair & Electronic Center</a></p> -->
+                                        <p v-if="totalQuestion==1" class="all-que"><a href="">View question details</a></p>
+                                        <p v-else class="all-que"><a href="">See all {{totalQuestion}} questions for {{legendData.name}}</a></p>
+                                    </template>
+                                    
+                                    <h4 v-else class="noReview" >No question yet!</h4>
                                     <hr>
 
                                     <div class="pageCount">
@@ -329,7 +333,7 @@
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
-                                                <span><i class="far fa-clock"></i></span>
+                                                <span><i class="far fa-clock"></i></span> 
                                             </div>
                                             <div class="biz-hours-time">
                                                 <div class="short-def-list">
@@ -768,6 +772,7 @@ export default {
             galleryIndex:0,
             todayHour:{},
             rpagination:{},
+            totalQuestion:0,
 
                
             
@@ -1073,7 +1078,8 @@ export default {
                 userData : data.user,
                 averageRating : data.averageRating,
                 healthPulse : data.healthPulse,
-                AttributeInfo : data.AttributeInfo,
+                AttributeInfo : data.AttributeInfo
+                
             }
 		}catch (error) {
             console.log(error)
@@ -1100,6 +1106,7 @@ export default {
             // this.reviewimos = res2.reviewimos
             this.hours = res2.data.hours
             this.totalReview = res2.data.__meta__.totalReview_count
+            this.totalQuestion = res2.data.__meta__.totalQuestion
         } else{
             this.swr()
         }
