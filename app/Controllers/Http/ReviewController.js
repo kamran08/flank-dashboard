@@ -69,12 +69,12 @@ class ReviewController {
     await ReviewImage.createMany(uploadList)
     let AttributeInfo = []
     for (let d of AttributeInfoAll) {
-      if (d.isNegative == true || d.isPositive == true) {
+      if (d.isPositive == '0' || d.isPositive == '1') {
         let ob = {
           review_id: rdata.id,
           attribute_id: d.id,
           user_id: user_id,
-          points: (d.isNegative == true) ? (d.points * -1) : d.points
+          points: (d.isPositive == '0') ? (d.points * -1) : d.points
 
         }
         AttributeInfo.push(ob)

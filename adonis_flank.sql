@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2019 at 05:36 PM
+-- Generation Time: Apr 23, 2019 at 05:23 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -81,7 +81,10 @@ INSERT INTO `answers` (`id`, `question_id`, `user_id`, `content`, `created_at`, 
 (7, 4, 3, 'This is some answers...!', '2019-04-10 23:50:08', '2019-04-10 23:50:08'),
 (8, 5, 3, 'This is lot of answer!', '2019-04-10 23:50:52', '2019-04-10 23:50:52'),
 (9, 4, 3, 'this is some answer', '2019-04-10 23:57:52', '2019-04-10 23:57:52'),
-(10, 4, 3, 'answer!1', '2019-04-10 23:59:47', '2019-04-10 23:59:47');
+(10, 4, 3, 'answer!1', '2019-04-10 23:59:47', '2019-04-10 23:59:47'),
+(11, NULL, 4, 'This is good question...', '2019-04-23 20:15:17', '2019-04-23 20:15:17'),
+(12, 5, 4, 'This is good question...', '2019-04-23 20:35:28', '2019-04-23 20:35:28'),
+(13, 5, 4, 'This is excellent question...', '2019-04-23 20:36:24', '2019-04-23 20:36:24');
 
 -- --------------------------------------------------------
 
@@ -137,7 +140,7 @@ INSERT INTO `busniess_hours` (`id`, `legend_id`, `time`, `day`, `created_at`, `u
 (9, 2, '11:00 AM-08:00 PM', 'Thursday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (10, 2, '11:00 AM-08:00 PM', 'Saturday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (11, 2, '11:00 AM-08:00 PM', 'Sunday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
-(14, 1, '10:00 AM-06:00 PM', 'Monday', '2019-04-20 16:24:02', '2019-04-20 16:24:02');
+(22, 1, '10:00 AM-06:00 PM', 'Tuesday', '2019-04-22 20:05:44', '2019-04-22 20:05:44');
 
 -- --------------------------------------------------------
 
@@ -161,7 +164,7 @@ CREATE TABLE `legends` (
 --
 
 INSERT INTO `legends` (`id`, `user_id`, `name`, `address`, `phone`, `img`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Nazmul', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', '2019-04-04 21:23:13', '2019-04-20 16:24:02'),
+(1, 1, 'Nazmul', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', '2019-04-04 21:23:13', '2019-04-22 20:05:44'),
 (2, 2, 'Appify Lab', 'Lotif-Monjil,Pathantula,Sylhet,Bangladesh', '+8801681189844', '/image/school logo.png', NULL, '2019-04-18 15:24:08'),
 (3, 3, 'Ashraf', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', NULL, '2019-04-10 19:48:23'),
 (4, 4, 'Kamran Ahmed', 'Sylhet,Bangladesh', '', '/image/school logo.png', '2019-04-04 21:30:30', '2019-04-04 23:06:42');
@@ -192,7 +195,8 @@ INSERT INTO `legend_images` (`id`, `legend_id`, `url`, `created_at`, `updated_at
 (33, 1, '/uploads/1555687296481.png', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
 (34, 1, '/uploads/1555687308158.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
 (35, 1, '/uploads/1555688031454.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
-(36, 1, '/uploads/1555688037239.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04');
+(36, 1, '/uploads/1555688037239.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
+(37, 4, '/uploads/1556031887039.png', '2019-04-23 21:04:49', '2019-04-23 21:04:49');
 
 -- --------------------------------------------------------
 
@@ -251,7 +255,8 @@ INSERT INTO `pulses` (`id`, `legend_id`, `user_id`, `good`, `bad`, `created_at`,
 (34, 2, 3, 1, 0, '2019-04-16 23:31:19', '2019-04-16 23:31:19'),
 (35, 2, 3, 1, 0, '2019-04-16 23:31:20', '2019-04-16 23:31:20'),
 (36, 2, 3, 1, 0, '2019-04-16 23:31:21', '2019-04-16 23:31:21'),
-(37, 1, 1, 1, 0, '2019-04-19 21:21:17', '2019-04-19 21:21:17');
+(37, 1, 1, 1, 0, '2019-04-19 21:21:17', '2019-04-19 21:21:17'),
+(38, 1, 4, 1, 0, '2019-04-22 22:42:32', '2019-04-22 22:42:32');
 
 -- --------------------------------------------------------
 
@@ -278,7 +283,11 @@ INSERT INTO `questions` (`id`, `user_id`, `legend_id`, `content`, `created_at`, 
 (3, 1, 1, 'This is some question', '2019-04-09 23:33:39', '2019-04-09 23:33:39'),
 (4, 1, 2, 'This i', '2019-04-09 23:35:26', '2019-04-09 23:35:26'),
 (5, 1, 2, 'This i', '2019-04-09 23:35:26', '2019-04-09 23:35:26'),
-(6, 3, 2, 'hello world...................', '2019-04-16 23:30:34', '2019-04-16 23:30:34');
+(6, 3, 2, 'hello world...................', '2019-04-16 23:30:34', '2019-04-16 23:30:34'),
+(7, 4, 2, 'aaaffffffffffffffffffffffffffffffff', '2019-04-23 16:23:08', '2019-04-23 16:23:08'),
+(8, 4, 2, 'It might have unravelled very differently for Shanaka, the 27-year-old internationa?', '2019-04-23 21:00:28', '2019-04-23 21:00:28'),
+(9, 4, 2, 'It might have unravelled very differently for Shanaka, the 27-year-old internationa?', '2019-04-23 21:01:27', '2019-04-23 21:01:27'),
+(10, 4, 2, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the ', '2019-04-23 21:23:27', '2019-04-23 21:23:27');
 
 -- --------------------------------------------------------
 
@@ -332,7 +341,15 @@ INSERT INTO `reviewimos` (`id`, `review_id`, `user_id`, `imo`, `created_at`, `up
 (30, 11, 1, 'Cool', '2019-04-21 21:13:53', '2019-04-21 21:13:53'),
 (31, 10, 1, 'Funny', '2019-04-21 21:30:55', '2019-04-21 21:30:55'),
 (32, 10, 1, 'Useful', '2019-04-21 21:31:03', '2019-04-21 21:31:03'),
-(33, 10, 1, 'Cool', '2019-04-21 21:31:06', '2019-04-21 21:31:06');
+(33, 10, 1, 'Cool', '2019-04-21 21:31:06', '2019-04-21 21:31:06'),
+(34, 25, 4, 'Useful', '2019-04-22 22:42:23', '2019-04-22 22:42:23'),
+(35, 24, 4, 'Funny', '2019-04-22 23:13:19', '2019-04-22 23:13:19'),
+(36, 24, 4, 'Useful', '2019-04-22 23:13:41', '2019-04-22 23:13:41'),
+(37, 24, 4, 'Cool', '2019-04-22 23:13:42', '2019-04-22 23:13:42'),
+(38, 23, 4, 'Useful', '2019-04-22 23:13:46', '2019-04-22 23:13:46'),
+(39, 23, 4, 'Funny', '2019-04-22 23:13:47', '2019-04-22 23:13:47'),
+(40, 23, 4, 'Cool', '2019-04-22 23:13:48', '2019-04-22 23:13:48'),
+(41, 24, 4, 'Cool', '2019-04-22 23:15:47', '2019-04-22 23:15:47');
 
 -- --------------------------------------------------------
 
@@ -358,18 +375,20 @@ INSERT INTO `reviews` (`id`, `reviewFor`, `reviwer_id`, `content`, `rating`, `cr
 (10, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 19:15:46', '2019-04-07 19:15:46'),
 (11, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 19:20:59', '2019-04-07 19:20:59'),
 (12, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 19:25:19', '2019-04-07 19:25:19'),
-(13, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 20:45:33', '2019-04-07 20:45:33'),
+(13, 2, 1, 'That makes it his second-best record in a season in a Madrid shirt, and he is now just two strikes behind his record of 32 that he achieved during his third campaign with the club, in 2011/12.', 5, '2019-04-07 20:45:33', '2019-04-07 20:45:33'),
 (14, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
 (15, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 20:51:46', '2019-04-07 20:51:46'),
 (16, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 3, '2019-04-11 00:34:33', '2019-04-11 00:34:33'),
-(17, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
+(17, 2, 3, 'That makes it his second-best record in a season in a Madrid shirt, and he is now just two strikes behind his record of 32 that he achieved during his third campaign with the club, in 2011/12.', 5, '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
 (18, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 3, '2019-04-11 00:53:43', '2019-04-11 00:53:43'),
 (19, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:35:23', '2019-04-16 16:35:23'),
 (20, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:41:13', '2019-04-16 16:41:13'),
 (21, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 4, '2019-04-16 16:48:10', '2019-04-16 16:48:10'),
 (22, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 4, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
 (23, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
-(24, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53');
+(24, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
+(25, 1, 4, 'It might have unravelled very differently for Shanaka, the 27-year-old international allrounder, had he attended Sunday morning mass at St Sebastian\'s Church in Negombo, his hometown, that day with his mother and grandmother. He chose not to, being tired after a 170-kilometre trip home from Anuradhapura the previous evening', 5, '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(26, 2, 4, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus ', 4, '2019-04-23 21:22:34', '2019-04-23 21:22:34');
 
 -- --------------------------------------------------------
 
@@ -406,7 +425,17 @@ INSERT INTO `review_attributes` (`id`, `review_id`, `attribute_id`, `user_id`, `
 (12, 24, 2, 3, -5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
 (13, 24, 3, 3, 10, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
 (14, 24, 4, 3, 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
-(15, 24, 5, 3, 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53');
+(15, 24, 5, 3, 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
+(16, 25, 1, 4, 5, '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(17, 25, 2, 4, 5, '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(18, 25, 3, 4, 10, '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(19, 25, 4, 4, -5, '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(20, 25, 5, 4, 5, '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(21, 26, 1, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
+(22, 26, 2, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
+(23, 26, 3, 4, -10, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
+(24, 26, 4, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
+(25, 26, 5, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34');
 
 -- --------------------------------------------------------
 
@@ -421,6 +450,15 @@ CREATE TABLE `review_images` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `review_images`
+--
+
+INSERT INTO `review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at`) VALUES
+(1, 25, '/uploads/1555951271768.jpeg', '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(2, 25, '/uploads/1555951276020.png', '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(3, 25, '/uploads/1555951279605.jpeg', '2019-04-22 22:41:31', '2019-04-22 22:41:31');
 
 -- --------------------------------------------------------
 
@@ -579,7 +617,7 @@ ALTER TABLE `adonis_schema`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `attributes`
@@ -591,7 +629,7 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT for table `busniess_hours`
 --
 ALTER TABLE `busniess_hours`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `legends`
@@ -603,43 +641,43 @@ ALTER TABLE `legends`
 -- AUTO_INCREMENT for table `legend_images`
 --
 ALTER TABLE `legend_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `pulses`
 --
 ALTER TABLE `pulses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `reviewimos`
 --
 ALTER TABLE `reviewimos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `review_attributes`
 --
 ALTER TABLE `review_attributes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `review_images`
 --
 ALTER TABLE `review_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tokens`

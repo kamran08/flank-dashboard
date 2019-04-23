@@ -120,17 +120,15 @@
                                 <div class="reviewComment no_margin border-right">
                                     <div class="comment_title border-bottom">
                                         <h2>Ask the Community</h2>
-                                        <div class="sortTag no_pos">Sort by&nbsp;<strong>Popular&nbsp;<span><i class="fas fa-sort-down"></i>
-                                                        
-                                        </span>
+                                        <!-- <div class="sortTag no_pos">Sort by&nbsp;<strong>Popular&nbsp;
+                                            <span><i class="fas fa-sort-down"></i></span>
                                             <ul>
-                                                    <li><a href="">Popular</a></li>
-                                                    <li><a href="">Most Answerd</a></li>
-                                                    <li><a href="">Newest First</a></li>
-                                                </ul>
+                                                <li><a href="">Popular</a></li>
+                                                <li><a href="">Most Answerd</a></li>
+                                                <li><a href="">Newest First</a></li>
+                                            </ul>
                                             </strong>
-                                            
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="comment-individual border-bottom" v-for="(item,index) in questionList" :key="index" >
                                         <p><strong>{{item.content}}</strong></p>
@@ -147,8 +145,14 @@
                                                 <span><small>{{item.answers[0].created_at}}</small></span>
                                             </div>
                                         </div>
-                                        <p><nuxt-link :to="{name: 'question_details-id', params: { id:item.id } }" >View question details</nuxt-link></p>
+                                        <p><nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View question details</nuxt-link></p>
                                     </div>
+                                    <div class="pageCount">
+                                            <ul>
+                                                <li @click="pageniateQuestion(-1)" ><a><i class="fas fa-chevron-left"></i>&nbsp;Prev</a></li>
+                                                <li @click="pageniateQuestion(1)" ><a >Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
+                                            </ul>
+                                        </div>
                                     <div class="question-button">
                                         <p>Don’t see your question? Ask away!</p>
                                         <button @click="askModal=true" >Ask a question</button>
@@ -172,7 +176,7 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <div class="media">
+                                        <div class="media"  >
                                             <div class="media-left">
                                                 <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
                                             </div>
@@ -229,6 +233,7 @@ export default {
             userData:{},
             averageRating :0,
             healthPulse :{},
+            rpagination:{},
 
         }
     },
@@ -247,6 +252,7 @@ export default {
             const res = await this.callApi('post','/questions',this.askData)
             if(res.status===200){
                 this.s("Your question has been posted successfully!")
+                res.data.answers = []
                 this.questionList.unshift(res.data)
                 this.askModal = false
             }
@@ -255,6 +261,24 @@ export default {
             }
 
         },
+         async pageniateQuestion(index){
+             console.log(this.rpagination)
+            if(this.rpagination.page+index <=0 || this.rpagination.page+index > this.rpagination.lastPage){
+                this.i("No more pages left!")
+                return
+            }
+            this.rpagination.page = this.rpagination.page+index
+           
+            const res = await this.callApi('get', `questions/${this.$route.params.id}?page=${this.rpagination.page}`)
+            if(res.status===200){
+                this.questionList = res.data.data
+                this.rpagination = res.data
+                delete this.rpagination.data
+            }
+            else{
+                this.swr()
+            }
+        },
 
     },
      async asyncData({app, store,redirect, params}){
@@ -262,7 +286,8 @@ export default {
             let {data} = await app.$axios.get(`/questions/${params.id}`)
           
             return{
-                questionList : data
+                questionList : data.data,
+                rpagination : data
             }
 		}catch (error) {
             console.log(error)

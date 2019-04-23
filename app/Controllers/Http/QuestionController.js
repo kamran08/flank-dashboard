@@ -21,7 +21,7 @@ class QuestionController {
   }
 
   /**
-   * Render a form to be used for creating a new question. 
+   * Render a form to be used for creating a new question.
    * GET questions/create
    *
    * @param {object} ctx
@@ -43,7 +43,7 @@ class QuestionController {
   async store ({ request, response, auth }) {
     const user_id = await auth.user.id
     let data = request.all()
-    data.user_id = user_id 
+    data.user_id = user_id
     return await Question.create(data)
   }
 
@@ -57,13 +57,14 @@ class QuestionController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    let page = request.input('page') ? request.input('page') : 1 
     return await Question.query()
-                          .where('legend_id',params.id) 
+                          .where('legend_id', params.id)
                           .with('user')
                           .with('answers')
                           .with('answers.user')
-                          .orderBy('id','desc')
-                          .fetch()
+                          .orderBy('id', 'desc')
+                          .paginate(page, 3)
   }
 
   /**

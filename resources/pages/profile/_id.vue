@@ -227,7 +227,7 @@
                                         
                                         </div>
                                         <p v-if="totalQuestion==1" class="all-que"><a href="">View question details</a></p>
-                                        <p v-else class="all-que"><a href="">See all {{totalQuestion}} questions for {{legendData.name}}</a></p>
+                                        <p v-else class="all-que"><nuxt-link :to="{name: 'questionlist-id', params: { id:legendData.id } }" >See all {{totalQuestion}} questions for {{legendData.name}}</nuxt-link></p>
                                     </template>
                                     
                                     <h4 v-else class="noReview" >No question yet!</h4>
@@ -619,20 +619,6 @@
                 <Button type="info" @click="askQuestion">Ask</Button>
             </div>
         </Modal>
-        <Modal title="Answer Question" v-model="answerModal">
-           <div class="">
-            <Form  :label-width="80">
-              
-               <FormItem label="answer">
-                   <Input v-model="answerData.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Ask your question ..."></Input>
-               </FormItem>
-            </Form>
-           </div>
-           <div slot="footer">
-                <Button  @click="answerModal=false">Cancle</Button>
-                <Button type="info" @click="answerQuestion">Answer</Button>
-            </div>
-        </Modal>
         <Modal title="Image Gallery" v-model="galleryModal">
            <div class="row">
                <div class="col-md-8">
@@ -689,9 +675,7 @@ export default {
             askData:{
                 content:'',
             },
-            answerData:{
-                content:'',
-            },
+           
             tempAIndex:'',
             businessHour:[
 
@@ -783,10 +767,6 @@ export default {
             totalQuestion:0,
             reviewSearch:'',
             reviewStar:0,
-
-               
-            
-            
         }
     },
     methods:{
@@ -957,28 +937,7 @@ export default {
             }
 
         },
-        async answerQuestion(){
-            if(this.answerData.content == ''){
-                this.i('You asnwerfield field is empty!')
-                return
-            }
-            if(this.isLoggedIn == false){
-                this.i('Please login first !')
-                this.$router.push('/login');
-                return
-            }
-            const res = await this.callApi('post','/answers',this.answerData)
-            if(res.status===200){
-                this.s("Your answer has been posted successfully!")
-                this.questionList[this.tempAIndex].answers.push(res.data)
-                this.tempAIndex = ''
-                this.answerModal = false
-            }
-            else{
-                this.swr();
-            }
-
-        },
+        
         async editOn(){
             this.formData.name = this.legendData.name
             this.formData.address = this.legendData.address
@@ -1133,7 +1092,7 @@ export default {
    async created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
         const [res1, res2, res3, res4] = await Promise.all([
-            this.callApi('get', `/app/atrributeConteptData/${this.$route.params.id}`),
+            this.callApi('get', `/app/atrributeConteptData/${this.$route.params.id}`), 
             this.callApi('get', `/app/getAdditionlegendInfo/${this.$route.params.id}`),
             this.callApi('get', `/app/getTodayBussinessHour/${this.$route.params.id}`),
             this.callApi('get', `reviews/${this.$route.params.id}`),

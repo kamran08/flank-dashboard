@@ -72,8 +72,20 @@
                                     <img :src="imgName" v-if="visible" style="width: 100%">
                                 </Modal>
                                 <ul>
-                                    <li>Atrrtibute  Yes No </li>
-                                    <li v-for="(item,index) in AttributeInfo" :key="index" ><span>{{item.content}}</span> <span>&nbsp;&nbsp;<input v-model="item.isPositive" type="checkbox"></span> <span>&nbsp;&nbsp;<input v-model="item.isNegative" type="checkbox"></span> </li>
+                                    <li>Atrrtibute</li>
+                                    <li v-for="(item,index) in AttributeInfo" :key="index" >
+                                        <span>{{item.content}}</span> 
+                                        <RadioGroup v-model="item.isPositive">
+                                            <Radio label=1>
+                                                <span>Yes</span>
+                                            </Radio>
+                                            <Radio label=0>
+                                                <span>No</span>
+                                            </Radio>
+                                        </RadioGroup>
+                                        <!-- <span>&nbsp;&nbsp;<input v-model="item.isPositive" type="checkbox"></span>
+                                        <span>&nbsp;&nbsp;<input v-model="item.isNegative" type="checkbox"></span>  -->
+                                    </li>
 
 
                                     <!-- <li><span>Cookie Cutter approach?</span>&nbsp;&nbsp;<input v-model="reviewData.q2"  type="checkbox"></li>

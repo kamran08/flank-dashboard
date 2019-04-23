@@ -44,7 +44,7 @@ class AnswerController {
   async store ({ request, response, auth }) {
     const user_id = await auth.user.id
     let data = request.all()
-    data.user_id = user_id 
+    data.user_id = user_id
     return await Answer.create(data)
   }
 
@@ -58,12 +58,13 @@ class AnswerController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    console.log(params)
     return await Question.query()
-                          .where('legend_id',params.id) 
+                          .where('id', params.id)
                           .with('user')
                           .with('allAnswers')
                           .with('allAnswers.user')
-                          .orderBy('id','desc')
+                          .orderBy('id', 'desc')
                           .first()
   }
 
