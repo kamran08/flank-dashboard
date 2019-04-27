@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2019 at 05:23 PM
+-- Generation Time: Apr 27, 2019 at 06:30 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -84,7 +84,9 @@ INSERT INTO `answers` (`id`, `question_id`, `user_id`, `content`, `created_at`, 
 (10, 4, 3, 'answer!1', '2019-04-10 23:59:47', '2019-04-10 23:59:47'),
 (11, NULL, 4, 'This is good question...', '2019-04-23 20:15:17', '2019-04-23 20:15:17'),
 (12, 5, 4, 'This is good question...', '2019-04-23 20:35:28', '2019-04-23 20:35:28'),
-(13, 5, 4, 'This is excellent question...', '2019-04-23 20:36:24', '2019-04-23 20:36:24');
+(13, 5, 4, 'This is excellent question...', '2019-04-23 20:36:24', '2019-04-23 20:36:24'),
+(14, 9, 4, 'This is Sad!', '2019-04-24 14:44:40', '2019-04-24 14:44:40'),
+(15, 9, 4, 'This is poor!', '2019-04-24 14:45:13', '2019-04-24 14:45:13');
 
 -- --------------------------------------------------------
 
@@ -617,7 +619,7 @@ ALTER TABLE `adonis_schema`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `attributes`

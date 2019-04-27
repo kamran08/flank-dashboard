@@ -187,7 +187,7 @@
                                 </div>
                                 <div class="reviewComment askCommunity"  >
                                     <h2>Ask the Community</h2>
-                                    <template v-if="totalQuestion>0" >
+                                    <template v-if="totalQuestion>0 && isLoading==false " >
                                         <div class="question-set" v-for="(item,index) in questionList" :key="index" >
                                             <div class="comment-individual">
                                                 <div class="media">
@@ -230,6 +230,8 @@
                                         <p v-else class="all-que"><nuxt-link :to="{name: 'questionlist-id', params: { id:legendData.id } }" >See all {{totalQuestion}} questions for {{legendData.name}}</nuxt-link></p>
                                     </template>
                                     
+                                    <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
+
                                     <h4 v-else class="noReview" >No question yet!</h4>
                                     <hr>
 
@@ -276,56 +278,60 @@
                                             </p>
                                         </div>
                                         <hr>
-                                        <div class="review-final" v-for="(item,index) in reviews" :key="index" >
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <div class="media">
-                                                        <div class="media-left">
-                                                            <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <p><strong><a href="">{{item.reviwer.firstName}}</a></strong></p>
-                                                            <small><strong>{{item.reviwer.address}}</strong></small>
-                                                            <p>
-                                                                <span><i class="fas fa-star"></i>&nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}</span>
-                                                                <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span>
-                                                                <span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span> -->
-                                                                </p>
+                                        <template v-if="reviews.length>0 && isLoading==false " >
+                                            <div class="review-final" v-for="(item,index) in reviews" :key="index" >
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="media">
+                                                            <div class="media-left">
+                                                                <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <p><strong><a href="">{{item.reviwer.firstName}}</a></strong></p>
+                                                                <small><strong>{{item.reviwer.address}}</strong></small>
+                                                                <p>
+                                                                    <span><i class="fas fa-star"></i>&nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}</span>
+                                                                    <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span>
+                                                                    <span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span> -->
+                                                                    </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <div class="read-review">
-                                                        <div class="star-review">
-                                                            <p>
-                                                                <span :class="(item.rating>0)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                <span :class="(item.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                &nbsp;<small>3/3/2019</small>
-                                                            </p>
-                                                        </div>
-                                                        <p>{{item.content}}</p>
-                                                        <div class="profile-gallary">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="read-review">
+                                                            <div class="star-review">
+                                                                <p>
+                                                                    <span :class="(item.rating>0)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    &nbsp;<small>3/3/2019</small>
+                                                                </p>
+                                                            </div>
+                                                            <p>{{item.content}}</p>
+                                                            <div class="profile-gallary">
+                                                                <ul>
+                                                                    <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
+                                                                    <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
+                                                                    <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <p id="resultReview"><strong>Was the review...?</strong></p>
                                                             <ul>
-                                                                <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
-                                                                <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
-                                                                <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
+                                                                <template v-if="item.imos.length>0" >
+                                                                    <li v-for="(imoItem,imoIndex) in item.imos" :key="imoIndex"  @click="reviewImo(imoItem.imo,index,imoItem)" :class="(imoItem.action)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;{{imoItem.imo}}&nbsp;&nbsp;{{imoItem.total}}</li>
+                                                                </template>
                                                             </ul>
                                                         </div>
-                                                        <p id="resultReview"><strong>Was the review...?</strong></p>
-                                                        <ul>
-                                                            <template v-if="item.imos.length>0" >
-                                                                 <li v-for="(imoItem,imoIndex) in item.imos" :key="imoIndex"  @click="reviewImo(imoItem.imo,index,imoItem)" :class="(imoItem.action)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;{{imoItem.imo}}&nbsp;&nbsp;{{imoItem.total}}</li>
-                                                            </template>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </template>
+                                          <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
+                                          <h4 v-else class="noReview" >No Review for {{legendData.name}}</h4>
                                         <hr>
-                                        <h4 v-if="reviews.length<1" class="noReview" >No Review for {{legendData.name}}</h4>
+                                        
                                         <div class="pageCount">
                                             <ul>
                                                 <li @click="pageniateReview(-1)" ><a><i class="fas fa-chevron-left"></i>&nbsp;Prev</a></li>
@@ -408,7 +414,7 @@
                                 <div class="section-left-border">
                                     <div class="widget-biz-hour">
                                         <h3>Business Hours</h3>
-                                        <table class="table-simple-biz-hour">
+                                        <table class="table-simple-biz-hour" v-if="isLoading==false"  >
                                             <tr>
                                                 <template  v-if="isEdit" >
                                                     <th  >Mon</th>
@@ -527,11 +533,12 @@
                                                 </template>
                                             </tr>
                                         </table>
+                                        <h4 v-else class="noReview" >Content is Loading...</h4>
                                     </div>
 
                                     <div class="business-info-sec reviewComment">
                                     <h3>More  info</h3>
-                                    <div class="business-name" v-if="atrrtributepoint.length>0" >
+                                    <div class="business-name" v-if="atrrtributepoint.length>0  && isLoading==false " >
                                         <ul>
                                             <li v-for="(item,index) in atrrtributepoint" :key="index" ><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>{{item.content}} <strong>{{item | totalPercent}}</strong></span></span></li>
                                         </ul>
@@ -542,7 +549,10 @@
                                         <p>Quick heals for games? &nbsp;&nbsp;<span><strong>{{(skillCount.fifth != null )? skillCount.fifth + '/' : ''}}{{skillCount.total}}</strong></span></p>  -->
                                         
                                     </div>
-                                    <div class="business-name" v-else  >
+                                    <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
+
+                                    <h4 v-else class="noReview" >No more yet!</h4>
+                                    <!-- <div class="business-name" v-else  >
                                         <ul>
                                             <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
                                             <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
@@ -553,13 +563,13 @@
                                             <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
                                             <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
                                         </ul>
-                                        <!-- <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>{{(skillCount.first != null )? skillCount.first + '/' : ''}}{{skillCount.total}}</strong></span></p>
+                                        <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>{{(skillCount.first != null )? skillCount.first + '/' : ''}}{{skillCount.total}}</strong></span></p>
                                         <p>Cookie Cutter approach? &nbsp;&nbsp;<span><strong>{{(skillCount.second != null )? skillCount.second + '/' : ''}}{{skillCount.total}}</strong></span></p>
                                         <p>Does he pass the sniff test? &nbsp;&nbsp;<span><strong>{{(skillCount.third != null )? skillCount.third + '/' : ''}}{{skillCount.total}}</strong></span></p>
                                         <p>Does he bring supplies?  &nbsp;&nbsp;<span><strong>{{(skillCount.fourth != null )? skillCount.fourth + '/' : ''}}{{skillCount.total}}</strong></span></p>
-                                        <p>Quick heals for games? &nbsp;&nbsp;<span><strong>{{(skillCount.fifth != null )? skillCount.fifth + '/' : ''}}{{skillCount.total}}</strong></span></p> -->
+                                        <p>Quick heals for games? &nbsp;&nbsp;<span><strong>{{(skillCount.fifth != null )? skillCount.fifth + '/' : ''}}{{skillCount.total}}</strong></span></p>
                                         
-                                    </div>
+                                    </div> -->
                                 </div>
                                 </div>
                             </div>
@@ -760,13 +770,13 @@ export default {
             uploadList:[],
             questionList:[],
             hours:[],
-            totalReview:0,
             galleryIndex:0,
             todayHour:{},
             rpagination:{},
             totalQuestion:0,
             reviewSearch:'',
             reviewStar:0,
+            isLoading:true,
         }
     },
     methods:{
@@ -1080,7 +1090,8 @@ export default {
                 userData : data.user,
                 averageRating : data.averageRating,
                 healthPulse : data.healthPulse,
-                AttributeInfo : data.AttributeInfo
+                AttributeInfo : data.AttributeInfo,
+                totalReview : data.legend.__meta__.totalReview_count
                 
             }
 		}catch (error) {
@@ -1107,10 +1118,13 @@ export default {
             this.todayHour = res3.data
             // this.reviewimos = res2.reviewimos
             this.hours = res2.data.hours
-            this.totalReview = res2.data.__meta__.totalReview_count
+            // this.totalReview = res2.data.__meta__.totalReview_count
             this.totalQuestion = res2.data.__meta__.totalQuestion
+            this.isLoading = false
+            
         } else{
             this.swr()
+            this.isLoading = false
         }
          if(this.hours.length>0){
             for(let d of this.hours){

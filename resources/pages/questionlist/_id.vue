@@ -109,8 +109,7 @@
                     <div class="review-content">
                         <div class="breadcrumbs">
                             <ul>
-                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link>
-                                </li>
+                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></li>
                                 <li><span><i class="fas fa-chevron-right"></i></span>Ask the Community</li>
                             </ul>
                         </div>
@@ -181,7 +180,7 @@
                                                 <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
                                             </div>
                                             <div class="media-body">
-                                                <h4><a href="">{{legendData.name}}</a></h4>
+                                                <h4><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></h4>
                                                 <div class="star-review">
                                                     <p>
                                                         <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>

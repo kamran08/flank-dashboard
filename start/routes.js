@@ -34,6 +34,7 @@ Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
 Route.delete('/app/deleteImage', 'LegendController.deleteImage')
 Route.get('/app/getAdditionlegendInfo/:id', 'LegendController.getAdditionlegendInfo')
 Route.get('/app/getTodayBussinessHour/:id', 'LegendController.getTodayBussinessHour')
+Route.post('/app/similarQuestion', 'QuestionController.similar')
 
 // Review Controller
 Route.get('/app/atrributeConteptData/:id', 'ReviewController.atrributeConteptData')

@@ -66,6 +66,16 @@ class QuestionController {
                           .orderBy('id', 'desc')
                           .paginate(page, 3)
   }
+  async similar ({ params, request, response, view }) {
+    let data = request.all()
+    console.log(request.all)
+    return await Question.query()
+                          .where('legend_id', data.legend_id)
+                          .whereNot('id', data.id)
+                          .withCount('answers')
+                          .orderBy('id', 'desc')
+                          .paginate(1, 3)
+  }
 
   /**
    * Render a form to update an existing question.

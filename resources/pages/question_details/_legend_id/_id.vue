@@ -185,7 +185,7 @@
                                                 <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
                                             </div>
                                             <div class="media-body">
-                                                <h4><a href="">{{legendData.name}}</a></h4>
+                                                <h4><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></h4>
                                                 <div class="star-review">
                                                     <p>
                                                         <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
@@ -200,7 +200,7 @@
                                             </div>
                                         </div>
                                         <div class="other-ques">
-                                            <h3 class="border-bottom">Other questions for The Inn Above Tide</h3>
+                                            <h3 class="border-bottom">Other questions for {{legendData.name}}</h3>
                                             <div class="other-ques-det">
                                                 <p>What your rates?</p>
                                                 <p><a href="">View 1 answer</a></p>
@@ -287,8 +287,15 @@ export default {
     },
     async created(){
         this.legend_id = this.$route.params.legend_id
-         const [res1] = await Promise.all([
+        let question_id = this.$route.params.id
+        let tempOb = {
+            legend_id:this.legend_id,
+            id:this.question_id
+        }
+        
+         const [res1,res2] = await Promise.all([
             this.callApi('get', `legends/${this.legend_id}`),
+            this.callApi('post', `/app/similarQuestion`,tempOb),
         ])
         if(res1.status===200){ 
 
