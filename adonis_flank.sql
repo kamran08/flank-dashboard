@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2019 at 06:30 PM
+-- Generation Time: Apr 29, 2019 at 04:51 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -52,7 +52,9 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (13, '1554898110876_busniess_hour_schema', 7, '2019-04-10 12:30:30'),
 (14, '1555240536646_pulse_schema', 8, '2019-04-14 11:39:19'),
 (15, '1555314652073_attribute_schema', 9, '2019-04-15 08:17:50'),
-(16, '1555314671143_review_attribute_schema', 9, '2019-04-15 08:17:50');
+(16, '1555314671143_review_attribute_schema', 9, '2019-04-15 08:17:50'),
+(19, '1556457272451_school_schema', 10, '2019-04-29 13:32:18'),
+(20, '1556534073075_school_coach_schema', 10, '2019-04-29 13:32:18');
 
 -- --------------------------------------------------------
 
@@ -465,6 +467,44 @@ INSERT INTO `review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schools`
+--
+
+CREATE TABLE `schools` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `schoolName` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `division` varchar(255) DEFAULT NULL,
+  `sport` varchar(255) DEFAULT NULL,
+  `roster` varchar(255) DEFAULT NULL,
+  `alumni` varchar(255) DEFAULT NULL,
+  `interestedAthletes` varchar(255) DEFAULT NULL,
+  `committedRecruit` varchar(255) DEFAULT NULL,
+  `placedAthletes` varchar(255) DEFAULT NULL,
+  `teamWebsite` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `school_coaches`
+--
+
+CREATE TABLE `school_coaches` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `school_id` int(11) UNSIGNED DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tokens`
 --
 
@@ -591,6 +631,19 @@ ALTER TABLE `review_images`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `schools`
+--
+ALTER TABLE `schools`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `school_coaches`
+--
+ALTER TABLE `school_coaches`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `school_coaches_ibfk_1` (`school_id`);
+
+--
 -- Indexes for table `tokens`
 --
 ALTER TABLE `tokens`
@@ -613,7 +666,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adonis_schema`
 --
 ALTER TABLE `adonis_schema`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `answers`
@@ -682,6 +735,18 @@ ALTER TABLE `review_images`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `schools`
+--
+ALTER TABLE `schools`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `school_coaches`
+--
+ALTER TABLE `school_coaches`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
@@ -696,6 +761,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `school_coaches`
+--
+ALTER TABLE `school_coaches`
+  ADD CONSTRAINT `school_coaches_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tokens`
