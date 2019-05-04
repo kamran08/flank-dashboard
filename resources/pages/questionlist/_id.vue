@@ -144,7 +144,9 @@
                                                 <span><small>{{item.answers[0].created_at}}</small></span>
                                             </div>
                                         </div>
-                                        <p><nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View question details</nuxt-link></p>
+                                        <p>
+                                            <nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View question details</nuxt-link>
+                                        </p>
                                     </div>
                                     <div class="pageCount">
                                             <ul>

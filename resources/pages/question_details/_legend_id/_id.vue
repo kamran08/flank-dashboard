@@ -200,11 +200,29 @@
                                             </div>
                                         </div>
                                         <div class="other-ques">
-                                            <h3 class="border-bottom">Other questions for {{legendData.name}}</h3>
-                                            <div class="other-ques-det">
-                                                <p>What your rates?</p>
-                                                <p><a href="">View 1 answer</a></p>
-                                            </div>
+                                            <h4 class="border-bottom">Other questions for {{legendData.name}}</h4>
+                                            <template v-if="similarQuestion.length>0 && isLoading==false ">
+                                                <div class="other-ques-det" v-for="(item,index) in similarQuestion " :key="index"  >
+                                                    <p>{{item.content}}</p>
+                                                    <p v-if="item.__meta__.answers_count>0">
+                                                        <nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View {{item.__meta__.answers_count}} answer</nuxt-link>
+                                                    </p>
+                                                    <p v-else >
+                                                        <nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View this question</nuxt-link>
+                                                    </p>
+                                                </div>
+                                            </template>
+                                            <template v-else-if="isLoading" >
+                                                 <div class="other-ques-det"  >
+                                                    <p>Content is loading...</p>
+                                                </div>
+                                            </template>
+                                            <template v-else >
+                                                <div class="other-ques-det"  >
+                                                    <p>No similar Question!</p>
+                                                </div>
+                                            </template>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -237,10 +255,11 @@ export default {
     data(){
         return{
             
-            isLoading:false,
+            isLoading:true,
             legendData :{},
             userData:{},
             averageRating :0,
+            similarQuestion:[],
             healthPulse :{},
             answerModal : false,
              answerData:{
@@ -286,11 +305,12 @@ export default {
         },
     },
     async created(){
+        console.log(this.$route.params)
         this.legend_id = this.$route.params.legend_id
         let question_id = this.$route.params.id
         let tempOb = {
             legend_id:this.legend_id,
-            id:this.question_id
+            question_id:question_id
         }
         
          const [res1,res2] = await Promise.all([
@@ -303,6 +323,7 @@ export default {
                 this.userData = res1.data.user
                 this.averageRating = res1.data.averageRating
                 this.healthPulse = res1.data.healthPulse
+                this.similarQuestion = res2.data.data
                 this.isLoading = false
         } else{
             this.swr()

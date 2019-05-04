@@ -45,6 +45,7 @@ Route.get('/test', 'ReviewController.test')
 Route.get('/app/getAllReview/:id', 'ReviewController.getAllReview')
 Route.resource('reviews', 'ReviewController')
 // Search controller
+
 Route.get('/app/SearchData', 'SearchController.SearchData')
 
 // test

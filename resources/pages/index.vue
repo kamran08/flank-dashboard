@@ -59,7 +59,7 @@
                                     <div class="input-group">
                                        <span class="input-group-addon position-top" id="basic-addon1">Near</span>
                                         <input type="text" class="form-control" v-model='addressTxt' placeholder="Place" >
-                                        <span @click="$router.push(`/search?place=${addressTxt}&str=${searchTxt}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                                        <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
                                     </div>
                                     <div class="left-dropdown">
                                         <ul>

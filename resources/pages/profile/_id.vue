@@ -1103,7 +1103,7 @@ export default {
    async created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
         const [res1, res2, res3, res4] = await Promise.all([
-            this.callApi('get', `/app/atrributeConteptData/${this.$route.params.id}`), 
+            this.callApi('get', `/app/atrributeConteptData/${this.$route.params.id}`),  
             this.callApi('get', `/app/getAdditionlegendInfo/${this.$route.params.id}`),
             this.callApi('get', `/app/getTodayBussinessHour/${this.$route.params.id}`),
             this.callApi('get', `reviews/${this.$route.params.id}`),

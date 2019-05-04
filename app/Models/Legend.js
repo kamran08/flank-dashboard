@@ -2,6 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const Database = use('Database')
 
 class Legend extends Model {
   reviews () {
@@ -10,11 +11,9 @@ class Legend extends Model {
   reviewsall () {
     return this.hasOne('App/Models/Review', 'id', 'reviewFor')
   }
-      // avgRev () {
-      //   return this.hasOne('App/Models/Review', 'id', 'reviewFor')
-      //   .select('id', 'reviewFor', Database.raw('cast(AVG(rating) as decimal(10,2)) AS averageRating'))
-      //   .groupBy('reviewFor')
-      // }
+  avgRating () {
+    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('id', 'reviewFor')
+  }
   legendimages () {
     return this.hasMany('App/Models/LegendImage', 'id', 'legend_id')
   }
@@ -30,6 +29,9 @@ class Legend extends Model {
   totalReview () {
     return this.hasOne('App/Models/Review', 'id', 'reviewFor')
   }
+  // avgRating () {
+  //   return this.hasOne('App/Models/Review', 'id', 'reviewFor')
+  // }
 
 }
 

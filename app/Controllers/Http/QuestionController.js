@@ -67,11 +67,18 @@ class QuestionController {
                           .paginate(page, 3)
   }
   async similar ({ params, request, response, view }) {
-    let data = request.all()
-    console.log(request.all)
+    const data = request.all()
+   // const id = data.id
+   // const legend_id = data.legend_id
+
+  // console.log('id is '+id) 
+   // console.log('params')
+   // console.log(params)
+    console.log('request')
+    console.log(data)
     return await Question.query()
                           .where('legend_id', data.legend_id)
-                          .whereNot('id', data.id)
+                          .whereNot('id', data.question_id)
                           .withCount('answers')
                           .orderBy('id', 'desc')
                           .paginate(1, 3)
