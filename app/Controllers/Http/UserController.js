@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 'use strict'
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -21,10 +22,8 @@ class UserController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-
-    return "Nazmul Chowdhury"
+    return 'Nazmul Chowdhury'
   }
-
 
   /**
    * Render a form to be used for creating a new user.
@@ -36,7 +35,7 @@ class UserController {
    * @param {View} ctx.view
    */
   async create ({ request, response, view }) {
-    
+
   }
 
   /**
@@ -47,30 +46,26 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {  
-    
+  async store ({ request, response }) {
     const formInfo = request.all()
     delete formInfo.password_confirmation
     const data = await User.create(formInfo)
     // eslint-disable-next-line eqeqeq
-    if (data.packType == 1) { return data }
-    else{
-      const ledata ={
+    if (data.packType == 1) { return data } else {
+      const ledata = {
         user_id: data.id,
         name: data.firstName
       }
       await Legend.create(ledata)
       return data
     }
-    
   }
 
-  async userLogin ({ request, response, auth, session }){ 
-
+  async userLogin ({ request, response, auth, session }) {
     const data = request.all()
 
     try {
-      let user = await auth.query().attempt(data.email, data.password)  
+      let user = await auth.query().attempt(data.email, data.password)
       return user
     } catch (e) {
       return response.status(401).json({
@@ -88,45 +83,45 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {  
-      const userData = await User.query()
+  async show ({ params, request, response, view }) {
+    const userData = await User.query()
                                 .where('id', params.id)
                                 .with('reviews')
-                                .with('reviews.reviewfor') 
+                                .with('reviews.reviewfor')
                                 .with('reviews.images')
                                 // .with('ratinginfo', (builder) => {
                                 //   builder.where('rating', 5)
                                 // })
                                 .first()
-    const reviewRatings =   await Database.raw("SELECT rating,COUNT(rating) as total FROM `reviews` WHERE `reviwer_id`= ? GROUP by rating ORDER by rating ASC", [params.id])
-    const imosCount =   await Database.raw("SELECT users.id, users.firstName,COUNT(reviewimos.imo) as total,reviewimos.imo from reviews INNER JOIN users on reviews.reviwer_id = users.id INNER join reviewimos on reviewimos.review_id = reviews.id where reviews.reviwer_id = ? GROUP by reviewimos.imo", [params.id])
-    let ratingD  = []
-    for(let i = 0; i < 5; i++){
+    const reviewRatings = await Database.raw('SELECT rating,COUNT(rating) as total FROM `reviews` WHERE `reviwer_id`= ? GROUP by rating ORDER by rating ASC', [params.id])
+
+    const imosCount = await Database.raw('SELECT users.id, users.firstName,COUNT(reviewimos.imo) as total,reviewimos.imo from reviews INNER JOIN users on reviews.reviwer_id = users.id INNER join reviewimos on reviewimos.review_id = reviews.id where reviews.reviwer_id = ? GROUP by reviewimos.imo', [params.id])
+    let ratingD = []
+    for (let i = 0; i < 5; i++) {
       let ob = {
         rating: (i + 1),
         padding: 0,
         total: 0
       }
-      for (let d of reviewRatings[0] ){
-        if ( ob.rating == d.rating){
+      for (let d of reviewRatings[0]) {
+        if (ob.rating == d.rating) {
           ob.total = d.total
         }
       }
       ratingD.push(ob)
     }
-    const maxv= Math.max.apply(Math, ratingD.map(function(d) { return d.total; }))
-    for(let d of ratingD){
-      d.padding = parseInt((80*d.total)/  maxv)
+    const maxv = Math.max.apply(Math, ratingD.map(function (d) { return d.total }))
+    for (let d of ratingD) {
+      d.padding = parseInt((80 * d.total) / maxv)
     }
 
-    if (userData) { 
+    if (userData) {
       return {
         user: userData,
         reviewRatings: ratingD,
         imosCount: imosCount[0]
-      } 
-    }
-    else {
+      }
+    } else {
       return response.status(404).json({
         'message': 'User not found!.'
       })
@@ -182,13 +177,12 @@ class UserController {
       session.clear()
       await auth.logout()
       return
-    } catch (e) { 
+    } catch (e) {
       return false
     }
   }
-  
-  async sendResetLinkEmail ({request,response}){
-      
+
+  async sendResetLinkEmail ({request, response}) {
     let email = request.all().email
     const check = await User.query().where('email', email).getCount()
     // eslint-disable-next-line eqeqeq
@@ -197,7 +191,7 @@ class UserController {
         'message': "404 Email doesn't exist!."
       })
     }
-    let token = suid (16)
+    let token = suid(16)
     let data = {
       token: token
     }
@@ -208,13 +202,12 @@ class UserController {
     //     .from('Support@worldtradebuddy.com', 'Support @ WorldTradeBuddy')
     //     .subject('Reset Password')
     // })
-    await User.query().where('email', email).update({"passwordToken": token})
+    await User.query().where('email', email).update({'passwordToken': token})
 
     return
   }
-  async initdata({request, response, auth}){
+  async initdata ({request, response, auth}) {
     try {
-
       const user = await auth.getUser()
       return {
         user: user
@@ -224,14 +217,14 @@ class UserController {
       return false
     }
   }
-  async updateProfileImage ({request, response, auth}){
+  async updateProfileImage ({request, response, auth}) {
     const user_id = await auth.user().id
     const profilePic = request.file('file', {
       types: ['png', 'jpg', 'jpeg'],
       size: '2mb'
-      })
+    })
     const name = `${new Date().getTime()}` + '.' + profilePic._subtype
-    // UPLOAD THE IMAGE TO UPLOAD FOLDER 
+    // UPLOAD THE IMAGE TO UPLOAD FOLDER
     await profilePic.move(Helpers.publicPath('uploads'), {
       name: name
     })
@@ -240,7 +233,7 @@ class UserController {
     }
     const file = `/uploads/${name}`
     let data = {
-      img :file
+      img: file
     }
 
     await User.query().where('id', user_id).update(data)
@@ -249,7 +242,6 @@ class UserController {
       msg: 'Image has been uploaded successfully!',
       file: `/uploads/${name}`
     })
-
   }
 
 }

@@ -11,12 +11,16 @@
                         <div class="equal-div">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
+                                <input v-model="str" type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group">
                                <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                <input type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
-                                <span class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
+                                <input v-model="place" type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
+                                <Select v-model="flag" style="width:200px">
+                                    <Option :value="1" >Coach</Option>
+                                    <Option :value="2" >School</Option>
+                                </Select>
+                                <span @click="SearchByKey" class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
                             </div>
                             <div class="left-dropdown">
                                 <ul>
@@ -102,7 +106,7 @@
             <div class="container">
                 <div class="section-content">
                     <div class="find-page-title">
-                        <h2>Search Result for <strong>{{str}}</strong><span v-if="place != ''" > in {{place}}</span></h2>
+                        <h2>Search Result for <strong>{{sstr}}</strong><span v-if="place != ''" > in {{splace}}</span></h2>
                         <h3>Showing 1-{{searchData.length}} of {{pagination.total}}</h3>
                     </div>
                     <div class="find-page-nav">
@@ -539,10 +543,25 @@ export default {
             place:'',
             page:1,
             flag:1,
+            sstr:1,
+            splace:1,
 
         }
     },
     methods:{
+        async SearchByKey(){
+            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&flag=${this.flag}&page=${this.page}`)
+            if(res.status === 200){
+                this.searchData = res.data.data
+                this.pagination = res.data 
+                delete this.pagination.data
+                this.sstr = this.str
+                this.splace = this.place
+            }
+            else{
+                this.swr();
+            }
+        }
 
     },
      async asyncData({app, store,redirect, params,query}){
@@ -561,7 +580,9 @@ export default {
     created(){
         console.log(this.$route)
         this.place = this.$route.query.place
+        this.splace = this.$route.query.place
         this.str = this.$route.query.str
+        this.sstr = this.$route.query.str
 
     }
 

@@ -47,6 +47,14 @@ Route.resource('reviews', 'ReviewController')
 // Search controller
 
 Route.get('/app/SearchData', 'SearchController.SearchData')
+Route.get('/app/SearchByKeyCoach', 'SearchController.SearchByKeyCoach')
+Route.get('/app/SearchByKeySchool', 'SearchController.SearchByKeySchool')
+Route.get('/app/SearchByKeySchoolCoach', 'SearchController.SearchByKeySchoolCoach')
+
+// School --- Coaches
+Route.get('/app/schoolcoach/:id', 'SchoolController.showSchoolCoach')
+Route.post('/app/storeSchoolCoachReview', 'SchoolController.storeSchoolCoachReview')
+Route.post('/app/storeSchoolCoache', 'SchoolController.storeSchoolCoache')
 
 // test
 Route.get('/pagenateData/:id', 'LegendController.paginatedata')
