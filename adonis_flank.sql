@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2019 at 04:51 PM
+-- Generation Time: May 06, 2019 at 09:43 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -54,7 +54,10 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (15, '1555314652073_attribute_schema', 9, '2019-04-15 08:17:50'),
 (16, '1555314671143_review_attribute_schema', 9, '2019-04-15 08:17:50'),
 (19, '1556457272451_school_schema', 10, '2019-04-29 13:32:18'),
-(20, '1556534073075_school_coach_schema', 10, '2019-04-29 13:32:18');
+(20, '1556534073075_school_coach_schema', 10, '2019-04-29 13:32:18'),
+(21, '1557006652805_school_coach_review_schema', 11, '2019-05-04 21:53:32'),
+(22, '1557090430435_coach_review_image_schema', 12, '2019-05-05 21:10:25'),
+(23, '1557122529041_coach_review_attributes_schema', 13, '2019-05-06 06:04:54');
 
 -- --------------------------------------------------------
 
@@ -88,7 +91,8 @@ INSERT INTO `answers` (`id`, `question_id`, `user_id`, `content`, `created_at`, 
 (12, 5, 4, 'This is good question...', '2019-04-23 20:35:28', '2019-04-23 20:35:28'),
 (13, 5, 4, 'This is excellent question...', '2019-04-23 20:36:24', '2019-04-23 20:36:24'),
 (14, 9, 4, 'This is Sad!', '2019-04-24 14:44:40', '2019-04-24 14:44:40'),
-(15, 9, 4, 'This is poor!', '2019-04-24 14:45:13', '2019-04-24 14:45:13');
+(15, 9, 4, 'This is poor!', '2019-04-24 14:45:13', '2019-04-24 14:45:13'),
+(16, 8, 4, 'This is nice Question!', '2019-05-01 13:29:12', '2019-05-01 13:29:12');
 
 -- --------------------------------------------------------
 
@@ -145,6 +149,54 @@ INSERT INTO `busniess_hours` (`id`, `legend_id`, `time`, `day`, `created_at`, `u
 (10, 2, '11:00 AM-08:00 PM', 'Saturday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (11, 2, '11:00 AM-08:00 PM', 'Sunday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (22, 1, '10:00 AM-06:00 PM', 'Tuesday', '2019-04-22 20:05:44', '2019-04-22 20:05:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coach_review_attributes`
+--
+
+CREATE TABLE `coach_review_attributes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `review_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `coach_review_attributes`
+--
+
+INSERT INTO `coach_review_attributes` (`id`, `review_id`, `attribute_id`, `user_id`, `points`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
+(2, 1, 2, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
+(3, 1, 3, 4, -10, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
+(4, 1, 4, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
+(5, 1, 5, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coach_review_images`
+--
+
+CREATE TABLE `coach_review_images` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `review_id` int(11) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `coach_review_images`
+--
+
+INSERT INTO `coach_review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at`) VALUES
+(1, 1, '/uploads/1557124598892.png', '2019-05-06 12:36:58', '2019-05-06 12:36:58');
 
 -- --------------------------------------------------------
 
@@ -488,6 +540,21 @@ CREATE TABLE `schools` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `schools`
+--
+
+INSERT INTO `schools` (`id`, `logo`, `schoolName`, `city`, `state`, `division`, `sport`, `roster`, `alumni`, `interestedAthletes`, `committedRecruit`, `placedAthletes`, `teamWebsite`, `created_at`, `updated_at`) VALUES
+(1, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=79f7part&sportEnum=1&width=90&height=90', 'Lawrence Technological University', 'Southfield', 'MI', NULL, 'Baseball', '', '0', NULL, '24', NULL, 'http://www.ltu.athletics.com/', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(2, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=fresnocitycollege&sportEnum=256&width=90&height=90', 'Fresno City College', 'Fresno', 'CA', NULL, 'Football', '17', '93', NULL, NULL, '6', NULL, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(3, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=cgcc&sportEnum=1&width=90&height=90', 'Chandler-Gilbert Community College', 'Chandler', 'AZ', NULL, 'Baseball', '14', '145', NULL, NULL, '93', 'http://www.cgc.edu/athletics/mSports/baseball/Pages/home.aspx', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(4, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=q74wtjyn&sportEnum=1&width=90&height=90', 'OLS Knights', 'New York', 'NY', NULL, 'Baseball', '0', '0', NULL, NULL, '0', NULL, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(5, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=montana&sportEnum=256&width=90&height=90', 'Montana State University', 'Bozeman', 'MT', NULL, 'Football', '', '0', NULL, '12', '0', NULL, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(6, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=f6hatfr7&sportEnum=1&width=90&height=90', 'Fresno City College', 'Des Plaines', 'IL', NULL, 'Baseball', '125', '422', NULL, NULL, '187', 'http://www.hometeamsonline.com/teams/?u=ILLINOISINDIANS&s=baseball&t=c', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(7, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=j4k4cpt7&sportEnum=1&width=90&height=90', 'California Baseball Academy', 'Rancho Cucamonga', 'CA', NULL, 'Baseball', '291', '393', NULL, NULL, '266', 'http://www.cbabaseball.org', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(8, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=nwosu&sportEnum=256&width=90&height=90', 'Northwestern Oklahoma State University', 'Alva', 'OK', NULL, 'Football', '', '0', NULL, '21', '266', 'http://riderangersride.com/index.aspx?path=football&', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(9, 'https://team.fieldlevel.com/none/media/TeamLogo.jpg?shortName=edw7gh4f&sportEnum=1&width=90&height=90', 'Monroe College - Bronx', 'New York', 'NY', NULL, 'Baseball', '16', '2', NULL, NULL, '0', 'https://monroeexpress.com/index.aspx?path=baseball', '2019-05-04 17:39:44', '2019-05-04 17:39:44');
+
 -- --------------------------------------------------------
 
 --
@@ -501,6 +568,79 @@ CREATE TABLE `school_coaches` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `school_coaches`
+--
+
+INSERT INTO `school_coaches` (`id`, `school_id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Tony Caviglia', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(2, 2, 'Connor Shannon', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(3, 2, 'Keith Travis', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(4, 2, 'Vince Branstetter', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(5, 2, 'Dwayne Wright', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(6, 2, 'Patrick Markarian', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(7, 2, 'Dennis Randle', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(8, 2, 'Mark Hetherington', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(9, 2, 'Jesus Reyes', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(10, 2, 'Ryan Ruschhaupt', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(11, 2, 'Drew Brown', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(12, 2, 'Rick Scheidt', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(13, 3, 'Russell Luce', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(14, 3, 'Jon Watson', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(15, 3, 'Mike Campbell', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(16, 3, 'Dave Pankenier', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(17, 3, 'Ed Yeager', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(18, 4, 'Marcelo Perez III', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(19, 6, 'Connor Flowers', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(20, 6, 'Mike Randazzo', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(21, 6, 'Conor Philbin', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(22, 6, 'Tyler Albright', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(23, 6, 'Matt Mahay', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(24, 6, 'Anthony Concialdi', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(25, 6, 'Matt Smith', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(26, 6, 'Bryce Skelton', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(27, 6, 'Greg Partyka', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(28, 6, 'Marc Mantucca', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(29, 6, 'Mike Pugliese', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(30, 6, 'Tyler Pazik', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(31, 7, 'Josh Glassey', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(32, 7, 'John Berumen', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(33, 7, 'Patrick Murphy', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(34, 7, 'Andrew Takayoshi', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(35, 7, 'Tim McCollum', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(36, 7, 'Carlos Ramirez', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(37, 7, 'Jon Paino', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(38, 7, 'Joe Spiers', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(39, 7, 'Tim Blume', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(40, 9, 'John Torres', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(41, NULL, NULL, '2019-05-06 13:15:11', '2019-05-06 13:15:11'),
+(42, NULL, NULL, '2019-05-06 13:18:58', '2019-05-06 13:18:58'),
+(43, 8, 'John Torres', '2019-05-06 13:23:40', '2019-05-06 13:23:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `school_coach_reviews`
+--
+
+CREATE TABLE `school_coach_reviews` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `coach_id` int(11) DEFAULT NULL,
+  `school_id` int(11) DEFAULT NULL,
+  `reviwer_id` int(11) DEFAULT NULL,
+  `content` text,
+  `rating` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `school_coach_reviews`
+--
+
+INSERT INTO `school_coach_reviews` (`id`, `coach_id`, `school_id`, `reviwer_id`, `content`, `rating`, `created_at`, `updated_at`) VALUES
+(1, 3, 2, 4, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58');
 
 -- --------------------------------------------------------
 
@@ -583,6 +723,18 @@ ALTER TABLE `busniess_hours`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `coach_review_attributes`
+--
+ALTER TABLE `coach_review_attributes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coach_review_images`
+--
+ALTER TABLE `coach_review_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `legends`
 --
 ALTER TABLE `legends`
@@ -644,6 +796,12 @@ ALTER TABLE `school_coaches`
   ADD KEY `school_coaches_ibfk_1` (`school_id`);
 
 --
+-- Indexes for table `school_coach_reviews`
+--
+ALTER TABLE `school_coach_reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tokens`
 --
 ALTER TABLE `tokens`
@@ -666,13 +824,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adonis_schema`
 --
 ALTER TABLE `adonis_schema`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `attributes`
@@ -685,6 +843,18 @@ ALTER TABLE `attributes`
 --
 ALTER TABLE `busniess_hours`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `coach_review_attributes`
+--
+ALTER TABLE `coach_review_attributes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `coach_review_images`
+--
+ALTER TABLE `coach_review_images`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `legends`
@@ -738,13 +908,19 @@ ALTER TABLE `review_images`
 -- AUTO_INCREMENT for table `schools`
 --
 ALTER TABLE `schools`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `school_coaches`
 --
 ALTER TABLE `school_coaches`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `school_coach_reviews`
+--
+ALTER TABLE `school_coach_reviews`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tokens`
