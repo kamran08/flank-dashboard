@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable eqeqeq */
 'use strict'
 
@@ -8,7 +9,6 @@ const Review = use('App/Models/Review')
 const Reviewimo = use('App/Models/Reviewimo')
 const ReviewImage = use('App/Models/ReviewImage')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
-
 
 const Helpers = use('Helpers')
 const Database = use('Database')
@@ -95,42 +95,44 @@ class ReviewController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params, request, response, auth }) {
     let page = request.input('page') ? request.input('page') : 1
     let str = request.input('str') ? request.input('str') : ''
-    let imodata = ['Useful', 'Funny', 'Cool']
-    let data = {}
-    if (str == '') {
-      data = await Review.query()
-                        .where('reviewFor', params.id)
-                        .with('reviwer')
-                        .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
-                        .with('imos')
-                        .with('images')
-                        .orderBy('id', 'desc')
-                        .paginate(page, 5)
-    } else {
-      data = await Review.query()
-                        .where('reviewFor', params.id)
-                        .where('content', 'LIKE', '%' + str + '%')
-                        .with('reviwer')
-                        .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
-                        .with('imos')
-                        .with('images')
-                        .orderBy('id', 'desc')
-                        .paginate(page, 5)
+    let user_id = 0
+    if (auth.check()) {
+      user_id = await auth.user.id
     }
+    let mdata = Review.query().where('reviewFor', params.id)
+                                  .with('reviwer')
+                                  .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+                                  .with('imos')
+                                  .with('imosall', (builder) => {
+                                    builder.where('user_id', user_id)
+                                  })
+                                  .with('images')
+    if (str) {
+      mdata.where('content', 'LIKE', '%' + str + '%')
+    }
+    let data = await mdata.orderBy('id', 'desc')
+        .paginate(page, 5)
 
     data = data.toJSON()
     let tempData = JSON.parse(JSON.stringify(data))
+
     for (let r of tempData.data) {
-      for (let i of imodata) {
-        if (r.imos.findIndex(x => x.imo == i) == -1) {
-          let ob = {
-            'imo': i,
-            'total': 0
-          }
-          r.imos.push(ob)
+      if (r.imos == null) {
+        r.imos = {
+          'id': 0,
+          'review_id': 0,
+          'cool': 0,
+          'funny': 0,
+          'useful': 0
+        }
+      } else {
+        if (r.imosall) {
+          if (r.imosall.cool == 1) r.imos.acool = true
+          if (r.imosall.funny == 1) r.imos.afunny = true
+          if (r.imosall.useful == 1) r.imos.auseful = true
         }
       }
     }
@@ -196,7 +198,12 @@ class ReviewController {
   async stoteReviewImo ({ request, response, auth }) {
     let data = request.all()
     data.user_id = await auth.user.id
-    return await Reviewimo.create(data)
+    await Reviewimo.findOrCreate(
+      { review_id: data.review_id, user_id: data.user_id }
+
+    )
+
+    return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
   }
   async atrributeConteptData ({ params }) {
     return await Database

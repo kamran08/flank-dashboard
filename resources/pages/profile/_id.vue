@@ -273,7 +273,7 @@
                                                 <span :class="(reviewStar>4)? 'high rating-bg' : ''" @click="reviewPageWith(5)" ><i class="fas fa-star"></i></span>
                                             </p>
                                             <hr>
-                                            <p class="moreD" ><nuxt-link :to="{name: 'addreview-id', params: { id:legendData.id } }">Start your review of <strong>{{legendData.name}}</strong></nuxt-link>
+                                            <p class="moreD" ><nuxt-link :to="{name: 'addreview-id', params: { id:legendData.id } }">Start your review for <strong>{{legendData.name}}</strong></nuxt-link>
                                                 
                                             </p>
                                         </div>
@@ -319,8 +319,10 @@
                                                             </div>
                                                             <p id="resultReview"><strong>Was the review...?</strong></p>
                                                             <ul>
-                                                                <template v-if="item.imos.length>0" >
-                                                                    <li v-for="(imoItem,imoIndex) in item.imos" :key="imoIndex"  @click="reviewImo(imoItem.imo,index,imoItem)" :class="(imoItem.action)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;{{imoItem.imo}}&nbsp;&nbsp;{{imoItem.total}}</li>
+                                                                <template v-if="item.imos" >
+                                                                    <li  @click="reviewImo('cool',index,item.imos)" :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
+                                                                    <li  @click="reviewImo('funny',index,item.imos)" :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
+                                                                    <li  @click="reviewImo('useful',index,item.imos)" :class="(item.imos.auseful)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</li>
                                                                 </template>
                                                             </ul>
                                                         </div>
@@ -933,13 +935,24 @@ export default {
             // return
             let imoData = {
                 review_id:this.reviews[index].id,
-                imo:imo
             }
+            imoData[imo] = 1
             const res = await this.callApi('post','/stoteReviewImo',imoData)
             if(res.status===200){
                 this.s("you marked this review as "+imo+ "!")
-                imoItem.total++
-                imoItem.action = true
+                if(imo=='cool'){
+                    imoItem.cool++
+                    imoItem.acool=true
+                }
+                else if(imo=='funny'){
+                    imoItem.funny++
+                    imoItem.afunny=true
+                }
+                else if(imo=='useful'){
+                    imoItem.useful++
+                    imoItem.auseful = true
+                }
+               
                 
             }
             else{

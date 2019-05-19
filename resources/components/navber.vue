@@ -95,7 +95,7 @@
             </div>
             
             <div slot="footer">
-                <Button @click="reviewModal = false">Close</Button>
+                <Button @click="reviewModal = false">Close</Button> 
                 <Button type="success">Send</Button>
             </div>
         </Modal>

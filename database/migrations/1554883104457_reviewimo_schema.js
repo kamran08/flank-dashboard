@@ -9,7 +9,9 @@ class ReviewimoSchema extends Schema {
       table.increments()
       table.integer('review_id')
       table.integer('user_id')
-      table.string('imo')
+      table.integer('cool')
+      table.integer('funny')
+      table.integer('useful')
       table.timestamps()
     })
   }
