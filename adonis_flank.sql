@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2019 at 09:43 AM
+-- Generation Time: May 23, 2019 at 01:26 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -48,7 +48,6 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (9, '1554641581168_review_image_schema', 4, '2019-04-07 12:55:21'),
 (10, '1554675365235_question_schema', 5, '2019-04-07 22:19:45'),
 (11, '1554675402398_answers_schema', 5, '2019-04-07 22:19:45'),
-(12, '1554883104457_reviewimo_schema', 6, '2019-04-10 08:00:45'),
 (13, '1554898110876_busniess_hour_schema', 7, '2019-04-10 12:30:30'),
 (14, '1555240536646_pulse_schema', 8, '2019-04-14 11:39:19'),
 (15, '1555314652073_attribute_schema', 9, '2019-04-15 08:17:50'),
@@ -57,7 +56,8 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (20, '1556534073075_school_coach_schema', 10, '2019-04-29 13:32:18'),
 (21, '1557006652805_school_coach_review_schema', 11, '2019-05-04 21:53:32'),
 (22, '1557090430435_coach_review_image_schema', 12, '2019-05-05 21:10:25'),
-(23, '1557122529041_coach_review_attributes_schema', 13, '2019-05-06 06:04:54');
+(23, '1557122529041_coach_review_attributes_schema', 13, '2019-05-06 06:04:54'),
+(24, '1554883104457_reviewimo_schema', 14, '2019-05-09 07:17:37');
 
 -- --------------------------------------------------------
 
@@ -67,8 +67,8 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 
 CREATE TABLE `answers` (
   `id` int(10) UNSIGNED NOT NULL,
-  `question_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `question_id` int(10) UNSIGNED DEFAULT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `content` text,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -127,7 +127,7 @@ INSERT INTO `attributes` (`id`, `content`, `points`, `created_at`, `updated_at`)
 
 CREATE TABLE `busniess_hours` (
   `id` int(10) UNSIGNED NOT NULL,
-  `legend_id` int(11) DEFAULT NULL,
+  `legend_id` int(10) UNSIGNED DEFAULT NULL,
   `time` varchar(255) DEFAULT NULL,
   `day` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -148,7 +148,7 @@ INSERT INTO `busniess_hours` (`id`, `legend_id`, `time`, `day`, `created_at`, `u
 (9, 2, '11:00 AM-08:00 PM', 'Thursday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (10, 2, '11:00 AM-08:00 PM', 'Saturday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (11, 2, '11:00 AM-08:00 PM', 'Sunday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
-(22, 1, '10:00 AM-06:00 PM', 'Tuesday', '2019-04-22 20:05:44', '2019-04-22 20:05:44');
+(23, 1, '10:00 AM-06:00 PM', 'Tuesday', '2019-05-19 16:12:59', '2019-05-19 16:12:59');
 
 -- --------------------------------------------------------
 
@@ -158,9 +158,9 @@ INSERT INTO `busniess_hours` (`id`, `legend_id`, `time`, `day`, `created_at`, `u
 
 CREATE TABLE `coach_review_attributes` (
   `id` int(10) UNSIGNED NOT NULL,
-  `review_id` int(11) DEFAULT NULL,
-  `attribute_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `review_id` int(10) UNSIGNED DEFAULT NULL,
+  `attribute_id` int(10) UNSIGNED DEFAULT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `points` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -185,7 +185,7 @@ INSERT INTO `coach_review_attributes` (`id`, `review_id`, `attribute_id`, `user_
 
 CREATE TABLE `coach_review_images` (
   `id` int(10) UNSIGNED NOT NULL,
-  `review_id` int(11) DEFAULT NULL,
+  `review_id` int(10) UNSIGNED DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -220,7 +220,7 @@ CREATE TABLE `legends` (
 --
 
 INSERT INTO `legends` (`id`, `user_id`, `name`, `address`, `phone`, `img`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Nazmul', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', '2019-04-04 21:23:13', '2019-04-22 20:05:44'),
+(1, 1, 'Nazmul', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', '2019-04-04 21:23:13', '2019-05-19 16:12:59'),
 (2, 2, 'Appify Lab', 'Lotif-Monjil,Pathantula,Sylhet,Bangladesh', '+8801681189844', '/image/school logo.png', NULL, '2019-04-18 15:24:08'),
 (3, 3, 'Ashraf', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', NULL, '2019-04-10 19:48:23'),
 (4, 4, 'Kamran Ahmed', 'Sylhet,Bangladesh', '', '/image/school logo.png', '2019-04-04 21:30:30', '2019-04-04 23:06:42');
@@ -353,9 +353,11 @@ INSERT INTO `questions` (`id`, `user_id`, `legend_id`, `content`, `created_at`, 
 
 CREATE TABLE `reviewimos` (
   `id` int(10) UNSIGNED NOT NULL,
-  `review_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `imo` varchar(255) DEFAULT NULL,
+  `review_id` int(10) UNSIGNED DEFAULT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
+  `cool` tinyint(1) DEFAULT '0',
+  `funny` tinyint(1) DEFAULT '0',
+  `useful` tinyint(1) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -364,48 +366,13 @@ CREATE TABLE `reviewimos` (
 -- Dumping data for table `reviewimos`
 --
 
-INSERT INTO `reviewimos` (`id`, `review_id`, `user_id`, `imo`, `created_at`, `updated_at`) VALUES
-(1, 10, 3, 'Useful', '2019-04-10 14:17:26', '2019-04-10 14:17:26'),
-(2, 10, 3, 'Funny', '2019-04-10 14:53:21', '2019-04-10 14:53:21'),
-(3, 11, 3, 'Useful', '2019-04-10 14:53:23', '2019-04-10 14:53:23'),
-(4, 11, 3, 'Cool', '2019-04-10 14:53:24', '2019-04-10 14:53:24'),
-(5, 11, 3, 'Funny', '2019-04-10 14:53:27', '2019-04-10 14:53:27'),
-(6, 12, 3, 'Useful', '2019-04-10 14:53:30', '2019-04-10 14:53:30'),
-(7, 12, 3, 'Cool', '2019-04-10 14:53:31', '2019-04-10 14:53:31'),
-(8, 12, 3, 'Funny', '2019-04-10 14:53:32', '2019-04-10 14:53:32'),
-(9, 14, 3, 'Funny', '2019-04-10 14:53:34', '2019-04-10 14:53:34'),
-(10, 14, 3, 'Cool', '2019-04-10 14:53:35', '2019-04-10 14:53:35'),
-(11, 15, 3, 'Useful', '2019-04-10 14:53:37', '2019-04-10 14:53:37'),
-(12, 15, 3, 'Cool', '2019-04-10 14:53:38', '2019-04-10 14:53:38'),
-(13, 17, 3, 'Useful', '2019-04-13 15:35:22', '2019-04-13 15:35:22'),
-(14, 17, 3, 'Funny', '2019-04-13 15:35:22', '2019-04-13 15:35:22'),
-(15, 17, 3, 'Cool', '2019-04-13 15:35:22', '2019-04-13 15:35:22'),
-(16, 17, 3, 'Useful', '2019-04-13 18:01:33', '2019-04-13 18:01:33'),
-(17, 18, 3, 'Cool', '2019-04-13 18:57:49', '2019-04-13 18:57:49'),
-(18, 18, 3, 'Cool', '2019-04-13 18:57:50', '2019-04-13 18:57:50'),
-(19, 18, 3, 'Cool', '2019-04-13 18:57:58', '2019-04-13 18:57:58'),
-(20, 18, 3, 'Cool', '2019-04-13 18:57:59', '2019-04-13 18:57:59'),
-(21, 18, 3, 'Cool', '2019-04-13 19:17:36', '2019-04-13 19:17:36'),
-(22, 24, 3, 'Useful', '2019-04-16 23:30:57', '2019-04-16 23:30:57'),
-(23, 14, 1, 'Useful', '2019-04-21 19:52:20', '2019-04-21 19:52:20'),
-(24, 14, 1, 'Useful', '2019-04-21 19:52:42', '2019-04-21 19:52:42'),
-(25, 10, 1, 'Cool', '2019-04-21 20:14:28', '2019-04-21 20:14:28'),
-(26, 10, 1, 'Cool', '2019-04-21 20:18:40', '2019-04-21 20:18:40'),
-(27, 10, 1, 'Useful', '2019-04-21 21:09:46', '2019-04-21 21:09:46'),
-(28, 10, 1, 'Funny', '2019-04-21 21:10:07', '2019-04-21 21:10:07'),
-(29, 11, 1, 'Funny', '2019-04-21 21:13:46', '2019-04-21 21:13:46'),
-(30, 11, 1, 'Cool', '2019-04-21 21:13:53', '2019-04-21 21:13:53'),
-(31, 10, 1, 'Funny', '2019-04-21 21:30:55', '2019-04-21 21:30:55'),
-(32, 10, 1, 'Useful', '2019-04-21 21:31:03', '2019-04-21 21:31:03'),
-(33, 10, 1, 'Cool', '2019-04-21 21:31:06', '2019-04-21 21:31:06'),
-(34, 25, 4, 'Useful', '2019-04-22 22:42:23', '2019-04-22 22:42:23'),
-(35, 24, 4, 'Funny', '2019-04-22 23:13:19', '2019-04-22 23:13:19'),
-(36, 24, 4, 'Useful', '2019-04-22 23:13:41', '2019-04-22 23:13:41'),
-(37, 24, 4, 'Cool', '2019-04-22 23:13:42', '2019-04-22 23:13:42'),
-(38, 23, 4, 'Useful', '2019-04-22 23:13:46', '2019-04-22 23:13:46'),
-(39, 23, 4, 'Funny', '2019-04-22 23:13:47', '2019-04-22 23:13:47'),
-(40, 23, 4, 'Cool', '2019-04-22 23:13:48', '2019-04-22 23:13:48'),
-(41, 24, 4, 'Cool', '2019-04-22 23:15:47', '2019-04-22 23:15:47');
+INSERT INTO `reviewimos` (`id`, `review_id`, `user_id`, `cool`, `funny`, `useful`, `created_at`, `updated_at`) VALUES
+(1, 26, 1, 1, 1, 1, '2019-05-09 00:00:00', '2019-05-19 14:37:22'),
+(2, 26, 4, 1, 1, 1, '2019-05-09 00:00:00', '2019-05-09 00:00:00'),
+(3, 26, 6, 1, 1, 1, '2019-05-09 00:00:00', '2019-05-09 00:00:00'),
+(4, 26, 3, 1, 1, 1, '2019-05-09 00:00:00', '2019-05-09 00:00:00'),
+(5, 24, 1, 0, 1, 0, '2019-05-19 14:39:37', '2019-05-19 14:39:37'),
+(6, 23, 1, 0, 0, 1, '2019-05-19 14:40:10', '2019-05-19 14:40:29');
 
 -- --------------------------------------------------------
 
@@ -692,7 +659,7 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `birthd
 (4, 'Kamran', 'Ahmed', 'kamran@gmail.com', '$2a$10$FVg.RimiYbj1Os.mNgY46.0fLo58o2a4RAHiQtPNt.HiaUtbw25Ne', '', '3210', '', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-04 21:30:30', '2019-04-04 21:30:30'),
 (5, 'Sakil ', 'Rahman', 'sakil@gmail.com', '$2a$10$ybgVFc20M1JB2TH9FfZlpux1UrIGTnHDrn/yHhNgIeZLvCYo3QG0.', '', '3210', '', '/uploads/profile.png ', 1, NULL, NULL, '2019-04-04 23:07:42', '2019-04-04 23:07:42'),
 (6, 'Kollol', 'Cahk', 'kollol@gmail.com', '$2a$10$gFw38St07Ogy9Q4ln8ud4e6KmSA6FSPM547Cl8p/lzKZVUnI5ggxS', '', '3210', '', '/uploads/profile.png ', 1, NULL, NULL, '2019-04-04 23:13:34', '2019-04-04 23:13:34'),
-(7, 'Humayun', 'Rahi', 'rahi@gmail.com', '$2a$10$t.D/M9IMjso2iCIUatzWYOG0Yzzyf6WPpyblR0w51SDjmcFzxJac6', '', '', 'Sylhet,Bangladesh', '/uploads/profile.png', 1, NULL, NULL, '2019-04-09 23:07:49', '2019-04-09 23:20:27');
+(7, 'Humayun', 'Rahi', 'rahi@boss.com', '$2a$10$t.D/M9IMjso2iCIUatzWYOG0Yzzyf6WPpyblR0w51SDjmcFzxJac6', '', '', 'Sylhet,Bangladesh', '/uploads/profile.png', 1, NULL, NULL, '2019-04-09 23:07:49', '2019-04-09 23:20:27');
 
 --
 -- Indexes for dumped tables
@@ -708,7 +675,9 @@ ALTER TABLE `adonis_schema`
 -- Indexes for table `answers`
 --
 ALTER TABLE `answers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `attributes`
@@ -720,13 +689,16 @@ ALTER TABLE `attributes`
 -- Indexes for table `busniess_hours`
 --
 ALTER TABLE `busniess_hours`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `legend_id` (`legend_id`);
 
 --
 -- Indexes for table `coach_review_attributes`
 --
 ALTER TABLE `coach_review_attributes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `attribute_id` (`attribute_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `coach_review_images`
@@ -762,7 +734,9 @@ ALTER TABLE `questions`
 -- Indexes for table `reviewimos`
 --
 ALTER TABLE `reviewimos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reviewimos_ibfk_1` (`user_id`),
+  ADD KEY `review_id` (`review_id`);
 
 --
 -- Indexes for table `reviews`
@@ -824,7 +798,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adonis_schema`
 --
 ALTER TABLE `adonis_schema`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `answers`
@@ -842,7 +816,7 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT for table `busniess_hours`
 --
 ALTER TABLE `busniess_hours`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `coach_review_attributes`
@@ -884,7 +858,7 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `reviewimos`
 --
 ALTER TABLE `reviewimos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -937,6 +911,33 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `answers`
+--
+ALTER TABLE `answers`
+  ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `answers_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `busniess_hours`
+--
+ALTER TABLE `busniess_hours`
+  ADD CONSTRAINT `busniess_hours_ibfk_1` FOREIGN KEY (`legend_id`) REFERENCES `legends` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `coach_review_attributes`
+--
+ALTER TABLE `coach_review_attributes`
+  ADD CONSTRAINT `coach_review_attributes_ibfk_1` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `coach_review_attributes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reviewimos`
+--
+ALTER TABLE `reviewimos`
+  ADD CONSTRAINT `reviewimos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reviewimos_ibfk_2` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `school_coaches`

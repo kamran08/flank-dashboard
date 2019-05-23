@@ -16,10 +16,10 @@
                             <div class="input-group">
                                <span class="input-group-addon position-top" id="basic-addon1">Near</span>
                                 <input v-model="place" type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
-                                <Select v-model="flag" style="width:200px">
+                                <!-- <Select v-model="flag" style="width:200px">
                                     <Option :value="1" >Coach</Option>
                                     <Option :value="2" >School</Option>
-                                </Select>
+                                </Select> -->
                                 <span @click="SearchByKey" class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
                             </div>
                             <div class="left-dropdown">
@@ -126,6 +126,67 @@
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Reservation <span class="filter-tag tag-nine">Restaurents that offer reservation on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Cash Back <span class="filter-tag tag-ten">Restaurents that let you join the waitlist remotely on Flank</span></li>
                         </ul>
+                        <div class="filter-content">
+                            <div class="filter-content-inner">
+                                <div class="filter-item">
+                                    <div class="filter-item-title">
+                                        <h3>Sort By</h3>
+                                    </div>
+                                    <ul class="filter-item-list">
+                                        <li class="active"><a href="">Recomended</a></li>
+                                        <li><a href="">Highest Rated</a></li>
+                                        <li><a href="">Most Reviewed</a></li>
+                                    </ul>
+                                </div>
+                                <div class="filter-item">
+                                    <div class="filter-item-title">
+                                        <h3>Neighborhood</h3>
+                                    </div>
+                                    <ul class="filter-item-list">
+                                        <li><input type="checkbox" id="check1"><label for="check1">Outer Sunset</label></li>
+                                        <li><input type="checkbox" id="check2"><label for="check2">Forest Hill</label></li>
+                                        <li><input type="checkbox" id="check3"><label for="check3">Stonestown</label></li>
+                                        <li><input type="checkbox" id="check4"><label for="check4">Inner Richmond</label></li>
+                                        <li><a href="">More Neighborhoods</a></li>
+                                    </ul>
+                                </div>
+                                <div class="filter-item">
+                                    <div class="filter-item-title">
+                                        <h3>Distance</h3>
+                                    </div>
+                                    <ul class="filter-item-list">
+                                        <li class="active"><a href="">Bird's-eye View</a></li>
+                                        <li><a href="">Driving (5 mi.)</a></li>
+                                        <li><a href="">Biking (2 mi.)</a></li>
+                                        <li><a href="">Walking (1 mi.)</a></li>
+                                        <li><a href="">Within 4 blocks</a></li>
+                                    </ul>
+                                </div>
+                                <div class="filter-item">
+                                    <div class="filter-item-title">
+                                        <h3>Price</h3>
+                                    </div>
+                                    <ul class="filter-item-list">
+                                        <li><input type="checkbox" id="check5"><label for="check5">$</label></li>
+                                        <li><input type="checkbox" id="check6"><label for="check6">$$</label></li>
+                                        <li><input type="checkbox" id="check7"><label for="check7">$$$</label></li>
+                                        <li><input type="checkbox" id="check8"><label for="check8">$$$$</label></li>
+                                    </ul>
+                                </div>
+                                <div class="filter-item">
+                                    <div class="filter-item-title">
+                                        <h3>Features</h3>
+                                    </div>
+                                    <ul class="filter-item-list">
+                                        <li><input type="checkbox" id="check9"><label for="check9"><span><i class="fas fa-motorcycle"></i></span>Delivery</label></li>
+                                        <li><input type="checkbox" id="check10"><label for="check10"><span><i class="fas fa-lock"></i></span>Takeout</label></li>
+                                        <li><input type="checkbox" id="check11"><label for="check11"><span><i class="fas fa-stopwatch"></i></span>Waitlist</label></li>
+                                        <li><input type="checkbox" id="check12"><label for="check12"><span class="rotated-green"><i class="fas fa-tag"></i></span>Offering a Deal</label></li>
+                                        <li><a href="">More Features</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
