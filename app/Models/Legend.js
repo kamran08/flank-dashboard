@@ -6,13 +6,13 @@ const Database = use('Database')
 
 class Legend extends Model {
   reviews () {
-    return this.hasMany('App/Models/Review', 'id', 'reviewFor').orderBy('id', 'desc').limit(2) 
+    return this.hasMany('App/Models/Review', 'id', 'reviewFor').orderBy('id', 'desc').limit(2)
   }
   reviewsall () {
     return this.hasOne('App/Models/Review', 'id', 'reviewFor')
   }
   avgRating () {
-    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('id', 'reviewFor')
+    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('id', 'reviewFor', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating'))
   }
   legendimages () {
     return this.hasMany('App/Models/LegendImage', 'id', 'legend_id')

@@ -1,3 +1,4 @@
+/* eslint-disable standard/object-curly-even-spacing */
 /* eslint-disable no-multi-spaces */
 /* eslint-disable eqeqeq */
 'use strict'
@@ -7,32 +8,31 @@ const SchoolCoach = use('App/Models/SchoolCoach')
 class SearchController {
 
   async SearchData ({request, response, params }) {
-    const rData = request.all()
-    const page = rData.page
+    let place = request.input('place') ? request.input('place') : ''
+    let str = request.input('str') ? request.input('str') : ''
+    let page = request.input('page') ? request.input('page') : 1
+    let pageOption = request.input('pageOption')
+
     let data = {}
-    if (rData.flag == 1) {
-      data = await Legend.query()
-                              .select('name')
-                              .select('phone')
-                              .select('address')
-                              .select('img')
-                              .withCount('totalReview')
-                              .with('reviewsall')
-                              .where('name', 'LIKE', '%' + rData.str + '%')
-                              .paginate(page, 5)
-      return data
-    }    else {
-      return 'noData'
-      //  data = await Legend.query()
-      //                         .select('schoolName as name')
-      //                         .select('teamWebsite as  phone')
-      //                         .select('city as address')
-      //                         .select('logo as img')
-      //                         .withCount('totalReview')
-      //                         .with('reviewsall')
-      //                         .where('name', 'LIKE', '%' + rData.str + '%')
-      //                         .paginate(page, 5)
+    if (pageOption == 'legend') {
+      data =  Legend.query()
+                    .select('id')
+                    .select('name')
+                    .select('phone')
+                    .select('address')
+                    .select('img')
+                    .with('avgRating')
+                    .withCount('totalReview')
+                    .with('reviewsall')
     }
+    if (str) {
+      data.where('name', 'LIKE', '%' + str + '%')
+    }
+    if (place) {
+      data.where('address', 'LIKE', '%' + place + '%')
+    }
+    let mdata = await data.paginate(page, 2)
+    return mdata
   }
 
   async SearchByKeyCoach ({request}) {

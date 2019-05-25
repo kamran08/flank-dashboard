@@ -81,8 +81,8 @@ class LegendController {
         user: userData,
         averageRating: averageRating[0][0].averageRating,
         healthPulse: healthPulse[0][0],
-        AttributeInfo: AttributeInfo,
-        
+        AttributeInfo: AttributeInfo
+
         // atrrtributepoint: atrrtributepointData
       })
     } else {
@@ -153,7 +153,7 @@ class LegendController {
     let legendData = await Legend.query()
                                   .where('id', params.id)
                                   .with('legendimages')
-                                  //.with('questions')
+                                  // .with('questions')
                                   .with('questions', (builder) => builder.limit(2))
                                   .withCount('questions as totalQuestion')
                                   .with('questions.user')

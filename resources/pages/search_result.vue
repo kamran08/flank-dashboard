@@ -111,8 +111,8 @@
                     </div>
                     <div class="find-page-nav">
                         <ul class="filter">
-                            <li class="filter-list"><span><i class="fas fa-random"></i></span> All Filters <span class="filter-tag tag-one">Show All Filters</span></li>
-                            <li class="filter-list">
+                            <li class="filter-list" :class="(filterFlag)? 'active_ON': ''"  @click="filterFlagAction" ><span><i class="fas fa-random"></i></span> All Filters <span class="filter-tag tag-one">Show All Filters</span></li>
+                            <!-- <li class="filter-list">
                                 <ul>
                                     <li>$ <span class="filter-tag tag-two">Inexpensive</span></li>
                                     <li>$$ <span class="filter-tag tag-three">Moderate</span></li>
@@ -124,9 +124,9 @@
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Delivery <span class="filter-tag tag-seven">Restaurents that offer ordering on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Takeout <span class="filter-tag tag-eight">Restaurents that offer ordering on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Reservation <span class="filter-tag tag-nine">Restaurents that offer reservation on Flank</span></li>
-                            <li class="filter-list"><span><i class="far fa-clock"></i></span> Cash Back <span class="filter-tag tag-ten">Restaurents that let you join the waitlist remotely on Flank</span></li>
+                            <li class="filter-list"><span><i class="far fa-clock"></i></span> Cash Back <span class="filter-tag tag-ten">Restaurents that let you join the waitlist remotely on Flank</span></li> -->
                         </ul>
-                        <div class="filter-content">
+                        <div class="filter-content" v-if="filterFlag" >
                             <div class="filter-content-inner">
                                 <div class="filter-item">
                                     <div class="filter-item-title">
@@ -140,17 +140,24 @@
                                 </div>
                                 <div class="filter-item">
                                     <div class="filter-item-title">
-                                        <h3>Neighborhood</h3>
+                                        <h3>Search </h3>
                                     </div>
-                                    <ul class="filter-item-list">
-                                        <li><input type="checkbox" id="check1"><label for="check1">Outer Sunset</label></li>
-                                        <li><input type="checkbox" id="check2"><label for="check2">Forest Hill</label></li>
-                                        <li><input type="checkbox" id="check3"><label for="check3">Stonestown</label></li>
-                                        <li><input type="checkbox" id="check4"><label for="check4">Inner Richmond</label></li>
-                                        <li><a href="">More Neighborhoods</a></li>
-                                    </ul>
+                                    <div class="filter-item-list">
+                                        <RadioGroup v-model="pageOption" vertical>
+                                            <Radio label="legend" >Local Legend</Radio>
+                                            <Radio label="school">Schools</Radio>
+                                            <Radio label="coach">School Coaches</Radio>
+                                            <Radio label="product">Products</Radio>
+                                        </RadioGroup>
+                                    </div>
+                                    <!-- <ul class="filter-item-list">
+                                        <li><input type="checkbox" id="check1"><label for="check1">Local Legend</label></li>
+                                        <li><input type="checkbox" id="check2"><label for="check2">Schools</label></li>
+                                        <li><input type="checkbox" id="check3"><label for="check3">School Coaches</label></li>
+                                        <li><input type="checkbox" id="check4"><label for="check4">Products</label></li>
+                                    </ul> -->
                                 </div>
-                                <div class="filter-item">
+                                <!-- <div class="filter-item">
                                     <div class="filter-item-title">
                                         <h3>Distance</h3>
                                     </div>
@@ -161,8 +168,8 @@
                                         <li><a href="">Walking (1 mi.)</a></li>
                                         <li><a href="">Within 4 blocks</a></li>
                                     </ul>
-                                </div>
-                                <div class="filter-item">
+                                </div> -->
+                                <!-- <div class="filter-item">
                                     <div class="filter-item-title">
                                         <h3>Price</h3>
                                     </div>
@@ -172,8 +179,8 @@
                                         <li><input type="checkbox" id="check7"><label for="check7">$$$</label></li>
                                         <li><input type="checkbox" id="check8"><label for="check8">$$$$</label></li>
                                     </ul>
-                                </div>
-                                <div class="filter-item">
+                                </div> -->
+                                <!-- <div class="filter-item">
                                     <div class="filter-item-title">
                                         <h3>Features</h3>
                                     </div>
@@ -184,7 +191,7 @@
                                         <li><input type="checkbox" id="check12"><label for="check12"><span class="rotated-green"><i class="fas fa-tag"></i></span>Offering a Deal</label></li>
                                         <li><a href="">More Features</a></li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -197,84 +204,6 @@
                 <div class="section-content">
                     <div class="row">
                         <div class="col-md-8">
-                            <!-- <div class="sponsor-part">
-                                <div class="sponsor-title">
-                                    <h2>Sponsored Results</h2>
-                                    <p><i class="fas fa-info-circle"></i> <span>Business owners paid for these ads. For more information visi <a href="">Flank for business owners</a></span></p>
-                                </div>
-                                <div class="sponsor-list">
-                                    <div class="sponsor-media sponsor-item">
-                                        <div class="sponsor-media-left">
-                                            <figure>
-                                                <img src="/image/ls (1).jpg" alt="">
-                                            </figure>
-                                            <div class="sponsor-media-carousel">
-                                                <span><i class="fas fa-chevron-left"></i></span>
-                                                <span><i class="fas fa-chevron-right"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="sponsor-media-body">
-                                            <div class="body-part-one">
-                                                <h3><a href="">Sutter St. Cafe</a></h3>
-                                                <div class="badge-review">
-                                                    <p><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span> <small>176 reviews</small></p>
-                                                </div>
-                                                <div class="dir-link">
-                                                    <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
-                                                </div>
-                                            </div>
-                                            <div class="body-part-two">
-                                                <p>(415) 362-8342</p>
-                                                <p>450 Sutter St</p>
-                                                <p>Union Square</p>
-                                            </div>
-                                            <div class="body-para">
-                                                <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
-                                                <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
-                                                <div class="order-card">
-                                                    <p>Offers takeout and delivery</p>
-                                                    <button>Start Order</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="sponsor-media sponsor-item">
-                                        <div class="sponsor-media-left">
-                                            <figure>
-                                                <img src="/image/ls (1).jpg" alt="">
-                                            </figure>
-                                            <div class="sponsor-media-carousel">
-                                                <span><i class="fas fa-chevron-left"></i></span>
-                                                <span><i class="fas fa-chevron-right"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="sponsor-media-body">
-                                            <div class="body-part-one">
-                                                <h3><a href="">Sutter St. Cafe</a></h3>
-                                                <div class="badge-review">
-                                                    <p><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span> <small>176 reviews</small></p>
-                                                </div>
-                                                <div class="dir-link">
-                                                    <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
-                                                </div>
-                                            </div>
-                                            <div class="body-part-two">
-                                                <p>(415) 362-8342</p>
-                                                <p>450 Sutter St</p>
-                                                <p>Union Square</p>
-                                            </div>
-                                            <div class="body-para">
-                                                <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
-                                                <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
-                                                <div class="order-card">
-                                                    <p>Offers takeout and delivery</p>
-                                                    <button>Start Order</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="sponsor-part">
                                 <div class="sponsor-title">
                                     <h2>All Results</h2>
@@ -320,215 +249,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="sponsor-media sponsor-item">
-                                        <div class="sponsor-media-left">
-                                            <figure>
-                                                <img src="/image/ls (1).jpg" alt="">
-                                            </figure>
-                                            <div class="sponsor-media-carousel">
-                                                <span><i class="fas fa-chevron-left"></i></span>
-                                                <span><i class="fas fa-chevron-right"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="sponsor-media-body">
-                                            <div class="body-part-one">
-                                                <h3><span>2.</span> <a href="">Sutter St. Cafe</a></h3>
-                                                <div class="badge-review">
-                                                    <p><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span> <small>176 reviews</small></p>
-                                                </div>
-                                                <div class="dir-link">
-                                                    <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
-                                                </div>
-                                            </div>
-                                            <div class="body-part-two">
-                                                <p>(415) 362-8342</p>
-                                                <p>450 Sutter St</p>
-                                                <p>Union Square</p>
-                                            </div>
-                                            <div class="body-para">
-                                                <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
-                                                <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
-                                                <div class="order-card">
-                                                    <p>Offers takeout and delivery</p>
-                                                    <button>Start Order</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                    <div class="sponsor-search-list">
-                                        <div class="text-center">
-                                            <p><span><i class="fas fa-search"></i></span> People also searched for</p>
-                                        </div>
-                                        <ul>
-                                            <li><a href="">Sushi</a></li>
-                                            <li><a href="">Pizza</a></li>
-                                            <li><a href="">Coffee & Tea</a></li>
-                                            <li><a href="">Bars</a></li>
-                                            <li><a href="">Sea Foods</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="">Japaneese Food</a></li>
-                                            <li><a href="">Pizza</a></li>
-                                            <li><a href="">Coffee & Tea</a></li>
-                                            <li><a href="">Bars</a></li>
-                                            <li><a href="">Sea Foods</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="sponsor-media sponsor-item">
-                                        <div class="sponsor-media-left">
-                                            <figure>
-                                                <img src="/image/ls (1).jpg" alt="">
-                                            </figure>
-                                            <div class="sponsor-media-carousel">
-                                                <span><i class="fas fa-chevron-left"></i></span>
-                                                <span><i class="fas fa-chevron-right"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="sponsor-media-body">
-                                            <div class="body-part-one">
-                                                <h3><span>3.</span> <a href="">Sutter St. Cafe</a></h3>
-                                                <div class="badge-review">
-                                                    <p><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span> <small>176 reviews</small></p>
-                                                </div>
-                                                <div class="dir-link">
-                                                    <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
-                                                </div>
-                                            </div>
-                                            <div class="body-part-two">
-                                                <p>(415) 362-8342</p>
-                                                <p>450 Sutter St</p>
-                                                <p>Union Square</p>
-                                            </div>
-                                            <div class="body-para">
-                                                <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
-                                                <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
-                                                <div class="order-card">
-                                                    <p>Offers takeout and delivery</p>
-                                                    <button>Start Order</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="paginationCount">
-                                        <ul>
+                                    <div class="paginationCount pagination_mark">
+                                        <!-- <ul>
                                             <li class="active"><a href="">1</a></li>
                                             <li><a href="">2</a></li>
                                             <li><a href="">3</a></li>
                                             <li><a href="">4</a></li>
                                             <li><a href="">5</a></li>
                                             <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="sponsor-media sponsor-item">
-                                        <div class="sponsor-media-left">
-                                            <figure>
-                                                <img src="/image/ls (1).jpg" alt="">
-                                            </figure>
-                                            <div class="sponsor-media-carousel">
-                                                <span><i class="fas fa-chevron-left"></i></span>
-                                                <span><i class="fas fa-chevron-right"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="sponsor-media-body">
-                                            <div class="body-part-one">
-                                                <h3><span>4.</span> <a href="">Sutter St. Cafe</a></h3>
-                                                <div class="badge-review">
-                                                    <p><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span class="rating-bg high"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span> <small>176 reviews</small></p>
-                                                </div>
-                                                <div class="dir-link">
-                                                    <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
-                                                </div>
-                                            </div>
-                                            <div class="body-part-two">
-                                                <p>(415) 362-8342</p>
-                                                <p>450 Sutter St</p>
-                                                <p>Union Square</p>
-                                            </div>
-                                            <div class="body-para">
-                                                <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
-                                                <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
-                                                <div class="order-card">
-                                                    <p>Offers takeout and delivery</p>
-                                                    <button>Start Order</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="search-in-city">
-                                <div class="city-part-list">
-                                    <div class="inner-title">
-                                        <h3>Related Searches in San Francisco, CA</h3>
-                                    </div>
-                                    <div class="city-item-list">
-                                        <ul>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner Japaneese</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner Japaneese</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner Japaneese</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                            <li><a href="">Cheap Dinner</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="city-part-list">
-                                    <div class="inner-title">
-                                        <h3>Get things done with Flank</h3>
-                                    </div>
-                                    <div class="figure-list">
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt=""> 
-                                            </figure>
-                                        </div>
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt="">
-                                            </figure>
-                                        </div>
-                                        <div class="item-figure">
-                                            <figure>
-                                                <img src="/image/auto-repair.png" alt="">
-                                            </figure>
+                                        </ul> -->
+                                         <div >
+                                            <Page :current="pagination.page" :total="pagination.total" @on-change="paginateDataInfo($event)" :page-size="pagination.perPage" />
                                         </div>
                                     </div>
                                 </div>
@@ -606,12 +337,15 @@ export default {
             flag:1,
             sstr:1,
             splace:1,
+            filterFlag:false,
+            pageOption: 'legend'
 
         }
     },
     methods:{
         async SearchByKey(){
-            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&flag=${this.flag}&page=${this.page}`)
+
+            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}`)
             if(res.status === 200){
                 this.searchData = res.data.data
                 this.pagination = res.data 
@@ -622,12 +356,29 @@ export default {
             else{
                 this.swr();
             }
+        },
+        async paginateDataInfo(e){
+            this.page = e
+             const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}`)
+            if(res.status === 200){
+                this.searchData = res.data.data
+                this.pagination = res.data 
+                delete this.pagination.data
+                this.sstr = this.str
+                this.splace = this.place
+            }
+            else{
+                this.swr();
+            }
+        },
+        filterFlagAction(){
+            this.filterFlag = (this.filterFlag)? false : true
         }
 
     },
      async asyncData({app, store,redirect, params,query}){
         try {
-            let {data} = await app.$axios.get(`/app/SearchData?place=${query.place}&str=${query.str}&flag=1&page=1`)
+            let {data} = await app.$axios.get(`/app/SearchData?place=${query.place}&str=${query.str}&pageOption=legend`)
           
             return{
                 searchData : data.data,
@@ -639,7 +390,7 @@ export default {
 		}
    },
     created(){
-        console.log(this.$route)
+       
         this.place = this.$route.query.place
         this.splace = this.$route.query.place
         this.str = this.$route.query.str
@@ -651,5 +402,12 @@ export default {
 </script>
 
 <style>
+.active_ON{
+    background: #0096d8 !important;
+    color: #fff !important;
+}
+.pagination_mark{
+        text-align: center;
+}
 
 </style>
