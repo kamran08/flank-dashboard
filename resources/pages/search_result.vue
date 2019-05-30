@@ -107,7 +107,7 @@
                 <div class="section-content">
                     <div class="find-page-title">
                         <h2>Search Result for <strong>{{sstr}}</strong><span v-if="place != ''" > in {{splace}}</span></h2>
-                        <h3>Showing 1-{{searchData.length}} of {{pagination.total}}</h3>
+                        <h3>Showing {{pagination.page}} of {{( showCurrentPage)}}</h3>
                     </div>
                     <div class="find-page-nav">
                         <ul class="filter">
@@ -143,7 +143,7 @@
                                         <h3>Search </h3>
                                     </div>
                                     <div class="filter-item-list">
-                                        <RadioGroup v-model="pageOption" vertical>
+                                        <RadioGroup v-model="pageOption" vertical @on-change="SearchByKey" >
                                             <Radio label="legend" >Local Legend</Radio>
                                             <Radio label="school">Schools</Radio>
                                             <Radio label="coach">School Coaches</Radio>
@@ -199,7 +199,7 @@
             </div>
         </section>
 
-        <section class="third-section find-search-third-section">
+        <section class="third-section find-search-third-section"  >
             <div class="container">
                 <div class="section-content">
                     <div class="row">
@@ -208,7 +208,7 @@
                                 <div class="sponsor-title">
                                     <h2>All Results</h2>
                                 </div>
-                                <div class="sponsor-all-list">
+                                <div class="sponsor-all-list" v-if="pageOption == 'legend'">
                                     <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index" >
                                         <div class="sponsor-media-left">
                                             <figure>
@@ -221,13 +221,18 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3><span>{{index+1}}.</span> <a href="">{{item.name}}</a></h3>
+                                                <h3 v-if="pageOption=='legend'" ><span>{{index+1}}.</span> <a @click="$router.push(`profile/${item.id}`)" >{{item.name}}</a></h3>
                                                 <div class="badge-review">
                                                     <p>
+                                                        <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
                                                         <span class="rating-bg high"><i class="fas fa-star"></i></span>
-                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>
-                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>
-                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>-->
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span> 
+                                                        <span :class="(item.avgRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                         <span><i class="fas fa-star"></i></span> <small>{{item.__meta__.totalReview_count}} reviews</small></p>
                                                 </div>
                                                 <div class="dir-link">
@@ -238,6 +243,129 @@
                                                 <p>{{item.phone}}</p>
                                                 <p></p>
                                                 <p>{{item.address}}</p>
+                                            </div>
+                                            <div class="body-para">
+                                                <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
+                                                <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
+                                                <!-- <div class="order-card">
+                                                    <p>Offers takeout and delivery</p>
+                                                    <button>Start Order</button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="paginationCount pagination_mark">
+                                        <!-- <ul>
+                                            <li class="active"><a href="">1</a></li>
+                                            <li><a href="">2</a></li>
+                                            <li><a href="">3</a></li>
+                                            <li><a href="">4</a></li>
+                                            <li><a href="">5</a></li>
+                                            <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
+                                        </ul> -->
+                                         <div >
+                                            <Page :current="pagination.page" :total="pagination.total" @on-change="paginateDataInfo($event)" :page-size="pagination.perPage" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sponsor-all-list" v-if="pageOption == 'coach'">
+                                    <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index"  v-if="item.school">
+                                        <div class="sponsor-media-left">
+                                            <figure >
+                                                <img :src="item.school.logo" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="sponsor-media-body">
+                                            <div class="body-part-one">
+                                                <h3 ><span>{{index+1}}.</span>{{item.name}}</h3>
+                                                <div class="badge-review">
+                                                    <p>
+                                                        <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>-->
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span> 
+                                                        <span :class="(item.avgRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span><i class="fas fa-star"></i></span> <small>{{item.__meta__.allreview_count}} reviews</small></p>
+                                                </div>
+                                                <div class="dir-link">
+                                                    <p>
+                                                        <span></span> <a @click="$router.push(`school/${item.id}`)" >{{item.school.schoolName}} {{item.school.sport}} </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="body-part-two">
+                                                <p>{{item.school.sport}}</p>
+                                                <p></p>
+                                                <p>
+                                                    {{item.school.city}}
+                                                    {{(item.school.state)? ' ,'+item.school.state : '' }}
+                                                    {{(item.school.division)? ' ,'+item.school.division : '' }}
+                                                </p>
+                                            </div>
+                                            <div class="body-para">
+                                                <div class="order-card">
+                                                   <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
+                                                    <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
+                                                    <div class="order-card">
+                                                        <button class='text-center' @click="$router.push(`/scoach_review/${item.id}`)" >Write a Review</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="paginationCount pagination_mark">
+                                        <!-- <ul>
+                                            <li class="active"><a href="">1</a></li>
+                                            <li><a href="">2</a></li>
+                                            <li><a href="">3</a></li>
+                                            <li><a href="">4</a></li>
+                                            <li><a href="">5</a></li>
+                                            <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
+                                        </ul> -->
+                                         <div >
+                                            <Page :current="pagination.page" :total="pagination.total" @on-change="paginateDataInfo($event)" :page-size="pagination.perPage" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sponsor-all-list" v-if="pageOption == 'school'">
+                                    <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index" >
+                                        <div class="sponsor-media-left">
+                                            <figure>
+                                                <img :src="item.logo" alt="">
+                                            </figure>
+                                        </div>
+                                        <div class="sponsor-media-body">
+                                            <div class="body-part-one">
+                                                <h3 ><span>{{index+1}}.</span> <a @click="$router.push(`school/${item.id}`)" >{{item.schoolName}} {{item.sport}} </a></h3>
+                                                <div class="badge-review">
+                                                    <p>
+                                                        <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>-->
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span> 
+                                                        <span :class="(item.avgRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                        <span><i class="fas fa-star"></i></span> <small>{{item.__meta__.allreview_count}} reviews</small></p>
+                                                </div>
+                                                <div class="dir-link">
+                                                    <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
+                                                </div>
+                                            </div>
+                                            <div class="body-part-two">
+                                                <p>{{item.phone}}</p>
+                                                <p></p>
+                                                <p>
+                                                    {{item.city}}
+                                                    {{(item.state)? ' ,'+item.state : '' }}
+                                                    {{(item.division)? ' ,'+item.division : '' }}
+                                                </p>
                                             </div>
                                             <div class="body-para">
                                                 <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
@@ -338,7 +466,9 @@ export default {
             sstr:1,
             splace:1,
             filterFlag:false,
-            pageOption: 'legend'
+            pageOption: 'legend',
+            iam:false,
+            showCurrentPage:0
 
         }
     },
@@ -352,6 +482,7 @@ export default {
                 delete this.pagination.data
                 this.sstr = this.str
                 this.splace = this.place
+                this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
             }
             else{
                 this.swr();
@@ -366,6 +497,7 @@ export default {
                 delete this.pagination.data
                 this.sstr = this.str
                 this.splace = this.place
+                this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
             }
             else{
                 this.swr();
@@ -383,10 +515,11 @@ export default {
             return{
                 searchData : data.data,
                 pagination : data,
+               
 
             }
 		}catch (error) {
-            return redirect('/404')
+            return redirect('/')
 		}
    },
     created(){
@@ -395,6 +528,7 @@ export default {
         this.splace = this.$route.query.place
         this.str = this.$route.query.str
         this.sstr = this.$route.query.str
+       // this. showCurrentPage = (Math.ceil(this.pagination.total)/(this.pagination.perPage)-this.pagination.page)
 
     }
 

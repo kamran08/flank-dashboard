@@ -91,6 +91,11 @@ class LegendController {
       })
     }
   }
+  async getLegendId ({ params, request, response, view }) {
+    return await Legend.query()
+                        .where('user_id', params.id)
+                        .first()
+  }
 
   /**
    * Render a form to update an existing legend.

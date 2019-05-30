@@ -21,7 +21,7 @@
                             <div class="text-center">
                                 <form v-on:submit.prevent="onSubmit">
                                     <h2>Log In to Flank</h2>
-                                    <p><strong>Need to Flank?</strong> <a href="signup.html"><strong>Sign up</strong></a></p>
+                                    <p><strong>Need to Flank?</strong> <nuxt-link to="/register"><strong>Sign up</strong></nuxt-link></p>
                                     <small>By logging in, you agree to Yelp’s <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.</small><br>
                                     <!-- <div class="social-login">
                                         <button><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;&nbsp;Log In with Facebook</button>

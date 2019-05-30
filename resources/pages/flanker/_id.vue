@@ -304,8 +304,10 @@
                                 </div>
                                 <div class="about-side-bar">
                                     <p>Review Votes</p>
-                                    <ul v-if="imosCount.length" >
-                                        <li v-for="(item,index) in imosCount" :key="index" ><span><i :class="item.imo | getIcon"></i></span> <span>{{item.imo}} <strong>{{item.total}}</strong></span></li>
+                                    <ul v-if="imosCount" >
+                                        <li  ><span><i class="fas fa-lightbulb"></i></span> <span>Useful <strong>{{imosCount.useful}}</strong></span></li>
+                                        <li  ><span><i class="far fa-laugh-wink"></i></span> <span>Funny <strong>{{imosCount.funny}}</strong></span></li>
+                                        <li  ><span><i class="fas fa-grin-beam"></i></span> <span>Cool <strong>{{imosCount.cool}}</strong></span></li>
                                     </ul>
                                 </div>
 
@@ -391,11 +393,11 @@ export default {
             return{
                 userData : data.user,
                 ratingD : data.reviewRatings,
-                imosCount : data.imosCount,
+                imosCount : data.user.imosCount,
             }
 		}catch (error) {
             console.log(error)
-            return redirect('/')
+          //  return redirect('/')
 		}
     },
     methods:{

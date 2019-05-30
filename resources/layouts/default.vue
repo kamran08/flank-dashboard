@@ -15,7 +15,15 @@ export default {
     navber,
     MyFooter
   },
-
+  watch:{
+      $route (to, from){
+          console.log("To:")
+          console.log(to)
+          console.log("Form:")
+          console.log(from)
+          
+      }
+  },
 }
 </script>
 

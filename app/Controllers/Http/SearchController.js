@@ -23,16 +23,45 @@ class SearchController {
                     .select('img')
                     .with('avgRating')
                     .withCount('totalReview')
-                    .with('reviewsall')
+
+      if (str) {
+        data.where('name', 'LIKE', '%' + str + '%')
+      }
+      if (place) {
+        data.where('address', 'LIKE', '%' + place + '%')
+      }
+    }    else if (pageOption == 'school') {
+      data =  School.query()
+                    .with('avgRating')
+                    .withCount('allreview')
+
+      if (str) {
+        data.where('schoolName', 'LIKE', '%' + str + '%')
+      }
+      if (place) {
+        data.where('city', 'LIKE', '%' + place + '%')
+        data.orWhere('state', 'LIKE', '%' + place + '%')
+        data.orWhere('division', 'LIKE', '%' + place + '%')
+      }
+    } else if (pageOption == 'coach') {
+      data =  SchoolCoach.query()
+                    .with('avgRating')
+                    .withCount('allreview')
+                    .with('school')
+
+      if (str) {
+        data.where('name', 'LIKE', '%' + str + '%')
+      }
     }
-    if (str) {
-      data.where('name', 'LIKE', '%' + str + '%')
+
+    let mdata = await data.paginate(page, 5)
+    mdata = mdata.toJSON()
+    let tempData = JSON.parse(JSON.stringify(mdata))
+    for (let d of tempData.data) {
+      if (d.avgRating == null) d.avgRating = 0
     }
-    if (place) {
-      data.where('address', 'LIKE', '%' + place + '%')
-    }
-    let mdata = await data.paginate(page, 2)
-    return mdata
+
+    return tempData
   }
 
   async SearchByKeyCoach ({request}) {

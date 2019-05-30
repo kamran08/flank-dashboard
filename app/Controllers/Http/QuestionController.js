@@ -1,9 +1,11 @@
+/* eslint-disable camelcase */
 'use strict'
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Question = use('App/Models/Question')
+const SchoolQuestion = use('App/Models/SchoolQuestion')
 /**
  * Resourceful controller for interacting with questions
  */
@@ -46,6 +48,12 @@ class QuestionController {
     data.user_id = user_id
     return await Question.create(data)
   }
+  async storequestions ({ request, response, auth }) {
+    const user_id = await auth.user.id
+    let data = request.all()
+    data.user_id = user_id
+    return await SchoolQuestion.create(data)
+  }
 
   /**
    * Display a single question.
@@ -57,7 +65,7 @@ class QuestionController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    let page = request.input('page') ? request.input('page') : 1 
+    let page = request.input('page') ? request.input('page') : 1
     return await Question.query()
                           .where('legend_id', params.id)
                           .with('user')
@@ -66,18 +74,30 @@ class QuestionController {
                           .orderBy('id', 'desc')
                           .paginate(page, 3)
   }
+
+  async CoachShow ({ params, request, response, view }) {
+    let page = request.input('page') ? request.input('page') : 1
+    return await SchoolQuestion.query()
+                          .where('school_id', params.id)
+                          .with('user')
+                          .with('answers')
+                          .with('answers.user')
+                          .orderBy('id', 'desc')
+                          .paginate(page, 3)
+  }
   async similar ({ params, request, response, view }) {
     const data = request.all()
-   // const id = data.id
-   // const legend_id = data.legend_id
-
-  // console.log('id is '+id) 
-   // console.log('params')
-   // console.log(params)
-    console.log('request')
-    console.log(data)
     return await Question.query()
                           .where('legend_id', data.legend_id)
+                          .whereNot('id', data.question_id)
+                          .withCount('answers')
+                          .orderBy('id', 'desc')
+                          .paginate(1, 3)
+  }
+  async similar_coach_question ({ params, request, response, view }) {
+    const data = request.all()
+    return await SchoolQuestion.query()
+                          .where('school_id', data.school_id)
                           .whereNot('id', data.question_id)
                           .withCount('answers')
                           .orderBy('id', 'desc')

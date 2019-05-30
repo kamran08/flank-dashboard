@@ -1,17 +1,17 @@
 <template>
-    <div>
+        <div>
         
         <!-- Header-->
         
         <header>
             <div class="header-second">
                 <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="assets/image/default.png" alt=""></a>
+                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="image/default.png" alt=""></a> 
                     <form action="#">
                         <div class="equal-div">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1"> 
+                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group">
                                <span class="input-group-addon position-top" id="basic-addon1">Near</span>
@@ -103,76 +103,59 @@
             </div>
         </header>
         
-        <section class="rd second-section" v-if="questionData" >
+        <section class="rd second-section">
             <div class="container">
                 <div class="section-content">
                     <div class="review-content">
                         <div class="breadcrumbs">
                             <ul>
-                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></li>
-                                <li><span><i class="fas fa-chevron-right"></i></span><nuxt-link :to="{name: 'questionlist-id', params: { id:legend_id } }">Ask the Community</nuxt-link></li>
-                                <li><span><i class="fas fa-chevron-right"></i></span>Details</li>
+                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></li>
+                                <li><span><i class="fas fa-chevron-right"></i></span>Ask the Community</li>
                             </ul>
                         </div>
-                        
-                        <div class="row" >
+
+                        <div class="row">
                             <div class="col-md-8">
-                                <div class="full-question border-right">
-                                    <div class="ques">
-                                        <h3>{{questionData.content}}</h3>
-                                        <span><small>Asked by <a >{{questionData.user.firstName}} {{questionData.user.lastName}} </a> </small></span>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span><small>{{questionData.created_at}}</small></span>
-                                        <span class="icon-flag"><i class="fas fa-flag"></i></span>
-                                        <div class="bellow-link border-bottom">
-                                            <p>{{questionData.allAnswers.length}} Answer</p>
-                                            <!-- <div class="sortTag no_pos">Sort by&nbsp;<strong>Popular&nbsp;<span><i class="fas fa-sort-down"></i>
-                                                        
-                                            </span>
-                                                <ul>
-                                                    <li><a href="">Popular</a></li>
-                                                    <li><a href="">Most Answerd</a></li>
-                                                    <li><a href="">Newest First</a></li>
-                                                </ul>
+                                <div class="reviewComment no_margin border-right">
+                                    <div class="comment_title border-bottom" >
+                                        <h2>Ask the Community</h2>
+                                        <!-- <div class="sortTag no_pos">Sort by&nbsp;<strong>Popular&nbsp;
+                                            <span><i class="fas fa-sort-down"></i></span>
+                                            <ul>
+                                                <li><a href="">Popular</a></li>
+                                                <li><a href="">Most Answerd</a></li>
+                                                <li><a href="">Newest First</a></li>
+                                            </ul>
                                             </strong>
-                                                
-                                            </div> -->
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <template v-if="questionData.allAnswers.length" >
-                                        <div class="comment-individual border-bottom" v-for="(item,index) in questionData.allAnswers" :key="index"  >
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img class="profile_picU" :src="item.user.img" alt="">
-                                                </div>
-
-                                                <div class="media-body">
-                                                    <p>{{item.user.firstName}} {{item.user.lastName}} </p>
-                                                    <span><small>Business Manager</small></span>
-                                                    <br><br>
-                                                    <p>{{item.content}}</p>
-                                                    <span><small>{{item.created_at}}</small></span>
-                                                </div>
-                                                <!-- <div class="media-body-left">
-                                                    <span><small>{{item.created_at}}</small></span>
-                                                    <ul>
-                                                        <li>Update</li>
-                                                        <li>Delete</li>
-                                                    </ul>
-                                                </div> -->
+                                    <div class="comment-individual border-bottom" v-for="(item,index) in questionList" :key="index" >
+                                        <p><strong>{{item.content}}</strong></p>
+                                        <div class="media" v-if="item.answers.length>0" >
+                                            <div class="media-left">
+                                                <img class="profile_picU" :src="item.answers[0].user.img" alt="">
                                             </div>
-                                            <!-- <div class="check_review_button">
-                                                <ul>
-                                                    <li><button><span><i class="fas fa-arrow-up"></i></span> Helpful</button></li>
-                                                    <li><button><span><i class="fas fa-arrow-down"></i></span> Not Helpful</button></li>
-                                                </ul>
-                                                <span class="icon-flag"><i class="fas fa-flag"></i></span>
-                                            </div> -->
-                                        </div>
-                                    </template>
-                                    
 
+                                            <div class="media-body">
+                                                <p>{{item.answers[0].user.firstName}} {{item.answers[0].user.lastName}}</p>
+                                                <span><small>Business Manager</small></span>
+                                                <br><br>
+                                                <p>{{item.answers[0].content}}</p>
+                                                <span><small>{{item.answers[0].created_at}}</small></span>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            <nuxt-link :to="{name: 'coach_question_details-school_id-id', params: { school_id:legend_id , id:item.id } }" >View question details</nuxt-link>
+                                        </p>
+                                    </div>
+                                    <div class="text-center">
+                                        <div >
+                                            <Page :current="rpagination.page" :total="rpagination.total" @on-change="setPage($event)" :page-size="rpagination.perPage" />
+                                        </div>
+                                        </div>
                                     <div class="question-button">
-                                        <p>Provide an answer:</p>
-                                        <button  @click="answerModal = true" >Post an Answer</button>
+                                        <p>Don’t see your question? Ask away!</p>
+                                        <button @click="askModal=true" >Ask a question</button>
                                     </div>
                                 </div>
                             </div>
@@ -180,12 +163,25 @@
 
                                 <div class="view-sect">
                                     <div class="view-media">
-                                        <div class="media">
+                                        <!-- <div class="media">
+                                            <div class="media-left">
+                                                <img src="image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Inn Above Tide</a></h4>
+                                                <div class="star-review">
+                                                    <p><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="media"  >
                                             <div class="media-left">
                                                 <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
                                             </div>
                                             <div class="media-body">
-                                                <h4><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></h4>
+                                                <h4><nuxt-link :to="{name: 'school-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></h4>
                                                 <div class="star-review">
                                                     <p>
                                                         <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
@@ -193,36 +189,11 @@
                                                         <span :class="(averageRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                         <span :class="(averageRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                         <span :class="(averageRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        &nbsp;<small v-if="legendData.__meta__" class="review-number">{{(legendData.__meta__.totalReview_count)? legendData.__meta__.totalReview_count : 0}} reviews</small>
+                                                        &nbsp;<small v-if="legendData.__meta__" class="review-number">{{(totalReview)? totalReview : 0}} reviews</small>
                                                     </p>
                                                     <span></span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>{{legendData.address}}</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="other-ques">
-                                            <h4 class="border-bottom">Other questions for {{legendData.name}}</h4>
-                                            <template v-if="similarQuestion.length>0 && isLoading==false ">
-                                                <div class="other-ques-det" v-for="(item,index) in similarQuestion " :key="index"  >
-                                                    <p>{{item.content}}</p>
-                                                    <p v-if="item.__meta__.answers_count>0">
-                                                        <nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View {{item.__meta__.answers_count}} answer</nuxt-link>
-                                                    </p>
-                                                    <p v-else >
-                                                        <nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View this question</nuxt-link>
-                                                    </p>
-                                                </div>
-                                            </template>
-                                            <template v-else-if="isLoading" >
-                                                 <div class="other-ques-det"  >
-                                                    <p>Content is loading...</p>
-                                                </div>
-                                            </template>
-                                            <template v-else >
-                                                <div class="other-ques-det"  >
-                                                    <p>No similar Question!</p>
-                                                </div>
-                                            </template>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -232,19 +203,18 @@
                 </div>
             </div>
         </section>
-        <h2 class="isloadingClass" v-else >Content is Loading....</h2>
-        <Modal title="Answer Question" v-model="answerModal">
+        <Modal title="Ask the Community" v-model="askModal">
            <div class="">
             <Form  :label-width="80">
               
-               <FormItem label="answer">
-                   <Input v-model="answerData.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Ask your question ..."></Input>
+               <FormItem label="Question">
+                   <Input v-model="askData.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Ask your question ..."></Input>
                </FormItem>
             </Form>
            </div>
            <div slot="footer">
-                <Button  @click="answerModal=false">Cancle</Button>
-                <Button type="info" @click="answerQuestion">Answer</Button>
+                <Button  @click="askModal=false">Cancle</Button>
+                <Button type="info" @click="askQuestion">Ask</Button>
             </div>
         </Modal>
     </div>
@@ -254,35 +224,24 @@
 export default {
     data(){
         return{
-            
-            isLoading:true,
-            legendData :{},
-            userData:{},
-            averageRating :0,
-            similarQuestion:[],
-            healthPulse :{},
-            answerModal : false,
-             answerData:{
+            legend_id:'',
+            askModal:false,
+            askData:{
                 content:'',
             },
+            legendData :{},
+            coaches:{},
+            averageRating :0,
+            totalReview :0,
+            rpagination:{},
+            page:1,
+
         }
     },
-    async asyncData({app, store,redirect, params}){
-        try {
-            let {data} = await app.$axios.get(`/answers/${params.id}`)
-          
-            return{
-                questionData : data
-            }
-		}catch (error) {
-            console.log(error)
-             return redirect('/')
-		}
-    },
     methods:{
-        async answerQuestion(){
-            if(this.answerData.content == ''){
-                this.i('You asnwerfield field is empty!')
+        async askQuestion(){
+            if(this.askData.content == ''){
+                this.i('You question field is empty!')
                 return
             }
             if(this.isLoggedIn == false){
@@ -290,41 +249,59 @@ export default {
                 this.$router.push('/login');
                 return
             }
-            this.answerData.question_id = this.questionData.id
-            const res = await this.callApi('post','/answers',this.answerData)
+           this.askData.school_id = this.legendData.id
+            const res = await this.callApi('post','/storequestions',this.askData)
             if(res.status===200){
-                this.s("Your answer has been posted successfully!")
-                res.data.user = this.authInfo
-                this.questionData.allAnswers.unshift(res.data)
-                this.answerModal = false
+                this.s("Your question has been posted successfully!")
+                res.data.answers = []
+                this.questionList.unshift(res.data)
+                this.askModal = false
             }
             else{
                 this.swr();
             }
 
         },
+        setPage(index){
+            this.page = index
+            this.pageniateQuestion();
+        },
+         async pageniateQuestion(){
+            const res = await this.callApi('get', `/app/CoachShow/${this.$route.params.id}?page=${this.page}`)
+            if(res.status===200){
+                this.questionList = res.data.data
+                this.rpagination = res.data
+                delete this.rpagination.data
+            }
+            else{
+                this.swr()
+            }
+        },
+
+    },
+     async asyncData({app, store,redirect, params}){
+        try {
+            let {data} = await app.$axios.get(`/app/CoachShow/${params.id}`)
+          
+            return{
+                questionList : data.data,
+                rpagination : data
+            }
+		}catch (error) {
+            console.log(error)
+            return redirect('/')
+		}
     },
     async created(){
-        console.log(this.$route.params)
-        this.legend_id = this.$route.params.legend_id
-        let question_id = this.$route.params.id
-        let tempOb = {
-            legend_id:this.legend_id,
-            question_id:question_id
-        }
-        
-         const [res1,res2] = await Promise.all([
-            this.callApi('get', `legends/${this.legend_id}`),
-            this.callApi('post', `/app/similarQuestion`,tempOb),
+        this.legend_id = this.$route.params.id
+         const [res1] = await Promise.all([
+            this.callApi('get', `schools/${this.$route.params.id}`),
         ])
         if(res1.status===200){ 
-
-                this.legendData = res1.data.legend
-                this.userData = res1.data.user
-                this.averageRating = res1.data.averageRating
-                this.healthPulse = res1.data.healthPulse
-                this.similarQuestion = res2.data.data
-                this.isLoading = false
+                this.legendData = res1.data.School
+                this.coaches = res1.data.School.coaches
+                this.totalReview = res1.data.School.__meta__.allreview_count
+                this.averageRating = (res1.data.School.avgRating)? res1.data.School.avgRating.averageRating : 0 
         } else{
             this.swr()
         }
@@ -335,10 +312,7 @@ export default {
 <style scoped>
      .profile_picU{
         width: 40px;
-    }
-    .isloadingClass{
-        margin: 0 auto;
-        text-align: center;
-        padding: 20px;
+    
     }
 </style>
+

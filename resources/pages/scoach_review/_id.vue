@@ -11,7 +11,7 @@
                    <!-- <div class="pull-right">
                        <ul class="logsign wr">
                            <li><a href="login.html">Log In</a></li>
-                           <li><a href="signup.html">Sign Up</a></li>
+                           <li><a href="signup.html">Sign Up</a></li> 
                        </ul>
                    </div> -->
                 </div>
@@ -30,7 +30,7 @@
                             <br>
                             <div class="full-text-area-box">
                                 <div class="textarea">
-                                    <div class="star-review" style="background: #fff; text-align: center;" >
+                                    <div class="star-review" style="background: #fff; text-align: center; padding: 10px 0;" >
                                         <p><small>Select your rating</small></p>
                                         <Rate v-model="rating" icon="md-star" @on-change="reviewData.rating=rating" />
                                     </div>

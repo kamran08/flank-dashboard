@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="top-bar">
+    <!-- <div class="top-bar">
             <div class="container">
                 <div class="top-bar-inner">
                     <div class="pull-left">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <nav class="navbar border-less-nav game-nav">
             <div class="navbar-logo">
                 <ul>
@@ -48,58 +48,157 @@
                 <ul>
                     <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
                     <li v-if="isLoggedIn && packType==1 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
-                    <li v-if="isLoggedIn && packType !=1 " @click="$router.push(`/profile/${authInfo.id}`)" ><a >Profile</a></li>
+                    <li v-if="isLoggedIn && packType !=1 " @click="$router.push(`/profile/${legend_id}`)" ><a >Profile</a></li>
                     <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                     <li><a href="">Download</a></li>
                 </ul>
             </div>
+            
             <Modal
                 v-model="reviewModal"
                 title="Riview Modal"
                 width='500'
-            >
-            <div class="row">
-                 <div class="col-md-12">
-                    <div class="form-group">
-                        <p class=" msg_box_header">Write Review For?</p>
-                        <div class="row">
-                            <div class="col-md-3"  @click="rData.for=1"  ><Button :type="(rData.for == 1)? 'success': 'primary'" >School</Button></div>
-                            <div class="col-md-3"  @click="rData.for=2"  ><Button :type="(rData.for == 2)? 'success': 'primary'" >Local Legend</Button></div>
-                            <div class="col-md-3"  @click="rData.for=3"  ><Button :type="(rData.for == 3)? 'success': 'primary'" >Product Hero</Button></div>
-                        </div>
-                        <template v-if="rData.for == 2 || rData.for ==3" >
-                            <Input v-model="rData.key" placeholder="Enter Coach Name ..." style="width: 300px" @on-keyup="SearchByKeyCoach" />
-                            <div v-if="coachList.length>0" >
-                                <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="goToLegendWall(item)" >{{item.name}}</p>
+                >
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p class=" msg_box_header">Write Review For?</p>
+                            <div class="review-button">
+                                <div class="btn-role"  @click="rData.for=1"  ><Button :type="(rData.for == 1)? 'success': 'primary'" >School</Button></div>
+                                <div class="btn-role"  @click="rData.for=2"  ><Button :type="(rData.for == 2)? 'success': 'primary'" >Local Legend</Button></div>
+                                <div class="btn-role"  @click="rData.for=3"  ><Button :type="(rData.for == 3)? 'success': 'primary'" >Product Hero</Button></div>
+                            </div>
+                            <template v-if="rData.for == 2 || rData.for ==3" >
+                                <Input v-model="rData.key" placeholder="Enter Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
+                                <div v-if="coachList.length>0" style="border: 1px solid #0088cc;">
+                                    <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="goToLegendWall(item)" >{{item.name}}</p>
                                
-                            </div>
-                        </template>
-                        <template v-else-if="rData.for==1" >
-                            <Input v-model="rData.school" placeholder="Enter School Name ..." style="width: 300px" @on-keyup="SearchByKeySchool" />
-                            <div v-if="schoolList.length>0" >
-                                <p  class="pointer_like" v-for="(item,index) in schoolList" :key="index" @click="manageSchoolData(item)" >{{item.name}} | {{item.sport}}  </p>
-                            </div>
-                            
-                            <template v-if="sData.school_id !=0" >
-                                <hr>
-                                <Input v-model="sData.school" placeholder="Enter School Coach Name ..." style="width: 300px" @on-keyup="SearchByKeySchoolCoach" />
-                                <div v-if="schoolCoachList.length>0" >
-                                    <p  class="pointer_like" v-for="(item,index) in schoolCoachList" :key="index" @click="goToCoachWall(item)" >{{item.name}}</p>
                                 </div>
-                                <Button @click="CreateNewCoach"  >Create a Coach</Button>
                             </template>
-                        </template>
+                            <template v-else-if="rData.for==1" >
+                                <Input v-model="rData.school" placeholder="Enter School Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeySchool" />
+                                <div v-if="schoolList.length>0" style="border: 1px solid #0088cc;">
+                                    <p  class="pointer_like" v-for="(item,index) in schoolList" :key="index" @click="manageSchoolData(item)" >{{item.name}} | {{item.sport}}  </p>
+                                </div>
+                                
+                                <template v-if="sData.school_id !=0" >
+                                    <hr>
+                                    <Input v-model="sData.school" placeholder="Enter School Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"  @on-keyup="SearchByKeySchoolCoach" />
+                                    <div v-if="schoolCoachList.length>0" style="border: 1px solid #0088cc;">
+                                        <p  class="pointer_like" v-for="(item,index) in schoolCoachList" :key="index" @click="goToCoachWall(item)" >{{item.name}}</p>
+                                    </div>
+                                    <Button @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
+                                </template>
+                            </template>
+                        </div>
                     </div>
                 </div>
-                    
-            </div>
-            
-            <div slot="footer">
-                <Button @click="reviewModal = false">Close</Button> 
-                <Button type="success">Send</Button>
-            </div>
-        </Modal>
+                <div slot="footer">
+                    <Button @click="reviewModal = false">Close</Button> 
+                    <Button type="success">Send</Button>
+                </div>
+            </Modal>
        </nav>
+               <header>
+            <div class="header-second"> 
+                <div class="container">
+                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
+                    <form action="#">
+                        <div class="equal-div">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Find</span>
+                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group">
+                               <span class="input-group-addon position-top" id="basic-addon1">Near</span>
+                                <input type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
+                                <span class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
+                            </div>
+                            <div class="left-dropdown">
+                                <ul>
+                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
+                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
+                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
+                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
+                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
+                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
+                                </ul>
+                            </div>
+                            <div class="right-dropdown">
+                                <ul>
+                                    <li><a href=""><i class="fas fa-location-arrow"></i>Current Locations</a></li>
+                                    <li style=""><a href="" style="">San Francisco, CA</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                   </form>
+                   <!-- <div class="pull-right">
+                       <ul class="logsign">
+                           <li><a href="">Log In</a></li>
+                           <li><a href="">Sign Up</a></li>
+                       </ul>
+                   </div> -->
+                </div>
+            </div>
+            <div class="header-nav">
+               <div class="container">
+                   <ul class="main-nav">
+                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach&nbsp;<i class="fas fa-angle-down"></i></a>
+                           <div class="nav-dropdown">
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                           </div>
+                       </li>
+                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;College Coach&nbsp;<i class="fas fa-angle-down"></i></a>
+                           <div class="nav-dropdown">
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                           </div>
+                       </li>
+                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Team Coach&nbsp;<i class="fas fa-angle-down"></i></a>
+                           <div class="nav-dropdown">
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                           </div>
+                       </li>
+                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & services&nbsp;<i class="fas fa-angle-down"></i></a>
+                           <div class="nav-dropdown">
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                               </ul>
+                           </div>
+                       </li>
+                   </ul>
+                   <ul class="main-nav right-top pull-right">
+                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
+                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;For Business</a></li>
+                   </ul>
+               </div>
+            </div>
+        </header>
 </div>
 </template>
 
@@ -108,6 +207,7 @@
         data(){
             return{
                 packType:0,
+                legend_id:0,
                 reviewModal:false,
                 rData:{
                     for:0,
@@ -117,15 +217,33 @@
                 coachList:[],
                 schoolList:[],
                 schoolCoachList:[],
-
                 sData:{
                     school_id:0,
-                }
+                },
+                iamIndex:false,
                 
             }
         },
         computed:{
            
+        },
+        async asyncData({app, store,redirect, params}){
+            try {
+                let {data} = await app.$axios.get(`/legends/${params.id}`)
+            
+                return{
+                    legendData : data.legend,
+                    userData : data.user,
+                    averageRating : data.averageRating,
+                    healthPulse : data.healthPulse,
+                    AttributeInfo : data.AttributeInfo,
+                    totalReview : data.legend.__meta__.totalReview_count
+                    
+                }
+            }catch (error) {
+                console.log(error)
+                return redirect('/')
+            }
         },
         methods:{
             async CreateNewCoach(){
@@ -172,7 +290,7 @@
                    this.swr()
                }
             },
-            async SearchByKeySchool(){
+            async SearchByKeySchool(){ 
                const res = await this.callApi('get',`/app/SearchByKeySchool?key=${this.rData.school}`)
                if(res.status=== 200){
                    this.schoolList = res.data
@@ -201,8 +319,15 @@
                 }
             },
         },
-        created(){
-             if(this.isLoggedIn) this.packType = this.authInfo.packType
+
+        async created(){
+             if(this.isLoggedIn){
+                 this.packType = this.authInfo.packType
+                 const res = await this.callApi('get',`/app/getLegendId/${this.authInfo.id}`)
+                 if(res.status===200){
+                     this.legend_id = res.data.id
+                 }
+             } 
         }
     }
 </script>

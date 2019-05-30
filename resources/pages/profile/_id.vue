@@ -1,108 +1,9 @@
 <template>
     <div>
         
-        <!-- Header-->
+        <!-- Header--> 
         
-        <header>
-            <div class="header-second">
-                <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    <form action="#">
-                        <div class="equal-div">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group">
-                               <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                <input type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
-                                <span class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
-                            </div>
-                            <div class="left-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                </ul>
-                            </div>
-                            <div class="right-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-location-arrow"></i>Current Locations</a></li>
-                                    <li style=""><a href="" style="">San Francisco, CA</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                   </form>
-                   <!-- <div class="pull-right">
-                       <ul class="logsign">
-                           <li><a href="">Log In</a></li>
-                           <li><a href="">Sign Up</a></li>
-                       </ul>
-                   </div> -->
-                </div>
-            </div>
-            <div class="header-nav">
-               <div class="container">
-                   <ul class="main-nav">
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;College Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Team Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & services&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                   </ul>
-                   <ul class="main-nav right-top pull-right">
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;For Business</a></li>
-                   </ul>
-               </div>
-            </div>
-        </header>
+
         
         <section class="rd second-section bg">
             <div class="container">
@@ -287,7 +188,7 @@
                                                                 <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
                                                             </div>
                                                             <div class="media-body">
-                                                                <p><strong><a href="">{{item.reviwer.firstName}}</a></strong></p>
+                                                                <p><strong>{{item.reviwer.firstName}}</strong></p>
                                                                 <small><strong>{{item.reviwer.address}}</strong></small>
                                                                 <p>
                                                                     <span><i class="fas fa-star"></i>&nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}</span>
@@ -408,6 +309,25 @@
                                                          <input type="text"  v-model="formData.phone"  class="adress-input">
                                                     </span>
                                                    
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="review-time-content" v-if="userData.packType == 3" >
+                                    <ul>
+                                        <li>
+                                            <div class="biz-hours-icon">
+                                                <span><i class="fab fa-creative-commons-share"></i></span>
+                                            </div>
+                                            <div class="biz-hours-time">
+                                                <div class="short-def-list">
+                                                    <span class="attribute-key">Products</span>
+                                                    <span  >
+                                                        <p><strong class="u-space-r-half">Product 1</strong></p>
+                                                        <p><strong class="u-space-r-half">Create New Product</strong></p>
+                                                    </span>
+                                                    
                                                 </div>
                                             </div>
                                         </li>
@@ -554,24 +474,6 @@
                                     <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
 
                                     <h4 v-else class="noReview" >No more yet!</h4>
-                                    <!-- <div class="business-name" v-else  >
-                                        <ul>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                            <li><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>Health Score <strong>85 out of 100</strong></span></span></li>
-                                        </ul>
-                                        <p>Does He ride the storm? &nbsp;&nbsp;<span> <strong>{{(skillCount.first != null )? skillCount.first + '/' : ''}}{{skillCount.total}}</strong></span></p>
-                                        <p>Cookie Cutter approach? &nbsp;&nbsp;<span><strong>{{(skillCount.second != null )? skillCount.second + '/' : ''}}{{skillCount.total}}</strong></span></p>
-                                        <p>Does he pass the sniff test? &nbsp;&nbsp;<span><strong>{{(skillCount.third != null )? skillCount.third + '/' : ''}}{{skillCount.total}}</strong></span></p>
-                                        <p>Does he bring supplies?  &nbsp;&nbsp;<span><strong>{{(skillCount.fourth != null )? skillCount.fourth + '/' : ''}}{{skillCount.total}}</strong></span></p>
-                                        <p>Quick heals for games? &nbsp;&nbsp;<span><strong>{{(skillCount.fifth != null )? skillCount.fifth + '/' : ''}}{{skillCount.total}}</strong></span></p>
-                                        
-                                    </div> -->
                                 </div>
                                 </div>
                             </div>
@@ -1044,7 +946,6 @@ export default {
         },
         handleView (item) {
                 this.imgName = item;
-                
         },
         handleRemove (index) {
             this.uploadList.splice(index, 1);

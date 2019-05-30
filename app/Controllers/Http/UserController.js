@@ -84,18 +84,18 @@ class UserController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const userData = await User.query()
+    let userData = await User.query()
                                 .where('id', params.id)
                                 .with('reviews')
                                 .with('reviews.reviewfor')
                                 .with('reviews.images')
+                                .with('imosCount')
                                 // .with('ratinginfo', (builder) => {
                                 //   builder.where('rating', 5)
                                 // })
                                 .first()
     const reviewRatings = await Database.raw('SELECT rating,COUNT(rating) as total FROM `reviews` WHERE `reviwer_id`= ? GROUP by rating ORDER by rating ASC', [params.id])
 
-    const imosCount = await Database.raw('SELECT users.id, users.firstName,COUNT(reviewimos.imo) as total,reviewimos.imo from reviews INNER JOIN users on reviews.reviwer_id = users.id INNER join reviewimos on reviewimos.review_id = reviews.id where reviews.reviwer_id = ? GROUP by reviewimos.imo', [params.id])
     let ratingD = []
     for (let i = 0; i < 5; i++) {
       let ob = {
@@ -116,10 +116,17 @@ class UserController {
     }
 
     if (userData) {
+      userData = JSON.parse(JSON.stringify(userData))
+      if (userData.imosCount === null) {
+        userData.imosCount = {
+          'cool': 0,
+          'funny': 0,
+          'useful': 0
+        }
+      }
       return {
         user: userData,
-        reviewRatings: ratingD,
-        imosCount: imosCount[0]
+        reviewRatings: ratingD
       }
     } else {
       return response.status(404).json({

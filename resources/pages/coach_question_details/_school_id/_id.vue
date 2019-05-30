@@ -11,7 +11,7 @@
                         <div class="equal-div">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1"> 
+                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group">
                                <span class="input-group-addon position-top" id="basic-addon1">Near</span>
@@ -109,7 +109,7 @@
                     <div class="review-content">
                         <div class="breadcrumbs">
                             <ul>
-                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></li>
+                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.schoolName}} {{legendData.sport}}</nuxt-link></li>
                                 <li><span><i class="fas fa-chevron-right"></i></span><nuxt-link :to="{name: 'questionlist-id', params: { id:legend_id } }">Ask the Community</nuxt-link></li>
                                 <li><span><i class="fas fa-chevron-right"></i></span>Details</li>
                             </ul>
@@ -124,17 +124,6 @@
                                         <span class="icon-flag"><i class="fas fa-flag"></i></span>
                                         <div class="bellow-link border-bottom">
                                             <p>{{questionData.allAnswers.length}} Answer</p>
-                                            <!-- <div class="sortTag no_pos">Sort by&nbsp;<strong>Popular&nbsp;<span><i class="fas fa-sort-down"></i>
-                                                        
-                                            </span>
-                                                <ul>
-                                                    <li><a href="">Popular</a></li>
-                                                    <li><a href="">Most Answerd</a></li>
-                                                    <li><a href="">Newest First</a></li>
-                                                </ul>
-                                            </strong>
-                                                
-                                            </div> -->
                                         </div>
                                     </div>
                                     <template v-if="questionData.allAnswers.length" >
@@ -185,7 +174,7 @@
                                                 <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
                                             </div>
                                             <div class="media-body">
-                                                <h4><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></h4>
+                                                <h4><nuxt-link :to="{name: 'school-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></h4>
                                                 <div class="star-review">
                                                     <p>
                                                         <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
@@ -193,7 +182,7 @@
                                                         <span :class="(averageRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                         <span :class="(averageRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                         <span :class="(averageRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        &nbsp;<small v-if="legendData.__meta__" class="review-number">{{(legendData.__meta__.totalReview_count)? legendData.__meta__.totalReview_count : 0}} reviews</small>
+                                                        &nbsp;<small v-if="totalReview" class="review-number">{{(totalReview)? totalReview : 0}} reviews</small>
                                                     </p>
                                                     <span></span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>{{legendData.address}}</span>
                                                 </div>
@@ -269,7 +258,7 @@ export default {
     },
     async asyncData({app, store,redirect, params}){
         try {
-            let {data} = await app.$axios.get(`/answers/${params.id}`)
+            let {data} = await app.$axios.get(`/app/coach_question_answers/${params.id}`)
           
             return{
                 questionData : data
@@ -291,7 +280,7 @@ export default {
                 return
             }
             this.answerData.question_id = this.questionData.id
-            const res = await this.callApi('post','/answers',this.answerData)
+            const res = await this.callApi('post','/app/storeCoachanswers',this.answerData)
             if(res.status===200){
                 this.s("Your answer has been posted successfully!")
                 res.data.user = this.authInfo
@@ -306,23 +295,23 @@ export default {
     },
     async created(){
         console.log(this.$route.params)
-        this.legend_id = this.$route.params.legend_id
+        this.legend_id = this.$route.params.school_id
         let question_id = this.$route.params.id
         let tempOb = {
-            legend_id:this.legend_id,
+            school_id:this.legend_id,
             question_id:question_id
         }
         
          const [res1,res2] = await Promise.all([
-            this.callApi('get', `legends/${this.legend_id}`),
-            this.callApi('post', `/app/similarQuestion`,tempOb),
+            this.callApi('get', `schools/${this.legend_id}`),
+            this.callApi('post', `/app/similar_coach_question`,tempOb),
         ])
         if(res1.status===200){ 
 
-                this.legendData = res1.data.legend
-                this.userData = res1.data.user
-                this.averageRating = res1.data.averageRating
-                this.healthPulse = res1.data.healthPulse
+               this.legendData = res1.data.School
+                this.coaches = res1.data.School.coaches
+                this.totalReview = res1.data.School.__meta__.allreview_count
+                this.averageRating = (res1.data.School.avgRating)? res1.data.School.avgRating.averageRating : 0 
                 this.similarQuestion = res2.data.data
                 this.isLoading = false
         } else{

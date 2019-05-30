@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 'use strict'
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -5,6 +6,8 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Answer = use('App/Models/Answer')
 const Question = use('App/Models/Question')
+const SchoolQuestion = use('App/Models/SchoolQuestion')
+const SchoolAnswer = use('App/Models/SchoolAnswer')
 /**
  * Resourceful controller for interacting with answers
  */
@@ -47,6 +50,12 @@ class AnswerController {
     data.user_id = user_id
     return await Answer.create(data)
   }
+  async storeCoachanswers ({ request, response, auth }) {
+    const user_id = await auth.user.id
+    let data = request.all()
+    data.user_id = user_id
+    return await SchoolAnswer.create(data)
+  }
 
   /**
    * Display a single answer.
@@ -58,8 +67,16 @@ class AnswerController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    console.log(params)
     return await Question.query()
+                          .where('id', params.id)
+                          .with('user')
+                          .with('allAnswers')
+                          .with('allAnswers.user')
+                          .orderBy('id', 'desc')
+                          .first()
+  }
+  async coach_question_answers ({ params, request, response, view }) {
+    return await SchoolQuestion.query()
                           .where('id', params.id)
                           .with('user')
                           .with('allAnswers')

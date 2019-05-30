@@ -11,6 +11,9 @@ const Attribute = use('App/Models/Attribute')
 const CoachReviewImage = use('App/Models/CoachReviewImage')
 const SchoolCoachReview = use('App/Models/SchoolCoachReview')
 const CoachReviewAttribute = use('App/Models/CoachReviewAttribute')
+const Legend = use('App/Models/Legend')
+const Database = use('Database')
+const User = use('App/Models/User')
 
 /**
  * Resourceful controller for interacting with schools
@@ -334,7 +337,25 @@ class SchoolController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const legendData = await School.query()
+    .where('id', params.id)
+    .withCount('allreview')
+    .with('coaches')
+    .with('allimages')
+    .with('avgRating')
+    .first()
+    if (legendData) {
+      return response.status(200).json({
+        School: legendData
+
+      })
+    } else {
+      return response.status(404).json({
+        'message': 'School not found!.'
+      })
+    }
   }
+
   async showSchoolCoach ({ params, request, response, view }) {
     const AttributeInfo = await Attribute.all()
     const SchoolCoachData = await SchoolCoach.find(params.id)
@@ -386,6 +407,17 @@ class SchoolController {
   async storeSchoolCoache ({ params, request, response, view }) {
     const data = request.all()
     return await SchoolCoach.create(data)
+  }
+
+  async getAdditionCoachInfo ({response, params}) {
+    let legendData = await School.query()
+                                  .where('id', params.id)
+                                  .with('questions', (builder) => builder.limit(2))
+                                  .withCount('questions as totalQuestion')
+                                  .with('questions.user')
+                                  .first()
+
+    return legendData
   }
 
   /**

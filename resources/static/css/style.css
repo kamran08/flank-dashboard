@@ -2,7 +2,7 @@
   margin-bottom: 0; }
 
 html {
-  overflow-x: hidden; }
+  overflow-x: hidden; } 
 
 body {
   background: #fff; }
@@ -454,7 +454,7 @@ footer {
       footer .foo-individual .foo-option ul li a:hover {
         color: #0088cc; }
   footer .footer-bg {
-    background: url("../image/footer_cityscape.png") no-repeat bottom;
+    background: url("../image/footer.png") no-repeat bottom;
     background-size: 660px 140px;
     margin: 42px auto 18px;
     height: 140px; }
@@ -900,6 +900,8 @@ h1 small {
     margin-top: 10px; }
     .comment-individual p a:hover {
       color: #0088cc; }
+      .comment-individual .media .media-left {
+        float: left; }
   .comment-individual .media .media-body {
     width: 70%;
     float: left; }
@@ -960,10 +962,9 @@ h1:hover a {
       color: #0088cc; }
       .wr-page .wr-page-title p a:hover {
         color: #0088cc; }
-  .wr-page .star-review span {
-    padding: 10px 8px 8px 8px; }
     .wr-page .star-review span i {
-      font-size: 18px; }
+      font-size: 18px;
+    vertical-align: text-bottom; }
   .wr-page .star-review small {
     font-size: 15px;
     margin-left: 5px; }
@@ -2870,21 +2871,21 @@ h2 {
           -webkit-box-align: center;
           -ms-flex-align: center;
           align-items: center;
-          margin-top: -30px;
           margin-bottom: 20px; }
           .reviewOptionSort .sortTagFlank {
-            width: 100%; }
+            width: 50%; }
           .reviewOptionSort .searchReview {
             margin: 0;
             width: 100%; }
             .reviewOptionSort .searchReview form {
               margin: 0; }
               .reviewOptionSort .searchReview form input {
-                width: 100% !important;
+                width: 80% !important;
                 border-radius: 3px 0 0 3px; }
               .reviewOptionSort .searchReview form button {
-                left: 100% !important;
-                border-radius: 0 3px 3px 0; }
+                left: 80% !important;
+                border-radius: 0 3px 3px 0;
+                padding: 8px 12px !important; }
         
         .searchReview .left-dropdown, .searchReview .equal-div .right-dropdown, .equal-div .searchReview .right-dropdown {
           position: absolute;
@@ -2994,3 +2995,133 @@ h2 {
                     background: #0088cc;
                     color: #fff; }
                           
+                    .review-button {
+                      display: flex;
+                      flex-flow: row;
+                      flex-wrap: wrap;
+                      margin-top: 15px;
+                    }
+
+                    .btn-role {
+                      margin-right: 15px;
+                    }
+
+                    .ivu-btn {
+                      background: #fff !important;
+                      border: 1px solid #0088cc !important;
+                      color: #0088cc !important;
+                    }
+
+                    .ivu-btn-success:focus {
+                      border-color: #0088cc;
+                      box-shadow: 0 0 0 5px rgba(0, 136, 204, 0.2) !important;
+                    }
+
+                    .pointer_like {
+                      padding: 5px;
+                    }
+
+                    .pointer_like:hover {
+                      background: #0088cc;
+                      color: #fff;
+                    }
+                    .product-thumb-data {
+                      background: #fff;
+                      display: flex;
+                      flex-flow: row;
+                      flex-wrap: wrap;
+                      border: 1px solid #e6e6e6;
+                      border-radius: 5px;
+                      overflow: hidden;
+                      margin-bottom: -30px;
+                    }
+                    
+                    .product-thumb figure {
+                      height: 100%;
+                    }
+                    .product-thumb figure img {
+                      height: 100%;
+                    }
+                    
+                    .product-data {
+                      padding: 0 20px;
+                      flex: 1 0 auto;
+                    }
+                    
+                    .product-data-indi {
+                      display: flex;
+                      flex-flow: wrap;
+                      padding: 20px 0;
+                      border-bottom: 1px solid #e6e6e6;
+                    }
+                    
+                    .product-data-indi-2 {
+                      border: 0;
+                    }
+                    
+                    .product-data-icon span {
+                      font-size: 18px;
+                      color: #696769;
+                    }
+                    
+                    .product-data-des {
+                      margin-left: 20px;
+                    }
+                    .product-data-des h2 {
+                      font-size: 16px;
+                      margin: 0;
+                      margin-bottom: 5px;
+                    }
+                    .product-data-des p {
+                      margin-bottom: 5px;
+                      color: #989FA6;
+                    }
+                    .product-data-des a {
+                      font-weight: 600;
+                      color: #0088cc;
+                    }
+                    .product-data-des a:hover {
+                      color: #0088cc;
+                    }
+
+                    .school-profile {
+                      margin-top: 20px;
+                    }
+
+                    .pagination-padding {
+                      padding: 15px 0;
+                    }
+
+                    .ivu-rate-star-chart {
+                      background: #BDBDBD;
+                      border-radius: 3px;
+                      padding: 0px 5px 1px !important;
+                  }
+
+                  .ivu-rate {
+                    margin-top: 10px !important;
+                  }
+
+                  .ivu-rate-star-chart.ivu-rate-star-full span i {
+                    color: #0088cc !important;
+                  }
+
+                  .comment_title {
+                    margin-top: 20px !important;
+                  }
+
+                  .question-button {
+                    margin-top: 40px;
+                  }
+
+                  .question-button button {
+                    margin-top: 15px;
+                  }
+
+                  .view-sect {
+                    margin-top: 20px !important;
+                  }
+
+                  .ques {
+                    margin-top: 20px !important;
+                  }

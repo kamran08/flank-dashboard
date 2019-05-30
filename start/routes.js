@@ -29,18 +29,25 @@ Route.resource('questions', 'QuestionController')
 Route.resource('answers', 'AnswerController')
 Route.resource('pulses', 'PulseController')
 Route.resource('schools', 'SchoolController')
+Route.resource('products', 'ProductController')
 
 // legend controller
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
 Route.delete('/app/deleteImage', 'LegendController.deleteImage')
 Route.get('/app/getAdditionlegendInfo/:id', 'LegendController.getAdditionlegendInfo')
+Route.get('/app/getLegendId/:id', 'LegendController.getLegendId')
+
 Route.get('/app/getTodayBussinessHour/:id', 'LegendController.getTodayBussinessHour')
 Route.post('/app/similarQuestion', 'QuestionController.similar')
+Route.post('/app/similar_coach_question', 'QuestionController.similar_coach_question')
+Route.post('/app/storeCoachanswers', 'AnswerController.storeCoachanswers')
+Route.get('/app/coach_question_answers/:id', 'AnswerController.coach_question_answers')
 
 // Review Controller
 Route.get('/app/atrributeConteptData/:id', 'ReviewController.atrributeConteptData')
-Route.post('/stoteReviewImo', 'ReviewController.stoteReviewImo')
+
 Route.post('/app/upload-review-file', 'ReviewController.uploadReviewFile')
+Route.post('/stoteReviewImo', 'ReviewController.stoteReviewImo')
 Route.get('/test', 'ReviewController.test')
 Route.get('/app/getAllReview/:id', 'ReviewController.getAllReview')
 Route.resource('reviews', 'ReviewController')
@@ -53,8 +60,14 @@ Route.get('/app/SearchByKeySchoolCoach', 'SearchController.SearchByKeySchoolCoac
 
 // School --- Coaches
 Route.get('/app/schoolcoach/:id', 'SchoolController.showSchoolCoach')
+Route.get('/app/coachatrributeConteptData/:id', 'ReviewController.coachatrributeConteptData')
+Route.get('/app/SchoolCoachReview/:id', 'ReviewController.SchoolCoachReviewShow')
 Route.post('/app/storeSchoolCoachReview', 'SchoolController.storeSchoolCoachReview')
 Route.post('/app/storeSchoolCoache', 'SchoolController.storeSchoolCoache')
+Route.post('/stoteCoachReviewImo', 'ReviewController.stoteCoachReviewImo')
+Route.post('/storequestions', 'QuestionController.storequestions')
+Route.get('/app/CoachShow/:id', 'QuestionController.CoachShow')
+Route.get('/app/getAdditionCoachInfo/:id', 'SchoolController.getAdditionCoachInfo')
 
 // test
 Route.get('/pagenateData/:id', 'LegendController.paginatedata')
