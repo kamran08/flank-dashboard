@@ -1,34 +1,6 @@
 <template>
  <div>
         
-        <!-- Header-->
-
-        <!-- <div class="top-bar">
-            <div class="container">
-                <div class="top-bar-inner">
-                    <div class="pull-left">
-                        <div class="bar-logo">
-                            <img src="/image/accountants.png" alt="">
-                            <span>Get ahead of tax season</span>
-                        </div>
-                    </div>
-                    <div class="pull-right">
-                        <div class="bar-nav">
-                            <ul>
-                                <li><a href="">Accountants</a></li>
-                                <li><a href="">CPA Firms</a></li>
-                                <li><a href="">Small Business Accountants</a></li>
-                                <li><a href="">Tax Services</a></li>
-                            </ul>
-                            <div id="bar-hide">
-                                <span><i class="fas fa-times"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        
         <header id="main-header" class="mainHeader">
             <div class="opacity"></div>
             <nav class="navbar">
@@ -63,12 +35,9 @@
                                     </div>
                                     <div class="left-dropdown">
                                         <ul>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
+                                            <li><a href=""><i class="fas fa-utensils"></i>School Name</a></li>
+                                            <li><a href=""><i class="fas fa-utensils"></i>Coach Name</a></li>
+                                            <li><a href=""><i class="fas fa-utensils"></i>Local Instructor</a></li>
                                         </ul>
                                     </div>
                                     <div class="right-dropdown">
@@ -106,35 +75,35 @@
                 <div class="section-content">
                     <div class="row">
                         <div class="col-md-3 col-sm-3">
-                            <div class="business-category">
+                            <div class="business-category" @click="$router.push(`/search_result?sort=rated`)">
                                 <figure>
                                     <img src="/image/two.jpeg" alt="find_business_category_image">
                                 </figure>
-                                <figcaption><a href="">Best Rated Coaches</a></figcaption>
+                                <figcaption><a >Best Rated Coaches</a></figcaption>
                             </div>  
                         </div>
                         <div class="col-md-3 col-sm-3">
-                            <div class="business-category">
+                            <div class="business-category" @click="$router.push(`/search_result?sort=Worst`)">
                                 <figure>
                                     <img src="/image/one.jpeg" alt="find_business_category_image">
                                 </figure>
-                                <figcaption><a href="">College Coaches</a></figcaption>
+                                <figcaption><a >Worst Rated Coachess</a></figcaption>
                             </div>  
                         </div>
                         <div class="col-md-3 col-sm-3">
-                            <div class="business-category">
+                            <div class="business-category" @click="$router.push(`/search_result?sort=most`)">
                                 <figure>
                                     <img src="/image/four.jpeg" alt="find_business_category_image">
                                 </figure>
-                                <figcaption><a href="">Travel Ball Coaches</a></figcaption>
+                                <figcaption><a >Most Connected </a></figcaption>
                             </div>  
                         </div>
                         <div class="col-md-3 col-sm-3">
-                            <div class="business-category">
+                            <div class="business-category" @click="$router.push(`/search_result`)">
                                 <figure>
                                     <img src="/image/three.jpeg" alt="find_business_category_image">
                                 </figure>
-                                <figcaption><a href="">Products & Services</a></figcaption>
+                                <figcaption><a >Local Instruction </a></figcaption>
                             </div>  
                         </div>
                     </div>
@@ -176,18 +145,27 @@
                    </div>
                    <div class="review-coach">
                       <div class="text-center">
-                          <h3>Good & Bad Coaches</h3>
+                          <h3>Hot & Cold Coaches</h3>
                       </div>
-                       <div class="row" v-if="legendList.length" >
-                           <div class="col-md-4 col-sm-4" v-for="(item,index) in legendList" :key="index"  >
+                       <div class="row" v-if="schoolCoaches.length" >
+                           <div class="col-md-4 col-sm-4" v-for="(item,index) in schoolCoaches" :key="index"  >
                                <div class="review-photo">
                                    <figure>
-                                       <img :src="item.img" alt="">
+                                       <img :src="item.school.logo" alt="">
                                    </figure>
                                    <figcaption class="figcap-border">
-                                       <h4 @click="$router.push(`/profile/${item.id}`)" ><strong><a >{{item.name}}</a></strong></h4>
-                                        <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;16 reviews</p>
-                                        <p>Japanese, Noodles, Tapas/Small Plates Williamsburg - North Side</p>
+                                       <h4 @click="$router.push(`/school/${item.school_id}`)" ><strong><a >{{item.name}}</a></strong></h4>
+                                        <p>
+                                            <span :class="(item.average_rating>0)? ' rating-bg' : ''" ><i class="fas fa-star"></i></span>
+                                            <span :class="(item.average_rating>0)? ' rating-bg' : ''" ><i class="fas fa-star"></i></span>
+                                            <span :class="(item.average_rating>0)? ' rating-bg' : ''" ><i class="fas fa-star"></i></span>
+                                            <span :class="(item.average_rating>0)? ' rating-bg' : ''" ><i class="fas fa-star"></i></span>
+                                            <span :class="(item.average_rating>0)? ' rating-bg' : ''"  ><i class="fas fa-star"></i></span>
+                                            &nbsp;{{item.__meta__.allreview_count}} reviews
+                                        </p>
+                                        <p>
+                                            {{item.school.schoolName}} , <template>{{item.school.city}}</template> <template>,{{item.school.state}}</template>
+                                        </p>
                                         <p class="fire"><i class="fas fa-fire"></i>&nbsp;Submitted 4 weeks ago</p>
                                    </figcaption>
                                </div>
@@ -233,37 +211,50 @@
                            </div>
                        </div>
                    </div>
+                   <!-- Review of the day -->
                    <div class="reviewDay">
                        <div class="row">
                            <div class="col-md-offset-2 col-sm-offset-2 col-md-8 col-sm-6">
                               <div class="text-center">
                                   <h3 class="text-center">Review of the Day</h3>
                               </div>
-                               <div class="figcap-border">
+                               <div class="figcap-border" v-if="review_of_day.info && loading == false" >
                                    <div class="media">
                                         <div class="media-left">
-                                            <img class="media-object" src="/image/80.png" alt="">
+                                             <img class="profile_picU" :src="review_of_day.bestReview.reviwer.img" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <p><a href="">Franny A.</a></p>
-                                            <p><span><i class="fas fa-male"></i>&nbsp;856</span><span><i class="fas fa-male"></i>&nbsp;1304</span><span><a href="">Elite ’19</a></span></p>
-                                            <p>Wrote a review for <strong><a href="">FLÉ-FLÉ Grill</a></strong></p>
+                                            <strong><a @click="$router.push(`/flanker/${review_of_day.bestReview.reviwer.id}`)">{{review_of_day.bestReview.reviwer.firstName}} {{review_of_day.bestReview.reviwer.lastName}} </a></strong><p></p>
+                                            <p>
+                                                <span><i class="fas fa-star"></i>&nbsp;{{review_of_day.bestReview.reviwer.__meta__.totalreviewbyuser}}</span>
+                                                <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span> -->
+                                                <!-- <span><a href="">Elite ’19</a></span> -->
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="badge-banner">
-                                        Review of the Day
+                                       Wrote a review for <strong><a @click="goToProfilePage()">{{review_of_day.bestReview.reviewforInfo.name}}</a></strong>
                                         <img src="/image/40x40_rotd.png" alt="">
                                     </div>
                                     <div class="badge-review">
-                                        <p><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high"><i class="fas fa-star"></i></span>&nbsp;9/6/2018</p>
+                                        <p>
+                                            <span :class="(review_of_day.bestReview.rating>0)? 'high rating-bg' : ''" ><i class="fas fa-star"></i></span>
+                                            <span :class="(review_of_day.bestReview.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(review_of_day.bestReview.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(review_of_day.bestReview.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(review_of_day.bestReview.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            &nbsp;{{review_of_day.bestReview.created_at}}
+                                        </p>
                                     </div>
                                     <div class="review-text">
-                                        New Mediterranean corner spot that cooks up schwarma & falafel plates and pitas in a spiffed up key corner right next to Cinepolis. Great pice point with sit down and take out. I went with a falafel platter. Really cute packaged hummus, babaganousch and baklava. Price point is very reasonable for healthy Med. fare. Soft opening today with more options coming and always need more Med in our lives. Glad to see this s... <a href="">Continue reading</a>
+                                        {{review_of_day.bestReview.content}}
                                     </div>
                                </div>
-                               <div class="text-center">
+                               <div v-else-if="loading == true" ><h3 class="text-center">Content Loading....</h3></div>
+                               <div v-else  ><h3 class="text-center">No Content.....</h3></div>
+                               <!-- <div class="text-center">
                                    <p class="moreD"><a href="">Read previous reviews</a></p>
-                               </div>
+                               </div> -->
                            </div>
                        </div>
                    </div>
@@ -282,15 +273,15 @@
                            <div class="activity-individual">
                                <div class="media">
                                    <div class="media-left">
-                                       <img src="/image/30s.jpg" alt="">
+                                     <img src="/image/30s.jpg" alt="">
                                    </div>
                                    <div class="media-body">
-                                       <strong><a href="">Nadine G.</a></strong><p></p>
+                                      <strong><a href="">Nadine G.</a></strong><p></p>
                                        <small>Wrote a Review</small>
                                    </div>
                                </div>
                                <figure>
-                                   <img src="/image/l%20(1).jpg" alt="">
+                                    <img src="/image/30s.jpg" alt="">
                                </figure>
                                <figcaption>
                                    <p><strong><a href="">Katsu-Hama</a></strong></p>
@@ -381,13 +372,13 @@
                <div class="section-content">
                    <div class="row">
                        <div class="col-md-3 col-sm-3">
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result?pageOption=coach`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
                                <figcaption><strong>High School Coaches</strong></figcaption>
                            </div>
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result?pageOption=product`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
@@ -395,13 +386,13 @@
                            </div>
                        </div>
                        <div class="col-md-3 col-sm-3">
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
                                <figcaption><strong>College Coaches</strong></figcaption>
                            </div>
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result?sort=rated`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
@@ -409,13 +400,13 @@
                            </div>
                        </div>
                        <div class="col-md-3 col-sm-3">
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result?pageOption=coach`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
                                <figcaption><strong>Travel Coaches</strong></figcaption>
                            </div>
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result?sort=Worst`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
@@ -423,13 +414,13 @@
                            </div>
                        </div>
                        <div class="col-md-3 col-sm-3">
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
                                <figcaption><strong>Local Instruction</strong></figcaption>
                            </div>
-                           <div class="browse-category-individual text-center">
+                           <div class="browse-category-individual text-center" @click="$router.push(`/search_result?sort=most`)">
                                <figure>
                                    <img src="/image/72x72_restaurants.png" alt="">
                                </figure>
@@ -450,6 +441,10 @@ export default {
       name:'',
       searchTxt:'',
       addressTxt:'',
+      openSearchDrop:false,
+      schoolCoaches:[],
+      review_of_day:{},
+      loading:true,
     }
   },
    async asyncData({app, store,redirect, params}){
@@ -466,7 +461,42 @@ export default {
   methods:{
     async SearchData(){
 
+    },
+    goToProfilePage(){
+        if(this.review_of_day.info.model == 'legend' ){
+            this.$router.push(`/profile/${this.review_of_day.bestReview.reviewFor}`)
+            
+        }
+        else if (this.review_of_day.info.model == 'coach' ){
+            this.$router.push(`/school/${this.review_of_day.bestReview.school_id}`)
+        }
+        else if (this.review_of_day.info.model == 'product' ){
+            this.$router.push(`/product/${this.review_of_day.bestReview.product_id}`)
+        }
     }
   },
+  async created(){
+      
+          const [res1,res2] = await Promise.all([
+            this.callApi('get', `/app/getSchoolcoaches`),  
+            this.callApi('get', `/app/reviewOfTheDay`),  
+        ])
+        if(res1.status===200 && res2.status ==200){
+            this.schoolCoaches = res1.data
+            this.review_of_day = res2.data
+           // this.review_of_day.bestReview = res2.data.bestReview
+            this.loading = false
+            
+        } else{
+            this.swr()
+             this.loading = false
+        }
+  }
 }
 </script>
+<style>
+.profile_picU{
+    width: 40px;
+    
+}
+</style>

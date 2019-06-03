@@ -1,109 +1,6 @@
 <template>
     <body>
         
-        <!-- Header-->
-        
-        <header>
-            <!-- <div class="header-second">
-                <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    <form action="#">
-                        <div class="equal-div">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group">
-                               <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                <input type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
-                                <span class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
-                            </div>
-                            <div class="left-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                </ul>
-                            </div>
-                            <div class="right-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-location-arrow"></i>Current Locations</a></li>
-                                    <li style=""><a href="" style="">San Francisco, CA</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                   </form>
-                   <div class="pull-right">
-                       <ul class="logsign">
-                           <li><a href="">Log In</a></li>
-                           <li><a href="">Sign Up</a></li>
-                       </ul>
-                   </div>
-                </div>
-            </div> -->
-            <div class="header-nav">
-               <div class="container">
-                   <ul class="main-nav">
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;College Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Team Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & services&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                   </ul>
-                   <ul class="main-nav right-top pull-right">
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;For Business</a></li>
-                   </ul>
-               </div>
-            </div>
-        </header>
-        
        <section class="rd second-section bg profile-second-section">
             <div class="container">
                 <div class="section-content">
@@ -112,7 +9,7 @@
                             <div class="col-md-9">
                                 <div class="profile-thumb">
                                     <figure>
-                                       <div class="Details_profie_img_div" v-if=" userData.id==user_id" >
+                                       <div class="Details_profie_img_div" v-if=" userData.id==user_id && isEdit" >
                                             <Upload
                                             ref="upload"
                                             type="drag"
@@ -177,11 +74,11 @@
                                         
                                         <li v-if="isEdit" @click=" updateProfile" ><a ><span><i class="far fa-save"></i></span>&nbsp;&nbsp;<span>Save</span></a></li>
                                         <li  v-else-if=" !isEdit && userData.id==user_id" @click="EditProfileOn" ><a ><span><i class="fas fa-wrench"></i></span>&nbsp;&nbsp;<span>Edit Profile</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Add Friend</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Compliment</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-envelope"></i></span>&nbsp;&nbsp;<span>Send Message</span></a></li>
+                                        <li  v-if="userData.id==user_id"><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Change Email</span></a></li>
+                                        <li v-if="userData.id==user_id"><a href=""><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Change Password</span></a></li>
+                                        <!-- <li v-if="userData.id==user_id"><a href=""><span><i class="fas fa-envelope"></i></span>&nbsp;&nbsp;<span>Send Message</span></a></li>
                                         <li><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Follow Bryan B.</span></a></li>
-                                        <li><a href=""><span><i class="fas fa-sync"></i></span>&nbsp;&nbsp;<span>Simillar Reviews</span></a></li>
+                                        <li><a href=""><span><i class="fas fa-sync"></i></span>&nbsp;&nbsp;<span>Simillar Reviews</span></a></li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -199,22 +96,22 @@
                             <div class="profile-link">
                                 <h2>{{userData.firstName}}'s Profile</h2>
                                 <ul>
-                                   <li class="active-line"><a href=""><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Friends</span></a></li>
-                                    <li><a href=""><span class="high"><i class="fas fa-star"></i></span>&nbsp;&nbsp;<span>Reviews</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-camera"></i></span>&nbsp;&nbsp;<span>Business Photos</span></a></li>
-                                    <li><a href=""><span><i class="far fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Compliments</span></a></li>
+                                   <li :class="(tab==1)? 'active-line' : ''" @click="tab=1" ><a ><span><i class="fas fa-male"></i></span>&nbsp;&nbsp;<span>Profile Overview</span></a></li>
+                                    <!-- <li><a ><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Friends</span></a></li> -->
+                                    <li :class="(tab==2)? 'active-line' : ''" @click="tab = 2" ><a ><span class="high"><i class="fas fa-star"></i></span>&nbsp;&nbsp;<span>Reviews</span></a></li>
+                                    <li :class="(tab==3)? 'active-line' : ''" @click="tab = 3" v-if="userData.id == user_id && userData.packType == 3" ><a ><span><i class="fas fa-camera"></i></span>&nbsp;&nbsp;<span>ProductList</span></a></li>
+                                    <!-- <li><a href=""><span><i class="far fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Compliments</span></a></li>
                                     <li><a href=""><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Tips</span></a></li>
                                     <li><a href=""><span><i class="far fa-bookmark"></i></span>&nbsp;&nbsp;<span>Bookmarks</span></a></li>
-                                    <li><a href=""><span><i class="fas fa-bookmark"></i></span>&nbsp;&nbsp;<span>Collections</span></a></li>
+                                    <li><a href=""><span><i class="fas fa-bookmark"></i></span>&nbsp;&nbsp;<span>Collections</span></a></li> -->
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="tab == 1" >
                             <div class="profile-review reviewItem">
                                 <h2>Reviews</h2>
                                 <div class="review-sort">
-                                    <div class="sortTag noleft">Sort by :&nbsp;<strong>Date&nbsp;<span><i class="fas fa-sort-down"></i></span>
+                                    <!-- <div class="sortTag noleft">Sort by :&nbsp;<strong>Date&nbsp;<span><i class="fas fa-sort-down"></i></span>
                                         <ul>
                                             <li><a href="">Alphabatical</a></li>
                                             <li><a href="">Rating</a></li>
@@ -223,7 +120,7 @@
                                             <li><a href="">Funnny</a></li>
                                         </ul>
                                         </strong>
-                                    </div>
+                                    </div> -->
                                     <hr>
                                 </div>
                                 <div class="profile-fill-review" v-for="(item,index) in userData.reviews" :key="index" >
@@ -263,7 +160,73 @@
                                     </div>
                                 </div>
                                 <div class="profile-fill-more">
-                                    <p><a href="">More reviews by Kat L.</a></p>
+                                    <p><a @click="tab=2" >More reviews by {{userData.firstName}}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" v-if="tab==2" >
+                            <div class="profile-review reviewItem">
+                                <h2>All Reviews</h2>
+                                <div class="review-sort">
+                                    <!-- <div class="sortTag noleft">Sort by :&nbsp;<strong>Date&nbsp;<span><i class="fas fa-sort-down"></i></span>
+                                        <ul>
+                                            <li><a href="">Alphabatical</a></li>
+                                            <li><a href="">Rating</a></li>
+                                            <li><a href="">Date</a></li>
+                                            <li><a href="">Useful</a></li>
+                                            <li><a href="">Funnny</a></li>
+                                        </ul>
+                                        </strong>
+                                    </div> -->
+                                    <hr>
+                                </div>
+                                <div class="profile-fill-review" v-for="(item,index) in allReviews" :key="index" >
+                                    <div class="profile-item">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <img class="media-object" :src="item.reviewfor.img" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <p><strong><a href="">{{item.reviewfor.name}}</a></strong></p>
+                                                    <!-- <small><a href="">Mexican</a></small> -->
+                                                    <p>
+                                                        <small>{{item.reviewfor.address}}</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="read-review">
+                                                <div class="star-review">
+                                                    <p><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high"><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                </div>
+                                                <p>{{item.content}} </p>
+        
+                                                <div class="profile-gallary">
+                                                    <ul>
+                                                        <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
+                                                        <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
+                                                        <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
+                                                    </ul>
+                                                </div>
+                                                <p id="resultReview"><strong>Was the review...?</strong></p>
+                                                <ul>
+                                                    <li  :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
+                                                    <li  :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
+                                                    <li  :class="(item.imos.auseful)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</li>
+                                                    <!-- <li><i class="fas fa-grin-beam"></i>&nbsp;Useful</li>
+                                                    <li><i class="fas fa-grin-beam"></i>&nbsp;Funny</li>
+                                                    <li><i class="fas fa-grin-beam"></i>&nbsp;Useful</li> -->
+                                                </ul>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="profile-fill-more">
+                                   <hr>
+                                    <div class="text-center ">
+                                        <div class="pagination-padding">
+                                            <Page :current="pagination.page" :total="pagination.total" @on-change="setPage($event)" :page-size="pagination.perPage" />
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
                             </div>
                         </div>
@@ -308,6 +271,14 @@
                                         <li  ><span><i class="fas fa-lightbulb"></i></span> <span>Useful <strong>{{imosCount.useful}}</strong></span></li>
                                         <li  ><span><i class="far fa-laugh-wink"></i></span> <span>Funny <strong>{{imosCount.funny}}</strong></span></li>
                                         <li  ><span><i class="fas fa-grin-beam"></i></span> <span>Cool <strong>{{imosCount.cool}}</strong></span></li>
+                                    </ul>
+                                </div>
+
+                                <div class="about-side-bar" v-if="userData.packType == 3">
+                                    <p>Products</p>
+                                    <ul v-if="imosCount" >
+                                        <li  ><span><i class="far fa-laugh-wink"></i></span> <span>Product 1 </span></li>
+                                        <li v-if="user_id == userData.id" @click="$router.push(`/product_register`)" ><span><i class="fas fa-grin-beam"></i></span> <span>Create New Product </span></li>
                                     </ul>
                                 </div>
 
@@ -373,6 +344,7 @@
 </template>
 
 <script>
+import { Promise } from 'q';
 export default {
     data(){
         return{
@@ -383,7 +355,11 @@ export default {
                 lastName:'',
                 address:'',
 
-            }
+            },
+            tab:1,
+            allReviews:[],
+            page:1,
+            pagination:{},
         }
     },
     async asyncData({app, store,redirect, params}){
@@ -401,7 +377,15 @@ export default {
 		}
     },
     methods:{
-        
+        async setPage(key){
+            this.page = key
+            const res = await  this.callApi('get',`/app/getUserallReview/${this.userData.id}?page=${this.page}`)
+            if(res.status == 200){
+                 this.allReviews = res.data.data
+            this.pagination = res.data
+            delete this.pagination.data 
+            }
+        },
         EditProfileOn(){
             console.log(this.getTheMaxValue)
             this.editData.firstName = this.userData.firstName
@@ -445,7 +429,14 @@ export default {
     
     async created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
-        
+        const [res1] = await Promise.all([
+            this.callApi('get',`/app/getUserallReview/${this.userData.id}`)
+        ])
+        if(res1.status == 200){
+            this.allReviews = res1.data.data
+            this.pagination = res1.data
+            delete this.pagination.data 
+        }
     },
 
 }

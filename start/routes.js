@@ -16,8 +16,8 @@
 const Route = use('Route')
 
 Route.resource('users', 'UserController').validator(new Map([
-                                                                [['users.store'], ['StoreUser']]
-                                                                // [['users.update'], ['UpdateUser']]
+  [['users.store'], ['StoreUser']]
+  // [['users.update'], ['UpdateUser']]
 ]))
 Route.post('/authentication/login', 'UserController.userLogin').middleware(['guest'])
 Route.get('/logout', 'UserController.logout')
@@ -30,6 +30,7 @@ Route.resource('answers', 'AnswerController')
 Route.resource('pulses', 'PulseController')
 Route.resource('schools', 'SchoolController')
 Route.resource('products', 'ProductController')
+Route.resource('reviews', 'ReviewController')
 
 // legend controller
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
@@ -48,13 +49,18 @@ Route.get('/app/atrributeConteptData/:id', 'ReviewController.atrributeConteptDat
 
 Route.post('/app/upload-review-file', 'ReviewController.uploadReviewFile')
 Route.post('/stoteReviewImo', 'ReviewController.stoteReviewImo')
+Route.post('/stoteProductReviewImo', 'ReviewController.stoteProductReviewImo')
 Route.get('/test', 'ReviewController.test')
+Route.get('/app/getRecentReview', 'ReviewController.getRecentReview')
+Route.get('/app/reviewOfTheDay', 'ReviewController.reviewOfTheDay')
 Route.get('/app/getAllReview/:id', 'ReviewController.getAllReview')
-Route.resource('reviews', 'ReviewController')
+Route.get('/app/getUserallReview/:id', 'ReviewController.getUserallReview')
+
 // Search controller
 
 Route.get('/app/SearchData', 'SearchController.SearchData')
 Route.get('/app/SearchByKeyCoach', 'SearchController.SearchByKeyCoach')
+Route.get('/app/SearchByKeyProduct', 'SearchController.SearchByKeyProduct')
 Route.get('/app/SearchByKeySchool', 'SearchController.SearchByKeySchool')
 Route.get('/app/SearchByKeySchoolCoach', 'SearchController.SearchByKeySchoolCoach')
 
@@ -66,9 +72,16 @@ Route.post('/app/storeSchoolCoachReview', 'SchoolController.storeSchoolCoachRevi
 Route.post('/app/storeSchoolCoache', 'SchoolController.storeSchoolCoache')
 Route.post('/stoteCoachReviewImo', 'ReviewController.stoteCoachReviewImo')
 Route.post('/storequestions', 'QuestionController.storequestions')
+Route.post('/storeProductquestions', 'QuestionController.storeProductquestions')
 Route.get('/app/CoachShow/:id', 'QuestionController.CoachShow')
 Route.get('/app/getAdditionCoachInfo/:id', 'SchoolController.getAdditionCoachInfo')
+Route.get('/app/getSchoolcoaches', 'SchoolController.getSchoolcoaches')
 
+// products
+Route.get('/app/ProductReview/:id', 'ReviewController.ProductReview')
+Route.get('/app/getAdditionProductInfo/:id', 'ProductController.getAdditionProductInfo')
+Route.get('/app/productReviewInfo/:id', 'ProductController.productReviewinfo')
+Route.post('/app/storeProductReview', 'ProductController.storeProductReview')
 // test
 Route.get('/pagenateData/:id', 'LegendController.paginatedata')
 

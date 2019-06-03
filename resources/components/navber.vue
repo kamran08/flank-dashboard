@@ -47,8 +47,8 @@
                 </ul>
                 <ul>
                     <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
-                    <li v-if="isLoggedIn && packType==1 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
-                    <li v-if="isLoggedIn && packType !=1 " @click="$router.push(`/profile/${legend_id}`)" ><a >Profile</a></li>
+                    <li v-if="isLoggedIn && packType !=2 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
+                    <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Profile</a></li>
                     <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                     <li><a href="">Download</a></li>
                 </ul>
@@ -66,10 +66,17 @@
                             <div class="review-button">
                                 <div class="btn-role"  @click="rData.for=1"  ><Button :type="(rData.for == 1)? 'success': 'primary'" >School</Button></div>
                                 <div class="btn-role"  @click="rData.for=2"  ><Button :type="(rData.for == 2)? 'success': 'primary'" >Local Legend</Button></div>
-                                <div class="btn-role"  @click="rData.for=3"  ><Button :type="(rData.for == 3)? 'success': 'primary'" >Product Hero</Button></div>
+                                <div class="btn-role"  @click="rData.for=3"  ><Button :type="(rData.for == 3)? 'success': 'primary'" >Product</Button></div>
                             </div>
-                            <template v-if="rData.for == 2 || rData.for ==3" >
+                            <template v-if="rData.for == 2" >
                                 <Input v-model="rData.key" placeholder="Enter Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
+                                <div v-if="coachList.length>0" style="border: 1px solid #0088cc;">
+                                    <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="goToLegendWall(item)" >{{item.name}}</p>
+                               
+                                </div>
+                            </template>
+                            <template v-if="rData.for ==3" >
+                                <Input v-model="rData.key" placeholder="Enter Product" style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
                                 <div v-if="coachList.length>0" style="border: 1px solid #0088cc;">
                                     <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="goToLegendWall(item)" >{{item.name}}</p>
                                
@@ -143,58 +150,44 @@
             <div class="header-nav">
                <div class="container">
                    <ul class="main-nav">
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach&nbsp;<i class="fas fa-angle-down"></i></a>
+                       <li  ><a @click="$router.push(`/search_result?pageOption=coach`)" ><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach</a></li>
+                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Collage Coach&nbsp;<i class="fas fa-angle-down"></i></a>
                            <div class="nav-dropdown">
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Junior College</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;MCLA</a></li>
                                </ul>
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NAIA</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DI</a></li>
+                               </ul>
+                               <ul class="pull-left">
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DII</a></li>
+                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DIII</a></li>
                                </ul>
                            </div>
                        </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;College Coach&nbsp;<i class="fas fa-angle-down"></i></a>
+                       <li><a  @click="$router.push(`/search_result`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Local Instructors</a></li>
+                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;More&nbsp;<i class="fas fa-angle-down"></i></a>
                            <div class="nav-dropdown">
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   <li><a @click="$router.push(`/search_result?sort=rated`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Best Rated Coaches</a></li>
+                                   <li><a @click="$router.push(`/search_result?sort=Worst`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Worst Rated Coaches</a></li>
+                                   <li><a @click="$router.push(`/search_result?sort=most`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Most Connected</a></li>
+                                   <li><a @click="$router.push(`/search_result`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Coaches</a></li>
+                                   <li><a @click="$router.push(`/search_result?pageOption=product`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & Services</a></li>
                                </ul>
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Team Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   
                                </ul>
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & services&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
+                                   
                                </ul>
                            </div>
                        </li>
                    </ul>
                    <ul class="main-nav right-top pull-right">
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;For Business</a></li>
+                       <li><a @click="reviewModal=true"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
                    </ul>
                </div>
             </div>
@@ -282,6 +275,15 @@
                }
             },
             async SearchByKeyCoach(){
+               const res = await this.callApi('get',`/app/SearchByKeyCoach?key=${this.rData.key}`)
+               if(res.status=== 200){
+                   this.coachList = res.data
+               }
+               else{
+                   this.swr()
+               }
+            },
+            async SearchByKeyProduct(){
                const res = await this.callApi('get',`/app/SearchByKeyCoach?key=${this.rData.key}`)
                if(res.status=== 200){
                    this.coachList = res.data

@@ -4,7 +4,7 @@
 const Model = use('Model')
 const Database = use('Database')
 
-class Legend extends Model {
+class Legend extends Model { 
   reviews () {
     return this.hasMany('App/Models/Review', 'id', 'reviewFor').orderBy('id', 'desc').limit(2)
   }
@@ -12,7 +12,7 @@ class Legend extends Model {
     return this.hasOne('App/Models/Review', 'id', 'reviewFor')
   }
   avgRating () {
-    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('id', 'reviewFor', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating'))
+    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('id', 'reviewFor', Database.raw('cast(AVG(rating) as decimal(10,2)) AS averageRating')).groupBy('reviewFor')
   }
   legendimages () {
     return this.hasMany('App/Models/LegendImage', 'id', 'legend_id')

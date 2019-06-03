@@ -1,110 +1,12 @@
 <template>
     <div>
-        
-        <!-- Header--> 
-        
-        <header>
-            <div class="header-second">
-                <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    <form action="#">
-                        <div class="equal-div">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group">
-                               <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                <input type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
-                                <span class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
-                            </div>
-                            <div class="left-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                </ul>
-                            </div>
-                            <div class="right-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-location-arrow"></i>Current Locations</a></li>
-                                    <li style=""><a href="" style="">San Francisco, CA</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                   </form>
-                </div>
-            </div>
-            <div class="header-nav">
-               <div class="container">
-                   <ul class="main-nav">
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;College Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Team Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & services&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                   </ul>
-                   <ul class="main-nav right-top pull-right">
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;For Business</a></li>
-                   </ul>
-               </div>
-            </div>
-        </header>
-        
         <section class="rd second-section bg">
             <div class="container">
                 <div class="section-content">
                     <div class="review-content">
                         <div class="review-map-section">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12"> 
                                     <div class="review-gallary">
                                         <div class="figure">
                                             <ul>
@@ -798,7 +700,7 @@ export default {
     },
    
    async created(){
-        if(this.isLoggedIn) this.user_id = this.authInfo.id
+       
         const [ res2, res4] = await Promise.all([
             this.callApi('get', `/app/getAdditionCoachInfo/${this.$route.params.id}`),
             this.callApi('get', `/app/SchoolCoachReview/${this.$route.params.id}`),

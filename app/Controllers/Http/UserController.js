@@ -51,7 +51,7 @@ class UserController {
     delete formInfo.password_confirmation
     const data = await User.create(formInfo)
     // eslint-disable-next-line eqeqeq
-    if (data.packType == 1) { return data } else {
+    if (data.packType != 2) { return data } else {
       const ledata = {
         user_id: data.id,
         name: data.firstName
@@ -85,15 +85,18 @@ class UserController {
    */
   async show ({ params, request, response, view }) {
     let userData = await User.query()
-                                .where('id', params.id)
-                                .with('reviews')
-                                .with('reviews.reviewfor')
-                                .with('reviews.images')
-                                .with('imosCount')
-                                // .with('ratinginfo', (builder) => {
-                                //   builder.where('rating', 5)
-                                // })
-                                .first()
+      .where('id', params.id)
+      // .with('reviews')
+      .with('reviews', (builder) => {
+        builder.limit(3)
+      })
+      .with('reviews.reviewfor')
+      .with('reviews.images')
+      .with('imosCount')
+    // .with('ratinginfo', (builder) => {
+    //   builder.where('rating', 5)
+    // })
+      .first()
     const reviewRatings = await Database.raw('SELECT rating,COUNT(rating) as total FROM `reviews` WHERE `reviwer_id`= ? GROUP by rating ORDER by rating ASC', [params.id])
 
     let ratingD = []
@@ -179,7 +182,7 @@ class UserController {
   async destroy ({ params, request, response }) {
   }
 
-  async logout ({auth, session}) {
+  async logout ({ auth, session }) {
     try {
       session.clear()
       await auth.logout()
@@ -189,7 +192,7 @@ class UserController {
     }
   }
 
-  async sendResetLinkEmail ({request, response}) {
+  async sendResetLinkEmail ({ request, response }) {
     let email = request.all().email
     const check = await User.query().where('email', email).getCount()
     // eslint-disable-next-line eqeqeq
@@ -209,11 +212,9 @@ class UserController {
     //     .from('Support@worldtradebuddy.com', 'Support @ WorldTradeBuddy')
     //     .subject('Reset Password')
     // })
-    await User.query().where('email', email).update({'passwordToken': token})
-
-    return
+    await User.query().where('email', email).update({ 'passwordToken': token })
   }
-  async initdata ({request, response, auth}) {
+  async initdata ({ request, response, auth }) {
     try {
       const user = await auth.getUser()
       return {
@@ -224,7 +225,7 @@ class UserController {
       return false
     }
   }
-  async updateProfileImage ({request, response, auth}) {
+  async updateProfileImage ({ request, response, auth }) {
     const user_id = await auth.user().id
     const profilePic = request.file('file', {
       types: ['png', 'jpg', 'jpeg'],
@@ -250,7 +251,6 @@ class UserController {
       file: `/uploads/${name}`
     })
   }
-
 }
 
 module.exports = UserController

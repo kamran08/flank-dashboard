@@ -6,6 +6,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Question = use('App/Models/Question')
 const SchoolQuestion = use('App/Models/SchoolQuestion')
+const ProductQuestion = use('App/Models/ProductQuestion')
 /**
  * Resourceful controller for interacting with questions
  */
@@ -53,6 +54,12 @@ class QuestionController {
     let data = request.all()
     data.user_id = user_id
     return await SchoolQuestion.create(data)
+  }
+  async storeProductquestions ({ request, response, auth }) {
+    const user_id = await auth.user.id
+    let data = request.all()
+    data.user_id = user_id
+    return await ProductQuestion.create(data)
   }
 
   /**

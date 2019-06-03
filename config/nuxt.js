@@ -1,7 +1,7 @@
 'use strict'
 
 const resolve = require('path').resolve
-//const webpack = require('webpack')
+// const webpack = require('webpack')
 module.exports = {
   /*
   ** Headers of the page
@@ -9,14 +9,14 @@ module.exports = {
 
   modules: [
     '@nuxtjs/axios'
-    
+
     // With options
-    
+
   ],
   // build: {
   //   plugins: [
   //     new webpack.ProvidePlugin({
-        
+
   //       '_': 'lodash'
   //       // ...etc.
   //     })
@@ -26,7 +26,7 @@ module.exports = {
     '~plugins/vuecommon',
     '~plugins/ivuew'
     // {src: '~plugins/clickout', ssr: false},
-   ],
+  ],
   head: {
     title: 'Adonuxt',
     meta: [
@@ -54,23 +54,23 @@ module.exports = {
       { rel: 'stylesheet', href: '/css/custom-plugin.css' },
       { rel: 'stylesheet', href: '/css/owl.carousel.min.css' },
       { rel: 'stylesheet', href: '/css/owl.theme.default.min.css' },
-      
+
       { rel: 'stylesheet', href: '/css/style.css' },
       { rel: 'stylesheet', href: '/css/style_one.css' }
-      
+
     ],
     script: [
       { src: '/js/plugin-js/jquery-1.12.0.min.js' },
       { src: '/js/plugin-js/owl.carousel.min.js' },
       { src: '/js/script.js' }
     ]
-    
+
   },
   /*
   ** Global CSS
   */
   css: [
-    
+
   ],
   /*
   ** Customize the progress-bar color

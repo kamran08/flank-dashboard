@@ -1,23 +1,5 @@
 <template>
-<div>
-        
-        <!-- Header-->
-        
-        <header>
-            <div class="header-second">
-                <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    <h2>Write a Review</h2>
-                   <!-- <div class="pull-right">
-                       <ul class="logsign wr">
-                           <li><a href="login.html">Log In</a></li>
-                           <li><a href="signup.html">Sign Up</a></li>
-                       </ul>
-                   </div> -->
-                </div>
-            </div>
-        </header>
-        
+    <div>
         <section class="rd second-section bg wr-page">
             <div class="container">
                 <div class="section-content">

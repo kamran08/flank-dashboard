@@ -11,6 +11,9 @@ const Reviewimo = use('App/Models/Reviewimo')
 const CoachImo = use('App/Models/CoachImo')
 const ReviewImage = use('App/Models/ReviewImage')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
+const RecentReview = use('App/Models/RecentReview')
+const ProductReview = use('App/Models/ProductReview')
+const ProductImo = use('App/Models/ProductImo')
 
 const Helpers = use('Helpers')
 const Database = use('Database')
@@ -85,6 +88,10 @@ class ReviewController {
     }
 
     await ReviewAttribute.createMany(AttributeInfo)
+    await RecentReview.create({
+      review_id: rdata.id,
+      review_type: 'App/Models/Review'
+    })
     return rdata
   }
 
@@ -101,17 +108,105 @@ class ReviewController {
     let page = request.input('page') ? request.input('page') : 1
     let str = request.input('str') ? request.input('str') : ''
     let user_id = 0
-    try {
-      user_id = await auth.user.id
-    } catch (error) {
-      response.send(error.message)
+    // let user
+    // try {
+    //   user = await auth.getUser()
+    //   user_id = user.id
+    // } catch (error) {
+    //   //response.send('You are not logged in')
+    // }
+    let mdata = Review.query().where('reviewFor', params.id)
+      .with('reviwer')
+      .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+      .with('imos')
+      .with('images')
+    if (user_id != 0) {
+      mdata.with('imosall', (builder) => {
+        builder.where('user_id', user_id)
+      })
     }
 
-    let mdata = Review.query().where('reviewFor', params.id)
-                                  .with('reviwer')
-                                  .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
-                                  .with('imos')
-                                  .with('images')
+    if (str) {
+      mdata.where('content', 'LIKE', '%' + str + '%')
+    }
+    let data = await mdata.orderBy('id', 'desc')
+      .paginate(page, 5)
+
+    data = data.toJSON()
+    let tempData = JSON.parse(JSON.stringify(data))
+
+    for (let r of tempData.data) {
+      if (r.imos == null) {
+        r.imos = {
+          'id': 0,
+          'review_id': 0,
+          'cool': 0,
+          'funny': 0,
+          'useful': 0
+        }
+      } else {
+        if (r.imosall) {
+          if (r.imosall.cool == 1) r.imos.acool = true
+          if (r.imosall.funny == 1) r.imos.afunny = true
+          if (r.imosall.useful == 1) r.imos.auseful = true
+        }
+      }
+    }
+
+    return tempData
+  }
+  async getUserallReview ({ params, request, response, auth }) {
+    let page = request.input('page') ? request.input('page') : 1
+
+    let mdata = Review.query().where('reviwer_id', params.id)
+      .with('reviewfor')
+      .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+      .with('imos')
+      .with('images')
+
+    let data = await mdata.orderBy('id', 'desc')
+      .paginate(page, 3)
+
+    data = data.toJSON()
+    let tempData = JSON.parse(JSON.stringify(data))
+
+    for (let r of tempData.data) {
+      if (r.imos == null) {
+        r.imos = {
+          'id': 0,
+          'review_id': 0,
+          'cool': 0,
+          'funny': 0,
+          'useful': 0
+        }
+      }
+    }
+
+    return tempData
+  }
+
+  async SchoolCoachReviewShow ({ params, request, response, auth }) {
+    let page = request.input('page') ? request.input('page') : 1
+    let str = request.input('str') ? request.input('str') : ''
+    let coach = request.input('coach') ? request.input('coach') : 0
+    let user_id = 0
+    // let user
+    // try {
+    //   user = await auth.getUser()
+    //   user_id = user.id
+    // } catch (error) {
+    //   //response.send('You are not logged in')
+    // }
+
+    let mdata = SchoolCoachReview.query().where('school_id', params.id)
+      .with('coach')
+      .with('reviwer')
+      .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+      .with('imos')
+      .with('images')
+    if (coach != 0) {
+      mdata.where('coach_id', coach)
+    }
     if (user_id != 0) {
       mdata.with('imosall', (builder) => {
         builder.where('user_id', user_id)
@@ -121,7 +216,7 @@ class ReviewController {
       mdata.where('content', 'LIKE', '%' + str + '%')
     }
     let data = await mdata.orderBy('id', 'desc')
-        .paginate(page, 5)
+      .paginate(page, 5)
 
     data = data.toJSON()
     let tempData = JSON.parse(JSON.stringify(data))
@@ -147,26 +242,23 @@ class ReviewController {
     return tempData
   }
 
-  async SchoolCoachReviewShow ({ params, request, response, auth }) {
+  async ProductReview ({ params, request, response, auth }) {
     let page = request.input('page') ? request.input('page') : 1
     let str = request.input('str') ? request.input('str') : ''
-    let coach = request.input('coach') ? request.input('coach') : 0
     let user_id = 0
-    try {
-      user_id = await auth.user.id
-    } catch (error) {
-      response.send(error.message)
-    }
+    // let user
+    // try {
+    //   user = await auth.getUser()
+    //   user_id = user.id
+    // } catch (error) {
+    //   //response.send('You are not logged in')
+    // }
 
-    let mdata = SchoolCoachReview.query().where('school_id', params.id)
-                                  .with('coach')
-                                  .with('reviwer')
-                                  .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
-                                  .with('imos')
-                                  .with('images')
-    if (coach != 0) {
-      mdata.where('coach_id', coach)
-    }
+    let mdata = ProductReview.query().where('product_id', params.id)
+      .with('reviwer')
+      .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+      .with('imos')
+      .with('images')
     if (user_id != 0) {
       mdata.with('imosall', (builder) => {
         builder.where('user_id', user_id)
@@ -176,7 +268,7 @@ class ReviewController {
       mdata.where('content', 'LIKE', '%' + str + '%')
     }
     let data = await mdata.orderBy('id', 'desc')
-        .paginate(page, 5)
+      .paginate(page, 2)
 
     data = data.toJSON()
     let tempData = JSON.parse(JSON.stringify(data))
@@ -200,6 +292,64 @@ class ReviewController {
     }
 
     return tempData
+  }
+  async reviewOfTheDay ({ params, request, response, auth }) {
+    let legendData = await Reviewimo.query()
+      .select('review_id')
+      .select(Database.raw('sum((cool)+(funny)+(useful)) as total'))
+      .groupBy('review_id')
+      .orderBy('total', 'desc')
+      .first()
+    let coachData = await CoachImo.query()
+      .select('review_id')
+      .select(Database.raw('sum((cool)+(funny)+(useful)) as total'))
+      .groupBy('review_id')
+      .orderBy('total', 'desc')
+      .first()
+    let productData = await ProductImo.query()
+      .select('review_id')
+      .select(Database.raw('sum((cool)+(funny)+(useful)) as total'))
+      .groupBy('review_id')
+      .orderBy('total', 'desc')
+      .first()
+    let data = {
+      review_id: legendData.review_id,
+      total: legendData.total,
+      model: 'legend'
+    }
+    let finalRestult = Review.query().where('id', legendData.review_id)
+      .with('reviewforInfo')
+      .with('reviwer')
+      .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+      .with('imos')
+      .with('images')
+    if (data.total < coachData.total) {
+      data.review_id = coachData.review_id
+      data.total = coachData.total
+      data.model = 'coach'
+      finalRestult = SchoolCoachReview.query().where('id', coachData.review_id)
+        .with('reviewforInfo')
+        .with('reviwer')
+        .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+        .with('imos')
+        .with('images')
+    }
+    if (data.total < productData.total) {
+      data.review_id = productData.review_id
+      data.total = productData.total
+      data.model = 'coach'
+      finalRestult = ProductReview.query().where('id', productData.review_id)
+        .with('reviewforInfo')
+        .with('reviwer')
+        .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+        .with('imos')
+        .with('images')
+    }
+    let bestReview = await finalRestult.first()
+    return response.status(200).json({
+      info: data,
+      bestReview: bestReview
+    })
   }
 
   /**
@@ -236,7 +386,7 @@ class ReviewController {
   async destroy ({ params, request, response }) {
   }
 
-  async uploadReviewFile ({request, response}) {
+  async uploadReviewFile ({ request, response }) {
     const profilePic = request.file('file', {
       types: ['png', 'jpg', 'jpeg'],
       size: '2mb'
@@ -267,6 +417,16 @@ class ReviewController {
 
     return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
   }
+  async stoteProductReviewImo ({ request, response, auth }) {
+    let data = request.all()
+    data.user_id = await auth.user.id
+    await ProductImo.findOrCreate(
+      { review_id: data.review_id, user_id: data.user_id }
+
+    )
+
+    return await ProductImo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
+  }
   async stoteCoachReviewImo ({ request, response, auth }) {
     let data = request.all()
     data.user_id = await auth.user.id
@@ -279,52 +439,59 @@ class ReviewController {
   }
   async atrributeConteptData ({ params }) {
     return await Database
-    .table('review_attributes')
-    .select('attributes.content', 'attributes.points')
-    .sum('review_attributes.points as totalPoints')
-    .count('review_attributes.id as totalvotes')
-    .innerJoin('reviews', function () {
-      this
-        .on('review_attributes.review_id', 'reviews.id')
-    })
-    .innerJoin('attributes', function () {
-      this
-        .on('review_attributes.attribute_id', 'attributes.id')
-    })
-    .where('reviews.reviewFor', params.id)
-    .groupBy('attributes.content')
+      .table('review_attributes')
+      .select('attributes.content', 'attributes.points')
+      .sum('review_attributes.points as totalPoints')
+      .count('review_attributes.id as totalvotes')
+      .innerJoin('reviews', function () {
+        this
+          .on('review_attributes.review_id', 'reviews.id')
+      })
+      .innerJoin('attributes', function () {
+        this
+          .on('review_attributes.attribute_id', 'attributes.id')
+      })
+      .where('reviews.reviewFor', params.id)
+      .groupBy('attributes.content')
   }
 
   async coachatrributeConteptData ({ params }) {
     return await Database
-    .table('coach_review_attributes')
-    .select('attributes.content', 'attributes.points')
-    .sum('coach_review_attributes.points as totalPoints')
-    .count('coach_review_attributes.id as totalvotes')
-    .innerJoin('school_coach_reviews', function () {
-      this
-        .on('coach_review_attributes.review_id', 'school_coach_reviews.id')
-    })
-    .innerJoin('attributes', function () {
-      this
-        .on('coach_review_attributes.attribute_id', 'attributes.id')
-    })
-    .where('school_coach_reviews.coach_id', params.id)
-    .groupBy('attributes.content')
+      .table('coach_review_attributes')
+      .select('attributes.content', 'attributes.points')
+      .sum('coach_review_attributes.points as totalPoints')
+      .count('coach_review_attributes.id as totalvotes')
+      .innerJoin('school_coach_reviews', function () {
+        this
+          .on('coach_review_attributes.review_id', 'school_coach_reviews.id')
+      })
+      .innerJoin('attributes', function () {
+        this
+          .on('coach_review_attributes.attribute_id', 'attributes.id')
+      })
+      .where('school_coach_reviews.coach_id', params.id)
+      .groupBy('attributes.content')
   }
   async test ({ request, response, auth }) {
 
-  //  return await Database.raw("SELECT `imo` , COUNT(imo) as total FROM `reviewimos` GROUP by `imo`")
-  // return await Review.query().select('imo').count('imo as total').groupBy('imo').orderBy('id')
-  //  return await Review.query()
-  //  .with('imos', (builder) => {
-  //   builder.select('imo').count('imo as total')
-  // })
-  //  .fetch()
+    //  return await Database.raw("SELECT `imo` , COUNT(imo) as total FROM `reviewimos` GROUP by `imo`")
+    // return await Review.query().select('imo').count('imo as total').groupBy('imo').orderBy('id')
+    //  return await Review.query()
+    //  .with('imos', (builder) => {
+    //   builder.select('imo').count('imo as total')
+    // })
+    //  .fetch()
 
   //  return await Review.query()
   //  .with('imos')
   //  .fetch()
+  }
+  async getRecentReview ({ response, params }) {
+    console.log(' i am caling')
+    return await RecentReview.query()
+      .with('withallreview')
+      .limit(3)
+      .fetch()
   }
 }
 

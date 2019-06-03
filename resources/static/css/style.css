@@ -45,6 +45,10 @@ ul {
 .landing-page-logo img {
   position: relative; }
 
+.landing-page-logo form {
+  margin-top: 40px;
+}
+
 .opacity {
   position: absolute;
   background: rgba(0, 0, 0, 0.5);
@@ -263,7 +267,7 @@ form {
   background-color: rgba(151, 151, 151, 0.1); }
 
 .padding-top-bottom-bg {
-  padding: 10px 0 70px 0; }
+  padding: 40px 0 70px 0; }
 
 .comm {
   padding: 30px 0; }
@@ -302,7 +306,7 @@ form {
       font-size: 15px;
       color: #666;
       text-decoration: none;
-      padding: 0 5px 5px 5px;
+      padding: 0 5px 2px 5px;
       border-bottom: 2px solid transparent; }
       .lp.third-section .cityName ul li a:hover {
         border-bottom: 2px solid #0088cc; }
@@ -315,24 +319,40 @@ form {
     height: 180px;
     overflow: hidden;
     border-top-left-radius: 3px;
-    border-top-right-radius: 3px; }
+    border-top-right-radius: 3px;
+  border: 1px solid #eee; }
     .lp.third-section .review-coach .review-photo figure img {
       width: 100%; }
 
 .figcap-border {
   border: 1px solid #eee;
   padding: 10px 10px;
-  border-radius: 3px; }
+  border-radius: 3px;
+margin-top: 10px; }
+
+  .figcap-border h4 {
+    margin-bottom: 10px;
+  }
+
+  .figcap-border strong {
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
   .figcap-border a {
     color: #0088cc; }
     .figcap-border a:hover {
       color: #0088cc; }
+
+      .figcap-border p {
+        margin-bottom: 7px;
+      }
   .figcap-border p span {
     background: rgba(151, 151, 151, 0.6);
-    padding: 5px;
+    padding: 3px;
     color: #fff;
     margin-right: 3px;
-    border-radius: 3px; }
+    border-radius: 3px;
+    font-size: 11px; }
   .figcap-border p .rating-bg {
     background: rgba(0, 136, 204, 0.6); }
   .figcap-border p .high {
@@ -350,6 +370,14 @@ form {
     .moreD a:hover {
       color: #0088cc; }
 
+      .explore-item {
+        margin-top: 40px;
+      }
+
+      .explore-item h3 {
+        margin-bottom: 10px;
+      }
+
 .explore-item figure {
   height: 180px;
   overflow: hidden;
@@ -359,7 +387,7 @@ form {
     width: 100%; }
 
 .reviewDay {
-  margin-top: 15px; }
+  margin-top: 35px; }
   .reviewDay .figcap-border .media .media-body p {
     margin: 0; }
   .reviewDay .figcap-border .media .media-body p:nth-child(1) {
@@ -386,7 +414,8 @@ form {
 .lp.fourth-section .activity-individual {
   border: 1px solid #eee;
   border-radius: 3px;
-  padding-bottom: 25px; }
+  padding-bottom: 25px;
+margin-bottom: 15px; }
   .lp.fourth-section .activity-individual figure {
     height: 150px;
     width: 100%;
@@ -400,15 +429,23 @@ form {
       margin-bottom: 0; }
   .lp.fourth-section .activity-individual figcaption {
     padding: 10px; }
+    .lp.fourth-section .activity-individual figcaption p {
+      margin-bottom: 10px; }
     .lp.fourth-section .activity-individual figcaption a {
       color: #0088cc; }
       .lp.fourth-section .activity-individual figcaption a:hover {
         color: #0088cc; }
+        .lp.fourth-section .activity-individual figcaption .activity-review {
+          margin-top: 15px;
+        }
     .lp.fourth-section .activity-individual figcaption .activity-review p span {
       padding: 3px;
       color: #fff;
       background: #0088cc;
       margin-right: 3px; }
+      .lp.fourth-section .activity-individual figcaption .emoicon {
+        margin-top: 10px;
+      }
     .lp.fourth-section .activity-individual figcaption .emoicon p span {
       position: relative;
       font-size: 18px;
@@ -529,22 +566,26 @@ footer {
         top: 100%;
         left: 0;
         background: #fff;
-        z-index: 1;
+        z-index: 100;
         width: 250px;
         padding-bottom: 10px;
         -webkit-box-shadow: 0 2px 4px 0px #979797;
         box-shadow: 0 2px 4px 0px #979797;
         visibility: hidden; }
         .header-nav ul li .nav-dropdown ul {
-          border: 0; }
+          border: 0;
+          display: block;
+        width: 100%;
+      height: 100%; }
           .header-nav ul li .nav-dropdown ul li {
-            border: 0; }
+            border: 0;
+          display: block; }
       .header-nav ul li:hover .nav-dropdown {
         visibility: visible; }
     .header-nav ul li:nth-last-child(1) {
       border-right: 0; }
   .header-nav .right-top {
-    margin-top: -40px; }
+    margin-top: -38px; }
 
 .rp {
   padding-bottom: 50px; }
@@ -2750,13 +2791,13 @@ h2 {
         .flip-card-indi {
           margin-top: 15px;
           position: relative;
-          max-height: 300px;
-          height: 100%; }
+          height: 200px;}
           .flip-card-indi .card-main {
             border: 1px solid rgba(0, 0, 0, 0.07);
             padding: 15px;
             position: relative;
-            z-index: 1; }
+            z-index: 1;
+          height: 100%; }
             .flip-card-indi .card-main h3 span {
               color: #000;
               margin-right: 5px; }
@@ -2962,7 +3003,8 @@ h2 {
                     position: relative; }
                     .filter-content .filter-item {
                       display: table-cell;
-                      vertical-align: top; }
+                      vertical-align: top;
+                    padding-right: 20px; }
                     .filter-content:before {
                       position: absolute;
                       content: "";
@@ -2994,6 +3036,12 @@ h2 {
                   .filter-list ul li.active {
                     background: #0088cc;
                     color: #fff; }
+
+                    .find-page-title {
+                      width: 100%;
+                      float: left;
+                    }
+
                           
                     .review-button {
                       display: flex;
@@ -3124,4 +3172,12 @@ h2 {
 
                   .ques {
                     margin-top: 20px !important;
+                  }
+
+                  .city-related-topic {
+                    margin-top: 15px;
+                  }
+
+                  .city-related-topic .inner-title {
+                    margin-bottom: 20px;
                   }

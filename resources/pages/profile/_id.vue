@@ -314,26 +314,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-time-content" v-if="userData.packType == 3" >
-                                    <ul>
-                                        <li>
-                                            <div class="biz-hours-icon">
-                                                <span><i class="fab fa-creative-commons-share"></i></span>
-                                            </div>
-                                            <div class="biz-hours-time">
-                                                <div class="short-def-list">
-                                                    <span class="attribute-key">Products</span>
-                                                    <span  >
-                                                        <p><strong class="u-space-r-half">Product 1</strong></p>
-                                                        <p><strong class="u-space-r-half">Create New Product</strong></p>
-                                                    </span>
-                                                    
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="section-left-border">
+                                <div class="section-left-border"> 
                                     <div class="widget-biz-hour">
                                         <h3>Business Hours</h3>
                                         <table class="table-simple-biz-hour" v-if="isLoading==false"  >
@@ -1016,6 +997,7 @@ export default {
    
    async created(){
         if(this.isLoggedIn) this.user_id = this.authInfo.id
+        
         const [res1, res2, res3, res4] = await Promise.all([
             this.callApi('get', `/app/atrributeConteptData/${this.$route.params.id}`),  
             this.callApi('get', `/app/getAdditionlegendInfo/${this.$route.params.id}`),

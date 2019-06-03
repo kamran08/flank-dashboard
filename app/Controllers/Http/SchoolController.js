@@ -12,6 +12,7 @@ const CoachReviewImage = use('App/Models/CoachReviewImage')
 const SchoolCoachReview = use('App/Models/SchoolCoachReview')
 const CoachReviewAttribute = use('App/Models/CoachReviewAttribute')
 const Legend = use('App/Models/Legend')
+const RecentReview = use('App/Models/RecentReview')
 const Database = use('Database')
 const User = use('App/Models/User')
 
@@ -400,7 +401,16 @@ class SchoolController {
       }
     }
 
-    await CoachReviewAttribute.createMany(AttributeInfo)
+   await CoachReviewAttribute.createMany(AttributeInfo)
+    const averageRating = await Database.raw('SELECT (cast(AVG(rating) as decimal(10,2))) AS averageRating  FROM `school_coach_reviews` WHERE `coach_id` = ?', [data.coach_id])
+    SchoolCoach.query().where('id', data.coach_id).update({
+      average_rating: averageRating[0][0].averageRating
+    })
+
+    await RecentReview.create({
+      review_id: rdata.id,
+      review_type: 'App/Models/SchoolCoachReview'
+    })
     return rdata
   }
 
@@ -418,6 +428,14 @@ class SchoolController {
                                   .first()
 
     return legendData
+  }
+  async getSchoolcoaches ({response, params}) {
+    return await SchoolCoach.query()
+                            .with('school')
+                            .orderBy('average_rating', 'desc')
+                            .withCount('allreview')
+                            .limit(3)
+                            .fetch()
   }
 
   /**

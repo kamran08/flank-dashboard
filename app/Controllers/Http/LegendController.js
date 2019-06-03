@@ -12,6 +12,7 @@ const User = use('App/Models/User')
 const LegendImage = use('App/Models/LegendImage')
 const Attribute = use('App/Models/Attribute')
 const BusniessHour = use('App/Models/BusniessHour')
+
 /**
  * Resourceful controller for interacting with legends
  */
@@ -63,6 +64,7 @@ class LegendController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    
     const legendData = await Legend.query()
                                   .where('id', params.id)
                                   .withCount('totalReview')

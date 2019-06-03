@@ -3,7 +3,7 @@
         
         <!-- Header-->
         
-        <header>
+        <!-- <header>
             <div class="header-second">
                 <div class="container">
                     <div class="img-center">
@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </header> -->
         
         <section class="second-section log-sign">
             <div class="container">
@@ -101,6 +101,13 @@ export default {
                 return
             } 
            const res = await this.callApi('post', 'products', this.productData)
+           if(res.status === 200){
+               this.s('Product Created Successfully!')
+               this.$router.push('/product/')
+           }
+           else{
+               this.swr()
+           }
            
             console.log("passed!")
         }

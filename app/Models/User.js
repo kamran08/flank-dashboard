@@ -28,7 +28,7 @@ class User extends Model {
    * @return {Object}
    */
   reviews () {
-    return this.hasMany('App/Models/Review', 'id', 'reviwer_id')
+    return this.hasMany('App/Models/Review', 'id', 'reviwer_id').limit(3)
   }
   ratinginfo () {
     return this.hasMany('App/Models/Review', 'id', 'reviwer_id').select('id', 'reviwer_id', 'rating')

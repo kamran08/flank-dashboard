@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2019 at 05:50 PM
+-- Generation Time: Jun 03, 2019 at 07:58 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -57,7 +57,19 @@ INSERT INTO `adonis_schema` (`id`, `name`, `batch`, `migration_time`) VALUES
 (21, '1557006652805_school_coach_review_schema', 11, '2019-05-04 21:53:32'),
 (22, '1557090430435_coach_review_image_schema', 12, '2019-05-05 21:10:25'),
 (23, '1557122529041_coach_review_attributes_schema', 13, '2019-05-06 06:04:54'),
-(24, '1554883104457_reviewimo_schema', 14, '2019-05-09 07:17:37');
+(24, '1554883104457_reviewimo_schema', 14, '2019-05-09 07:17:37'),
+(25, '1558985138053_coach_imos_schema', 15, '2019-05-27 19:28:02'),
+(26, '1559037376779_school_question_schema', 16, '2019-05-28 09:58:33'),
+(27, '1559037387142_school_answer_schema', 16, '2019-05-28 09:58:33'),
+(29, '1559089935858_product_schema', 17, '2019-05-29 10:25:09'),
+(30, '1559325291077_recent_review_schema', 18, '2019-05-31 17:56:17'),
+(31, '1559379229895_product_review_atrribute_schema', 19, '2019-06-01 09:00:46'),
+(32, '1559379253801_product_review_schema', 19, '2019-06-01 09:00:46'),
+(33, '1559379262497_product_question_schema', 19, '2019-06-01 09:00:46'),
+(34, '1559379274691_product_answer_schema', 19, '2019-06-01 09:00:46'),
+(35, '1559379388081_product_image_schema', 19, '2019-06-01 09:00:46'),
+(36, '1559379408058_product_review_image_schema', 19, '2019-06-01 09:00:46'),
+(37, '1559379498437_product_imo_schema', 19, '2019-06-01 09:00:46');
 
 -- --------------------------------------------------------
 
@@ -148,7 +160,33 @@ INSERT INTO `busniess_hours` (`id`, `legend_id`, `time`, `day`, `created_at`, `u
 (9, 2, '11:00 AM-08:00 PM', 'Thursday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (10, 2, '11:00 AM-08:00 PM', 'Saturday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
 (11, 2, '11:00 AM-08:00 PM', 'Sunday', '2019-04-18 15:24:08', '2019-04-18 15:24:08'),
-(23, 1, '10:00 AM-06:00 PM', 'Tuesday', '2019-05-19 16:12:59', '2019-05-19 16:12:59');
+(23, 1, '10:00 AM-06:00 PM', 'Tuesday', '2019-05-19 16:12:59', '2019-05-19 16:12:59'),
+(24, 5, '06:00 PM-08:00 PM', 'Monday', '2019-05-29 05:58:34', '2019-05-29 05:58:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coach_imos`
+--
+
+CREATE TABLE `coach_imos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `review_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `cool` int(11) DEFAULT '0',
+  `funny` int(11) DEFAULT '0',
+  `useful` int(11) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `coach_imos`
+--
+
+INSERT INTO `coach_imos` (`id`, `review_id`, `user_id`, `cool`, `funny`, `useful`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 0, 1, 0, '2019-05-28 15:54:19', '2019-05-28 15:54:19'),
+(2, 1, 1, 0, 0, 1, '2019-05-28 15:54:42', '2019-05-28 15:54:42');
 
 -- --------------------------------------------------------
 
@@ -175,7 +213,52 @@ INSERT INTO `coach_review_attributes` (`id`, `review_id`, `attribute_id`, `user_
 (2, 1, 2, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
 (3, 1, 3, 4, -10, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
 (4, 1, 4, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
-(5, 1, 5, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58');
+(5, 1, 5, 4, 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
+(6, 2, 1, 1, 5, '2019-05-28 06:17:47', '2019-05-28 06:17:47'),
+(7, 2, 2, 1, 5, '2019-05-28 06:17:47', '2019-05-28 06:17:47'),
+(8, 2, 3, 1, 10, '2019-05-28 06:17:47', '2019-05-28 06:17:47'),
+(9, 2, 4, 1, 5, '2019-05-28 06:17:47', '2019-05-28 06:17:47'),
+(10, 2, 5, 1, -5, '2019-05-28 06:17:47', '2019-05-28 06:17:47'),
+(11, 3, 1, 8, 5, '2019-05-30 01:47:36', '2019-05-30 01:47:36'),
+(12, 3, 2, 8, 5, '2019-05-30 01:47:36', '2019-05-30 01:47:36'),
+(13, 3, 3, 8, -10, '2019-05-30 01:47:36', '2019-05-30 01:47:36'),
+(14, 3, 4, 8, 5, '2019-05-30 01:47:36', '2019-05-30 01:47:36'),
+(15, 3, 5, 8, 5, '2019-05-30 01:47:36', '2019-05-30 01:47:36'),
+(16, 4, 1, 8, 5, '2019-05-31 21:44:56', '2019-05-31 21:44:56'),
+(17, 4, 2, 8, 5, '2019-05-31 21:44:56', '2019-05-31 21:44:56'),
+(18, 4, 3, 8, 10, '2019-05-31 21:44:56', '2019-05-31 21:44:56'),
+(19, 4, 4, 8, -5, '2019-05-31 21:44:56', '2019-05-31 21:44:56'),
+(20, 4, 5, 8, 5, '2019-05-31 21:44:56', '2019-05-31 21:44:56'),
+(21, 5, 1, 8, 5, '2019-05-31 21:45:45', '2019-05-31 21:45:45'),
+(22, 5, 2, 8, 5, '2019-05-31 21:45:45', '2019-05-31 21:45:45'),
+(23, 5, 3, 8, 10, '2019-05-31 21:45:45', '2019-05-31 21:45:45'),
+(24, 5, 4, 8, -5, '2019-05-31 21:45:46', '2019-05-31 21:45:46'),
+(25, 5, 5, 8, 5, '2019-05-31 21:45:46', '2019-05-31 21:45:46'),
+(26, 6, 1, 8, 5, '2019-05-31 21:55:35', '2019-05-31 21:55:35'),
+(27, 6, 2, 8, 5, '2019-05-31 21:55:35', '2019-05-31 21:55:35'),
+(28, 6, 3, 8, -10, '2019-05-31 21:55:35', '2019-05-31 21:55:35'),
+(29, 6, 4, 8, -5, '2019-05-31 21:55:35', '2019-05-31 21:55:35'),
+(30, 6, 5, 8, 5, '2019-05-31 21:55:35', '2019-05-31 21:55:35'),
+(31, 7, 1, 8, -5, '2019-05-31 21:58:26', '2019-05-31 21:58:26'),
+(32, 7, 2, 8, -5, '2019-05-31 21:58:26', '2019-05-31 21:58:26'),
+(33, 7, 3, 8, 10, '2019-05-31 21:58:26', '2019-05-31 21:58:26'),
+(34, 7, 4, 8, 5, '2019-05-31 21:58:26', '2019-05-31 21:58:26'),
+(35, 7, 5, 8, -5, '2019-05-31 21:58:26', '2019-05-31 21:58:26'),
+(36, 8, 1, 8, 5, '2019-05-31 22:00:06', '2019-05-31 22:00:06'),
+(37, 8, 2, 8, 5, '2019-05-31 22:00:06', '2019-05-31 22:00:06'),
+(38, 8, 3, 8, -10, '2019-05-31 22:00:06', '2019-05-31 22:00:06'),
+(39, 8, 4, 8, 5, '2019-05-31 22:00:06', '2019-05-31 22:00:06'),
+(40, 8, 5, 8, 5, '2019-05-31 22:00:06', '2019-05-31 22:00:06'),
+(41, 9, 1, 1, 5, '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(42, 9, 2, 1, 5, '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(43, 9, 3, 1, -10, '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(44, 9, 4, 1, -5, '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(45, 9, 5, 1, -5, '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(46, 10, 1, 1, 5, '2019-06-02 14:50:44', '2019-06-02 14:50:44'),
+(47, 10, 2, 1, 5, '2019-06-02 14:50:44', '2019-06-02 14:50:44'),
+(48, 10, 3, 1, 10, '2019-06-02 14:50:44', '2019-06-02 14:50:44'),
+(49, 10, 4, 1, 5, '2019-06-02 14:50:44', '2019-06-02 14:50:44'),
+(50, 10, 5, 1, -5, '2019-06-02 14:50:44', '2019-06-02 14:50:44');
 
 -- --------------------------------------------------------
 
@@ -186,6 +269,7 @@ INSERT INTO `coach_review_attributes` (`id`, `review_id`, `attribute_id`, `user_
 CREATE TABLE `coach_review_images` (
   `id` int(10) UNSIGNED NOT NULL,
   `review_id` int(10) UNSIGNED DEFAULT NULL,
+  `school_id` int(10) UNSIGNED NOT NULL,
   `url` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -195,8 +279,14 @@ CREATE TABLE `coach_review_images` (
 -- Dumping data for table `coach_review_images`
 --
 
-INSERT INTO `coach_review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at`) VALUES
-(1, 1, '/uploads/1557124598892.png', '2019-05-06 12:36:58', '2019-05-06 12:36:58');
+INSERT INTO `coach_review_images` (`id`, `review_id`, `school_id`, `url`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, '/uploads/1557124598892.png', '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
+(2, 9, 0, '/uploads/1559464443047.jpeg', '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(3, 9, 0, '/uploads/1559464449698.png', '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(4, 9, 0, '/uploads/1559464452147.png', '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(5, 10, 0, '/uploads/1559465428418.png', '2019-06-02 14:50:44', '2019-06-02 14:50:44'),
+(6, 10, 0, '/uploads/1559465431256.png', '2019-06-02 14:50:44', '2019-06-02 14:50:44'),
+(7, 10, 0, '/uploads/1559465433951.png', '2019-06-02 14:50:44', '2019-06-02 14:50:44');
 
 -- --------------------------------------------------------
 
@@ -223,7 +313,8 @@ INSERT INTO `legends` (`id`, `user_id`, `name`, `address`, `phone`, `img`, `crea
 (1, 1, 'Nazmul', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', '2019-04-04 21:23:13', '2019-05-19 16:12:59'),
 (2, 2, 'Appify Lab', 'Lotif-Monjil,Pathantula,Sylhet,Bangladesh', '+8801681189844', '/image/school logo.png', NULL, '2019-04-18 15:24:08'),
 (3, 3, 'Ashraf', 'Dhaka,Bangladesh', '01681189844', '/image/school logo.png', NULL, '2019-04-10 19:48:23'),
-(4, 4, 'Kamran Ahmed', 'Sylhet,Bangladesh', '', '/image/school logo.png', '2019-04-04 21:30:30', '2019-04-04 23:06:42');
+(4, 4, 'Kamran Ahmed', 'Sylhet,Bangladesh', '', '/image/school logo.png', '2019-04-04 21:30:30', '2019-04-04 23:06:42'),
+(5, 8, 'Product Hero', 'Uttara,Dhaka,Bangladesh', '01772430812', '/uploads/four.jpg', '2019-05-29 01:15:40', '2019-05-29 05:58:34');
 
 -- --------------------------------------------------------
 
@@ -253,6 +344,179 @@ INSERT INTO `legend_images` (`id`, `legend_id`, `url`, `created_at`, `updated_at
 (35, 1, '/uploads/1555688031454.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
 (36, 1, '/uploads/1555688037239.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
 (37, 4, '/uploads/1556031887039.png', '2019-04-23 21:04:49', '2019-04-23 21:04:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `description` text,
+  `price` int(11) DEFAULT NULL,
+  `active` int(11) DEFAULT '1',
+  `img` varchar(60) DEFAULT '/uploads/four.jpg',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `user_id`, `name`, `category`, `address`, `description`, `price`, `active`, `img`, `created_at`, `updated_at`) VALUES
+(1, 8, 'Product 1', 'Food', '', 'This is a product call Product 1. The price of this product 1 is 50  and Category is Food', 50, 1, '/uploads/four.png', '2019-06-01 14:31:44', '2019-06-01 14:31:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_answers`
+--
+
+CREATE TABLE `product_answers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `content` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE `product_images` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_imos`
+--
+
+CREATE TABLE `product_imos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `review_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `cool` int(11) DEFAULT '0',
+  `funny` int(11) DEFAULT '0',
+  `useful` int(11) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_imos`
+--
+
+INSERT INTO `product_imos` (`id`, `review_id`, `user_id`, `cool`, `funny`, `useful`, `created_at`, `updated_at`) VALUES
+(3, 3, 1, 0, 0, 1, '2019-06-03 00:55:09', '2019-06-03 00:55:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_questions`
+--
+
+CREATE TABLE `product_questions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `content` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_questions`
+--
+
+INSERT INTO `product_questions` (`id`, `user_id`, `product_id`, `content`, `created_at`, `updated_at`) VALUES
+(2, 1, 1, 'This is Frist Product Question Data!', '2019-06-03 05:57:53', '2019-06-03 05:57:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_reviews`
+--
+
+CREATE TABLE `product_reviews` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `reviwer_id` int(11) DEFAULT NULL,
+  `content` text,
+  `rating` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_reviews`
+--
+
+INSERT INTO `product_reviews` (`id`, `product_id`, `reviwer_id`, `content`, `rating`, `created_at`, `updated_at`) VALUES
+(1, 1, 8, 'It might have unravelled very differently for Shanaka, the 27-year-old international allrounder, had he attended Sunday morning mass at St Sebastian\'s Church in Negombo, his hometown, that day with his mother and grandmother. He chose not to, being tired after a 170-kilometre trip home from Anuradhapura the previous evening', 4, '2019-06-01 17:04:25', '2019-06-01 17:04:25'),
+(2, 1, 1, 'It might have unravelled very differently for Shanaka, the 27-year-old international allrounder, had he attended Sunday morning mass at St Sebastian\'s Church in Negombo, his hometown, that day with his mother and grandmother. He chose not to, being tired after a 170-kilometre trip home from Anuradhapura the previous evening', 2, '2019-06-02 14:41:12', '2019-06-02 14:41:12'),
+(3, 1, 1, 'It might have unravelled very differently for Shanaka, the 27-year-old international allrounder, had he attended Sunday morning mass at St Sebastian\'s Church in Negombo, his hometown, that day with his mother and grandmother. He chose not to, being tired after a 170-kilometre trip home from Anuradhapura the previous evening', 2, '2019-06-02 14:45:28', '2019-06-02 14:45:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_review_atrributes`
+--
+
+CREATE TABLE `product_review_atrributes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `revew_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `isPositive` int(1) DEFAULT '0',
+  `isNegative` int(1) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_review_images`
+--
+
+CREATE TABLE `product_review_images` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `review_id` int(11) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_review_images`
+--
+
+INSERT INTO `product_review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at`) VALUES
+(1, 1, '/uploads/1559387045553.jpeg', '2019-06-01 17:04:25', '2019-06-01 17:04:25'),
+(2, 1, '/uploads/1559387047945.jpeg', '2019-06-01 17:04:25', '2019-06-01 17:04:25'),
+(3, 1, '/uploads/1559387050890.jpeg', '2019-06-01 17:04:25', '2019-06-01 17:04:25'),
+(4, 2, '/uploads/1559464845544.jpeg', '2019-06-02 14:41:12', '2019-06-02 14:41:12'),
+(5, 2, '/uploads/1559464848971.jpeg', '2019-06-02 14:41:12', '2019-06-02 14:41:12'),
+(6, 2, '/uploads/1559464851936.jpeg', '2019-06-02 14:41:12', '2019-06-02 14:41:12'),
+(7, 3, '/uploads/1559465103875.jpeg', '2019-06-02 14:45:28', '2019-06-02 14:45:28'),
+(8, 3, '/uploads/1559465106423.jpeg', '2019-06-02 14:45:28', '2019-06-02 14:45:28'),
+(9, 3, '/uploads/1559465109838.jpeg', '2019-06-02 14:45:28', '2019-06-02 14:45:28');
 
 -- --------------------------------------------------------
 
@@ -348,6 +612,29 @@ INSERT INTO `questions` (`id`, `user_id`, `legend_id`, `content`, `created_at`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `recent_reviews`
+--
+
+CREATE TABLE `recent_reviews` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `review_id` int(10) UNSIGNED DEFAULT NULL,
+  `review_type` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `recent_reviews`
+--
+
+INSERT INTO `recent_reviews` (`id`, `review_id`, `review_type`, `created_at`, `updated_at`) VALUES
+(5, 3, 'App/Models/ProductReview', '2019-06-02 14:45:28', '2019-06-02 14:45:28'),
+(6, 28, 'App/Models/Review', '2019-06-02 14:50:09', '2019-06-02 14:50:09'),
+(7, 10, 'App/Models/SchoolCoachReview', '2019-06-02 14:50:44', '2019-06-02 14:50:44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviewimos`
 --
 
@@ -372,7 +659,8 @@ INSERT INTO `reviewimos` (`id`, `review_id`, `user_id`, `cool`, `funny`, `useful
 (3, 26, 6, 1, 1, 1, '2019-05-09 00:00:00', '2019-05-09 00:00:00'),
 (4, 26, 3, 1, 1, 1, '2019-05-09 00:00:00', '2019-05-09 00:00:00'),
 (5, 24, 1, 0, 1, 0, '2019-05-19 14:39:37', '2019-05-19 14:39:37'),
-(6, 23, 1, 0, 0, 1, '2019-05-19 14:40:10', '2019-05-19 14:40:29');
+(6, 23, 1, 0, 0, 1, '2019-05-19 14:40:10', '2019-05-19 14:40:29'),
+(8, 25, 1, 0, 1, 0, '2019-06-03 04:02:05', '2019-06-03 04:02:05');
 
 -- --------------------------------------------------------
 
@@ -401,17 +689,19 @@ INSERT INTO `reviews` (`id`, `reviewFor`, `reviwer_id`, `content`, `rating`, `cr
 (13, 2, 1, 'That makes it his second-best record in a season in a Madrid shirt, and he is now just two strikes behind his record of 32 that he achieved during his third campaign with the club, in 2011/12.', 5, '2019-04-07 20:45:33', '2019-04-07 20:45:33'),
 (14, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 20:49:44', '2019-04-07 20:49:44'),
 (15, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-07 20:51:46', '2019-04-07 20:51:46'),
-(16, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 3, '2019-04-11 00:34:33', '2019-04-11 00:34:33'),
+(16, 4, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 3, '2019-04-11 00:34:33', '2019-04-11 00:34:33'),
 (17, 2, 3, 'That makes it his second-best record in a season in a Madrid shirt, and he is now just two strikes behind his record of 32 that he achieved during his third campaign with the club, in 2011/12.', 5, '2019-04-11 00:35:59', '2019-04-11 00:35:59'),
 (18, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 3, '2019-04-11 00:53:43', '2019-04-11 00:53:43'),
-(19, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:35:23', '2019-04-16 16:35:23'),
+(19, 3, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:35:23', '2019-04-16 16:35:23'),
 (20, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:41:13', '2019-04-16 16:41:13'),
 (21, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 4, '2019-04-16 16:48:10', '2019-04-16 16:48:10'),
 (22, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 4, '2019-04-16 16:48:45', '2019-04-16 16:48:45'),
 (23, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:51:35', '2019-04-16 16:51:35'),
 (24, 2, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-04-16 16:51:53', '2019-04-16 16:51:53'),
 (25, 1, 4, 'It might have unravelled very differently for Shanaka, the 27-year-old international allrounder, had he attended Sunday morning mass at St Sebastian\'s Church in Negombo, his hometown, that day with his mother and grandmother. He chose not to, being tired after a 170-kilometre trip home from Anuradhapura the previous evening', 5, '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
-(26, 2, 4, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus ', 4, '2019-04-23 21:22:34', '2019-04-23 21:22:34');
+(26, 2, 4, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus ', 4, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
+(27, 4, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting', 4, '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(28, 1, 3, 'It might have unravelled very differently for Shanaka, the 27-year-old international allrounder, had he attended Sunday morning mass at St Sebastian\'s Church in Negombo, his hometown, that day with his mother and grandmother. He chose not to, being tired after a 170-kilometre trip home from Anuradhapura the previous evening', 3, '2019-06-02 14:50:09', '2019-06-02 14:50:09');
 
 -- --------------------------------------------------------
 
@@ -458,7 +748,17 @@ INSERT INTO `review_attributes` (`id`, `review_id`, `attribute_id`, `user_id`, `
 (22, 26, 2, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
 (23, 26, 3, 4, -10, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
 (24, 26, 4, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
-(25, 26, 5, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34');
+(25, 26, 5, 4, 5, '2019-04-23 21:22:34', '2019-04-23 21:22:34'),
+(26, 27, 1, 1, 5, '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(27, 27, 2, 1, 5, '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(28, 27, 3, 1, -10, '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(29, 27, 4, 1, -5, '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(30, 27, 5, 1, 5, '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(31, 28, 1, 1, 5, '2019-06-02 14:50:09', '2019-06-02 14:50:09'),
+(32, 28, 2, 1, 5, '2019-06-02 14:50:09', '2019-06-02 14:50:09'),
+(33, 28, 3, 1, 10, '2019-06-02 14:50:09', '2019-06-02 14:50:09'),
+(34, 28, 4, 1, -5, '2019-06-02 14:50:09', '2019-06-02 14:50:09'),
+(35, 28, 5, 1, -5, '2019-06-02 14:50:09', '2019-06-02 14:50:09');
 
 -- --------------------------------------------------------
 
@@ -481,7 +781,13 @@ CREATE TABLE `review_images` (
 INSERT INTO `review_images` (`id`, `review_id`, `url`, `created_at`, `updated_at`) VALUES
 (1, 25, '/uploads/1555951271768.jpeg', '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
 (2, 25, '/uploads/1555951276020.png', '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
-(3, 25, '/uploads/1555951279605.jpeg', '2019-04-22 22:41:31', '2019-04-22 22:41:31');
+(3, 25, '/uploads/1555951279605.jpeg', '2019-04-22 22:41:31', '2019-04-22 22:41:31'),
+(4, 27, '/uploads/1559464342825.jpeg', '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(5, 27, '/uploads/1559464346578.jpeg', '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(6, 27, '/uploads/1559464349235.jpeg', '2019-06-02 14:32:44', '2019-06-02 14:32:44'),
+(7, 28, '/uploads/1559465391298.jpeg', '2019-06-02 14:50:09', '2019-06-02 14:50:09'),
+(8, 28, '/uploads/1559465394758.png', '2019-06-02 14:50:09', '2019-06-02 14:50:09'),
+(9, 28, '/uploads/1559465396991.jpeg', '2019-06-02 14:50:09', '2019-06-02 14:50:09');
 
 -- --------------------------------------------------------
 
@@ -525,6 +831,28 @@ INSERT INTO `schools` (`id`, `logo`, `schoolName`, `city`, `state`, `division`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `school_answers`
+--
+
+CREATE TABLE `school_answers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `content` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `school_answers`
+--
+
+INSERT INTO `school_answers` (`id`, `question_id`, `user_id`, `content`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, 'This is First Answer of First Question.', '2019-05-29 01:05:47', '2019-05-29 01:05:47');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `school_coaches`
 --
 
@@ -532,6 +860,7 @@ CREATE TABLE `school_coaches` (
   `id` int(10) UNSIGNED NOT NULL,
   `school_id` int(11) UNSIGNED DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `average_rating` float NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -540,50 +869,51 @@ CREATE TABLE `school_coaches` (
 -- Dumping data for table `school_coaches`
 --
 
-INSERT INTO `school_coaches` (`id`, `school_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Tony Caviglia', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(2, 2, 'Connor Shannon', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(3, 2, 'Keith Travis', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(4, 2, 'Vince Branstetter', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(5, 2, 'Dwayne Wright', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(6, 2, 'Patrick Markarian', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(7, 2, 'Dennis Randle', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(8, 2, 'Mark Hetherington', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(9, 2, 'Jesus Reyes', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(10, 2, 'Ryan Ruschhaupt', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(11, 2, 'Drew Brown', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(12, 2, 'Rick Scheidt', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(13, 3, 'Russell Luce', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(14, 3, 'Jon Watson', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(15, 3, 'Mike Campbell', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(16, 3, 'Dave Pankenier', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(17, 3, 'Ed Yeager', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(18, 4, 'Marcelo Perez III', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(19, 6, 'Connor Flowers', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(20, 6, 'Mike Randazzo', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(21, 6, 'Conor Philbin', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(22, 6, 'Tyler Albright', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(23, 6, 'Matt Mahay', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(24, 6, 'Anthony Concialdi', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(25, 6, 'Matt Smith', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(26, 6, 'Bryce Skelton', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(27, 6, 'Greg Partyka', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(28, 6, 'Marc Mantucca', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(29, 6, 'Mike Pugliese', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(30, 6, 'Tyler Pazik', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(31, 7, 'Josh Glassey', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(32, 7, 'John Berumen', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(33, 7, 'Patrick Murphy', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(34, 7, 'Andrew Takayoshi', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(35, 7, 'Tim McCollum', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(36, 7, 'Carlos Ramirez', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(37, 7, 'Jon Paino', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(38, 7, 'Joe Spiers', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(39, 7, 'Tim Blume', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(40, 9, 'John Torres', '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
-(41, NULL, NULL, '2019-05-06 13:15:11', '2019-05-06 13:15:11'),
-(42, NULL, NULL, '2019-05-06 13:18:58', '2019-05-06 13:18:58'),
-(43, 8, 'John Torres', '2019-05-06 13:23:40', '2019-05-06 13:23:40');
+INSERT INTO `school_coaches` (`id`, `school_id`, `name`, `average_rating`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Tony Caviglia', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(2, 2, 'Connor Shannon', 4, '2019-05-04 17:39:44', '2019-05-31 22:00:06'),
+(3, 2, 'Keith Travis', 4.6, '2019-05-04 17:39:44', '2019-05-31 21:58:26'),
+(4, 2, 'Vince Branstetter', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(5, 2, 'Dwayne Wright', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(6, 2, 'Patrick Markarian', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(7, 2, 'Dennis Randle', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(8, 2, 'Mark Hetherington', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(9, 2, 'Jesus Reyes', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(10, 2, 'Ryan Ruschhaupt', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(11, 2, 'Drew Brown', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(12, 2, 'Rick Scheidt', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(13, 3, 'Russell Luce', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(14, 3, 'Jon Watson', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(15, 3, 'Mike Campbell', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(16, 3, 'Dave Pankenier', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(17, 3, 'Ed Yeager', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(18, 4, 'Marcelo Perez III', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(19, 6, 'Connor Flowers', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(20, 6, 'Mike Randazzo', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(21, 6, 'Conor Philbin', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(22, 6, 'Tyler Albright', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(23, 6, 'Matt Mahay', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(24, 6, 'Anthony Concialdi', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(25, 6, 'Matt Smith', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(26, 6, 'Bryce Skelton', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(27, 6, 'Greg Partyka', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(28, 6, 'Marc Mantucca', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(29, 6, 'Mike Pugliese', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(30, 6, 'Tyler Pazik', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(31, 7, 'Josh Glassey', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(32, 7, 'John Berumen', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(33, 7, 'Patrick Murphy', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(34, 7, 'Andrew Takayoshi', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(35, 7, 'Tim McCollum', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(36, 7, 'Carlos Ramirez', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(37, 7, 'Jon Paino', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(38, 7, 'Joe Spiers', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(39, 7, 'Tim Blume', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(40, 9, 'John Torres', 0, '2019-05-04 17:39:44', '2019-05-04 17:39:44'),
+(41, NULL, NULL, 0, '2019-05-06 13:15:11', '2019-05-06 13:15:11'),
+(42, NULL, NULL, 0, '2019-05-06 13:18:58', '2019-05-06 13:18:58'),
+(43, 8, 'John Torres', 0, '2019-05-06 13:23:40', '2019-05-06 13:23:40'),
+(44, 1, 'france', 0, '2019-05-30 14:58:45', '2019-05-30 14:58:45');
 
 -- --------------------------------------------------------
 
@@ -607,7 +937,40 @@ CREATE TABLE `school_coach_reviews` (
 --
 
 INSERT INTO `school_coach_reviews` (`id`, `coach_id`, `school_id`, `reviwer_id`, `content`, `rating`, `created_at`, `updated_at`) VALUES
-(1, 3, 2, 4, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58');
+(1, 3, 2, 4, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-05-06 12:36:58', '2019-05-06 12:36:58'),
+(2, 2, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus', 4, '2019-05-28 06:17:47', '2019-05-28 06:17:47'),
+(3, 26, 6, 8, 'He is Awesome', 5, '2019-05-30 01:47:36', '2019-05-30 01:47:36'),
+(4, 3, 2, 8, 'He is only for Testring Purpose.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries', 4, '2019-05-31 21:44:56', '2019-05-31 21:44:56'),
+(5, 3, 2, 8, 'He is only for Testring Purpose.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries', 4, '2019-05-31 21:45:45', '2019-05-31 21:45:45'),
+(6, 3, 2, 8, 'Again For testing Purpose!Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', 5, '2019-05-31 21:55:35', '2019-05-31 21:55:35'),
+(7, 3, 2, 8, 'Again Boys Again..It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 5, '2019-05-31 21:58:26', '2019-05-31 21:58:26'),
+(8, 2, 2, 8, 'He is ok .. As long as we are testing him!Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer ', 4, '2019-05-31 22:00:06', '2019-05-31 22:00:06'),
+(9, 4, 2, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book', 3, '2019-06-02 14:34:14', '2019-06-02 14:34:14'),
+(10, 1, 2, 1, 'It might have unravelled very differently for Shanaka, the 27-year-old international allrounder, had he attended Sunday morning mass at St Sebastian\'s Church in Negombo, his hometown, that day with his mother and grandmother. He chose not to, being tired after a 170-kilometre trip home from Anuradhapura the previous evening', 4, '2019-06-02 14:50:44', '2019-06-02 14:50:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `school_questions`
+--
+
+CREATE TABLE `school_questions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `school_id` int(11) DEFAULT NULL,
+  `content` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `school_questions`
+--
+
+INSERT INTO `school_questions` (`id`, `user_id`, `school_id`, `content`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 'This is The First Question of Fresno City Collage?', '2019-05-28 16:44:36', '2019-05-28 16:44:36'),
+(2, 1, 2, 'This is The Second Question of Fresno City Collage?', '2019-05-28 16:46:14', '2019-05-28 16:46:14'),
+(3, 1, 2, 'This is the 3rd Question of the Fresno City Collage', '2019-05-28 22:24:40', '2019-05-28 22:24:40');
 
 -- --------------------------------------------------------
 
@@ -653,13 +1016,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `birthday`, `zip`, `address`, `img`, `packType`, `accountActivationToken`, `passwordToken`, `created_at`, `updated_at`) VALUES
-(1, 'Nazmul', 'Chowdhury', 'nazmul@gmail.com', '$2a$10$2IL0iJW53DuuyE9hOXAWqek3Pq8mkWHEkx6XSvx9xFX1G8PIdtUFS', '2000-04-29T18:00:00.000Z', '3210', 'Sreemangal,Sylhet,Bangladesh', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-03 20:20:09', '2019-04-09 22:38:16'),
+(1, 'Nazmul', 'Chowdhury', 'nazmul@gmail.com', '$2a$10$2IL0iJW53DuuyE9hOXAWqek3Pq8mkWHEkx6XSvx9xFX1G8PIdtUFS', '2000-04-29T18:00:00.000Z', '3210', 'Sreemangal,Sylhet,Bangladesh', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-03 20:20:09', '2019-06-03 22:45:37'),
 (2, 'sadek', 'hossain', 'sadek@gmail.com', '$2a$10$74hKKbdqOoB30dDPmTHNme/6xrMSxwENg4yAqOFWgkOrY6u7Itr1G', '2019-04-23T18:00:00.000Z', 'as', '', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-03 20:56:19', '2019-04-03 20:56:19'),
 (3, 'Ashraf', 'Hakimi', 'ashraf@gmail.com', '$2a$10$oSQAkhdVNZoDEKJ5ZYfC/u2Wr/zfDKsp2EsJ426Chop.3KYovo7kG', '', '3210', 'Sylhet,Bangladesh', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-04 21:23:13', '2019-04-12 19:25:47'),
 (4, 'Kamran', 'Ahmed', 'kamran@gmail.com', '$2a$10$FVg.RimiYbj1Os.mNgY46.0fLo58o2a4RAHiQtPNt.HiaUtbw25Ne', '', '3210', '', '/uploads/profile.png ', 2, NULL, NULL, '2019-04-04 21:30:30', '2019-04-04 21:30:30'),
 (5, 'Sakil ', 'Rahman', 'sakil@gmail.com', '$2a$10$ybgVFc20M1JB2TH9FfZlpux1UrIGTnHDrn/yHhNgIeZLvCYo3QG0.', '', '3210', '', '/uploads/profile.png ', 1, NULL, NULL, '2019-04-04 23:07:42', '2019-04-04 23:07:42'),
 (6, 'Kollol', 'Cahk', 'kollol@gmail.com', '$2a$10$gFw38St07Ogy9Q4ln8ud4e6KmSA6FSPM547Cl8p/lzKZVUnI5ggxS', '', '3210', '', '/uploads/profile.png ', 1, NULL, NULL, '2019-04-04 23:13:34', '2019-04-04 23:13:34'),
-(7, 'Humayun', 'Rahi', 'rahi@boss.com', '$2a$10$t.D/M9IMjso2iCIUatzWYOG0Yzzyf6WPpyblR0w51SDjmcFzxJac6', '', '', 'Sylhet,Bangladesh', '/uploads/profile.png', 1, NULL, NULL, '2019-04-09 23:07:49', '2019-04-09 23:20:27');
+(7, 'Humayun', 'Rahi', 'rahi@boss.com', '$2a$10$t.D/M9IMjso2iCIUatzWYOG0Yzzyf6WPpyblR0w51SDjmcFzxJac6', '', '', 'Sylhet,Bangladesh', '/uploads/profile.png', 1, NULL, NULL, '2019-04-09 23:07:49', '2019-04-09 23:20:27'),
+(8, 'Product', 'Hero', 'product@gmail.com', '$2a$10$cE09niCSD2P6otFaItlSK.DB0K0VZqNTC2iVPkKfW6pNFYD9Ic3im', '1996-04-30T18:00:00.000Z', '3210', '', '/uploads/profile.png', 3, NULL, NULL, '2019-05-29 01:15:40', '2019-05-29 01:15:40');
 
 --
 -- Indexes for dumped tables
@@ -693,6 +1057,12 @@ ALTER TABLE `busniess_hours`
   ADD KEY `legend_id` (`legend_id`);
 
 --
+-- Indexes for table `coach_imos`
+--
+ALTER TABLE `coach_imos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `coach_review_attributes`
 --
 ALTER TABLE `coach_review_attributes`
@@ -719,6 +1089,54 @@ ALTER TABLE `legend_images`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_answers`
+--
+ALTER TABLE `product_answers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_imos`
+--
+ALTER TABLE `product_imos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_questions`
+--
+ALTER TABLE `product_questions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_reviews`
+--
+ALTER TABLE `product_reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_review_atrributes`
+--
+ALTER TABLE `product_review_atrributes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_review_images`
+--
+ALTER TABLE `product_review_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pulses`
 --
 ALTER TABLE `pulses`
@@ -729,6 +1147,13 @@ ALTER TABLE `pulses`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `recent_reviews`
+--
+ALTER TABLE `recent_reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `review_id` (`review_id`);
 
 --
 -- Indexes for table `reviewimos`
@@ -763,6 +1188,12 @@ ALTER TABLE `schools`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `school_answers`
+--
+ALTER TABLE `school_answers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `school_coaches`
 --
 ALTER TABLE `school_coaches`
@@ -773,6 +1204,12 @@ ALTER TABLE `school_coaches`
 -- Indexes for table `school_coach_reviews`
 --
 ALTER TABLE `school_coach_reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `school_questions`
+--
+ALTER TABLE `school_questions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -798,7 +1235,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adonis_schema`
 --
 ALTER TABLE `adonis_schema`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `answers`
@@ -816,31 +1253,85 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT for table `busniess_hours`
 --
 ALTER TABLE `busniess_hours`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `coach_imos`
+--
+ALTER TABLE `coach_imos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `coach_review_attributes`
 --
 ALTER TABLE `coach_review_attributes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `coach_review_images`
 --
 ALTER TABLE `coach_review_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `legends`
 --
 ALTER TABLE `legends`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `legend_images`
 --
 ALTER TABLE `legend_images`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `product_answers`
+--
+ALTER TABLE `product_answers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_imos`
+--
+ALTER TABLE `product_imos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `product_questions`
+--
+ALTER TABLE `product_questions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `product_reviews`
+--
+ALTER TABLE `product_reviews`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `product_review_atrributes`
+--
+ALTER TABLE `product_review_atrributes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_review_images`
+--
+ALTER TABLE `product_review_images`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pulses`
@@ -855,28 +1346,34 @@ ALTER TABLE `questions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `recent_reviews`
+--
+ALTER TABLE `recent_reviews`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `reviewimos`
 --
 ALTER TABLE `reviewimos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `review_attributes`
 --
 ALTER TABLE `review_attributes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `review_images`
 --
 ALTER TABLE `review_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `schools`
@@ -885,16 +1382,28 @@ ALTER TABLE `schools`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `school_answers`
+--
+ALTER TABLE `school_answers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `school_coaches`
 --
 ALTER TABLE `school_coaches`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `school_coach_reviews`
 --
 ALTER TABLE `school_coach_reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `school_questions`
+--
+ALTER TABLE `school_questions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tokens`
@@ -906,7 +1415,7 @@ ALTER TABLE `tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

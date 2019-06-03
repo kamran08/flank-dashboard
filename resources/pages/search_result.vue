@@ -1,107 +1,5 @@
 <template>
     <div>
-        
-        <!-- Header-->
-        
-        <header>
-            <div class="header-second">
-                <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    <form action="#">
-                        <div class="equal-div">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input v-model="str" type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group">
-                               <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                <input v-model="place" type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
-                                <!-- <Select v-model="flag" style="width:200px">
-                                    <Option :value="1" >Coach</Option>
-                                    <Option :value="2" >School</Option>
-                                </Select> -->
-                                <span @click="SearchByKey" class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
-                            </div>
-                            <div class="left-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                </ul>
-                            </div>
-                            <div class="right-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-location-arrow"></i>Current Locations</a></li>
-                                    <li style=""><a href="" style="">San Francisco, CA</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                   </form>
-                </div>
-            </div>
-            <div class="header-nav">
-               <div class="container">
-                   <ul class="main-nav">
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;College Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Team Coach&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & services&nbsp;<i class="fas fa-angle-down"></i></a>
-                           <div class="nav-dropdown">
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                               <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Restaurent</a></li>
-                               </ul>
-                           </div>
-                       </li>
-                   </ul>
-                   <ul class="main-nav right-top pull-right">
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
-                       <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;For Business</a></li>
-                   </ul>
-               </div>
-            </div>
-        </header>
-        
         <section class="rd second-section bg bg-border-bottom find-second-section">
             <div class="container">
                 <div class="section-content">
@@ -112,15 +10,15 @@
                     <div class="find-page-nav">
                         <ul class="filter">
                             <li class="filter-list" :class="(filterFlag)? 'active_ON': ''"  @click="filterFlagAction" ><span><i class="fas fa-random"></i></span> All Filters <span class="filter-tag tag-one">Show All Filters</span></li>
-                            <!-- <li class="filter-list">
+                            <li class="filter-list" v-if="pageOption == 'product'" >
                                 <ul>
-                                    <li>$ <span class="filter-tag tag-two">Inexpensive</span></li>
-                                    <li>$$ <span class="filter-tag tag-three">Moderate</span></li>
-                                    <li>$$$ <span class="filter-tag tag-four">Pricey</span></li>
-                                    <li>$$$$ <span class="filter-tag tag-five">Pricey</span></li>
+                                    <li :class="(price>0 && price<=9 )? 'active_ON' : ''" @click="changePriceType(9)" >$ <span class="filter-tag tag-two">Inexpensive</span></li>
+                                    <li :class="(price>9 && price<=99 )? 'active_ON' : ''" @click="changePriceType(99)">$$ <span class="filter-tag tag-three">Moderate</span></li>
+                                    <li :class="(price>99 && price<=999 )? 'active_ON' : ''" @click="changePriceType(999)">$$$ <span class="filter-tag tag-four">Pricey</span></li>
+                                    <li :class="(price>999 && price<=9999 )? 'active_ON' : ''" @click="changePriceType(9999)">$$$$ <span class="filter-tag tag-five">Pricey</span></li>
                                 </ul>
                             </li>
-                            <li class="filter-list"><span><i class="far fa-clock"></i></span> Open Now <span class="filter-tag tag-six">Find all business that are open now</span></li>
+                             <!--<li class="filter-list"><span><i class="far fa-clock"></i></span> Open Now <span class="filter-tag tag-six">Find all business that are open now</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Delivery <span class="filter-tag tag-seven">Restaurents that offer ordering on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Takeout <span class="filter-tag tag-eight">Restaurents that offer ordering on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Reservation <span class="filter-tag tag-nine">Restaurents that offer reservation on Flank</span></li>
@@ -133,23 +31,31 @@
                                         <h3>Sort By</h3>
                                     </div>
                                     <ul class="filter-item-list">
-                                        <li class="active"><a href="">Recomended</a></li>
-                                        <li><a href="">Highest Rated</a></li>
-                                        <li><a href="">Most Reviewed</a></li>
+                                        <li :class="(sort == 'normal')? '': 'active'" @click="changesSortType('normal')"><a >Recomended</a></li>
+                                        <li  :class="(sort == 'most')? '': 'active'" @click="changesSortType('most')"><a >Most Reviewed</a></li>
+                                        <li  :class="(sort == 'rated')? '': 'active'" @click="changesSortType('rated')"><a >Highest Rated</a></li>
+                                        <li  :class="(sort == 'Worst')? '': 'active'" @click="changesSortType('Worst')"><a >Worst Rated</a></li>
+                                        
                                     </ul>
                                 </div>
                                 <div class="filter-item">
                                     <div class="filter-item-title">
                                         <h3>Search </h3>
                                     </div>
-                                    <div class="filter-item-list">
+                                     <ul class="filter-item-list">
+                                        <li :class="(pageOption == 'legend')? '': 'active'" @click="chnageType('legend')" ><a >Local Legend</a></li>
+                                        <li :class="(pageOption == 'school')? '': 'active'" @click="chnageType('school')"><a >Schools</a></li>
+                                        <li :class="(pageOption == 'coach')? '': 'active'" @click="chnageType('coach')"><a >School Coaches</a></li>
+                                        <li :class="(pageOption == 'product')? '': 'active'" @click="chnageType('product')"><a >Products</a></li>
+                                    </ul>
+                                    <!-- <div class="filter-item-list">
                                         <RadioGroup v-model="pageOption" vertical @on-change="SearchByKey" >
                                             <Radio label="legend" >Local Legend</Radio>
                                             <Radio label="school">Schools</Radio>
                                             <Radio label="coach">School Coaches</Radio>
                                             <Radio label="product">Products</Radio>
                                         </RadioGroup>
-                                    </div>
+                                    </div> -->
                                     <!-- <ul class="filter-item-list">
                                         <li><input type="checkbox" id="check1"><label for="check1">Local Legend</label></li>
                                         <li><input type="checkbox" id="check2"><label for="check2">Schools</label></li>
@@ -204,7 +110,7 @@
                 <div class="section-content">
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="sponsor-part">
+                            <div class="sponsor-part" v-if="!isLoading && searchData.length>0" >
                                 <div class="sponsor-title">
                                     <h2>All Results</h2>
                                 </div>
@@ -227,13 +133,12 @@
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
                                                         <span class="rating-bg high"><i class="fas fa-star"></i></span>
                                                         <span class="rating-bg high"><i class="fas fa-star"></i></span>-->
-                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span> 
-                                                        <span :class="(item.avgRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span><i class="fas fa-star"></i></span> <small>{{item.__meta__.totalReview_count}} reviews</small></p>
+                                                       <span :class="(item.avgRating.averageRating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>1)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>2)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>3)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>4)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <small>{{item.__meta__.allreview}} reviews</small></p>
                                                 </div>
                                                 <div class="dir-link">
                                                     <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
@@ -247,6 +152,65 @@
                                             <div class="body-para">
                                                 <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>Veggie Combo</strong></h4>
                                                 <p>“I had not visited this little hole-in-the-wall sandwich shop/cafe in about four years and did not know until today that there had been a change in ownership back in 2014. WOW! What…” <a href="">read more</a></p>
+                                                <!-- <div class="order-card">
+                                                    <p>Offers takeout and delivery</p>
+                                                    <button>Start Order</button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="paginationCount pagination_mark">
+                                        <!-- <ul>
+                                            <li class="active"><a href="">1</a></li>
+                                            <li><a href="">2</a></li>
+                                            <li><a href="">3</a></li>
+                                            <li><a href="">4</a></li>
+                                            <li><a href="">5</a></li>
+                                            <li><a href="">Next&nbsp;<i class="fas fa-chevron-right"></i></a></li>
+                                        </ul> -->
+                                         <div >
+                                            <Page :current="pagination.page" :total="pagination.total" @on-change="paginateDataInfo($event)" :page-size="pagination.perPage" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sponsor-all-list" v-if="pageOption == 'product'">
+                                    <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index" >
+                                        <div class="sponsor-media-left">
+                                            <figure>
+                                                <img :src="item.img" alt="">
+                                            </figure>
+                                            <div class="sponsor-media-carousel">
+                                                <span><i class="fas fa-chevron-left"></i></span>
+                                                <span><i class="fas fa-chevron-right"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="sponsor-media-body">
+                                            <div class="body-part-one">
+                                                <h3 v-if="pageOption=='product'" ><span>{{index+1}}.</span> <a @click="$router.push(`product/${item.id}`)" >{{item.name}}</a></h3>
+                                                <div class="badge-review">
+                                                    <p>
+                                                        <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>
+                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span>-->
+                                                        <span :class="(item.avgRating.averageRating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>1)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>2)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>3)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>4)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <small>{{item.__meta__.allreview}} reviews</small></p>
+                                                </div>
+                                                <!-- <div class="dir-link">
+                                                    <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
+                                                </div> -->
+                                            </div>
+                                            <div class="body-part-two">
+                                                <p>$ {{item.price}}</p>
+                                                <p></p>
+                                                <p>{{item.address}}</p>
+                                            </div>
+                                            <div class="body-para">
+                                                <h4><span><i class="fas fa-utensils"></i></span> &nbsp; Popular for its <strong>{{item.name}}</strong></h4>
+                                                <p>{{item.description}}</p>
                                                 <!-- <div class="order-card">
                                                     <p>Offers takeout and delivery</p>
                                                     <button>Start Order</button>
@@ -283,13 +247,12 @@
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
                                                         <span class="rating-bg high"><i class="fas fa-star"></i></span>
                                                         <span class="rating-bg high"><i class="fas fa-star"></i></span>-->
-                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span> 
-                                                        <span :class="(item.avgRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span><i class="fas fa-star"></i></span> <small>{{item.__meta__.allreview_count}} reviews</small></p>
+                                                        <span :class="(item.avgRating.averageRating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>1)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>2)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>3)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>4)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <small>{{item.__meta__.allreview}} reviews</small></p>
                                                 </div>
                                                 <div class="dir-link">
                                                     <p>
@@ -346,13 +309,12 @@
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
                                                         <span class="rating-bg high"><i class="fas fa-star"></i></span>
                                                         <span class="rating-bg high"><i class="fas fa-star"></i></span>-->
-                                                        <span class="rating-bg high"><i class="fas fa-star"></i></span> 
-                                                        <span :class="(item.avgRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span :class="(item.avgRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                        <span><i class="fas fa-star"></i></span> <small>{{item.__meta__.allreview_count}} reviews</small></p>
+                                                        <span :class="(item.avgRating.averageRating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>1)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>2)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>3)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>4)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <small>{{item.__meta__.allreview}} reviews</small></p>
                                                 </div>
                                                 <div class="dir-link">
                                                     <p>$ &nbsp; • &nbsp; <a href="">Cafes</a>, <a href="">Delis</a></p>
@@ -390,6 +352,16 @@
                                             <Page :current="pagination.page" :total="pagination.total" @on-change="paginateDataInfo($event)" :page-size="pagination.perPage" />
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div v-else-if="isLoading" >
+                                <div class="sponsor-title">
+                                    <h2>Content is Loading....</h2>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="sponsor-title">
+                                    <h2>NO Content....</h2>
                                 </div>
                             </div>
                             <div class="city-related-topic">
@@ -463,19 +435,36 @@ export default {
             place:'',
             page:1,
             flag:1,
+            price:'',
             sstr:1,
             splace:1,
             filterFlag:false,
             pageOption: 'legend',
             iam:false,
-            showCurrentPage:0
+            showCurrentPage:0,
+            sort:'normal',
+            searchData:[],
+            pagination:{},
+            isLoading:true
 
         }
     },
     methods:{
+        chnageType(item){
+            this.pageOption = item
+            this.SearchByKey()
+        },
+        changePriceType(item){
+            this.price = item
+            this.SearchByKey()
+        },
+        changesSortType(item){
+            this.sort = item
+            this.SearchByKey()
+        },
         async SearchByKey(){
 
-            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}`)
+            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}`)
             if(res.status === 200){
                 this.searchData = res.data.data
                 this.pagination = res.data 
@@ -490,7 +479,7 @@ export default {
         },
         async paginateDataInfo(e){
             this.page = e
-             const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}`)
+             const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}`)
             if(res.status === 200){
                 this.searchData = res.data.data
                 this.pagination = res.data 
@@ -508,26 +497,29 @@ export default {
         }
 
     },
-     async asyncData({app, store,redirect, params,query}){
-        try {
-            let {data} = await app.$axios.get(`/app/SearchData?place=${query.place}&str=${query.str}&pageOption=legend`)
+//      async asyncData({app, store,redirect, params,query}){
+//         try {
+//             let
+//             let {data} = await app.$axios.get(`/app/SearchData?place=${query.place}&str=${query.str}&pageOption=legend`)
           
-            return{
-                searchData : data.data,
-                pagination : data,
+//             return{
+//                 searchData : data.data,
+//                 pagination : data,
                
 
-            }
-		}catch (error) {
-            return redirect('/')
-		}
-   },
-    created(){
+//             }
+// 		}catch (error) {
+//             return redirect('/')
+// 		}
+//    },
+   async  created(){
        
-        this.place = this.$route.query.place
-        this.splace = this.$route.query.place
-        this.str = this.$route.query.str
-        this.sstr = this.$route.query.str
+        this.place = (this.$route.query.place)? this.$route.query.place : ''
+        this.str = (this.$route.query.str)? this.$route.query.str :''
+        this.pageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'legend'
+        this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
+       await this.SearchByKey()
+       this.isLoading = false
        // this. showCurrentPage = (Math.ceil(this.pagination.total)/(this.pagination.perPage)-this.pagination.page)
 
     }
