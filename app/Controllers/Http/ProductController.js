@@ -69,22 +69,22 @@ class ProductController {
    */
   async show ({ params, request, response, view }) {
     const legendData = await Product.query()
-                        .where('id', params.id)
-                        .withCount('reviewsall')
-                        .with('firstImage')
-                        .with('avgRating')
-                        .first()
+      .where('id', params.id)
+      .withCount('reviewsall')
+      .with('firstImage')
+      .with('avgRating')
+      .first()
 
     if (legendData) {
       const userData = await User.query()
-                          .where('id', legendData.user_id)
-                          .first()
+        .where('id', legendData.user_id)
+        .first()
 
       return response.status(200).json({
         product: legendData,
         user: userData
 
-    // atrrtributepoint: atrrtributepointData
+        // atrrtributepoint: atrrtributepointData
       })
     } else {
       return response.status(404).json({
@@ -93,13 +93,13 @@ class ProductController {
     }
   }
 
-  async getAdditionProductInfo ({response, params}) {
+  async getAdditionProductInfo ({ response, params }) {
     let legendData = await Product.query()
-                                  .where('id', params.id)
-                                  .with('questions', (builder) => builder.limit(2))
-                                  .withCount('questions as totalQuestion')
-                                  .with('questions.user')
-                                  .first()
+      .where('id', params.id)
+      .with('questions', (builder) => builder.limit(2))
+      .withCount('questions as totalQuestion')
+      .with('questions.user')
+      .first()
 
     return legendData
   }
@@ -185,6 +185,35 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const data = request.all()
+
+    return await Product.query().where('id', params.id).update(data)
+  }
+  async updateProductProfileImage ({ request, response, auth, params }) {
+    const user_id = await auth.user().id
+    const profilePic = request.file('file', {
+      types: ['png', 'jpg', 'jpeg'],
+      size: '2mb'
+    })
+    const name = `${new Date().getTime()}` + '.' + profilePic._subtype
+    // UPLOAD THE IMAGE TO UPLOAD FOLDER
+    await profilePic.move(Helpers.publicPath('uploads'), {
+      name: name
+    })
+    if (!profilePic.moved()) {
+      return profilePic.error()
+    }
+    const file = `/uploads/${name}`
+    let data = {
+      img: file
+    }
+
+    await Product.query().where('id', params.id).update(data)
+
+    return response.status(200).json({
+      msg: 'Image has been uploaded successfully!',
+      file: `/uploads/${name}`
+    })
   }
 
   /**

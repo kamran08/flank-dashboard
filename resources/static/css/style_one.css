@@ -972,3 +972,16 @@
 .badge-review p .high {
   background: #0088cc;
 }
+.edit_inputs {
+  padding: 0 20px 0 0;
+  flex: 1 1;
+}
+.edit_inputs_main:last-child{
+  margin-bottom: 0px;
+}
+.edit_inputs_main {
+  margin-bottom: 14px;
+}
+.product-thumb figure img {
+  width: 100%;
+}

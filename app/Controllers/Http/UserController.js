@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable eqeqeq */
 'use strict'
 
@@ -9,6 +10,7 @@ const User = use('App/Models/User')
 const Legend = use('App/Models/Legend')
 const Product = use('App/Models/Product')
 const Database = use('Database')
+const Hash = use('Hash')
 /**
  * Resourceful controller for interacting with users
  */
@@ -181,14 +183,15 @@ class UserController {
     //   })
     // }
     const user_id = await auth.user.id
-    if(user_id != data.id){
+    if (user_id != data.id) {
       return response.status(401).json({
         'message': 'You are not authorized!'
       })
     }
     delete data.confirm_email
     delete data.old_password
-    return await User.query().where('id', user_id).update(data)
+    let edata = await User.query().where('id', user_id).update(data)
+    return edata
   }
   async updatePassword ({ params, request, response, auth }) {
     const data = request.all()
@@ -201,26 +204,29 @@ class UserController {
     //     'message': 'You are not authorized!'
     //   })
     // }
+    data.password = await Hash.make(data.password)
     const user_id = await auth.user.id
-    if(user_id != data.id){
+    if (user_id != data.id) {
       return response.status(401).json({
         'message': 'You are not authorized!'
       })
     }
     delete data.confirm_password
     delete data.old_password
-    return await User.query().where('id', user_id).update(data)
+    let pdata = await User.query().where('id', user_id).update(data)
+    return pdata
   }
-  async getAllUserProduct({ params, request, response, auth }){
+  async getAllUserProduct ({ params, request, response, auth }) {
     let page = request.input('page') ? request.input('page') : 1
-    return await Product.query()
-    .where('user_id', params.id)
-    .with('avgRating')
-    .withCount('reviewsall')
-    .paginate(page,3)
+    let data = await Product.query()
+      .where('user_id', params.id)
+      .with('avgRating')
+      .withCount('reviewsall')
+      .paginate(page, 3)
+    return data
   }
 
-  /**   
+  /**
    * Delete a user with id.
    * DELETE users/:id
    *

@@ -23,6 +23,7 @@ Route.post('/authentication/login', 'UserController.userLogin').middleware(['gue
 Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
 Route.get('/app/user/updateProfileImage', 'UserController.updateProfileImage')
+Route.get('/app/user/updateProductProfileImage/:id', 'ProductController.updateProductProfileImage')
 Route.put('/app/updateEmail', 'UserController.updateEmail')
 Route.put('/app/updatePassword', 'UserController.updatePassword')
 

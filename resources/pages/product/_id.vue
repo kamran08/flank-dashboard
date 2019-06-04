@@ -11,18 +11,45 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="product-thumb-data">
-                                    <div class="product-thumb">
+                                    <!-- <div class="product-thumb">
                                         <figure>
                                             <img src="/image/thumb.jpg" alt="">
                                         </figure>
-                                    </div>
+                                    </div> -->
+                                    <div class="profile-thumb">
+                                    <figure>
+                                       <div class="Details_profie_img_div" v-if=" userData.id==user_id && isEdit" >
+                                            <Upload
+                                            ref="upload"
+                                            type="drag"
+                                            :with-credentials="true"
+                                            :on-success="profileHandleSuccess"
+                                            :format="['jpg','jpeg','png']"
+                                            :max-size="2048"
+                                            :action="'/app/user/updateProductProfileImage/'+productData.id">
+                                            <!-- action="/app/uploadServiceImages"> -->
+                                            <div  >
+                                            <img :src="productData.img" alt=""  style="width: 140px;height: 150px;">
+                                                <p   class="Details_profie_img_edit">Upload Image</p>
+                                            </div>
+                                        </Upload>
+                                            
+                                        </div>
+                                        <div class="Details_profie_img_div" v-else >
+                                            <div  >
+                                            <img :src="productData.img" alt=""  style="width: 140px;height: 150px;">
+                                            </div>
+                                        </div>
+                                        
+                                    </figure>
+                                </div>
                                     <div class="product-data">
                                         <div class="product-data-indi">
-                                            <div class="product-data-icon">
+                                            <div class="product-data-icon" v-if="!isEdit" >
                                                 <span><i class="fas fa-map-marker-alt"></i></span>
                                             </div>
-                                            <div class="product-data-des">
-                                                <h2>City market special house</h2>
+                                            <div class="product-data-des" v-if="!isEdit" >
+                                                <h2>{{productData.address}}</h2>
                                                 <div class="badge-review">
                                                     <p>
                                                         <span :class="(averageRating>0)? 'high rating-bg' : ''" ><i class="fas fa-star"></i></span>
@@ -32,19 +59,49 @@
                                                         <span :class="(averageRating>4)? 'high rating-bg' : ''" ><i class="fas fa-star"></i></span>
                                                         &nbsp;<small>{{productData.__meta__.reviewsall_count}} reviews</small></p>
                                                 </div>
-                                                <p>1115 South San Pedro St <br> Los Angeles, CA 90015 <br> (844) 310-2674</p>
+                                                <!-- <p>
+                                                    1115 South San Pedro St <br> Los Angeles, CA 90015 <br> (844) 310-2674
+                                                </p> -->
+                                            </div>
+
+                                            <div class="edit_inputs" v-else >
+                                                <div class="edit_inputs_main">
+                                                    <Input v-model="formData.name" placeholder="Enter something..."/>
+                                                </div>
+
+                                                <div class="edit_inputs_main">
+                                                    <Select style="width:100%;" v-model="formData.category" placeholder="Select Category..."  >
+                                                        <Option value="Food" >Food</Option>
+                                                        <Option value="Food" >Cloth</Option>
+                                                        <Option value="Food" >Service</Option>
+                                                    </Select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <InputNumber 
+                                                        style="width: 100%"
+                                                        placeholder="Enter Price..." 
+                                                        :min="1" v-model="formData.price">
+                                                    </InputNumber>
+                                                </div>
+
+                                                <div class="edit_inputs_main">
+                                                    <Input v-model="formData.address" placeholder="Enter Address something..."/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="product-data-indi product-data-indi-2">
+                                        <div class="product-data-indi product-data-indi-2" v-if=" userData.id==user_id && isEdit">
                                             <div class="product-data-icon">
                                                 <span><i class="fas fa-calendar-week"></i></span>
                                             </div>
                                             <div class="product-data-des">
-                                                <p><strong>From:</strong> Saturday, Jun 1, 2:30 pm</p>
+                                                <!-- <p><strong>From:</strong> Saturday, Jun 1, 2:30 pm</p>
                                                 <p><strong>To:</strong> 10:00 pm</p>
-                                                <p><a href="">Add to calender <span><i class="fas fa-caret-down"></i></span></a></p>
+                                                <p><a href="">Add to calender <span><i class="fas fa-caret-down"></i></span></a></p> -->
+                                                <div class="edit_inputs_main">
+                                                    <Button type="primary" @click="editOn" >Edit Product</Button>
+                                                </div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -62,8 +119,21 @@
                             <div class="profilePrduct-content">
                                 <div class="col-md-9 profile-full-box">
                                     <div class="profile-content-des">
-                                        <h3>Description:</h3>
-                                        <p>{{productData.description}}</p>
+                                        <template v-if="!isEdit" >
+                                            <h3>Description:</h3>
+                                            <p>{{productData.description}}</p>
+                                        </template>
+                                       
+
+                                        <div class="edit_inputs" v-else >
+                                            <div class="edit_inputs_main">
+                                                <Input type="textarea" v-model="formData.description" :rows="4" placeholder="Enter something..." />
+                                            </div>
+
+                                             <div class="edit_inputs_main">
+                                                <Button type="primary" @click="legendUpdate" >Save Changes</Button>
+                                            </div>
+                                        </div>
 
                                         <!-- <div class="profile-content-des-inner">
                                             <span></span>
@@ -147,9 +217,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <p v-if="totalQuestion==1" class="all-que"><a @click="$router.push(`/product_question_details/${productData.id}/${item.id}`)" >View question details</a></p>
                                             </div>
-                                            <p v-if="totalQuestion==1" class="all-que"><a @click="$router.push(`/product_question_details/${productData.id}/${item.id}`)" >View question details</a></p>
-                                            <p v-else class="all-que"><nuxt-link :to="{name: 'productQuestionlist-id', params: { id:productData.id } }" >See all {{totalQuestion}} questions for {{productData.name}}</nuxt-link></p>
+                                            <p v-if="totalQuestion>1" class="all-que"><nuxt-link :to="{name: 'productQuestionlist-id', params: { id:productData.id } }" >See all {{totalQuestion}} questions for {{productData.name}}</nuxt-link></p>
                                         </template>
                                         
                                         <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
@@ -368,7 +438,9 @@ export default {
             formData:{
                 name:'',
                 address:'',
-                phone:''
+                category:'',
+                description:'',
+                price:''
             },
             img_index:0,
             user_id:0,
@@ -399,6 +471,9 @@ export default {
         }
     },
     methods:{
+        profileHandleSuccess(){
+             this.productData.img = res.file 
+        },
         setPage(index){
             this.page = index
             this.SearchReviewResult()
@@ -570,64 +645,28 @@ export default {
         async editOn(){
             this.formData.name = this.productData.name
             this.formData.address = this.productData.address
-            this.formData.phone = this.productData.phone
-            for(let i in this.showBusinessHour){
-                if(this.showBusinessHour[i].active == true){
-                    let tp = this.showBusinessHour[i].time.split('-')
-                    this.businessHour[i].time[0] = tp[0]
-                    this.businessHour[i].time[1] = tp[1]
-                    this.businessHour[i].active = true
-                    console.log(tp)
-                   
-                }
-            }
+            this.formData.category = this.productData.category
+            this.formData.description = this.productData.description
+            this.formData.price = this.productData.price
             this.isEdit = true
         },
         async legendUpdate(){
-           console.log(this.businessHour)
-           console.log(this.showBusinessHour)
-
-
-            if(this.formData.name == ''|| this.formData.address =='' || this.formData.phone == ''){
+            if(this.formData.name == ''|| this.formData.address =='' || this.formData.category == '' || this.formData.description == ''|| this.formData.price == ''){
                 this.i("All fields must be filled !")
                 console.log('All fields must be filled !')
                 return;
             }
-             let hourData = []
-            for(let i of this.businessHour ){
-                if(i.active == true){
-                    if(i.time[0] == ''){
-                        this.i("Please select time for "+i.day)
-                        return;
-                    }
-                    let ob = {
-                        legend_id: this.productData.id,
-                        day: i.day,
-                        time: i.time[0] + '-' + i.time[1]
-                    }
-                    hourData.push(ob)
-                }
-                
-            }
-            
-            this.formData.businessHour = hourData
-            const res = await this.callApi('put',`/legends/${this.productData.id}`,this.formData)
+            this.formData.id = this.productData.id
+            const res = await this.callApi('put',`/products/${this.productData.id}`,this.formData)
             if(res.status===200){
-                this.s("Change have been made Successfully!")
+
                 this.productData.name = this.formData.name
                 this.productData.address = this.formData.address
-                this.productData.phone = this.formData.phone
-                
-                for(let i in this.businessHour ){
-                    if(this.businessHour[i].active == true){
-                        this.showBusinessHour[i].active = true
-                        this.showBusinessHour[i].time =this.businessHour[i].time[0] + '-' + this.businessHour[i].time[1]
-                    }
-                    else{
-                        this.showBusinessHour[i].active = false
-                    }
-                }
+                this.productData.category = this.formData.category
+                this.productData.description = this.formData.description
+                this.productData.price = this.formData.price
                 this.isEdit=false
+                this.s('Product infomation updated!')
             }
             else{
                 this.swr();

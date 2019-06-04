@@ -76,10 +76,10 @@
                                         </div> -->
                                         <div class="media"  >
                                             <div class="media-left">
-                                                <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
+                                                <img class="profile_picU" :src="legendData.img" alt="">
                                             </div>
                                             <div class="media-body">
-                                                <h4><nuxt-link :to="{name: 'school-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></h4>
+                                                <h4><nuxt-link :to="{name: 'product-id', params: { id:legend_id } }">{{legendData.name}}</nuxt-link></h4>
                                                 <div class="star-review">
                                                     <p>
                                                         <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>

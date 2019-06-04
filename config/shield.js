@@ -134,7 +134,7 @@ module.exports = {
   csrf: {
     enable: true,
     methods: ['POST', 'PUT', 'DELETE'],
-    filterUris: ['/app/upload-review-file', '/app/user/updateProfileImage'],
+    filterUris: ['/app/upload-review-file', '/app/user/updateProfileImage', '/app/user/updateProductProfileImage/:id'],
     cookieOptions: {
       httpOnly: false,
       sameSite: true,

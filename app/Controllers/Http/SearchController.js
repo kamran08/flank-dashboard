@@ -55,7 +55,7 @@ class SearchController {
     }    else if (pageOption == 'school') {
       data =  School.query()
                     .with('avgRating')
-                    .withCount('allreview')
+                    .withCount('allreview as allreview ')
 
       if (str) {
         data.where('schoolName', 'LIKE', '%' + str + '%')
@@ -68,7 +68,7 @@ class SearchController {
     } else if (pageOption == 'coach') {
       data =  SchoolCoach.query()
                     .with('avgRating')
-                    .withCount('allreview')
+                    .withCount('allreview as allreview')
                     .with('school')
 
       if (str) {
