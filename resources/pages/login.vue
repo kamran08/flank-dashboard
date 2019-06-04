@@ -169,12 +169,11 @@ export default {
             if(res.status===200){
                 this.s("Login Successfully !")
                 this.$store.dispatch('setAuthInfo',res.data)
-                if(this.authInfo.packType==1){
-                   // this.$router.push('flanker/'+this.authInfo.id)
-                    window.location= '/flanker/'+this.authInfo.id
+                if(this.authInfo.packType==2){
+                     window.location ='/profile/'+this.authInfo.id
                 }
                 else{
-                     window.location ='/profile/'+this.authInfo.id
+                     window.location= '/flanker/'+this.authInfo.id
                 }
             }
             else if(res.status==401){

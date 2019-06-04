@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="section-content">
                     <div class="page-content-title">
-                        <h1 class="header-text"><strong>{{productData.name}}</strong></h1>
+                        <h1 class="header-text"><strong>{{productData.name}}</strong></h1> 
                         <p>{{productData.category}}</p>
                     </div>
                     <div class="product-profile">

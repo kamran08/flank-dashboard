@@ -71,11 +71,11 @@
                                 <div class="user-profile-action"> <i class=""></i>
                                    
                                     <ul>
-                                        
                                         <li v-if="isEdit" @click=" updateProfile" ><a ><span><i class="far fa-save"></i></span>&nbsp;&nbsp;<span>Save</span></a></li>
                                         <li  v-else-if=" !isEdit && userData.id==user_id" @click="EditProfileOn" ><a ><span><i class="fas fa-wrench"></i></span>&nbsp;&nbsp;<span>Edit Profile</span></a></li>
-                                        <li  v-if="userData.id==user_id"><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Change Email</span></a></li>
-                                        <li v-if="userData.id==user_id"><a href=""><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Change Password</span></a></li>
+                                        <li  v-if="userData.id==user_id"><a @click="emailModal = true" ><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Change Email</span></a></li>
+                                        <li v-if="userData.id==user_id"><a ><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Change Password</span></a></li>
+                                        <li v-if="userData.id==user_id && userData.packType == 3"><a @click="$router.push('/product_register')" ><span><i class="fas fa-lightbulb"></i></span>&nbsp;&nbsp;<span>Create New Product</span></a></li>
                                         <!-- <li v-if="userData.id==user_id"><a href=""><span><i class="fas fa-envelope"></i></span>&nbsp;&nbsp;<span>Send Message</span></a></li>
                                         <li><a href=""><span><i class="fas fa-user-friends"></i></span>&nbsp;&nbsp;<span>Follow Bryan B.</span></a></li>
                                         <li><a href=""><span><i class="fas fa-sync"></i></span>&nbsp;&nbsp;<span>Simillar Reviews</span></a></li> -->
@@ -130,7 +130,7 @@
                                                     <img class="media-object" :src="item.reviewfor.img" alt="">
                                                 </div>
                                                 <div class="media-body">
-                                                    <p><strong><a href="">{{item.reviewfor.name}}</a></strong></p>
+                                                    <p><strong><a >{{item.reviewfor.name}}</a></strong></p>
                                                     <!-- <small><a href="">Mexican</a></small> -->
                                                     <p>
                                                         <small>{{item.reviewfor.address}}</small>
@@ -139,7 +139,14 @@
                                             </div>
                                             <div class="read-review">
                                                 <div class="star-review">
-                                                    <p><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high"><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <p>
+                                                        <span :class="(item.rating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>1)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>2)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>3)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>4)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>&nbsp;
+                                                        <small>{{item.created_at}}</small>
+                                                    </p>
                                                 </div>
                                                 <p>{{item.content}} </p>
         
@@ -159,8 +166,62 @@
                                             </div>
                                     </div>
                                 </div>
-                                <div class="profile-fill-more">
+                                <div class="profile-fill-more" v-if="userData.reviews.length>0" >
                                     <p><a @click="tab=2" >More reviews by {{userData.firstName}}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" v-if="tab==3" >
+                            <div class="profile-review reviewItem">
+                                <h2>All Products</h2>
+                                <div class="review-sort">
+                                    <!-- <div class="sortTag noleft">Sort by :&nbsp;<strong>Date&nbsp;<span><i class="fas fa-sort-down"></i></span>
+                                        <ul>
+                                            <li><a href="">Alphabatical</a></li>
+                                            <li><a href="">Rating</a></li>
+                                            <li><a href="">Date</a></li>
+                                            <li><a href="">Useful</a></li>
+                                            <li><a href="">Funnny</a></li>
+                                        </ul>
+                                        </strong>
+                                    </div> -->
+                                    <hr>
+                                </div>
+                                <div class="profile-fill-review" v-for="(item,index) in allProducts" :key="index" >
+                                    <div class="profile-item">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <img class="profile_picU" :src="item.img" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <p><strong><a @click="$router.push(`/product/${item.id}`)">{{item.name}}</a></strong></p>
+                                                    <!-- <small><a href="">Mexican</a></small> -->
+                                                    <p>
+                                                        <small>{{item.address}}</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="read-review">
+                                                <div class="star-review">
+                                                    <p>
+                                                        <span :class="(item.avgRating.averageRating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>1)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>2)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>3)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.avgRating.averageRating>4)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        &nbsp;<small>{{item.__meta__.reviewsall_count}} Reviews</small></p>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="profile-fill-more" v-if="allProducts.length>0"  >
+                                   <hr>
+                                    <div class="text-center ">
+                                        <div class="pagination-padding">
+                                            <Page :current="pagination.page" :total="pagination.total" @on-change="setPage($event)" :page-size="pagination.perPage" />
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +257,14 @@
                                             </div>
                                             <div class="read-review">
                                                 <div class="star-review">
-                                                    <p><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high"><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <p>
+                                                        <span :class="(item.rating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>1)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>2)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>3)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
+                                                        <span :class="(item.rating>4)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>&nbsp;
+                                                        <small>{{item.created_at}}</small>
+                                                    </p>
                                                 </div>
                                                 <p>{{item.content}} </p>
         
@@ -219,7 +287,7 @@
                                             </div>
                                     </div>
                                 </div>
-                                <div class="profile-fill-more">
+                                <div class="profile-fill-more" v-if="allReviews.length>0" >
                                    <hr>
                                     <div class="text-center ">
                                         <div class="pagination-padding">
@@ -304,17 +372,17 @@
                                 </div>
                                 <div class="about-side-bar">
                                     <p>Yelping Since</p>
-                                    <p class="in-ab">September 2016</p>
+                                    <p class="in-ab">{{userData.created_at}}</p>
                                 </div>
-                                <div class="about-side-bar">
+                                <!-- <div class="about-side-bar">
                                     <p>Find Me In</p>
                                     <p class="in-ab">a dog park, with no dog, petting all the dogs</p>
-                                </div>
+                                </div> -->
                                 <div class="about-side-bar">
                                     <p>My Hometown</p>
-                                    <p class="in-ab">Jackson, MS</p>
+                                    <p class="in-ab">{{userData.address}}</p>
                                 </div>
-                                <div class="about-side-bar">
+                                <!-- <div class="about-side-bar">
                                     <p>Why You Should Read My Reviews</p>
                                     <p class="in-ab">I love food and get extremely excited about the ones that are good</p>
                                 </div>
@@ -333,13 +401,49 @@
                                 <div class="about-side-bar">
                                     <p>Most Recent Discovery</p>
                                     <p class="in-ab">Bananas are curved because they grow towards the sun</p>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <Modal title="Change Email Address" v-model="emailModal">
+           <div class="">
+            <Form :label-width="80">
+              <FormItem label="Email">
+                    <Input v-model="emailData.email" placeholder="Enter New Email-Address..." style="width: 300px" />
+                    <Input v-model="emailData.confirm_email" placeholder="Confirm Email-Address..." style="width: 300px" />
+               </FormItem>
+               <FormItem label="Password">
+                    <Input type="password" v-model="emailData.old_password" placeholder="Enter Your  Password ..." style="width: 300px" />
+               </FormItem>
+               
+            </Form>
+           </div>
+           <div slot="footer">
+                <Button  @click="emailModal=false">Cancle</Button>
+                <Button type="info" @click="UpdateEmail">Update</Button>
+            </div>
+        </Modal>
+        <Modal title="Change Email Address" v-model="passwordModal">
+           <div class="">
+            <Form :label-width="80">
+              <FormItem label="New Password">
+                    <Input type="password" v-model="passwordData.password" placeholder="Enter New Email-Address..." style="width: 300px" />
+                    <Input type="password" v-model="passwordData.confirm_passowrd" placeholder="Confirm Email-Address..." style="width: 300px" />
+               </FormItem>
+               <FormItem label="Old Password">
+                    <Input type="password" v-model="passwordData.old_password" placeholder="Enter Your  Password ..." style="width: 300px" />
+               </FormItem>
+               
+            </Form>
+           </div>
+           <div slot="footer">
+                <Button  @click="passwordModal=false">Cancle</Button>
+                <Button type="info" @click="UpdatePassword">Update</Button>
+            </div>
+        </Modal>
     </body>
 </template>
 
@@ -360,6 +464,20 @@ export default {
             allReviews:[],
             page:1,
             pagination:{},
+            allProducts:[],
+            productPagination:{},
+            emailModal:false,
+            passwordModal:false,
+            emailData:{
+                email:'',
+                confirm_email:'',
+                old_password:'',
+            },
+            passwordData:{
+                password:'',
+                confirm_passowrd:'',
+                old_password:''
+            },
         }
     },
     async asyncData({app, store,redirect, params}){
@@ -377,6 +495,51 @@ export default {
 		}
     },
     methods:{
+        async UpdateEmail(){
+            if(this.passwordData.password != this.passwordData.confirm_passowrd){
+                return this.i("Password doesn't match !")
+            }
+            if(this.passwordData.old_password == ''){
+                return this.i("Please write Your Old password !")
+            }
+            this.passwordData.id = this.user_id
+            const res = await this.callApi('put','/app/updatePassword',this.emailData)
+            if(res.status == 200){
+                this.s("Password has been Updated!")
+                try {
+                    let { data } = await this.$axios.get("/logout");
+                    this.$store.commit("updateAuthUser", false);
+                    window.location = '/login'
+                } catch (error) {
+                    console.log(error);
+                }
+                    
+
+            }
+        },
+
+        async UpdatePassword(){
+            if(this.emailData.email != this.emailData.confirm_email){
+                return this.i("Email doesn't match !")
+            }
+            if(this.emailData.old_password == ''){
+                return this.i("Please write Your password !")
+            }
+            this.emailData.id = this.user_id
+            const res = await this.callApi('put','/app/updateEmail',this.emailData)
+            if(res.status == 200){
+                this.s("Email has been changed!")
+                try {
+                    let { data } = await this.$axios.get("/logout");
+                    this.$store.commit("updateAuthUser", false);
+                    window.location = '/login'
+                } catch (error) {
+                    console.log(error);
+                }
+                    
+
+            }
+        },
         async setPage(key){
             this.page = key
             const res = await  this.callApi('get',`/app/getUserallReview/${this.userData.id}?page=${this.page}`)
@@ -392,6 +555,15 @@ export default {
             this.editData.lastName = this.userData.lastName
             this.editData.address = this.userData.address
             this.isEdit = true
+        },
+        async getAllUserProduct(page = 1){
+            const res = await this.callApi('get',`/app/getAllUserProduct/${this.userData.id}?page=${page}`)
+            if(res.status == 200){
+                this.allProducts = res.data.data
+                this.productPagination = res.data
+                delete this.productPagination.data
+            }
+            
         },
         async updateProfile(){
             if(this.editData.firstName == '' || this.editData.lastName == '' || this.editData.address ==''){
@@ -437,13 +609,22 @@ export default {
             this.pagination = res1.data
             delete this.pagination.data 
         }
+        if(this.userData.packType == 3){
+             this.getAllUserProduct()
+        }
+       
+
+        
     },
 
 }
 </script>
 
 <style scoped>
-
+.profile_picU{
+    width: 40px;
+    
+}
 .Details_profie_img_edit {
     position: absolute;
     cursor: pointer;

@@ -1,3 +1,4 @@
+
 <template>
 <div>
     <!-- <div class="top-bar">
@@ -25,7 +26,7 @@
                 </div>
             </div>
         </div> -->
-        <nav class="navbar border-less-nav game-nav">
+        <!-- <nav class="navbar border-less-nav game-nav">
             <div class="navbar-logo">
                 <ul>
                     <li><a href=""><img src="/image/downloa.png" alt=""></a></li>
@@ -105,21 +106,21 @@
                     <Button type="success">Send</Button>
                 </div>
             </Modal>
-       </nav>
+       </nav> -->
                <header>
             <div class="header-second"> 
                 <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
+                    <a @click="$router.push(`/`)" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
                     <form action="#">
                         <div class="equal-div">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control" placeholder="tacos, cheap dinner, Max's" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control"  v-model="searchTxt" placeholder="Different type of Sport Coaches" aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group">
                                <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                <input type="text" class="form-control" placeholder="address, neighborhood, zip or state" value="New York, NY">
-                                <span class="input-group-btn search-btn review-search-btn position-top"><i class="fas fa-search"></i></span>
+                               <input type="text" class="form-control" v-model='addressTxt' placeholder="Place" >
+                                        <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
                             </div>
                             <div class="left-dropdown">
                                 <ul>
@@ -188,6 +189,10 @@
                    </ul>
                    <ul class="main-nav right-top pull-right">
                        <li><a @click="reviewModal=true"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
+                        <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
+                        <li v-if="isLoggedIn && packType !=2 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
+                        <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Profile</a></li>
+                        <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                    </ul>
                </div>
             </div>
@@ -214,6 +219,8 @@
                     school_id:0,
                 },
                 iamIndex:false,
+                searchTxt:'',
+                addressTxt:'',
                 
             }
         },

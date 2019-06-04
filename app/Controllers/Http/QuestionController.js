@@ -92,6 +92,16 @@ class QuestionController {
                           .orderBy('id', 'desc')
                           .paginate(page, 3)
   }
+  async productShow ({ params, request, response, view }) {
+    let page = request.input('page') ? request.input('page') : 1
+    return await ProductQuestion.query()
+                          .where('school_id', params.id)
+                          .with('user')
+                          .with('answers')
+                          .with('answers.user')
+                          .orderBy('id', 'desc')
+                          .paginate(page, 3)
+  }
   async similar ({ params, request, response, view }) {
     const data = request.all()
     return await Question.query()

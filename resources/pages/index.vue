@@ -20,7 +20,7 @@
                <div class="header-content">
                    <div class="contentInCenter">
                        <div class="text-center landing-page-logo">
-                           <a href="index.html"><img src="/image/default.png" alt="page_logo"></a>
+                           <a @click="$router.push('/')"><img src="/image/default.png" alt="page_logo"></a>
 
                            <form action="#">
                                 <div class="equal-div">
@@ -35,9 +35,9 @@
                                     </div>
                                     <div class="left-dropdown">
                                         <ul>
-                                            <li><a href=""><i class="fas fa-utensils"></i>School Name</a></li>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Coach Name</a></li>
-                                            <li><a href=""><i class="fas fa-utensils"></i>Local Instructor</a></li>
+                                            <li><a ><i class="fas fa-utensils"></i>School Name</a></li>
+                                            <li><a ><i class="fas fa-utensils"></i>Coach Name</a></li>
+                                            <li><a ><i class="fas fa-utensils"></i>Local Instructor</a></li>
                                         </ul>
                                     </div>
                                     <div class="right-dropdown">

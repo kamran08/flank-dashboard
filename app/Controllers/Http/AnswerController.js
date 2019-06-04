@@ -8,6 +8,8 @@ const Answer = use('App/Models/Answer')
 const Question = use('App/Models/Question')
 const SchoolQuestion = use('App/Models/SchoolQuestion')
 const SchoolAnswer = use('App/Models/SchoolAnswer')
+const ProductQuestion = use('App/Models/ProductQuestion')
+const ProductAnswer = use('App/Models/ProductAnswer')
 /**
  * Resourceful controller for interacting with answers
  */
@@ -56,6 +58,12 @@ class AnswerController {
     data.user_id = user_id
     return await SchoolAnswer.create(data)
   }
+  async storeProductanswers ({ request, response, auth }) {
+    const user_id = await auth.user.id
+    let data = request.all()
+    data.user_id = user_id
+    return await ProductAnswer.create(data)
+  }
 
   /**
    * Display a single answer.
@@ -77,6 +85,15 @@ class AnswerController {
   }
   async coach_question_answers ({ params, request, response, view }) {
     return await SchoolQuestion.query()
+                          .where('id', params.id)
+                          .with('user')
+                          .with('allAnswers')
+                          .with('allAnswers.user')
+                          .orderBy('id', 'desc')
+                          .first()
+  }
+  async product_question_answers ({ params, request, response, view }) {
+    return await ProductQuestion.query()
                           .where('id', params.id)
                           .with('user')
                           .with('allAnswers')

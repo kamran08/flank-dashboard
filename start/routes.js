@@ -23,6 +23,8 @@ Route.post('/authentication/login', 'UserController.userLogin').middleware(['gue
 Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
 Route.get('/app/user/updateProfileImage', 'UserController.updateProfileImage')
+Route.put('/app/updateEmail', 'UserController.updateEmail')
+Route.put('/app/updatePassword', 'UserController.updatePassword')
 
 Route.resource('legends', 'LegendController')
 Route.resource('questions', 'QuestionController')
@@ -42,7 +44,9 @@ Route.get('/app/getTodayBussinessHour/:id', 'LegendController.getTodayBussinessH
 Route.post('/app/similarQuestion', 'QuestionController.similar')
 Route.post('/app/similar_coach_question', 'QuestionController.similar_coach_question')
 Route.post('/app/storeCoachanswers', 'AnswerController.storeCoachanswers')
+Route.post('/app/storeProductanswers', 'AnswerController.storeProductanswers')
 Route.get('/app/coach_question_answers/:id', 'AnswerController.coach_question_answers')
+Route.get('/app/product_question_answers/:id', 'AnswerController.product_question_answers')
 
 // Review Controller
 Route.get('/app/atrributeConteptData/:id', 'ReviewController.atrributeConteptData')
@@ -74,11 +78,13 @@ Route.post('/stoteCoachReviewImo', 'ReviewController.stoteCoachReviewImo')
 Route.post('/storequestions', 'QuestionController.storequestions')
 Route.post('/storeProductquestions', 'QuestionController.storeProductquestions')
 Route.get('/app/CoachShow/:id', 'QuestionController.CoachShow')
+Route.get('/app/productShow/:id', 'QuestionController.productShow')
 Route.get('/app/getAdditionCoachInfo/:id', 'SchoolController.getAdditionCoachInfo')
 Route.get('/app/getSchoolcoaches', 'SchoolController.getSchoolcoaches')
 
 // products
 Route.get('/app/ProductReview/:id', 'ReviewController.ProductReview')
+Route.get('/app/getAllUserProduct/:id', 'UserController.getAllUserProduct')
 Route.get('/app/getAdditionProductInfo/:id', 'ProductController.getAdditionProductInfo')
 Route.get('/app/productReviewInfo/:id', 'ProductController.productReviewinfo')
 Route.post('/app/storeProductReview', 'ProductController.storeProductReview')

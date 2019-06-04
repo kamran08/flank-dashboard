@@ -7,6 +7,7 @@
 
 const User = use('App/Models/User')
 const Legend = use('App/Models/Legend')
+const Product = use('App/Models/Product')
 const Database = use('Database')
 /**
  * Resourceful controller for interacting with users
@@ -160,9 +161,7 @@ class UserController {
    */
   async update ({ params, request, response, auth }) {
     const data = request.all()
-    // eslint-disable-next-line camelcase
     const user_id = await auth.user.id
-    // eslint-disable-next-line camelcase
     if (user_id != params.id) {
       return response.status(401).json({
         'message': 'You are not authorized!'
@@ -170,8 +169,58 @@ class UserController {
     }
     return await User.query().where('id', user_id).update(data)
   }
+  async updateEmail ({ params, request, response, auth }) {
+    const data = request.all()
+    // let user_id = 0
+    // try {
+    //   user = await auth.getUser()
+    //   user_id = user.id
+    // } catch (error) {
+    //   return response.status(401).json({
+    //     'message': 'You are not authorized!'
+    //   })
+    // }
+    const user_id = await auth.user.id
+    if(user_id != data.id){
+      return response.status(401).json({
+        'message': 'You are not authorized!'
+      })
+    }
+    delete data.confirm_email
+    delete data.old_password
+    return await User.query().where('id', user_id).update(data)
+  }
+  async updatePassword ({ params, request, response, auth }) {
+    const data = request.all()
+    // let user_id = 0
+    // try {
+    //   user = await auth.getUser()
+    //   user_id = user.id
+    // } catch (error) {
+    //   return response.status(401).json({
+    //     'message': 'You are not authorized!'
+    //   })
+    // }
+    const user_id = await auth.user.id
+    if(user_id != data.id){
+      return response.status(401).json({
+        'message': 'You are not authorized!'
+      })
+    }
+    delete data.confirm_password
+    delete data.old_password
+    return await User.query().where('id', user_id).update(data)
+  }
+  async getAllUserProduct({ params, request, response, auth }){
+    let page = request.input('page') ? request.input('page') : 1
+    return await Product.query()
+    .where('user_id', params.id)
+    .with('avgRating')
+    .withCount('reviewsall')
+    .paginate(page,3)
+  }
 
-  /**
+  /**   
    * Delete a user with id.
    * DELETE users/:id
    *
