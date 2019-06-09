@@ -28,6 +28,10 @@ class ProductReview extends Model {
   recentReviews () {
     return this.morphMany('App/Models/RecentReview', 'id', 'review_id', 'review_type')
   }
+  // recent () {
+
+  //   return this.morphOne('App/Models/RecentReview', 'id', 'review_id', 'review_type')
+  // }
 }
 
 module.exports = ProductReview

@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 /* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
 /* eslint-disable quotes */
@@ -64,20 +65,19 @@ class LegendController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    
     const legendData = await Legend.query()
-                                  .where('id', params.id)
-                                  .withCount('totalReview')
-                                  .with('firstImage')
-                                  .first()
+      .where('id', params.id)
+      .withCount('totalReview')
+      .with('firstImage')
+      .first()
     const averageRating = await Database.raw('SELECT cast(AVG(rating) as decimal(10,2)) AS averageRating FROM `reviews` WHERE `reviewFor` = ?', [params.id])
     const healthPulse = await Database.raw('select SUM(good) as GoodCount , SUM(bad) as BadCount FROM `pulses` WHERE `legend_id` = ?', [params.id])
     const AttributeInfo = await Attribute.all()
 
     if (legendData) {
       const userData = await User.query()
-                                .where('id', legendData.user_id)
-                                .first()
+        .where('id', legendData.user_id)
+        .first()
       return response.status(200).json({
         legend: legendData,
         user: userData,
@@ -95,8 +95,8 @@ class LegendController {
   }
   async getLegendId ({ params, request, response, view }) {
     return await Legend.query()
-                        .where('user_id', params.id)
-                        .first()
+      .where('user_id', params.id)
+      .first()
   }
 
   /**
@@ -156,20 +156,20 @@ class LegendController {
     return await LegendImage.createMany(uploadList)
   }
 
-  async getAdditionlegendInfo ({response, params}) {
+  async getAdditionlegendInfo ({ response, params }) {
     let legendData = await Legend.query()
-                                  .where('id', params.id)
-                                  .with('legendimages')
-                                  // .with('questions')
-                                  .with('questions', (builder) => builder.limit(2))
-                                  .withCount('questions as totalQuestion')
-                                  .with('questions.user')
-                                  .with('hours')
-                                  .first()
+      .where('id', params.id)
+      .with('legendimages')
+    // .with('questions')
+      .with('questions', (builder) => builder.limit(2))
+      .withCount('questions as totalQuestion')
+      .with('questions.user')
+      .with('hours')
+      .first()
 
     return legendData
   }
-  async getTodayBussinessHour ({response, params}) {
+  async getTodayBussinessHour ({ response, params }) {
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     var dd = new Date(Date.now())
     const today = days[dd.getDay()]
@@ -205,31 +205,6 @@ class LegendController {
     return await LegendImage.query().where('id', data.id).delete()
   }
 
-  async paginatedata ({ params, request, response, view }) {
-    const page = 1
-    return await User.query().paginate(page)
-    // const legendData = await Legend.query()
-    //                               .where('id',params.id)
-    //                               .with('reviews')
-    //                               .with('reviews.reviwer')
-    //                               .with('legendimages')
-    //                               .with('questions')
-    //                               //.withCount('avgRev')
-    //                               .paginate(page)
-    // if (legendData) {
-    //   const userData = await User.query()
-    //                             .where('id', legendData.user_id)
-    //                             .first()
-    //   return {
-    //     legend: legendData,
-    //     user: userData
-    //   }
-    // } else {
-    //   return response.status(404).json({
-    //     'message': 'User not found!.'
-    //   })
-    // }
-  }
 }
 
 module.exports = LegendController

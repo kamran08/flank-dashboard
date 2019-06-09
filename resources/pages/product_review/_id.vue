@@ -127,7 +127,7 @@ export default {
     data(){
         return{
             reviewData:{
-                product_id:'',
+                reviewFor:'',
                 content:"",
                 rating:'',
             },
@@ -186,7 +186,7 @@ export default {
             const res = await this.callApi('post','/app/storeProductReview',this.reviewData)
             if(res.status===200){
                 this.s('Review posted successfully!')
-               // this.$router.push('/profile/'+this.legendData.id)
+                this.$router.push('/product/'+this.productData.id)
             }
             else{
                 this.swr();
@@ -235,7 +235,7 @@ export default {
              this.rating = parseInt(this.$route.query.star)
              this.reviewData.rating = parseInt(this.$route.query.star)
         }
-        this.reviewData.product_id = this.productData.id 
+        this.reviewData.reviewFor = this.productData.id 
         const [res1] = await Promise.all([
             this.callApi('get', `reviews/${this.$route.params.id}`),
         ])

@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 /* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
 'use strict'
@@ -8,11 +9,9 @@
 const Product = use('App/Models/Product')
 const User = use('App/Models/User')
 const Attribute = use('App/Models/Attribute')
-const ProductReview = use('App/Models/ProductReview')
-const ProductReviewAtrribute = use('App/Models/ProductReviewAtrribute')
-const ProductReviewImage = use('App/Models/ProductReviewImage')
-const RecentReview = use('App/Models/RecentReview')
-const Database = use('Database')
+const Review = use('App/Models/Review')
+const ReviewAttribute = use('App/Models/ReviewAttribute')
+const ReviewImage = use('App/Models/ReviewImage')
 /**
  * Resourceful controller for interacting with products
  */
@@ -127,7 +126,8 @@ class ProductController {
 
     const tempUpload = data.uploadList
     delete data.uploadList
-    const rdata = await ProductReview.create(data)
+    data.review_type = 'product'
+    const rdata = await Review.create(data)
 
     for (let i of tempUpload) {
       let ob = {
@@ -136,7 +136,7 @@ class ProductController {
       }
       uploadList.push(ob)
     }
-    await ProductReviewImage.createMany(uploadList)
+    await ReviewImage.createMany(uploadList)
     let AttributeInfo = []
     for (let d of AttributeInfoAll) {
       if (d.isPositive == '0' || d.isPositive == '1') {
@@ -151,16 +151,7 @@ class ProductController {
       }
     }
 
-    await ProductReviewAtrribute.createMany(AttributeInfo)
-    // const averageRating = await Database.raw('SELECT (cast(AVG(rating) as decimal(10,2))) AS averageRating  FROM `school_coach_reviews` WHERE `coach_id` = ?', [data.coach_id])
-    // ProductReview.query().where('id', data.coach_id).update({
-    //   average_rating: averageRating[0][0].averageRating
-    // })
-    await RecentReview.create({
-      review_id: rdata.id,
-      review_type: 'App/Models/ProductReview'
-    })
-
+    await ReviewAttribute.createMany(AttributeInfo)
     return rdata
   }
 

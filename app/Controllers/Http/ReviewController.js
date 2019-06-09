@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 /* eslint-disable camelcase */
 /* eslint-disable eqeqeq */
 'use strict'
@@ -63,6 +64,7 @@ class ReviewController {
 
     const tempUpload = data.uploadList
     delete data.uploadList
+    data.review_type = 'legend'
     const rdata = await Review.create(data)
 
     for (let i of tempUpload) {
@@ -88,10 +90,6 @@ class ReviewController {
     }
 
     await ReviewAttribute.createMany(AttributeInfo)
-    await RecentReview.create({
-      review_id: rdata.id,
-      review_type: 'App/Models/Review'
-    })
     return rdata
   }
 
@@ -115,7 +113,7 @@ class ReviewController {
     // } catch (error) {
     //   //response.send('You are not logged in')
     // }
-    let mdata = Review.query().where('reviewFor', params.id)
+    let mdata = Review.query().where('reviewFor', params.id).where('review_type', 'legend')
       .with('reviwer')
       .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
       .with('imos')
@@ -163,7 +161,7 @@ class ReviewController {
       .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
       .with('imos')
       .with('images')
-
+    // if()
     let data = await mdata.orderBy('id', 'desc')
       .paginate(page, 3)
 
@@ -198,14 +196,14 @@ class ReviewController {
     //   //response.send('You are not logged in')
     // }
 
-    let mdata = SchoolCoachReview.query().where('school_id', params.id)
+    let mdata = Review.query().where('school_id', params.id).where('review_type', 'school')
       .with('coach')
       .with('reviwer')
       .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
       .with('imos')
       .with('images')
     if (coach != 0) {
-      mdata.where('coach_id', coach)
+      mdata.where('reviewFor', coach)
     }
     if (user_id != 0) {
       mdata.with('imosall', (builder) => {
@@ -254,7 +252,7 @@ class ReviewController {
     //   //response.send('You are not logged in')
     // }
 
-    let mdata = ProductReview.query().where('product_id', params.id)
+    let mdata = Review.query().where('reviewFor', params.id).where('review_type', 'product')
       .with('reviwer')
       .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
       .with('imos')
@@ -420,22 +418,22 @@ class ReviewController {
   async stoteProductReviewImo ({ request, response, auth }) {
     let data = request.all()
     data.user_id = await auth.user.id
-    await ProductImo.findOrCreate(
+    await Reviewimo.findOrCreate(
       { review_id: data.review_id, user_id: data.user_id }
 
     )
 
-    return await ProductImo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
+    return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
   }
   async stoteCoachReviewImo ({ request, response, auth }) {
     let data = request.all()
     data.user_id = await auth.user.id
-    await CoachImo.findOrCreate(
+    await Reviewimo.findOrCreate(
       { review_id: data.review_id, user_id: data.user_id }
 
     )
 
-    return await CoachImo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
+    return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
   }
   async atrributeConteptData ({ params }) {
     return await Database
@@ -452,24 +450,26 @@ class ReviewController {
           .on('review_attributes.attribute_id', 'attributes.id')
       })
       .where('reviews.reviewFor', params.id)
+      .where('reviews.review_type', 'legend')
       .groupBy('attributes.content')
   }
 
   async coachatrributeConteptData ({ params }) {
     return await Database
-      .table('coach_review_attributes')
+      .table('review_attributes')
       .select('attributes.content', 'attributes.points')
-      .sum('coach_review_attributes.points as totalPoints')
-      .count('coach_review_attributes.id as totalvotes')
-      .innerJoin('school_coach_reviews', function () {
+      .sum('review_attributes.points as totalPoints')
+      .count('review_attributes.id as totalvotes')
+      .innerJoin('reviews', function () {
         this
-          .on('coach_review_attributes.review_id', 'school_coach_reviews.id')
+          .on('review_attributes.review_id', 'reviews.id')
       })
       .innerJoin('attributes', function () {
         this
-          .on('coach_review_attributes.attribute_id', 'attributes.id')
+          .on('review_attributes.attribute_id', 'attributes.id')
       })
-      .where('school_coach_reviews.coach_id', params.id)
+      .where('reviews.reviewFor', params.id)
+      .where('reviews.review_type', 'school')
       .groupBy('attributes.content')
   }
   async test ({ request, response, auth }) {
@@ -487,11 +487,17 @@ class ReviewController {
   //  .fetch()
   }
   async getRecentReview ({ response, params }) {
-    console.log(' i am caling')
-    return await RecentReview.query()
+    const recentReviews = await RecentReview.query()
       .with('withallreview')
       .limit(3)
       .fetch()
+    const productinfo = await ProductReview.query().where('id', 3)
+
+      .first()
+    return response.status(200).json({
+      recentReviews: recentReviews,
+      productinfo: productinfo
+    })
   }
 }
 

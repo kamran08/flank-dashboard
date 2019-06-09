@@ -14,6 +14,18 @@ class Review extends Model {
   reviewfor () {
     return this.belongsTo('App/Models/Legend', 'reviewFor')
   }
+  legend () {
+    return this.belongsTo('App/Models/Legend', 'reviewFor')
+  }
+  product () {
+    return this.belongsTo('App/Models/Product', 'reviewFor')
+  }
+  school () {
+    return this.belongsTo('App/Models/School', 'reviewFor')
+  }
+  coach () {
+    return this.belongsTo('App/Models/SchoolCoach', 'school_id')
+  }
   reviewforInfo () {
     return this.belongsTo('App/Models/Legend', 'reviewFor')
   }
@@ -25,9 +37,6 @@ class Review extends Model {
   }
   imos () {
     return this.hasOne('App/Models/Reviewimo').select('id', 'review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
-  }
-  recentReviews () {
-    return this.morphMany('App/Models/RecentReview', 'id', 'review_id', 'review_type')
   }
 }
 

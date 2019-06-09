@@ -9,8 +9,7 @@ const Product = use('App/Models/Product')
 var _ = require('lodash')
 
 class SearchController {
-
-  async SearchData ({request, response, params }) {
+  async SearchData ({ request, response, params }) {
     let place = request.input('place') ? request.input('place') : ''
     let str = request.input('str') ? request.input('str') : ''
     let page = request.input('page') ? request.input('page') : 1
@@ -21,13 +20,13 @@ class SearchController {
     let data = {}
     if (pageOption == 'legend') {
       data =  Legend.query()
-                    .select('id')
-                    .select('name')
-                    .select('phone')
-                    .select('address')
-                    .select('img')
-                    .with('avgRating')
-                    .withCount('totalReview as allreview')
+        .select('id')
+        .select('name')
+        .select('phone')
+        .select('address')
+        .select('img')
+        .with('avgRating')
+        .withCount('totalReview as allreview')
 
       if (str) {
         data.where('name', 'LIKE', '%' + str + '%')
@@ -37,8 +36,8 @@ class SearchController {
       }
     }    else if (pageOption == 'product') {
       data =  Product.query()
-                    .with('avgRating')
-                    .withCount(' reviewsall as allreview')
+        .with('avgRating')
+        .withCount(' reviewsall as allreview')
 
       if (str) {
         data.where('name', 'LIKE', '%' + str + '%')
@@ -54,8 +53,8 @@ class SearchController {
       // }
     }    else if (pageOption == 'school') {
       data =  School.query()
-                    .with('avgRating')
-                    .withCount('allreview as allreview ')
+        .with('avgRating')
+        .withCount('allreview as allreview ')
 
       if (str) {
         data.where('schoolName', 'LIKE', '%' + str + '%')
@@ -67,9 +66,9 @@ class SearchController {
       }
     } else if (pageOption == 'coach') {
       data =  SchoolCoach.query()
-                    .with('avgRating')
-                    .withCount('allreview as allreview')
-                    .with('school')
+        .with('avgRating')
+        .withCount('allreview as allreview')
+        .with('school')
 
       if (str) {
         data.where('name', 'LIKE', '%' + str + '%')
@@ -98,41 +97,41 @@ class SearchController {
     return tempData
   }
 
-  async SearchByKeyCoach ({request}) {
+  async SearchByKeyCoach ({ request }) {
     const data = request.all()
     return await Legend.query()
-                      .select('name')
-                      .select('id')
-                      .where('name', 'LIKE', '%' + data.key + '%')
-                      .fetch()
+      .select('name')
+      .select('id')
+      .where('name', 'LIKE', '%' + data.key + '%')
+      .fetch()
   }
-  async SearchByKeyProduct ({request}) {
+  async SearchByKeyProduct ({ request }) {
     const data = request.all()
     return await Product.query()
-                      .select('name')
-                      .select('id')
-                      .where('name', 'LIKE', '%' + data.key + '%')
-                      .fetch()
+      .select('name')
+      .select('id')
+      .where('name', 'LIKE', '%' + data.key + '%')
+      .fetch()
   }
 
-  async SearchByKeySchool ({request}) {
+  async SearchByKeySchool ({ request }) {
     const data = request.all()
     return await School.query()
-                      .select('schoolName as name')
-                      .select('sport')
-                      .select('id')
-                      .where('schoolName', 'LIKE', '%' + data.key + '%')
-                      .fetch()
+      .select('schoolName as name')
+      .select('sport')
+      .select('id')
+      .where('schoolName', 'LIKE', '%' + data.key + '%')
+      .fetch()
   }
 
-  async SearchByKeySchoolCoach ({request}) {
+  async SearchByKeySchoolCoach ({ request }) {
     const data = request.all()
     return await SchoolCoach.query()
-                      .select('name')
-                      .select('id')
-                      .where('name', 'LIKE', '%' + data.key + '%')
-                      .where('school_id',  data.school_id)
-                      .fetch()
+      .select('name')
+      .select('id')
+      .where('name', 'LIKE', '%' + data.key + '%')
+      .where('school_id',  data.school_id)
+      .fetch()
   }
 }
 

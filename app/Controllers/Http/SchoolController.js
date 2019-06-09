@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 /* eslint-disable camelcase */
 /* eslint-disable eqeqeq */
 'use strict'
@@ -9,12 +10,8 @@ const School = use('App/Models/School')
 const SchoolCoach = use('App/Models/SchoolCoach')
 const Attribute = use('App/Models/Attribute')
 const CoachReviewImage = use('App/Models/CoachReviewImage')
-const SchoolCoachReview = use('App/Models/SchoolCoachReview')
-const CoachReviewAttribute = use('App/Models/CoachReviewAttribute')
-const Legend = use('App/Models/Legend')
-const RecentReview = use('App/Models/RecentReview')
-const Database = use('Database')
-const User = use('App/Models/User')
+const Review = use('App/Models/Review')
+const ReviewAttribute = use('App/Models/ReviewAttribute')
 
 /**
  * Resourceful controller for interacting with schools
@@ -337,14 +334,14 @@ class SchoolController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) { 
+  async show ({ params, request, response, view }) {
     const legendData = await School.query()
-    .where('id', params.id)
-    .withCount('allreview')
-    .with('coaches')
-    .with('allimages')
-    .with('avgRating')
-    .first()
+      .where('id', params.id)
+      .withCount('allreview')
+      .with('coaches')
+      .with('allimages')
+      .with('avgRating')
+      .first()
     if (legendData) {
       return response.status(200).json({
         School: legendData
@@ -377,7 +374,8 @@ class SchoolController {
 
     const tempUpload = data.uploadList
     delete data.uploadList
-    const rdata = await SchoolCoachReview.create(data)
+    data.review_type = 'school'
+    const rdata = await Review.create(data)
 
     for (let i of tempUpload) {
       let ob = {
@@ -401,16 +399,16 @@ class SchoolController {
       }
     }
 
-   await CoachReviewAttribute.createMany(AttributeInfo)
-    const averageRating = await Database.raw('SELECT (cast(AVG(rating) as decimal(10,2))) AS averageRating  FROM `school_coach_reviews` WHERE `coach_id` = ?', [data.coach_id])
-    SchoolCoach.query().where('id', data.coach_id).update({
-      average_rating: averageRating[0][0].averageRating
-    })
+    await ReviewAttribute.createMany(AttributeInfo)
+    // const averageRating = await Database.raw('SELECT (cast(AVG(rating) as decimal(10,2))) AS averageRating  FROM `school_coach_reviews` WHERE `coach_id` = ?', [data.coach_id])
+    // SchoolCoach.query().where('id', data.coach_id).update({
+    //   average_rating: averageRating[0][0].averageRating
+    // })
 
-    await RecentReview.create({
-      review_id: rdata.id,
-      review_type: 'App/Models/SchoolCoachReview'
-    })
+    // await RecentReview.create({
+    //   review_id: rdata.id,
+    //   review_type: 'App/Models/SchoolCoachReview'
+    // })
     return rdata
   }
 
@@ -419,23 +417,23 @@ class SchoolController {
     return await SchoolCoach.create(data)
   }
 
-  async getAdditionCoachInfo ({response, params}) {
+  async getAdditionCoachInfo ({ response, params }) {
     let legendData = await School.query()
-                                  .where('id', params.id)
-                                  .with('questions', (builder) => builder.limit(2))
-                                  .withCount('questions as totalQuestion')
-                                  .with('questions.user')
-                                  .first()
+      .where('id', params.id)
+      .with('questions', (builder) => builder.limit(2))
+      .withCount('questions as totalQuestion')
+      .with('questions.user')
+      .first()
 
     return legendData
   }
-  async getSchoolcoaches ({response, params}) {
+  async getSchoolcoaches ({ response, params }) {
     return await SchoolCoach.query()
-                            .with('school')
-                            .orderBy('average_rating', 'desc')
-                            .withCount('allreview')
-                            .limit(3)
-                            .fetch()
+      .with('school')
+      .orderBy('average_rating', 'desc')
+      .withCount('allreview')
+      .limit(3)
+      .fetch()
   }
 
   /**

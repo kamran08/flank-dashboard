@@ -26,9 +26,10 @@ class SchoolCoachReview extends Model {
   imos () {
     return this.hasOne('App/Models/CoachImo', 'id', 'review_id').select('id', 'review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
   }
-  recentReviews () {
-    return this.morphMany('App/Models/RecentReview', 'id', 'review_id', 'review_type')
-  }
+  // recentReviews () {
+  //   console.log('schoole review')
+  //   return this.morphMany('App/Models/RecentReview', 'id', 'review_id', 'review_type')
+  // }
 }
 
 module.exports = SchoolCoachReview

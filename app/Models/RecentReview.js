@@ -10,7 +10,7 @@ class RecentReview extends Model {
   withallreview () {
     return this.morphTo([
       'App/Models/SchoolCoachReview', 'App/Models/Review', 'App/Models/ProductReview'
-    ], 'id', 'id', 'id', 'reivew_id', 'review_type')
+    ], 'review_id', 'id', 'id', 'id', 'review_type')
   }
 }
 

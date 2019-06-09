@@ -9,13 +9,13 @@ class School extends Model {
     return this.hasMany('App/Models/SchoolCoach', 'id', 'school_id')
   }
   allreview () {
-    return this.hasMany('App/Models/SchoolCoachReview', 'id', 'school_id')
+    return this.hasMany('App/Models/Review', 'id', 'school_id').where('review_type', 'school')
   }
   allimages () {
     return this.hasMany('App/Models/CoachReviewImage', 'id', 'school_id')
   }
   avgRating () {
-    return this.hasOne('App/Models/SchoolCoachReview', 'id', 'school_id').select('id', 'school_id', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating'))
+    return this.hasOne('App/Models/Review', 'id', 'school_id').select('id', 'school_id', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating')).where('review_type', 'school')
   }
   questions () {
     return this.hasMany('App/Models/SchoolQuestion', 'id', 'school_id').orderBy('id', 'desc').limit(1)

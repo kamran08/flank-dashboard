@@ -6,10 +6,10 @@ const Database = use('Database')
 
 class SchoolCoach extends Model {
   avgRating () {
-    return this.hasOne('App/Models/SchoolCoachReview', 'id', 'coach_id').select('id', 'coach_id', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating'))
+    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('id', 'reviewFor', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating')).where('review_type', 'school')
   }
   allreview () {
-    return this.hasMany('App/Models/SchoolCoachReview', 'id', 'coach_id')
+    return this.hasMany('App/Models/Review', 'id', 'reviewFor')
   }
   school () {
     return this.belongsTo('App/Models/School', 'school_id', 'id')

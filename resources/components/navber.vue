@@ -53,7 +53,7 @@
                     <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                     <li><a href="">Download</a></li>
                 </ul>
-            </div>
+            </div> -->
             
             <Modal
                 v-model="reviewModal"
@@ -106,7 +106,7 @@
                     <Button type="success">Send</Button>
                 </div>
             </Modal>
-       </nav> -->
+       </nav>
                <header>
             <div class="header-second"> 
                 <div class="container">
@@ -188,7 +188,7 @@
                        </li>
                    </ul>
                    <ul class="main-nav right-top pull-right">
-                       <li><a @click="reviewModal=true"><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
+                       <li @click="reviewModal=true"><a ><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
                         <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
                         <li v-if="isLoggedIn && packType !=2 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
                         <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Profile</a></li>

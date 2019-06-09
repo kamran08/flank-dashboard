@@ -35,23 +35,34 @@
                                     <div class="product-thumb-data">
                                         <div class="product-thumb">
                                             <figure>
-                                                <img src="/image/thumb.jpg" alt="">
+                                                <img :src="legendData.logo" alt="">
                                             </figure>
                                         </div>
                                         <div class="product-data">
                                             <div class="product-data-indi">
                                                 <div class="product-data-icon">
-                                                    <span><i class="fas fa-map-marker-alt"></i></span>
+                                                    <span><i class="fas fa-passport"></i></span>
                                                 </div>
                                                 <div class="product-data-des">
-                                                    <h2>City market special house</h2>
+                                                    <h2><strong>{{legendData.schoolName}} | {{legendData.sport}}</strong></h2>
                                                     <div class="badge-review">
-                                                        <p><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span>&nbsp;<small>2 reviews</small></p>
+                                                        <p>
+                                                             <span :class="(averageRating>0)? ' high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                            <span :class="(averageRating>1)? ' high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                            <span :class="(averageRating>2)? ' high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                            <span :class="(averageRating>3)? ' high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                            <span :class="(averageRating>4)? ' high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                            &nbsp;<small class="review-number">{{totalReview}} reviews</small>
+                                                        </p>
                                                     </div>
-                                                    <p>1115 South San Pedro St <br> Los Angeles, CA 90015 <br> (844) 310-2674</p>
+                                                    <p><strong class="u-space-r-half">
+                                                             {{legendData.city}}
+                                                             {{(legendData.state)? ' ,'+legendData.state : '' }}
+                                                             {{(legendData.division)? ' ,'+legendData.division : '' }}
+                                                        </strong></p>
                                                 </div>
                                             </div>
-                                            <div class="product-data-indi product-data-indi-2">
+                                            <!-- <div class="product-data-indi product-data-indi-2">
                                                 <div class="product-data-icon">
                                                     <span><i class="fas fa-calendar-week"></i></span>
                                                 </div>
@@ -60,26 +71,10 @@
                                                     <p><strong>To:</strong> 10:00 pm</p>
                                                     <p><a href="">Add to calender <span><i class="fas fa-caret-down"></i></span></a></p>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="review-section-title">
-                                    <h1  >
-                                        <strong>{{legendData.schoolName}} | {{legendData.sport}}</strong>
-                                    </h1>
-                                    <div class="coach-review star-review">
-                                        <p>
-                                            <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                            <span :class="(averageRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                            <span :class="(averageRating>2)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                            <span :class="(averageRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                            <span :class="(averageRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                            &nbsp;<small class="review-number">{{totalReview}} reviews</small>
-                                        </p>
-                                    </div>
-                                </div> -->
 
                                 <div class="reviewComment" >
                                     <h2>Ask the Community</h2>

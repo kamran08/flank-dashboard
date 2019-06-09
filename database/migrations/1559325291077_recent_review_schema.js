@@ -7,7 +7,7 @@ class RecentReviewSchema extends Schema {
   up () {
     this.create('recent_reviews', (table) => {
       table.increments()
-      table.integer('reivew_id')
+      table.integer('review_id')
       table.string('review_type')
       table.timestamps()
     })

@@ -740,7 +740,7 @@ export default {
             }
 		}catch (error) {
             console.log(error)
-             return redirect('/')
+            // return redirect('/')
 		}
     },
    async created(){

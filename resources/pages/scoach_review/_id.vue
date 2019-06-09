@@ -127,7 +127,7 @@ export default {
     data(){
         return{
             reviewData:{
-                coach_id:'',
+                reviewFor:'',
                 school_id:'',
                 content:"",
                 rating:'',
@@ -236,7 +236,7 @@ export default {
              this.rating = parseInt(this.$route.query.star)
              this.reviewData.rating = parseInt(this.$route.query.star)
         }
-        this.reviewData.coach_id = this.coachData.id 
+        this.reviewData.reviewFor = this.coachData.id 
         this.reviewData.school_id = this.coachData.school_id 
         const [res1] = await Promise.all([
             this.callApi('get', `reviews/${this.$route.params.id}`),
