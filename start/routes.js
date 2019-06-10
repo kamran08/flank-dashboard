@@ -66,6 +66,7 @@ Route.get('/app/getUserallReview/:id', 'ReviewController.getUserallReview')
 Route.get('/app/SearchData', 'SearchController.SearchData')
 Route.get('/app/SearchByKeyCoach', 'SearchController.SearchByKeyCoach')
 Route.get('/app/SearchByKeyProduct', 'SearchController.SearchByKeyProduct')
+Route.get('/app/SearchByKeyProduct', 'SearchController.SearchByKeyProduct')
 Route.get('/app/SearchByKeySchool', 'SearchController.SearchByKeySchool')
 Route.get('/app/SearchByKeySchoolCoach', 'SearchController.SearchByKeySchoolCoach')
 

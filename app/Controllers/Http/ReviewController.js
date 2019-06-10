@@ -487,17 +487,40 @@ class ReviewController {
   //  .fetch()
   }
   async getRecentReview ({ response, params }) {
-    const recentReviews = await RecentReview.query()
-      .with('withallreview')
+    
+    let data = await Review.query()
+      .with('reviwer')
+      .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+      .with('imos')
+      .with('images')
+      .orderBy('id', 'desc')
       .limit(3)
       .fetch()
-    const productinfo = await ProductReview.query().where('id', 3)
+    data = data.toJSON()
+    let tempData = JSON.parse(JSON.stringify(data))
 
-      .first()
-    return response.status(200).json({
-      recentReviews: recentReviews,
-      productinfo: productinfo
-    })
+    for (let r of tempData) {
+      if (r.imos == null) {
+        r.imos = {
+          'id': 0,
+          'review_id': 0,
+          'cool': 0,
+          'funny': 0,
+          'useful': 0
+        }
+      } else {
+        if (r.imosall) {
+          if (r.imosall.cool == 1) r.imos.acool = true
+          if (r.imosall.funny == 1) r.imos.afunny = true
+          if (r.imosall.useful == 1) r.imos.auseful = true
+        }
+      }
+    }
+
+    return tempData
+    return await Review.query()
+      .with('reviwer')
+      
   }
 }
 

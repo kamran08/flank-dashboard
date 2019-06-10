@@ -65,9 +65,9 @@
                         <div class="form-group">
                             <p class=" msg_box_header">Write Review For?</p>
                             <div class="review-button">
-                                <div class="btn-role"  @click="rData.for=1"  ><Button :type="(rData.for == 1)? 'success': 'primary'" >School</Button></div>
-                                <div class="btn-role"  @click="rData.for=2"  ><Button :type="(rData.for == 2)? 'success': 'primary'" >Local Legend</Button></div>
-                                <div class="btn-role"  @click="rData.for=3"  ><Button :type="(rData.for == 3)? 'success': 'primary'" >Product</Button></div>
+                                <div class="btn-role"  @click="rData.for=1"  ><Button :class="(rData.for == 1)? 'act-btn': ''" >School</Button></div>
+                                <div class="btn-role"  @click="rData.for=2"  ><Button :class="(rData.for == 2)? 'act-btn': ''" >Local Legend</Button></div>
+                                <div class="btn-role"  @click="rData.for=3"  ><Button :class="(rData.for == 3)? 'act-btn': ''" >Product</Button></div>
                             </div>
                             <template v-if="rData.for == 2" >
                                 <Input v-model="rData.key" placeholder="Enter Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
@@ -77,9 +77,9 @@
                                 </div>
                             </template>
                             <template v-if="rData.for ==3" >
-                                <Input v-model="rData.key" placeholder="Enter Product" style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
-                                <div v-if="coachList.length>0" style="border: 1px solid #0088cc;">
-                                    <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="goToLegendWall(item)" >{{item.name}}</p>
+                                <Input v-model="rData.key" placeholder="Enter Product" style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyProduct" />
+                                <div v-if="productList.length>0" style="border: 1px solid #0088cc;">
+                                    <p  class="pointer_like" v-for="(item,index) in productList" :key="index" @click="goToProductWall(item)" >{{item.name}}</p>
                                
                                 </div>
                             </template>
@@ -91,11 +91,11 @@
                                 
                                 <template v-if="sData.school_id !=0" >
                                     <hr>
-                                    <Input v-model="sData.school" placeholder="Enter School Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"  @on-keyup="SearchByKeySchoolCoach" />
-                                    <div v-if="schoolCoachList.length>0" style="border: 1px solid #0088cc;">
+                                    <Input v-model="rData.key" placeholder="Enter School Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"  @on-keyup="SearchByKeySchoolCoach" />
+                                    <div v-if="schoolCoachList.length>0 && sData.school !='' " style="border: 1px solid #0088cc;">
                                         <p  class="pointer_like" v-for="(item,index) in schoolCoachList" :key="index" @click="goToCoachWall(item)" >{{item.name}}</p>
                                     </div>
-                                    <Button @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
+                                    <Button v-else @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
                                 </template>
                             </template>
                         </div>
@@ -117,27 +117,22 @@
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
                                 <input type="text" class="form-control"  v-model="searchTxt" placeholder="Different type of Sport Coaches" aria-describedby="basic-addon1">
                             </div>
-                            <div class="input-group">
-                               <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                               <input type="text" class="form-control" v-model='addressTxt' placeholder="Place" >
-                                        <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                            <div class="input-group pageOption">
+                               <span class="input-group-addon position-top" id="basic-addon1">Coach</span>
+                                <input type="text" class="form-control" v-model='pageOption' placeholder="Different type of Sport Coaches" >
+                                <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}&pageOption=${pageOption}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                                <div class="right-dropdown menu_dropDown_on_nav">
+                                    <div class="menu_dropDown_on_main">
+                                        <ul>
+                                            <li @click="pageOption = 'school'" ><a ><i class="fas fa-running"></i>School</a></li>
+                                            <li @click="pageOption = 'coach'" ><a ><i class="fas fa-running"></i>Coach</a></li>
+                                            <li @click="pageOption = 'legend'" ><a ><i class="fas fa-running"></i>Local Legend</a></li>
+                                            <li @click="pageOption = 'product'" ><a ><i class="fas fa-running"></i>Products & services</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="left-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                    <li><a href=""><i class="fas fa-utensils"></i>Restaurents</a></li>
-                                </ul>
-                            </div>
-                            <div class="right-dropdown">
-                                <ul>
-                                    <li><a href=""><i class="fas fa-location-arrow"></i>Current Locations</a></li>
-                                    <li style=""><a href="" style="">San Francisco, CA</a></li>
-                                </ul>
-                            </div>
+                           
                         </div>
                    </form>
                    <!-- <div class="pull-right">
@@ -215,12 +210,14 @@
                 coachList:[],
                 schoolList:[],
                 schoolCoachList:[],
+                productList:[],
                 sData:{
                     school_id:0,
                 },
                 iamIndex:false,
                 searchTxt:'',
                 addressTxt:'',
+                pageOption:'',
                 
             }
         },
@@ -271,6 +268,8 @@
             manageSchoolData(item){
                 this.rData.school = item.name+" | "+item.sport
                 this.sData.school_id = item.id
+                this.schoolList = []
+
             },
             async SearchByKeySchoolCoach(){
                const res = await this.callApi('get',`/app/SearchByKeySchoolCoach?key=${this.rData.key}&school_id=${this.sData.school_id}`) 
@@ -291,9 +290,9 @@
                }
             },
             async SearchByKeyProduct(){
-               const res = await this.callApi('get',`/app/SearchByKeyCoach?key=${this.rData.key}`)
+               const res = await this.callApi('get',`/app/SearchByKeyProduct?key=${this.rData.key}`)
                if(res.status=== 200){
-                   this.coachList = res.data
+                   this.productList = res.data
                }
                else{
                    this.swr()
@@ -311,6 +310,11 @@
             async goToLegendWall(item){
                  this.reviewModal = false
                 this.$router.push(`/addreview/${item.id}`)
+               
+            },
+            async goToProductWall(item){
+                 this.reviewModal = false
+                this.$router.push(`/product_review/${item.id}`)
                
             },
             async goToCoachWall(item){
@@ -345,5 +349,22 @@
 .pointer_like{
     cursor: pointer;
 }
+.menu_dropDown_on_nav{
+     display: none;
+        width: 100% !important;
+    left: 0 !important;
+    top: 45px !important;
+    z-index: 1;
+    padding: 0;
+}
+.menu_dropDown_on{
+    display: none;
+        width: 100% !important;
+    left: 0 !important;
+    top: 45px !important;
+    z-index: 1;
+}
+.pageOption:hover .menu_dropDown_on {display: block;}
+.pageOption:hover .menu_dropDown_on_nav {display: block;}
 </style>
 

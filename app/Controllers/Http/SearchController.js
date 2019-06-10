@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 /* eslint-disable standard/object-curly-even-spacing */
 /* eslint-disable no-multi-spaces */
 /* eslint-disable eqeqeq */

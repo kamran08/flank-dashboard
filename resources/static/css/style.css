@@ -16,7 +16,7 @@ hr {
 
 .position-top {
   position: relative;
-  top: -1px; }
+  top: 0; }
 
 .section-content {
   margin-top: 30px; }
@@ -103,7 +103,7 @@ form {
   width: 100%;
   height: 45px;
   background-color: #fff;
-  padding-top: 5px;
+  padding-top: 0;
   position: relative;
   border-radius: 3px; }
   .equal-div:after {
@@ -115,16 +115,21 @@ form {
     height: 30px;
     background-color: #ccc;
     z-index: 10; }
-  .equal-div .left-dropdown, .equal-div .right-dropdown {
+.equal-div .left-dropdown, .equal-div .right-dropdown {
     position: absolute;
-    background: #fff;
-    top: 100%;
-    left: 0;
-    width: 50%;
-    border-top: 1px solid #979797;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    visibility: hidden; }
+    width: 100% !important;
+    left: 0 !important;
+    top: 32px !important;
+    z-index: 1;
+    padding-top: 13px;
+   
+}
+.menu_dropDown_on_main{
+  background: #fff;
+  border-top: 1px solid #979797;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
     .equal-div .left-dropdown ul, .equal-div .right-dropdown ul {
       text-align: left;
       margin: 0; }
@@ -153,7 +158,8 @@ form {
 .input-group {
   width: 50%;
   float: left;
-  font-size: 18px; }
+  font-size: 18px;
+height: 100%; }
   .input-group span {
     border: 0;
     background: #fff;
@@ -170,7 +176,9 @@ form {
     border: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
-    font-size: 18px; }
+    font-size: 18px;
+    height: 100%;
+    padding: 0px 12px; }
     .input-group input:focus {
       border: 0;
       -webkit-box-shadow: none;
@@ -179,9 +187,9 @@ form {
 .search-btn {
   background: #0088cc !important;
   position: absolute;
-  top: -5px;
+  top: 0;
   right: 0;
-  padding: 10px 30px;
+  padding: 10px 30px 8px;
   z-index: 10;
   cursor: pointer;
   text-align: center; }
@@ -520,7 +528,7 @@ footer {
     .header-second form .search-btn {
       background: #0088cc;
       border: 1px solid #fff;
-      padding: 11px 30px; }
+      padding: 10px 30px 11px; }
       .header-second form .search-btn i {
         margin-left: -6px; }
   .header-second .logsign {
@@ -3181,3 +3189,26 @@ h2 {
                   .city-related-topic .inner-title {
                     margin-bottom: 20px;
                   }
+
+                  .menu_dropDown_on_nav{
+                    display: none;
+                       width: 100% !important;
+                   left: 0 !important;
+                   top: 45px !important;
+                   z-index: 1;
+                   padding: 0;
+               }
+               .menu_dropDown_on{
+                   display: none;
+                       width: 100% !important;
+                   left: 0 !important;
+                   top: 45px !important;
+                   z-index: 1;
+               }
+               .pageOption:hover .menu_dropDown_on {display: block;}
+               .pageOption:hover .menu_dropDown_on_nav {display: block;}
+
+               .act-btn {
+                 background: #0088cc !important;
+                 color: #fff !important;
+               }

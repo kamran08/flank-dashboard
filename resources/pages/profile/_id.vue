@@ -1012,9 +1012,7 @@ export default {
             this.uploadList = res2.data.legendimages
             this.questionList = res2.data.questions
             this.todayHour = res3.data
-            // this.reviewimos = res2.reviewimos
             this.hours = res2.data.hours
-            // this.totalReview = res2.data.__meta__.totalReview_count
             this.totalQuestion = res2.data.__meta__.totalQuestion
             this.isLoading = false
             

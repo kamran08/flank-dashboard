@@ -364,7 +364,7 @@
                                     <h2>NO Content....</h2>
                                 </div>
                             </div>
-                            <div class="city-related-topic">
+                            <!-- <div class="city-related-topic">
                                 <div class="inner-title">
                                     <h3>Related with topics</h3>
                                 </div>
@@ -391,9 +391,9 @@
                                     </div>
                                 </div>
                                 <p><a href="">More Topics</a></p>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="partner-website-add">
                                 <div class="partner-website-link">
                                     <div class="website-link">
@@ -419,7 +419,7 @@
                                 <hr>
                                 <p>Got search feedback? <a href="">Help us improve.</a></p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

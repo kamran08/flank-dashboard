@@ -6,10 +6,10 @@
             <nav class="navbar">
                <div class="container">
                    <ul class="navbar-nav nav">
-                       <li><a href="review.html">Write a Review</a></li>
+                       <!-- <li><a href="review.html">Write a Review</a></li> -->
                    </ul>
 
-                   <ul class="pull-right navbar-nav nav">
+                   <ul class="pull-right navbar-nav nav" v-if="!isLoggedIn" >
                        <li><nuxt-link class="nav-link" to="/login" >Log In</nuxt-link>
                        <li class="border-nav"><nuxt-link class="nav-link" to="/register" >Sign Up</nuxt-link></li>
                    </ul>
@@ -26,39 +26,31 @@
                                 <div class="equal-div">
                                     <div class="input-group" onclick="toggle_visibility('menu');">
                                         <span class="input-group-addon" id="basic-addon1">Find</span>
-                                        <input type="text" class="form-control"  v-model="searchTxt" placeholder="Different type of Sport Coaches" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"  v-model="searchTxt" placeholder="Search any Attributes" aria-describedby="basic-addon1">
                                     </div>
-                                    <div class="input-group">
-                                       <span class="input-group-addon position-top" id="basic-addon1">Near</span>
-                                        <input type="text" class="form-control" v-model='addressTxt' placeholder="Place" >
-                                        <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
-                                    </div>
-                                    <div class="left-dropdown">
-                                        <ul>
-                                            <li><a ><i class="fas fa-utensils"></i>School Name</a></li>
-                                            <li><a ><i class="fas fa-utensils"></i>Coach Name</a></li>
-                                            <li><a ><i class="fas fa-utensils"></i>Local Instructor</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="right-dropdown">
-                                        <ul>
-                                            <li><a href=""><i class="fas fa-location-arrow"></i>Current Locations</a></li>
-                                            <li style=""><a href="" style="">San Francisco, CA</a></li>
-                                        </ul>
+                                    <div class="input-group pageOption">
+                                       <span class="input-group-addon position-top" id="basic-addon1">Coach</span>
+                                        <input type="text" class="form-control" v-model='pageOption' placeholder="Different type of Sport Coaches" >
+                                        <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}&pageOption=${pageOption}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                                        <div class="right-dropdown menu_dropDown_on">
+                                            <div class="menu_dropDown_on_main">
+                                                <ul>
+                                                    <li @click="pageOption = 'school'" ><a ><i class="fas fa-running"></i>School</a></li>
+                                                    <li @click="pageOption = 'coach'" ><a ><i class="fas fa-running"></i>Coach</a></li>
+                                                    <li @click="pageOption = 'legend'" ><a ><i class="fas fa-running"></i>Local Legend</a></li>
+                                                    <li @click="pageOption = 'product'" ><a ><i class="fas fa-running"></i>Products & services</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                            </form>
                            <div class="homepage-category">
                                <ul>
-                                   <li><i class="fas fa-calculator"></i><a href="">High school coaches</a></li>
-                                   <li><i class="fas fa-utensils"></i><a href="">College coaches</a></li>
-                                   <li><i class="fas fa-tools"></i><a href="">Travel team coaches</a>&nbsp;<i class="position-top fas fa-sort-down"></i>
-                                       <ul class="homepage-sub-category">
-                                           <li><a href="">Air Conditioning & Heating</a></li>
-                                           <li><a href="">Air Conditioning & Heating</a></li>
-                                       </ul>
-                                   </li>
-                                   <li><i class="fas fa-truck"></i><a href="">Products & services</a></li>
+                                   <li><i class="fas fa-calculator"></i><a @click="$router.push(`/search_result?pageOption=coach`)">High school coaches</a></li>
+                                   <li><i class="fas fa-utensils"></i><a @click="$router.push(`/search_result?pageOption=school`)">College coaches</a></li>
+                                   <li><i class="fas fa-tools"></i><a @click="$router.push(`/search_result?pageOption=legend`)">Travel team coaches</a></li>
+                                   <li><i class="fas fa-truck"></i><a @click="$router.push(`/search_result?pageOption=product`)">Products & services</a></li>
                                </ul>
                            </div>
                        </div>
@@ -267,101 +259,55 @@
                <div class="text-center">
                    <h2>Recent Activity</h2>
                </div>
-               <div class="section-content">
+               <div class="section-content"  v-if="recentReview.length>0  && loading == false" >
                    <div class="row">
-                       <div class="col-md-4 col-sm-4">
+                       <div class="col-md-4 col-sm-4" v-for="(item,index) in recentReview " :key="index" >
                            <div class="activity-individual">
                                <div class="media">
                                    <div class="media-left">
-                                     <img src="/image/30s.jpg" alt="">
+                                     <img class="profile_picU" :src="item.reviwer.img" alt="">
                                    </div>
                                    <div class="media-body">
-                                      <strong><a href="">Nadine G.</a></strong><p></p>
+                                      <strong><a href="">{{item.reviwer.firstName}} {{item.reviwer.lastName}} </a></strong>
+                                      <p><span><i class="fas fa-star"></i>&nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}</span></p>
                                        <small>Wrote a Review</small>
                                    </div>
                                </div>
-                               <figure>
-                                    <img src="/image/30s.jpg" alt="">
-                               </figure>
                                <figcaption>
                                    <p><strong><a href="">Katsu-Hama</a></strong></p>
                                    <hr>
                                    <div class="activity-review">
-                                       <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span></p>
+                                        <p>
+                                            <span :class="(item.rating>0)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(item.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                            &nbsp;<small>{{item.created_at}}</small>
+                                        </p>
                                    </div>
-                                   <p>This place is still good in my opinion and the staff is super friendly. So far everything I've ordered has been good. Consistent katsu. <a href="">Continous reading...</a></p>
+                                   <p>{{item.content}}
+                                   </p>
                                    <hr>
                                    <div class="emoicon">
-                                       <p class="pull-left"><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span></p>
+                                       <p class="pull-left">
+                                           <span><i class="far fa-grin-beam"></i><small>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</small></span>
+                                           <span><i class="far fa-grin-beam"></i><small>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</small></span>
+                                           <span><i class="far fa-grin-beam"></i><small>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</small></span></p>
                                        <p class="pull-right"><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span></p>
                                    </div>
                                </figcaption>
                            </div>
                        </div>
-                       <div class="col-md-4 col-sm-4">
-                           <div class="activity-individual">
-                               <div class="media">
-                                   <div class="media-left">
-                                       <img src="/image/30s.jpg" alt="">
-                                   </div>
-                                   <div class="media-body">
-                                       <strong><a href="">Nadine G.</a></strong><p></p>
-                                       <small>Wrote a Review</small>
-                                   </div>
-                               </div>
-                               <figure>
-                                   <img src="/image/l%20(1).jpg" alt="">
-                               </figure>
-                               <figcaption>
-                                   <p><a href="">Katsu-Hama</a></p>
-                                   <hr>
-                                   <div class="activity-review">
-                                       <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span></p>
-                                   </div>
-                                   <p>This place is still good in my opinion and the staff is super friendly. So far everything I've ordered has been good. Consistent katsu. <a href="">Continous reading...</a></p>
-                                   <hr>
-                                   <div class="emoicon">
-                                       <p class="pull-left"><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span></p>
-                                       <p class="pull-right"><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span></p>
-                                   </div>
-                               </figcaption>
-                           </div>
-                       </div>
-                       <div class="col-md-4 col-sm-4">
-                           <div class="activity-individual">
-                               <div class="media">
-                                   <div class="media-left">
-                                       <img src="/image/30s.jpg" alt="">
-                                   </div>
-                                   <div class="media-body">
-                                       <strong><a href="">Nadine G.</a></strong><p></p>
-                                       <small>Wrote a Review</small>
-                                   </div>
-                               </div>
-                               <figure>
-                                   <img src="/image/l%20(1).jpg" alt="">
-                               </figure>
-                               <figcaption>
-                                   <p><a href="">Katsu-Hama</a></p>
-                                   <hr>
-                                   <div class="activity-review">
-                                       <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span></p>
-                                   </div>
-                                   <p>This place is still good in my opinion and the staff is super friendly. So far everything I've ordered has been good. Consistent katsu. <a href="">Continous reading...</a></p>
-                                   <hr>
-                                   <div class="emoicon">
-                                       <p class="pull-left"><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span></p>
-                                       <p class="pull-right"><span><a href=""><i class="far fa-grin-beam"></i></a><small>Useful</small></span></p>
-                                   </div>
-                               </figcaption>
-                           </div>
-                       </div>
+                       
                    </div>
                    <hr>
-                   <div class="text-center">
+                   <!-- <div class="text-center">
                        <p class="moreD"><a href=""><i class="fas fa-angle-down"></i>&nbsp;Show more work in New York</a></p>
-                   </div>
+                   </div> -->
                </div>
+               <div v-else-if="loading == true" ><h3 class="text-center">Content Loading....</h3></div>
+                <div v-else  ><h3 class="text-center">No Content.....</h3></div>
            </div>
        </section>
        <section class="padding-top-bottom-bg bg lp fifth-section section-margin">
@@ -440,9 +386,11 @@ export default {
     return{
       name:'',
       searchTxt:'',
+      pageOption:'',
       addressTxt:'',
       openSearchDrop:false,
       schoolCoaches:[],
+      recentReview:[],
       review_of_day:{},
       loading:true,
     }
@@ -477,13 +425,15 @@ export default {
   },
   async created(){
       
-          const [res1,res2] = await Promise.all([
+          const [res1,res2,res3] = await Promise.all([
             this.callApi('get', `/app/getSchoolcoaches`),  
             this.callApi('get', `/app/reviewOfTheDay`),  
+            this.callApi('get', `/app/getRecentReview`),  
         ])
         if(res1.status===200 && res2.status ==200){
             this.schoolCoaches = res1.data
             this.review_of_day = res2.data
+            this.recentReview = res3.data
            // this.review_of_day.bestReview = res2.data.bestReview
             this.loading = false
             
@@ -498,5 +448,9 @@ export default {
 .profile_picU{
     width: 40px;
     
+}
+
+.pageOption:hover .menu_dropDown_on {
+    display: block;
 }
 </style>
