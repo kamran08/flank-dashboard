@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 /* eslint-disable camelcase */
 'use strict'
 
@@ -74,51 +75,60 @@ class QuestionController {
   async show ({ params, request, response, view }) {
     let page = request.input('page') ? request.input('page') : 1
     return await Question.query()
-                          .where('legend_id', params.id)
-                          .with('user')
-                          .with('answers')
-                          .with('answers.user')
-                          .orderBy('id', 'desc')
-                          .paginate(page, 3)
+      .where('legend_id', params.id)
+      .with('user')
+      .with('answers')
+      .with('answers.user')
+      .orderBy('id', 'desc')
+      .paginate(page, 3)
   }
 
   async CoachShow ({ params, request, response, view }) {
     let page = request.input('page') ? request.input('page') : 1
     return await SchoolQuestion.query()
-                          .where('school_id', params.id)
-                          .with('user')
-                          .with('answers')
-                          .with('answers.user')
-                          .orderBy('id', 'desc')
-                          .paginate(page, 3)
+      .where('school_id', params.id)
+      .with('user')
+      .with('answers')
+      .with('answers.user')
+      .orderBy('id', 'desc')
+      .paginate(page, 3)
   }
   async productShow ({ params, request, response, view }) {
     let page = request.input('page') ? request.input('page') : 1
     return await ProductQuestion.query()
-                          .where('school_id', params.id)
-                          .with('user')
-                          .with('answers')
-                          .with('answers.user')
-                          .orderBy('id', 'desc')
-                          .paginate(page, 3)
+      .where('product_id', params.id)
+      .with('user')
+      .with('answers')
+      .with('answers.user')
+      .orderBy('id', 'desc')
+      .paginate(page, 3)
   }
   async similar ({ params, request, response, view }) {
     const data = request.all()
     return await Question.query()
-                          .where('legend_id', data.legend_id)
-                          .whereNot('id', data.question_id)
-                          .withCount('answers')
-                          .orderBy('id', 'desc')
-                          .paginate(1, 3)
+      .where('legend_id', data.legend_id)
+      .whereNot('id', data.question_id)
+      .withCount('answers')
+      .orderBy('id', 'desc')
+      .paginate(1, 3)
   }
   async similar_coach_question ({ params, request, response, view }) {
     const data = request.all()
     return await SchoolQuestion.query()
-                          .where('school_id', data.school_id)
-                          .whereNot('id', data.question_id)
-                          .withCount('answers')
-                          .orderBy('id', 'desc')
-                          .paginate(1, 3)
+      .where('school_id', data.school_id)
+      .whereNot('id', data.question_id)
+      .withCount('answers')
+      .orderBy('id', 'desc')
+      .paginate(1, 3)
+  }
+  async similar_product_question ({ params, request, response, view }) {
+    const data = request.all()
+    return await ProductQuestion.query()
+      .where('product_id', data.product_id)
+      .whereNot('id', data.question_id)
+      .withCount('answers')
+      .orderBy('id', 'desc')
+      .paginate(1, 3)
   }
 
   /**

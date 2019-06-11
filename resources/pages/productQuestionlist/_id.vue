@@ -43,7 +43,7 @@
                                             </div>
                                         </div>
                                         <p>
-                                            <nuxt-link :to="{name: 'product_question_details-school_id-id', params: { school_id:legend_id , id:item.id } }" >View question details</nuxt-link>
+                                            <nuxt-link :to="{name: 'product_question_details-product_id-id', params: { product_id:legend_id , id:item.id } }" >View question details</nuxt-link>
                                         </p>
                                     </div>
                                     <div class="text-center">
@@ -187,7 +187,7 @@ export default {
             }
 		}catch (error) {
             console.log(error)
-            return redirect('/')
+           // return redirect('/')
 		}
     },
     async created(){
@@ -198,7 +198,7 @@ export default {
         if(res1.status===200){ 
                 this.legendData = res1.data.product
                 this.totalReview = res1.data.product.__meta__.reviewsall_count
-                this.averageRating = (res1.data.School.avgRating)? res1.data.product.avgRating.averageRating : 0 
+                this.averageRating = (res1.data.product.avgRating)? res1.data.product.avgRating.averageRating : 0 
         } else{
             this.swr()
         }

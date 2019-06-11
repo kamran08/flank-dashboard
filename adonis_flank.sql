@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2019 at 06:32 PM
+-- Generation Time: Jun 11, 2019 at 06:58 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -340,12 +340,13 @@ INSERT INTO `legend_images` (`id`, `legend_id`, `url`, `created_at`, `updated_at
 (25, 2, '/uploads/1555598317645.jpeg', '2019-04-18 20:38:59', '2019-04-18 20:38:59'),
 (26, 2, '/uploads/1555598323470.png', '2019-04-18 20:38:59', '2019-04-18 20:38:59'),
 (27, 2, '/uploads/1555598329705.png', '2019-04-18 20:38:59', '2019-04-18 20:38:59'),
-(32, 1, '/uploads/1555687289767.png', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
-(33, 1, '/uploads/1555687296481.png', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
-(34, 1, '/uploads/1555687308158.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
-(35, 1, '/uploads/1555688031454.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
-(36, 1, '/uploads/1555688037239.jpeg', '2019-04-19 21:34:04', '2019-04-19 21:34:04'),
-(37, 4, '/uploads/1556031887039.png', '2019-04-23 21:04:49', '2019-04-23 21:04:49');
+(37, 4, '/uploads/1556031887039.png', '2019-04-23 21:04:49', '2019-04-23 21:04:49'),
+(38, 1, '/uploads/1555687289767.png', '2019-06-11 12:12:59', '2019-06-11 12:12:59'),
+(39, 1, '/uploads/1555687296481.png', '2019-06-11 12:12:59', '2019-06-11 12:12:59'),
+(40, 1, '/uploads/1555687308158.jpeg', '2019-06-11 12:12:59', '2019-06-11 12:12:59'),
+(41, 1, '/uploads/1555688031454.jpeg', '2019-06-11 12:13:00', '2019-06-11 12:13:00'),
+(42, 1, '/uploads/1555688037239.jpeg', '2019-06-11 12:13:00', '2019-06-11 12:13:00'),
+(43, 1, '/uploads/1560233576788.jpeg', '2019-06-11 12:13:00', '2019-06-11 12:13:00');
 
 -- --------------------------------------------------------
 
@@ -372,7 +373,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `user_id`, `name`, `category`, `address`, `description`, `price`, `active`, `img`, `created_at`, `updated_at`) VALUES
-(1, 8, 'Product 1', 'Food', 'Sylhet,Bangladesh', 'This is a product call Product 1. The price of this product 1 is 50  and Category is Food', 50, 1, '/uploads/four.png', '2019-06-01 14:31:44', '2019-06-04 13:44:25');
+(1, 8, 'Product 1', 'Food', 'Sylhet,Bangladesh', 'This is a product call Product 1. The price of this product 1 is 50  and Category is Food', 50, 1, '/uploads/four.png', '2019-06-01 14:31:44', '2019-06-11 21:52:19');
 
 -- --------------------------------------------------------
 
@@ -388,6 +389,14 @@ CREATE TABLE `product_answers` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_answers`
+--
+
+INSERT INTO `product_answers` (`id`, `question_id`, `user_id`, `content`, `created_at`, `updated_at`) VALUES
+(1, 2, 8, 'And this is The first Answer!', '2019-06-11 21:57:30', '2019-06-11 21:57:30'),
+(2, 3, 8, 'Hello .. This is my answer!', '2019-06-11 22:32:06', '2019-06-11 22:32:06');
 
 -- --------------------------------------------------------
 
@@ -447,7 +456,8 @@ CREATE TABLE `product_questions` (
 --
 
 INSERT INTO `product_questions` (`id`, `user_id`, `product_id`, `content`, `created_at`, `updated_at`) VALUES
-(2, 1, 1, 'This is Frist Product Question Data!', '2019-06-03 05:57:53', '2019-06-03 05:57:53');
+(2, 1, 1, 'This is Frist Product Question Data!', '2019-06-03 05:57:53', '2019-06-03 05:57:53'),
+(3, 8, 1, 'This is Second Product Question!', '2019-06-11 22:13:05', '2019-06-11 22:13:05');
 
 -- --------------------------------------------------------
 
@@ -662,7 +672,7 @@ INSERT INTO `reviewimos` (`id`, `review_id`, `user_id`, `cool`, `funny`, `useful
 (4, 26, 3, 1, 1, 1, '2019-05-09 00:00:00', '2019-05-09 00:00:00'),
 (5, 24, 1, 0, 1, 0, '2019-05-19 14:39:37', '2019-05-19 14:39:37'),
 (6, 23, 1, 0, 0, 1, '2019-05-19 14:40:10', '2019-05-19 14:40:29'),
-(8, 25, 1, 0, 1, 0, '2019-06-03 04:02:05', '2019-06-03 04:02:05'),
+(8, 25, 1, 1, 1, 0, '2019-06-03 04:02:05', '2019-06-10 18:51:50'),
 (9, 24, 8, 1, 0, 0, '2019-06-09 17:52:27', '2019-06-09 17:52:27');
 
 -- --------------------------------------------------------
@@ -877,7 +887,8 @@ CREATE TABLE `school_answers` (
 --
 
 INSERT INTO `school_answers` (`id`, `question_id`, `user_id`, `content`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 'This is First Answer of First Question.', '2019-05-29 01:05:47', '2019-05-29 01:05:47');
+(1, 3, 1, 'This is First Answer of First Question.', '2019-05-29 01:05:47', '2019-05-29 01:05:47'),
+(2, 5, 8, 'And this is First Answer!', '2019-06-11 22:52:57', '2019-06-11 22:52:57');
 
 -- --------------------------------------------------------
 
@@ -942,7 +953,9 @@ INSERT INTO `school_coaches` (`id`, `school_id`, `name`, `average_rating`, `crea
 (41, NULL, NULL, 0, '2019-05-06 13:15:11', '2019-05-06 13:15:11'),
 (42, NULL, NULL, 0, '2019-05-06 13:18:58', '2019-05-06 13:18:58'),
 (43, 8, 'John Torres', 0, '2019-05-06 13:23:40', '2019-05-06 13:23:40'),
-(44, 1, 'france', 0, '2019-05-30 14:58:45', '2019-05-30 14:58:45');
+(44, 1, 'france', 0, '2019-05-30 14:58:45', '2019-05-30 14:58:45'),
+(45, 4, 'h', 0, '2019-06-10 18:36:42', '2019-06-10 18:36:42'),
+(46, 4, 'h', 0, '2019-06-10 18:36:43', '2019-06-10 18:36:43');
 
 -- --------------------------------------------------------
 
@@ -999,7 +1012,11 @@ CREATE TABLE `school_questions` (
 INSERT INTO `school_questions` (`id`, `user_id`, `school_id`, `content`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 'This is The First Question of Fresno City Collage?', '2019-05-28 16:44:36', '2019-05-28 16:44:36'),
 (2, 1, 2, 'This is The Second Question of Fresno City Collage?', '2019-05-28 16:46:14', '2019-05-28 16:46:14'),
-(3, 1, 2, 'This is the 3rd Question of the Fresno City Collage', '2019-05-28 22:24:40', '2019-05-28 22:24:40');
+(3, 1, 2, 'This is the 3rd Question of the Fresno City Collage', '2019-05-28 22:24:40', '2019-05-28 22:24:40'),
+(4, 8, 3, 'Hello This is First Question', '2019-06-11 22:33:22', '2019-06-11 22:33:22'),
+(5, 8, 4, 'This is OLS Knights First Question!', '2019-06-11 22:36:07', '2019-06-11 22:36:07'),
+(6, 8, 5, 'This is Montana Knights First Question!', '2019-06-11 22:40:20', '2019-06-11 22:40:20'),
+(7, 8, 4, 'There is Some Cookie!', '2019-06-11 22:55:27', '2019-06-11 22:55:27');
 
 -- --------------------------------------------------------
 
@@ -1312,7 +1329,7 @@ ALTER TABLE `legends`
 -- AUTO_INCREMENT for table `legend_images`
 --
 ALTER TABLE `legend_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1324,7 +1341,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_answers`
 --
 ALTER TABLE `product_answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_images`
@@ -1342,7 +1359,7 @@ ALTER TABLE `product_imos`
 -- AUTO_INCREMENT for table `product_questions`
 --
 ALTER TABLE `product_questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
@@ -1414,13 +1431,13 @@ ALTER TABLE `schools`
 -- AUTO_INCREMENT for table `school_answers`
 --
 ALTER TABLE `school_answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `school_coaches`
 --
 ALTER TABLE `school_coaches`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `school_coach_reviews`
@@ -1432,7 +1449,7 @@ ALTER TABLE `school_coach_reviews`
 -- AUTO_INCREMENT for table `school_questions`
 --
 ALTER TABLE `school_questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tokens`

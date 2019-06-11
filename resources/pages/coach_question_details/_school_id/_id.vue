@@ -9,8 +9,8 @@
                     <div class="review-content">
                         <div class="breadcrumbs">
                             <ul>
-                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.schoolName}} {{legendData.sport}}</nuxt-link></li>
-                                <li><span><i class="fas fa-chevron-right"></i></span><nuxt-link :to="{name: 'questionlist-id', params: { id:legend_id } }">Ask the Community</nuxt-link></li>
+                                <li><nuxt-link :to="{name: 'school-id', params: { id:legend_id } }">{{legendData.schoolName}} {{legendData.sport}}</nuxt-link></li>
+                                <li><span><i class="fas fa-chevron-right"></i></span><nuxt-link :to="{name: 'coachquestionlist-id', params: { id:legend_id } }">Ask the Community</nuxt-link></li>
                                 <li><span><i class="fas fa-chevron-right"></i></span>Details</li>
                             </ul>
                         </div>
@@ -71,11 +71,11 @@
                                     <div class="view-media">
                                         <div class="media">
                                             <div class="media-left">
-                                                <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
+                                                <img class="profile_picU" :src="(legendData.logo)? legendData.logo : '/uploads/default.png'" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <h4><nuxt-link :to="{name: 'school-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></h4>
-                                                <div class="star-review">
+                                                <div class="star-review withEdit">
                                                     <p>
                                                         <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                         <span :class="(averageRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
@@ -89,7 +89,7 @@
                                             </div>
                                         </div>
                                         <div class="other-ques">
-                                            <h4 class="border-bottom">Other questions for {{legendData.name}}</h4>
+                                            <h4 class="border-bottom">Other questions for {{legendData.schoolName}}</h4>
                                             <template v-if="similarQuestion.length>0 && isLoading==false ">
                                                 <div class="other-ques-det" v-for="(item,index) in similarQuestion " :key="index"  >
                                                     <p>{{item.content}}</p>
@@ -229,5 +229,8 @@ export default {
         margin: 0 auto;
         text-align: center;
         padding: 20px;
+    }
+    .withEdit{
+        padding: 7px 2px;
     }
 </style>

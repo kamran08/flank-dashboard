@@ -36,7 +36,7 @@
                                             
                                         </div>
                                         <div class="Details_profie_img_div" v-else >
-                                            <div  >
+                                            <div >
                                             <img :src="productData.img" alt=""  style="width: 140px;height: 150px;">
                                             </div>
                                         </div>
@@ -89,7 +89,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="product-data-indi product-data-indi-2" v-if=" userData.id==user_id && isEdit">
+                                        <div class="product-data-indi product-data-indi-2" v-if=" userData.id==user_id && !isEdit">
                                             <div class="product-data-icon">
                                                 <span><i class="fas fa-calendar-week"></i></span>
                                             </div>
@@ -597,6 +597,8 @@ export default {
                 this.s("Your question has been posted successfully!")
                 if(this.questionList.length<=0){
                     this.questionList.push(res.data)
+                    this.totalQuestion++
+                    this.askModal = false
                 }
                 else this.questionList.unshift(res.data)
                 this.askModal = false
@@ -770,5 +772,11 @@ export default {
 </script>
 
 <style>
+.profile_picU {
+  width: 40px;
+}
 
+.pageOption:hover .menu_dropDown_on {
+  display: block;
+}
 </style>

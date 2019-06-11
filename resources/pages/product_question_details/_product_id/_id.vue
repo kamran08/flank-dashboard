@@ -196,13 +196,13 @@ export default {
         this.legend_id = this.$route.params.product_id
         let question_id = this.$route.params.id
         let tempOb = {
-            school_id:this.legend_id,
+            product_id:this.legend_id,
             question_id:question_id
         }
         
          const [res1,res2] = await Promise.all([
             this.callApi('get', `products/${this.legend_id}`),
-            this.callApi('post', `/app/similar_coach_question`,tempOb),
+            this.callApi('post', `/app/similar_product_question`,tempOb),
         ])
         if(res1.status===200){ 
 

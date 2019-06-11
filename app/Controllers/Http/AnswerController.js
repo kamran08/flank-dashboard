@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 /* eslint-disable camelcase */
 'use strict'
 
@@ -76,30 +77,30 @@ class AnswerController {
    */
   async show ({ params, request, response, view }) {
     return await Question.query()
-                          .where('id', params.id)
-                          .with('user')
-                          .with('allAnswers')
-                          .with('allAnswers.user')
-                          .orderBy('id', 'desc')
-                          .first()
+      .where('id', params.id)
+      .with('user')
+      .with('allAnswers')
+      .with('allAnswers.user')
+      .orderBy('id', 'desc')
+      .first()
   }
   async coach_question_answers ({ params, request, response, view }) {
     return await SchoolQuestion.query()
-                          .where('id', params.id)
-                          .with('user')
-                          .with('allAnswers')
-                          .with('allAnswers.user')
-                          .orderBy('id', 'desc')
-                          .first()
+      .where('id', params.id)
+      .with('user')
+      .with('allAnswers')
+      .with('allAnswers.user')
+      .orderBy('id', 'desc')
+      .first()
   }
   async product_question_answers ({ params, request, response, view }) {
     return await ProductQuestion.query()
-                          .where('id', params.id)
-                          .with('user')
-                          .with('allAnswers')
-                          .with('allAnswers.user')
-                          .orderBy('id', 'desc')
-                          .first()
+      .where('id', params.id)
+      .with('user')
+      .with('allAnswers')
+      .with('allAnswers.user')
+      .orderBy('id', 'desc')
+      .first()
   }
 
   /**

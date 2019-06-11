@@ -125,10 +125,9 @@
                                             </div>
                                             </template> -->
                                             <!-- <a ><p @click="answerModalOpen(item,index)" >Answer this question</p></a> -->
-                                        
+                                        <p v-if="totalQuestion==1" class="all-que"><a @click="$router.push(`/question_details/${legendData.id}/${item.id}`)">View question details</a></p>
                                         </div>
-                                        <p v-if="totalQuestion==1" class="all-que"><a href="">View question details</a></p>
-                                        <p v-else class="all-que"><nuxt-link :to="{name: 'questionlist-id', params: { id:legendData.id } }" >See all {{totalQuestion}} questions for {{legendData.name}}</nuxt-link></p>
+                                        <p v-if="totalQuestion>1" class="all-que"><nuxt-link :to="{name: 'questionlist-id', params: { id:legendData.id } }" >See all {{totalQuestion}} questions for {{legendData.name}}</nuxt-link></p>
                                     </template>
                                     
                                     <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
@@ -801,6 +800,7 @@ export default {
             if(res.status===200){
                 this.s("Your question has been posted successfully!")
                 this.questionList.unshift(res.data)
+                this.totalQuestion++
                 this.askModal = false
             }
             else{

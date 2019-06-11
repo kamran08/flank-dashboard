@@ -99,9 +99,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <p v-if="totalQuestion==1" class="all-que"><a @click="$router.push(`/coach_question_details/${legendData.id}/${item.id}`)" >View question details</a></p>
                                         </div>
-                                        <p v-if="totalQuestion==1" class="all-que"><a href="">View question details</a></p>
-                                        <p v-else class="all-que"><nuxt-link :to="{name: 'coachquestionlist-id', params: { id:legendData.id } }" >See all {{totalQuestion}} questions for {{legendData.schoolName}}</nuxt-link></p>
+                                        <p v-if="totalQuestion>1" class="all-que"><nuxt-link :to="{name: 'coachquestionlist-id', params: { id:legendData.id } }" >See all {{totalQuestion}} questions for {{legendData.schoolName}}</nuxt-link></p>
                                     </template>
                                     
                                     <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
@@ -578,7 +578,8 @@ export default {
             const res = await this.callApi('post','/storequestions',this.askData)
             if(res.status===200){
                 this.s("Your question has been posted successfully!")
-                this.questionList.unshift(res.data)
+                this.questionList.push(res.data)
+                this.totalQuestion++
                 this.askModal = false
             }
             else{

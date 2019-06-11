@@ -8,10 +8,10 @@ class ProductQuestion extends Model {
     return this.belongsTo('App/Models/User', 'user_id', 'id')
   }
   answers () {
-    return this.hasMany('App/Models/Answer', 'id', 'question_id').limit(1)
+    return this.hasMany('App/Models/ProductAnswer', 'id', 'question_id').limit(1)
   }
   allAnswers () {
-    return this.hasMany('App/Models/Answer', 'id', 'question_id')
+    return this.hasMany('App/Models/ProductAnswer', 'id', 'question_id')
   }
 }
 

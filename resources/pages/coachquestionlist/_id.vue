@@ -79,11 +79,11 @@
                                         </div> -->
                                         <div class="media"  >
                                             <div class="media-left">
-                                                <img class="profile_picU" :src="(legendData.firstImage)? legendData.firstImage.url : '/uploads/default.png'" alt="">
+                                                <img class="profile_picU" :src="(legendData.logo)? legendData.logo : '/uploads/default.png'" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <h4><nuxt-link :to="{name: 'school-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></h4>
-                                                <div class="star-review">
+                                                <div class="star-review withEdit">
                                                     <p>
                                                         <span :class="(averageRating>0)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                         <span :class="(averageRating>1)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
@@ -210,10 +210,18 @@ export default {
 }
 </script>
 
+
 <style scoped>
      .profile_picU{
         width: 40px;
-    
+    }
+    .isloadingClass{
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+    }
+    .withEdit{
+        padding: 7px 2px;
     }
 </style>
 
