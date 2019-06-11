@@ -8,61 +8,53 @@
                         <h3>Showing {{pagination.page}} of {{( showCurrentPage)}}</h3>
                     </div>
                     <div class="find-page-nav">
-                        <ul class="filter">
+                        <!-- <ul class="filter">
+                            <li class="filter-list"><a href="" class="filter-action"><span><i class="far fa-clock"></i></span> Open Now</a>
+                                <ul class="filter-list-dropdown">
+                                    <li><a href="">Open now</a></li>
+                                    <li><a href="">Open now</a></li>
+                                    <li><a href="">Open now</a></li>
+                                </ul>
+                            </li>
                             <li class="filter-list" :class="(filterFlag)? 'active_ON': ''"  @click="filterFlagAction" ><span><i class="fas fa-random"></i></span> All Filters <span class="filter-tag tag-one">Show All Filters</span></li>
                             <li class="filter-list" v-if="pageOption == 'product'" >
-                                <ul>
+                                <ul class="filering-tag">
                                     <li :class="(price>0 && price<=9 )? 'active_ON' : ''" @click="changePriceType(9)" >$ <span class="filter-tag tag-two">Inexpensive</span></li>
                                     <li :class="(price>9 && price<=99 )? 'active_ON' : ''" @click="changePriceType(99)">$$ <span class="filter-tag tag-three">Moderate</span></li>
                                     <li :class="(price>99 && price<=999 )? 'active_ON' : ''" @click="changePriceType(999)">$$$ <span class="filter-tag tag-four">Pricey</span></li>
                                     <li :class="(price>999 && price<=9999 )? 'active_ON' : ''" @click="changePriceType(9999)">$$$$ <span class="filter-tag tag-five">Pricey</span></li>
                                 </ul>
                             </li>
-                             <!--<li class="filter-list"><span><i class="far fa-clock"></i></span> Open Now <span class="filter-tag tag-six">Find all business that are open now</span></li>
+                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Open Now <span class="filter-tag tag-six">Find all business that are open now</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Delivery <span class="filter-tag tag-seven">Restaurents that offer ordering on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Takeout <span class="filter-tag tag-eight">Restaurents that offer ordering on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Reservation <span class="filter-tag tag-nine">Restaurents that offer reservation on Flank</span></li>
-                            <li class="filter-list"><span><i class="far fa-clock"></i></span> Cash Back <span class="filter-tag tag-ten">Restaurents that let you join the waitlist remotely on Flank</span></li> -->
+                            <li class="filter-list"><span><i class="far fa-clock"></i></span> Cash Back <span class="filter-tag tag-ten">Restaurents that let you join the waitlist remotely on Flank</span></li>
+                        </ul> -->
+                        <ul class="filter">
+                            <h3>Sort by</h3>
+                            <li class="filter-list"><a  class="filter-action"><span></span>{{dropName}}</a>
+                                <ul>
+                                    <li  @click="changesSortType('normal')" ><a :class="(sort == 'normal')? 'active_ON': ''">Recomended</a></li>
+                                    <li @click="changesSortType('most')" ><a :class="(sort == 'most')? 'active_ON': ''" >Most Reviewed</a></li>
+                                    <li  @click="changesSortType('rated')" ><a :class="(sort == 'rated')? 'active_ON': ''" >Highest Rated</a></li>
+                                    <li @click="changesSortType('Worst')"><a :class="(sort == 'Worst')? 'active_ON': ''" >Worst Rated</a></li>
+                                </ul>
+                            </li>
+                            <li class="filter-list" @click="chnageType('legend')"><a  class="filter-action" :class="(pageOption == 'legend')? 'active_ON': ''" >Local Legend </a></li>
+                            <li class="filter-list" @click="chnageType('school')"><a  class="filter-action" :class="(pageOption == 'school')? 'active_ON': ''" >Schools </a></li>
+                            <li class="filter-list" @click="chnageType('coach')"><a  class="filter-action"  :class="(pageOption == 'coach')? 'active_ON': ''" >School Coaches </a></li>
+                            <li class="filter-list" @click="chnageType('product')"><a  class="filter-action" :class="(pageOption == 'product')? 'active_ON': ''"  >Products </a></li>
+                            <template v-if="pageOption == 'product'" >
+                                <li class="filter-list" @click="changePriceType(9)"><a  class="filter-action" :class="(price>0 && price<=9 )? 'active_ON' : ''"  >$ <span class="filter-tag tag-two">Inexpensive</span> </a></li>
+                                <li class="filter-list" @click="changePriceType(99)"><a  class="filter-action" :class="(price>9 && price<=99 )? 'active_ON' : ''"  >$$ <span class="filter-tag tag-two">Moderate</span> </a></li>
+                                <li class="filter-list" @click="changePriceType(999)"><a  class="filter-action" :class="(price>99 && price<=999 )? 'active_ON' : ''"  >$$$ <span class="filter-tag tag-two">Pricey</span> </a></li>
+                                <li class="filter-list" @click="changePriceType(9999)"><a  class="filter-action" :class="(price>999 && price<=9999 )? 'active_ON' : ''"  >$$$$ <span class="filter-tag tag-two">Pricey</span> </a></li>
+                            </template>
                         </ul>
                         <div class="filter-content" v-if="filterFlag" >
                             <div class="filter-content-inner">
-                                <div class="filter-item">
-                                    <div class="filter-item-title">
-                                        <h3>Sort By</h3>
-                                    </div>
-                                    <ul class="filter-item-list">
-                                        <li :class="(sort == 'normal')? '': 'active'" @click="changesSortType('normal')"><a >Recomended</a></li>
-                                        <li  :class="(sort == 'most')? '': 'active'" @click="changesSortType('most')"><a >Most Reviewed</a></li>
-                                        <li  :class="(sort == 'rated')? '': 'active'" @click="changesSortType('rated')"><a >Highest Rated</a></li>
-                                        <li  :class="(sort == 'Worst')? '': 'active'" @click="changesSortType('Worst')"><a >Worst Rated</a></li>
-                                        
-                                    </ul>
-                                </div>
-                                <div class="filter-item">
-                                    <div class="filter-item-title">
-                                        <h3>Search </h3>
-                                    </div>
-                                     <ul class="filter-item-list">
-                                        <li :class="(pageOption == 'legend')? '': 'active'" @click="chnageType('legend')" ><a >Local Legend</a></li>
-                                        <li :class="(pageOption == 'school')? '': 'active'" @click="chnageType('school')"><a >Schools</a></li>
-                                        <li :class="(pageOption == 'coach')? '': 'active'" @click="chnageType('coach')"><a >School Coaches</a></li>
-                                        <li :class="(pageOption == 'product')? '': 'active'" @click="chnageType('product')"><a >Products</a></li>
-                                    </ul>
-                                    <!-- <div class="filter-item-list">
-                                        <RadioGroup v-model="pageOption" vertical @on-change="SearchByKey" >
-                                            <Radio label="legend" >Local Legend</Radio>
-                                            <Radio label="school">Schools</Radio>
-                                            <Radio label="coach">School Coaches</Radio>
-                                            <Radio label="product">Products</Radio>
-                                        </RadioGroup>
-                                    </div> -->
-                                    <!-- <ul class="filter-item-list">
-                                        <li><input type="checkbox" id="check1"><label for="check1">Local Legend</label></li>
-                                        <li><input type="checkbox" id="check2"><label for="check2">Schools</label></li>
-                                        <li><input type="checkbox" id="check3"><label for="check3">School Coaches</label></li>
-                                        <li><input type="checkbox" id="check4"><label for="check4">Products</label></li>
-                                    </ul> -->
-                                </div>
+                                
                                 <!-- <div class="filter-item">
                                     <div class="filter-item-title">
                                         <h3>Distance</h3>
@@ -120,10 +112,10 @@
                                             <figure>
                                                 <img :src="item.img" alt="">
                                             </figure>
-                                            <div class="sponsor-media-carousel">
+                                            <!-- <div class="sponsor-media-carousel">
                                                 <span><i class="fas fa-chevron-left"></i></span>
                                                 <span><i class="fas fa-chevron-right"></i></span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
@@ -179,10 +171,10 @@
                                             <figure>
                                                 <img :src="item.img" alt="">
                                             </figure>
-                                            <div class="sponsor-media-carousel">
+                                            <!-- <div class="sponsor-media-carousel">
                                                 <span><i class="fas fa-chevron-left"></i></span>
                                                 <span><i class="fas fa-chevron-right"></i></span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
@@ -445,7 +437,8 @@ export default {
             sort:'normal',
             searchData:[],
             pagination:{},
-            isLoading:true
+            isLoading:true,
+            dropName:''
 
         }
     },
@@ -460,7 +453,18 @@ export default {
         },
         changesSortType(item){
             this.sort = item
+            this.changeSortName(item)
             this.SearchByKey()
+        },
+        changeSortName(item){
+            if(item == 'normal')
+                this.dropName = 'Recomended'
+            else if(item == 'most')
+                this.dropName = 'Most Reviewed'
+            else if(item == 'rated')
+                this.dropName = 'Highest Rated'
+            else if(item == 'Worst')
+                this.dropName = 'Worst Rated'
         },
         async SearchByKey(){
 
@@ -518,6 +522,7 @@ export default {
         this.str = (this.$route.query.str)? this.$route.query.str :''
         this.pageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'legend'
         this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
+         this.changeSortName(this.sort)
        await this.SearchByKey()
        this.isLoading = false
        // this. showCurrentPage = (Math.ceil(this.pagination.total)/(this.pagination.perPage)-this.pagination.page)

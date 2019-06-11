@@ -330,7 +330,8 @@ height: 100%; }
     border-top-right-radius: 3px;
   border: 1px solid #eee; }
     .lp.third-section .review-coach .review-photo figure img {
-      width: 100%; }
+      width: 100%;
+      height: 100%; }
 
 .figcap-border {
   border: 1px solid #eee;
@@ -3212,3 +3213,53 @@ h2 {
                  background: #0088cc !important;
                  color: #fff !important;
                }
+
+               .noReview {
+                 text-align: center;
+                 padding: 15px 0;
+                 color: #2c2c2c;
+               }
+
+               .scroll-review-sec {
+                 height: 179px;
+                 overflow-y: scroll;
+               }
+
+               .scroll-image-grid {
+                 padding: 15px 0;
+               }
+
+               .grid-full-item {
+                 width: 100%;
+                 height: 150px;
+                 overflow: hidden;
+               }
+
+               .grid-full-item img {
+                 width: 100%;
+                 height: auto;
+               }
+
+               .grid-half-item {
+                  display: flex;
+                  flex-flow: row;
+                  flex-wrap: wrap;
+                  justify-content: space-between;
+                  margin-top: 10px;
+              }
+
+              .grid-inner-flex {
+                  flex: 0 0 48%;
+                  max-width: 48%;
+              }
+
+              .grid-inner-flex img {
+                  width: 100%;
+              }
+
+              .filter-list-dropdown {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                z-index: 1;
+              }

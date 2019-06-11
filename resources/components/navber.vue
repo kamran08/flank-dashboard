@@ -53,8 +53,8 @@
                     <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                     <li><a href="">Download</a></li>
                 </ul>
-            </div> -->
-            
+            </div>
+            </nav> -->
             <Modal
                 v-model="reviewModal"
                 title="Riview Modal"
@@ -102,26 +102,20 @@
                     </div>
                 </div>
                 <div slot="footer">
-                    <Button @click="reviewModal = false">Close</Button> 
+                    <Button @click="closeModal">Close</Button> 
                     <Button type="success">Send</Button>
                 </div>
             </Modal>
-       </nav>
                <header>
             <div class="header-second"> 
                 <div class="container">
                     <a @click="$router.push(`/`)" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
                     <form action="#">
                         <div class="equal-div">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Find</span>
-                                <input type="text" class="form-control"  v-model="searchTxt" placeholder="Different type of Sport Coaches" aria-describedby="basic-addon1">
-                            </div>
                             <div class="input-group pageOption">
-                               <span class="input-group-addon position-top" id="basic-addon1">Coach</span>
+                                <span class="input-group-addon position-top" id="basic-addon1">Coach</span>
                                 <input type="text" class="form-control" v-model='pageOption' placeholder="Different type of Sport Coaches" >
-                                <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}&pageOption=${pageOption}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
-                                <div class="right-dropdown menu_dropDown_on_nav">
+                                <div class="right-dropdown menu_dropDown_on">
                                     <div class="menu_dropDown_on_main">
                                         <ul>
                                             <li @click="pageOption = 'school'" ><a ><i class="fas fa-running"></i>School</a></li>
@@ -132,7 +126,11 @@
                                     </div>
                                 </div>
                             </div>
-                           
+                            <div class="input-group" onclick="toggle_visibility('menu');">
+                                <span class="input-group-addon" id="basic-addon1">Find</span>
+                                <input type="text" class="form-control"  v-model="searchTxt" placeholder="Search any Attributes" aria-describedby="basic-addon1">
+                                <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}&pageOption=${pageOption}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                            </div>
                         </div>
                    </form>
                    <!-- <div class="pull-right">
@@ -221,9 +219,6 @@
                 
             }
         },
-        computed:{
-           
-        },
         async asyncData({app, store,redirect, params}){
             try {
                 let {data} = await app.$axios.get(`/legends/${params.id}`)
@@ -243,6 +238,18 @@
             }
         },
         methods:{
+            closeModal(){
+                this.rData.for=0
+                this.rData.key=''
+                this.rData.school=''
+                this.coachList=[]
+                this.schoolList=[]
+                this.schoolCoachList=[]
+                this.productList=[]
+                this.sData.school_id = 0
+
+                this.reviewModal = false
+            },
             async CreateNewCoach(){
                 if(this.sData.school == ''){
                     this.i('Please Write a Coach Name')
@@ -361,7 +368,7 @@
     display: none;
         width: 100% !important;
     left: 0 !important;
-    top: 45px !important;
+    top: 32px !important;
     z-index: 1;
 }
 .pageOption:hover .menu_dropDown_on {display: block;}

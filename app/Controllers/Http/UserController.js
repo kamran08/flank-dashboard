@@ -93,7 +93,10 @@ class UserController {
       .with('reviews', (builder) => {
         builder.limit(3)
       })
-      .with('reviews.reviewfor')
+      .with('reviews.legend')
+      .with('reviews.product')
+      .with('reviews.school')
+      .with('reviews.coach')
       .with('reviews.images')
       .with('imosCount')
     // .with('ratinginfo', (builder) => {

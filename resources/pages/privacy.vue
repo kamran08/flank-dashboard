@@ -3,7 +3,7 @@
         
         <!-- Header-->
         
-        <header>
+        <!-- <header>
             <div class="header-second">
                 <div class="container">
                     <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
@@ -102,7 +102,7 @@
                    </ul>
                </div>
             </div>
-        </header>
+        </header> -->
         
         <section class="abp second-section">
             <div class="container">

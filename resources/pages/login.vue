@@ -3,7 +3,7 @@
         
         <!-- Header-->
         
-        <header>
+        <!-- <header>
             <div class="header-second">
                 <div class="container">
                     <div class="img-center">
@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </header> -->
         
         <section class="second-section log-sign">
             <div class="container">

@@ -20,11 +20,11 @@ class Review extends Model {
   product () {
     return this.belongsTo('App/Models/Product', 'reviewFor')
   }
-  school () {
-    return this.belongsTo('App/Models/School', 'reviewFor')
-  }
   coach () {
-    return this.belongsTo('App/Models/SchoolCoach', 'school_id')
+    return this.belongsTo('App/Models/SchoolCoach', 'reviewFor')
+  }
+  school () {
+    return this.belongsTo('App/Models/School', 'school_id')
   }
   reviewforInfo () {
     return this.belongsTo('App/Models/Legend', 'reviewFor')

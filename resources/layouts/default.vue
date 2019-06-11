@@ -1,7 +1,7 @@
 <template>
   <div>
    <navber/>
-    <nuxt/>
+    <nuxt />
     <myFooter/>
   </div>
 </template>

@@ -125,15 +125,47 @@
                                 </div>
                                 <div class="profile-fill-review" v-for="(item,index) in userData.reviews" :key="index" >
                                     <div class="profile-item">
-                                            <div class="media">
+                                            <div class="media" v-if="item.review_type == 'legend'" >
                                                 <div class="media-left">
-                                                    <img class="media-object" :src="item.reviewfor.img" alt="">
+                                                    <img class="media-object profile_picU" :src="item.legend.img" alt="">
                                                 </div>
                                                 <div class="media-body">
-                                                    <p><strong><a >{{item.reviewfor.name}}</a></strong></p>
+                                                    <p><strong><a @click="$router.push(`profile/${item.legend.id}`)">{{item.legend.name}}</a></strong></p>
                                                     <!-- <small><a href="">Mexican</a></small> -->
                                                     <p>
-                                                        <small>{{item.reviewfor.address}}</small>
+                                                        <small>{{item.legend.address}}</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="media" v-if="item.review_type == 'product'" >
+                                                <div class="media-left">
+                                                    <img class="media-object profile_picU" :src="item.product.img" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <p><strong><a @click="$router.push(`product/${item.product.id}`)" >{{item.product.name}}</a></strong></p>
+                                                    <p>$<strong>{{item.product.price}}</strong></p>
+                                                    <!-- <small><a href="">Mexican</a></small> -->
+                                                    <p>
+                                                        <small>
+                                                            {{item.product.address}}
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="media" v-if="item.review_type == 'school'" >
+                                                <div class="media-left">
+                                                    <img class="media-object profile_picU" :src="item.school.logo" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <p>Coach Name: <strong>{{item.coach.name}}</strong></p>
+                                                    <p><strong><a @click="$router.push(`school/${item.school.id}`)" >{{item.school.schoolName}} | {{item.school.sport}} </a></strong></p>
+                                                    <!-- <small><a href="">Mexican</a></small> -->
+                                                    <p>
+                                                        <small>
+                                                             {{item.school.city}}
+                                                             {{(item.school.state)? ' ,'+item.school.state : '' }}
+                                                             {{(item.school.division)? ' ,'+item.school.division : '' }}
+                                                        </small>
                                                     </p>
                                                 </div>
                                             </div>
@@ -243,15 +275,47 @@
                                 </div>
                                 <div class="profile-fill-review" v-for="(item,index) in allReviews" :key="index" >
                                     <div class="profile-item">
-                                            <div class="media">
+                                           <div class="media" v-if="item.review_type == 'legend'" >
                                                 <div class="media-left">
-                                                    <img class="media-object" :src="item.reviewfor.img" alt="">
+                                                    <img class="media-object profile_picU" :src="item.legend.img" alt="">
                                                 </div>
                                                 <div class="media-body">
-                                                    <p><strong><a href="">{{item.reviewfor.name}}</a></strong></p>
+                                                    <p><strong><a @click="$router.push(`profile/${item.legend.id}`)">{{item.legend.name}}</a></strong></p>
                                                     <!-- <small><a href="">Mexican</a></small> -->
                                                     <p>
-                                                        <small>{{item.reviewfor.address}}</small>
+                                                        <small>{{item.legend.address}}</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="media" v-if="item.review_type == 'product'" >
+                                                <div class="media-left">
+                                                    <img class="media-object profile_picU" :src="item.product.img" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <p><strong><a @click="$router.push(`product/${item.product.id}`)" >{{item.product.name}}</a></strong></p>
+                                                    <p>$<strong>{{item.product.price}}</strong></p>
+                                                    <!-- <small><a href="">Mexican</a></small> -->
+                                                    <p>
+                                                        <small>
+                                                            {{item.product.address}}
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="media" v-if="item.review_type == 'school'" >
+                                                <div class="media-left">
+                                                    <img   class="media-object profile_picU" :src="item.school.logo" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <p>Coach Name: <strong>{{item.coach.name}}</strong></p>
+                                                    <p><strong><a @click="$router.push(`school/${item.school.id}`)" >{{item.school.schoolName}} | {{item.school.sport}} </a></strong></p>
+                                                    <!-- <small><a href="">Mexican</a></small> -->
+                                                    <p>
+                                                        <small>
+                                                             {{item.school.city}}
+                                                             {{(item.school.state)? ' ,'+item.school.state : '' }}
+                                                             {{(item.school.division)? ' ,'+item.school.division : '' }}
+                                                        </small>
                                                     </p>
                                                 </div>
                                             </div>

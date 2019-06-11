@@ -22,22 +22,26 @@
       .find-page-nav {
         float: left; } }
   
-  .filter {
+  /* .filter {
     display: table;
     margin-top: 20px; }
-    .filter li {
+    .filter .filter-list {
       display: inline-block;
-      padding: 10px 15px;
+      position: relative; }
+
+      .filter .filter-list .filter-action {
+        padding: 10px 15px;
       background: #fff;
       margin-right: 5px;
       border: 1px solid #ccc;
       border-radius: 3px;
       cursor: pointer;
-      position: relative; }
-      .filter li:hover {
+      display: block;
+      }
+      .filter .filter-list .filter-action:hover {
         -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
-      .filter li .filter-tag {
+      .filter .filter-list .filter-tag {
         background: black;
         color: #fff;
         position: absolute;
@@ -49,64 +53,64 @@
         border-radius: 5px;
         cursor: default;
         visibility: hidden; }
-        .filter li .filter-tag:after {
+        .filter .filter-list .filter-tag:after {
           content: "";
           position: absolute;
           border: 5px solid;
           border-color: black transparent transparent transparent;
           top: 100%;
           left: 50%; }
-      .filter li .tag-one {
+      .filter .filter-list .tag-one {
         width: 165px;
         left: -30px; }
-      .filter li .tag-two {
+      .filter .filter-list .tag-two {
         left: -40px; }
-      .filter li .tag-three {
+      .filter .filter-list .tag-three {
         left: -28px; }
-      .filter li .tag-four {
+      .filter .filter-list .tag-four {
         left: -15px; }
-      .filter li .tag-five {
+      .filter .filter-list .tag-five {
         left: -10px; }
-      .filter li .tag-six {
+      .filter .filter-list .tag-six {
         width: 280px;
         left: -85px; }
-      .filter li .tag-seven {
+      .filter .filter-list .tag-seven {
         width: 300px;
         left: -100px; }
-      .filter li .tag-eight {
+      .filter .filter-list .tag-eight {
         width: 300px;
         left: -100px; }
-      .filter li .tag-nine {
+      .filter .filter-list .tag-nine {
         width: 280px;
         left: -80px;
         top: -55px; }
-      .filter li .tag-ten {
+      .filter .filter-list .tag-ten {
         width: 295px;
         left: -90px;
         top: -55px; }
-      .filter li:hover {
+      .filter .filter-list:hover {
         -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
-        .filter li:hover .filter-tag {
+        .filter .filter-list:hover .filter-tag {
           visibility: visible; }
-    .filter li.filter-list:nth-child(2) {
+    .filter .filter-list:nth-child(2) {
       background: transparent;
       border: 0;
       padding: 0; }
-      .filter li.filter-list:nth-child(2):hover {
+      .filter .filter-list:nth-child(2):hover {
         -webkit-box-shadow: none;
         box-shadow: none; }
-      .filter li.filter-list:nth-child(2) ul {
+      .filter .filter-list:nth-child(2) .filering-tag {
         border: 1px solid #ccc;
         border-radius: 3px; }
-        .filter li.filter-list:nth-child(2) ul li {
+        .filter .filter-list:nth-child(2) .filering-tag li {
           margin: 0;
           margin-right: -5px;
           border: 0;
           border-right: 2px solid #ccc;
           border-radius: 0;
           position: relative; }
-          .filter li.filter-list:nth-child(2) ul li .filter-tag {
+          .filter .filter-list:nth-child(2) .filering-tag li .filter-tag {
             background: black;
             color: #fff;
             position: absolute;
@@ -117,18 +121,71 @@
             border-radius: 5px;
             cursor: default;
             visibility: hidden; }
-            .filter li.filter-list:nth-child(2) ul li .filter-tag:after {
+            .filter .filter-list:nth-child(2) .filering-tag li .filter-tag:after {
               content: "";
               position: absolute;
               border: 5px solid;
               border-color: black transparent transparent transparent;
               top: 100%;
               left: 50%; }
-          .filter li.filter-list:nth-child(2) ul li:hover .filter-tag {
+          .filter .filter-list:nth-child(2) .filering-tag li:hover .filter-tag {
             visibility: visible; }
-        .filter li.filter-list:nth-child(2) ul li:last-child {
+        .filter .filter-list:nth-child(2) .filering-tag li:last-child {
           margin-right: 0;
-          border-right: 0; }
+          border-right: 0; } */
+
+          .filter {
+            display: table;
+            margin-top: 15px;
+          }
+
+          .filter-list {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            position: relative;
+          }
+          .filter-action {
+            padding: 10px 15px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: block;
+          }
+          
+        .filter-list ul {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          z-index: 1;
+          background: #fff;
+          border: 1px solid #ddd;
+          width: 100%;
+          display: none;
+        }
+
+        .filter-list ul li a {
+          display: block;
+          padding: 5px 10px;
+          border-bottom: 1px solid #ddd;
+        }
+
+        .filter-list ul li {
+          list-style: none;
+        }
+
+        .filter-list ul li:last-child a {
+          border-bottom: 0;
+        }
+
+        .filter-list:hover ul {
+          display: block;
+        }
+
+        .filter h3 {
+          display: inline-block;
+          margin-right: 10px;
+        }
   
   .bg-border-bottom {
     border-bottom: 1px solid #e6e6e6; }

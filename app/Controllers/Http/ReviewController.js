@@ -12,7 +12,6 @@ const Reviewimo = use('App/Models/Reviewimo')
 const CoachImo = use('App/Models/CoachImo')
 const ReviewImage = use('App/Models/ReviewImage')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
-const RecentReview = use('App/Models/RecentReview')
 const ProductReview = use('App/Models/ProductReview')
 const ProductImo = use('App/Models/ProductImo')
 
@@ -153,11 +152,14 @@ class ReviewController {
 
     return tempData
   }
-  async getUserallReview ({ params, request, response, auth }) {
-    let page = request.input('page') ? request.input('page') : 1
+  async getUserallReview ({ params, request, response, auth }) { 
+    let page = request.input('page') ? request.input('page') : 1 
 
     let mdata = Review.query().where('reviwer_id', params.id)
-      .with('reviewfor')
+      .with('legend')
+      .with('product')
+      .with('school')
+      .with('coach')
       .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
       .with('imos')
       .with('images')
@@ -490,6 +492,10 @@ class ReviewController {
     
     let data = await Review.query()
       .with('reviwer')
+      .with('legend')
+      .with('product')
+      .with('school')
+      .with('coach')
       .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
       .with('imos')
       .with('images')
@@ -518,9 +524,6 @@ class ReviewController {
     }
 
     return tempData
-    return await Review.query()
-      .with('reviwer')
-      
   }
 }
 

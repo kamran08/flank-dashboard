@@ -144,9 +144,9 @@
                                         </div>
                                         <div class="flip-card">
                                             <div class="row">
-                                                <div class="col-md-4" v-for="(item,index) in coaches" :key="index"  >
+                                                <div class="col-md-4" v-for="(item,index) in coaches" :key="index" v-if="item.id==coach_id || coach_id==-1"  >
                                                     <div class="flip-card-indi" >
-                                                        <template  v-if="item.id==coach_id || coach_id==-1"  >
+                                                        <template   >
                                                             <div class="card-main" :class="(flip==index)? 'hide-card-main': ''"  >
                                                                 <h3><span>Name:</span>{{item.name}}</h3>
                                                                 <div class="card-toggle-button" @click="getcoachatrributeConteptData(item.id,index)" >
