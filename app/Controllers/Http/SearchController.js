@@ -16,7 +16,7 @@ class SearchController {
     let page = request.input('page') ? request.input('page') : 1
     let price = request.input('price') ? request.input('price') : ''
     let sort = request.input('sort') ? request.input('sort') : ''
-    let pageOption = request.input('pageOption')
+    let pageOption = request.input('pageOption') ? request.input('pageOption') : 'legend'
 
     let data = {}
     if (pageOption == 'legend') {

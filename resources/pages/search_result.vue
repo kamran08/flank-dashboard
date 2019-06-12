@@ -31,25 +31,33 @@
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Reservation <span class="filter-tag tag-nine">Restaurents that offer reservation on Flank</span></li>
                             <li class="filter-list"><span><i class="far fa-clock"></i></span> Cash Back <span class="filter-tag tag-ten">Restaurents that let you join the waitlist remotely on Flank</span></li>
                         </ul> -->
+                        <h3>Search Profile of <span><i class="fas fa-chevron-down"></i></span></h3>
                         <ul class="filter">
-                            <h3>Sort by</h3>
-                            <li class="filter-list"><a  class="filter-action"><span></span>{{dropName}}</a>
+                            
+                            <li class="filter-list" @click="chnageType('legend')"><a  class="filter-action" :class="(pageOptinoInfo == 'legend')? 'active_ON': ''" >Local Legend </a></li>
+                            <li class="filter-list" @click="chnageType('school')"><a  class="filter-action" :class="(pageOptinoInfo == 'school')? 'active_ON': ''" >Schools </a></li>
+                            <li class="filter-list" @click="chnageType('coach')"><a  class="filter-action"  :class="(pageOptinoInfo == 'coach')? 'active_ON': ''" >School Coaches </a></li>
+                            <li class="filter-list" @click="chnageType('product')"><a  class="filter-action" :class="(pageOptinoInfo == 'product')? 'active_ON': ''"  >Products </a></li>
+                        </ul>
+                        <h3>Filter <span><i class="fas fa-chevron-down"></i></span></h3>
+                        <ul class="filter">
+                            <!-- <li class="filter-list"><a  class="filter-action"><span></span>{{dropName}}</a>
                                 <ul>
-                                    <li  @click="changesSortType('normal')" ><a :class="(sort == 'normal')? 'active_ON': ''">Recomended</a></li>
-                                    <li @click="changesSortType('most')" ><a :class="(sort == 'most')? 'active_ON': ''" >Most Reviewed</a></li>
-                                    <li  @click="changesSortType('rated')" ><a :class="(sort == 'rated')? 'active_ON': ''" >Highest Rated</a></li>
-                                    <li @click="changesSortType('Worst')"><a :class="(sort == 'Worst')? 'active_ON': ''" >Worst Rated</a></li>
+                                    <li   ><a :class="(sort == '')? 'active_ON': ''"></a></li> 
+                                    <li  ><a :class="(sort == '')? 'active_ON': ''" ></a></li>
+                                    <li   ><a :class="(sort == '')? 'active_ON': ''" ></a></li>
+                                    <li><a :class="(sort == '')? 'active_ON': ''" ></a></li>
                                 </ul>
-                            </li>
-                            <li class="filter-list" @click="chnageType('legend')"><a  class="filter-action" :class="(pageOption == 'legend')? 'active_ON': ''" >Local Legend </a></li>
-                            <li class="filter-list" @click="chnageType('school')"><a  class="filter-action" :class="(pageOption == 'school')? 'active_ON': ''" >Schools </a></li>
-                            <li class="filter-list" @click="chnageType('coach')"><a  class="filter-action"  :class="(pageOption == 'coach')? 'active_ON': ''" >School Coaches </a></li>
-                            <li class="filter-list" @click="chnageType('product')"><a  class="filter-action" :class="(pageOption == 'product')? 'active_ON': ''"  >Products </a></li>
-                            <template v-if="pageOption == 'product'" >
-                                <li class="filter-list" @click="changePriceType(9)"><a  class="filter-action" :class="(price>0 && price<=9 )? 'active_ON' : ''"  >$ <span class="filter-tag tag-two">Inexpensive</span> </a></li>
-                                <li class="filter-list" @click="changePriceType(99)"><a  class="filter-action" :class="(price>9 && price<=99 )? 'active_ON' : ''"  >$$ <span class="filter-tag tag-two">Moderate</span> </a></li>
-                                <li class="filter-list" @click="changePriceType(999)"><a  class="filter-action" :class="(price>99 && price<=999 )? 'active_ON' : ''"  >$$$ <span class="filter-tag tag-two">Pricey</span> </a></li>
-                                <li class="filter-list" @click="changePriceType(9999)"><a  class="filter-action" :class="(price>999 && price<=9999 )? 'active_ON' : ''"  >$$$$ <span class="filter-tag tag-two">Pricey</span> </a></li>
+                            </li> -->
+                            <li class="filter-list" @click="changesSortType('normal')"><a  class="filter-action" :class="(sort == 'normal')? 'active_ON': ''" >Recomended</a></li>
+                            <li class="filter-list" @click="changesSortType('most')"><a  class="filter-action" :class="(sort == 'most')? 'active_ON': ''" >Most Reviewed</a></li>
+                            <li class="filter-list" @click="changesSortType('rated')"><a  class="filter-action"  :class="(sort == 'rated')? 'active_ON': ''" >Highest Rated</a></li>
+                            <li class="filter-list" @click="changesSortType('Worst')"><a  class="filter-action" :class="(sort == 'Worst')? 'active_ON': ''"  >Worst Rated</a></li>
+                            <template v-if="pageOptinoInfo == 'product'" >
+                                <li class="filter-list" @click="changePriceType(9)"><a  class="filter-action" :class="(price>0 && price<=9 )? 'active_ON' : ''"  >$</a></li>
+                                <li class="filter-list" @click="changePriceType(99)"><a  class="filter-action" :class="(price>9 && price<=99 )? 'active_ON' : ''"  >$$</a></li>
+                                <li class="filter-list" @click="changePriceType(999)"><a  class="filter-action" :class="(price>99 && price<=999 )? 'active_ON' : ''"  >$$$</a></li>
+                                <li class="filter-list" @click="changePriceType(9999)"><a  class="filter-action" :class="(price>999 && price<=9999 )? 'active_ON' : ''"  >$$$$</a></li>
                             </template>
                         </ul>
                         <div class="filter-content" v-if="filterFlag" >
@@ -106,7 +114,8 @@
                                 <div class="sponsor-title">
                                     <h2>All Results</h2>
                                 </div>
-                                <div class="sponsor-all-list" v-if="pageOption == 'legend'">
+                               
+                                <div class="sponsor-all-list" v-if="pageOptinoInfo == 'legend'">
                                     <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index" >
                                         <div class="sponsor-media-left">
                                             <figure>
@@ -119,7 +128,7 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3 v-if="pageOption=='legend'" ><span>{{index+1}}.</span> <a @click="$router.push(`profile/${item.id}`)" >{{item.name}}</a></h3>
+                                                <h3 v-if="pageOptinoInfo=='legend'" ><span>{{index+1}}.</span> <a @click="$router.push(`profile/${item.id}`)" >{{item.name}}</a></h3>
                                                 <div class="badge-review">
                                                     <p>
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
@@ -165,7 +174,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="sponsor-all-list" v-if="pageOption == 'product'">
+                                <div class="sponsor-all-list" v-if="pageOptinoInfo == 'product'">
                                     <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index" >
                                         <div class="sponsor-media-left">
                                             <figure>
@@ -178,7 +187,7 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3 v-if="pageOption=='product'" ><span>{{index+1}}.</span> <a @click="$router.push(`product/${item.id}`)" >{{item.name}}</a></h3>
+                                                <h3 v-if="pageOptinoInfo =='product'" ><span>{{index+1}}.</span> <a @click="$router.push(`product/${item.id}`)" >{{item.name}}</a></h3>
                                                 <div class="badge-review">
                                                     <p>
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
@@ -224,7 +233,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="sponsor-all-list" v-if="pageOption == 'coach'">
+                                <div class="sponsor-all-list" v-if="pageOptinoInfo == 'coach'">
                                     <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index"  v-if="item.school">
                                         <div class="sponsor-media-left">
                                             <figure >
@@ -286,7 +295,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="sponsor-all-list" v-if="pageOption == 'school'">
+                                <div class="sponsor-all-list" v-if="pageOptinoInfo == 'school'">
                                     <div class="sponsor-media sponsor-item" v-for="(item,index) in searchData" :key="index" >
                                         <div class="sponsor-media-left">
                                             <figure>
@@ -348,12 +357,64 @@
                             </div>
                             <div v-else-if="isLoading" >
                                 <div class="sponsor-title">
-                                    <h2>Content is Loading....</h2>
+                                     <div class="sponsor-media sponsor-item">
+                                    <div class="sponsor-media-left animated-img">
+                                        <figure></figure>
+                                    </div>
+                                    <div class="sponsor-media-body">
+                                        <div class="body-part-one">
+                                            <div class="text-one"></div>
+                                            <div class="text-two"></div>
+                                            <div class="text-three"></div>
+                                        </div>
+                                        <div class="body-part-two">
+                                            <div class="text-four"></div>
+                                            <div class="text-five"></div>
+                                        </div>
+                                        <div class="body-para">
+                                            <div class="text-six"></div>
+                                            <div class="text-seven"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="sponsor-title">
+                                     <div class="sponsor-media sponsor-item">
+                                    <div class="sponsor-media-left animated-img">
+                                        <figure></figure>
+                                    </div>
+                                    <div class="sponsor-media-body">
+                                        <div class="body-part-one">
+                                            <div class="text-one"></div>
+                                            <div class="text-two"></div>
+                                            <div class="text-three"></div>
+                                        </div>
+                                        <div class="body-part-two">
+                                            <div class="text-four"></div>
+                                            <div class="text-five"></div>
+                                        </div>
+                                        <div class="body-para">
+                                            <div class="text-six"></div>
+                                            <div class="text-seven"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                             <div v-else>
                                 <div class="sponsor-title">
-                                    <h2>NO Content....</h2>
+                                    <div class="sponsor-title">
+                                     <div class="sponsor-media sponsor-item">
+                                    
+                                    <div class="sponsor-media-body">
+                                        
+                                        <div class="body-para">
+                                            <div class="text-six_extra"><h3  style="padding: 12px 22px;">We couldn't find anything.....</h3></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                   
                                 </div>
                             </div>
                             <!-- <div class="city-related-topic">
@@ -420,6 +481,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
     data(){
         return{
@@ -435,8 +497,6 @@ export default {
             iam:false,
             showCurrentPage:0,
             sort:'normal',
-            searchData:[],
-            pagination:{},
             isLoading:true,
             dropName:''
 
@@ -468,32 +528,39 @@ export default {
         },
         async SearchByKey(){
 
-            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}`)
+            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}`)
             if(res.status === 200){
-                this.searchData = res.data.data
-                this.pagination = res.data 
-                delete this.pagination.data
+                this.$store.commit('setPageOptino', this.pageOption )
+                this.$store.commit('setSearchData', res.data.data)
+                delete res.data.data
+                this.$store.commit('setPagination', res.data )
+                
                 this.sstr = this.str
                 this.splace = this.place
                 this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
+                this.isLoading = false
             }
             else{
                 this.swr();
+                this.isLoading = false
             }
         },
         async paginateDataInfo(e){
             this.page = e
              const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}`)
             if(res.status === 200){
-                this.searchData = res.data.data
-                this.pagination = res.data 
-                delete this.pagination.data
+                 this.$store.commit('setPageOptino', this.pageOption )
+                this.$store.commit('setSearchData', res.data.data)
+                delete res.data.data
+                this.$store.commit('setPagination', res.data )
                 this.sstr = this.str
                 this.splace = this.place
                 this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
+                this.isLoading = false
             }
             else{
                 this.swr();
+                this.isLoading = false
             }
         },
         filterFlagAction(){
@@ -516,16 +583,26 @@ export default {
 //             return redirect('/')
 // 		}
 //    },
+    computed: {
+        ...mapGetters({
+        searchData: 'getSearchData',
+        pagination: 'getPagination',
+        pageOptinoInfo: 'getPageOptino'
+        })
+    },
    async  created(){
        
         this.place = (this.$route.query.place)? this.$route.query.place : ''
         this.str = (this.$route.query.str)? this.$route.query.str :''
         this.pageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'legend'
         this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
-         this.changeSortName(this.sort)
-       await this.SearchByKey()
-       this.isLoading = false
-       // this. showCurrentPage = (Math.ceil(this.pagination.total)/(this.pagination.perPage)-this.pagination.page)
+       
+
+        this.changeSortName(this.sort)
+        
+            await this.SearchByKey()
+        this.isLoading = false
+        // this. showCurrentPage = (Math.ceil(this.pagination.total)/(this.pagination.perPage)-this.pagination.page)
 
     }
 

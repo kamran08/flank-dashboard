@@ -250,67 +250,75 @@
                                                     
                                                 </p>
                                             </div>
-                                            <hr>
                                              <template v-if="reviews.length>0 && isLoading==false " >
-                                                <div class="review-final" v-for="(item,index) in reviews" :key="index" >
-                                                    <div class="row">
-                                                        <div class="col-md-5 col-sm-5">
-                                                            <div class="media">
-                                                                <div class="media-left">
-                                                                    <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <p><strong>{{item.reviwer.firstName}}</strong></p>
-                                                                    <small><strong>{{item.reviwer.address}}</strong></small>
-                                                                    <p>
-                                                                        <span><i class="fas fa-star"></i>&nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}</span>
-                                                                        <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span>
-                                                                        <span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span> -->
-                                                                        </p>
-                                                                </div>
+                                            <div class="review-final" v-for="(item,index) in reviews" :key="index" >
+                                                <div class="row">
+                                                    <div class="review-final-card">
+                                                        <div class="col-md-3 col-sm-3">
+                                                        <div class="media">
+                                                            <div class="media-left">
+                                                                <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            
-                                                            <div class="read-review">
-                                                                <div class="star-review">
-                                                                    <p>
-                                                                        <span :class="(item.rating>0)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                        <span :class="(item.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                        <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                        <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                        <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                        &nbsp;<small>3/3/2019</small>
+                                                            <div class="media-body">
+                                                                <p><strong>{{item.reviwer.firstName}}</strong></p>
+                                                                <small><strong>{{item.reviwer.address}}</strong></small>
+                                                                <p>
+                                                                    <span><i class="fas fa-star"></i>&nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}</span>
+                                                                    <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span>
+                                                                    <span><span><i class="fas fa-camera"></i>&nbsp;1304</span></span> -->
                                                                     </p>
-                                                                </div>
-                                                                <p>{{item.content}}</p>
-                                                                <div class="profile-gallary">
-                                                                    <ul>
-                                                                        <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
-                                                                        <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
-                                                                        <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <p id="resultReview"><strong>Was the review...?</strong></p>
-                                                                <ul>
-                                                                    <template v-if="item.imos" >
-                                                                        <li  @click="reviewImo('cool',index,item.imos)" :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
-                                                                        <li  @click="reviewImo('funny',index,item.imos)" :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
-                                                                        <li  @click="reviewImo('useful',index,item.imos)" :class="(item.imos.auseful)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</li>
-                                                                    </template>
-                                                                </ul>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-9 col-sm-9">
+                                                        <div class="read-review">
+                                                            <div class="star-review">
+                                                                <p>
+                                                                    <span :class="(item.rating>0)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
+                                                                    &nbsp;<small>{{item.created_at}}</small>
+                                                                </p>
+                                                            </div>
+                                                            <p>{{item.content}}</p>
+                                                            <div class="profile-carousel"  style="margin-top: 20px;" v-if="item.images.length>0" >
+                                                                <template>
+                                                                <Carousel autoplay v-model="value2" loop>
+                                                                    <CarouselItem v-if="item.images[0]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[0].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem >
+                                                                    <CarouselItem v-if="item.images[1]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[1].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem>
+                                                                   <CarouselItem v-if="item.images[2]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[2].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem>
+                                                                </Carousel>
+                                                            </template>
+                                                            </div>
+                                                            <!-- <div class="profile-gallary">
+                                                                <ul>
+                                                                    <li  ><a :href="item.images[0].url"><img ></a></li>
+                                                                    <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
+                                                                    <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
+                                                                </ul>
+                                                            </div> -->
+                                                            <p id="resultReview" style="margin-top: 20px;"><strong>Was the review...?</strong></p>
+                                                            <ul class="section-item-review">
+                                                                <template v-if="item.imos" >
+                                                                    <li  @click="reviewImo('cool',index,item.imos)" :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
+                                                                    <li  @click="reviewImo('funny',index,item.imos)" :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
+                                                                    <li  @click="reviewImo('useful',index,item.imos)" :class="(item.imos.auseful)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</li>
+                                                                </template>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                 </div>
-                                                <hr>
-                                                    <div class="text-center ">
-                                                        <div class="pagination-padding">
-                                                            <Page :current="rpagination.page" :total="rpagination.total" @on-change="setPage($event)" :page-size="rpagination.perPage" />
-                                                        </div>
-                                                    </div>
-                                                <hr>
-                                            </template>
+                                            </div>
+                                        </template>
                                             <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
                                             <h4 v-else class="noReview" >No Review for {{productData.name}}</h4>
                                         </div>
@@ -742,7 +750,7 @@ export default {
             }
 		}catch (error) {
             console.log(error)
-            // return redirect('/')
+             return redirect('/')
 		}
     },
    async created(){

@@ -118,16 +118,16 @@
                                     <hr> -->
                                 </div>
                                 <div class="reviewItem">
-                                    <h2>Recommended Reviews <span>for Coaches</span></h2>
+                                    <h2>{{legendData.schoolName}} | {{legendData.sport}} <span> Coaches</span></h2>
                                     <hr>
                                     <div class="searchByReview">
                                         <div class="searchReview">
                                                 <div class="input-grp">
                                                     <!-- <input type="text" class="form-control"   placeholder="Search within the reviews">
                                                     <button @click="pageniateReview" ><i class="fas fa-search"></i></button> -->
-                                                        <Select v-model="coach_id" filterable @on-change="pageniateReview" style="width: 50%;">
+                                                        <Select v-model="coach_index" filterable @on-change="pageniateReview" style="width: 50%;" placeholder="Select Any Coaches" >
                                                             <Option value="-1">All</Option>
-                                                            <Option v-for="(item,index) in coaches" :value="item.id" :key="index">{{ item.name }}</Option>
+                                                            <Option v-for="(item,index) in coaches" :value="index" :key="index">{{ item.name }}</Option>
                                                         </Select>
                                                     
                                                 </div>
@@ -149,17 +149,18 @@
                                                         <template   >
                                                             <div class="card-main" :class="(flip==index)? 'hide-card-main': ''"  >
                                                                 <h3><span>Name:</span>{{item.name}}</h3>
-                                                                <div class="card-toggle-button" @click="getcoachatrributeConteptData(item.id,index)" >
-                                                                    <button  >Click here</button>
+                                                                <div class="card-toggle-button"  >
+                                                                    <button @click="getcoachatrributeConteptData(item.id,index)"  >Click here</button>
+                                                                    <button @click="$router.push(`/scoach_review/${item.id}`)" >Give Review</button>
                                                                 </div>
                                                             </div>
                                                             <div class="flipped-card" :class="(flip==index)? 'flipped-active-card': ''" >
                                                                 <span class="close-flip" @click="flip=-1" ><i class="fas fa-times"></i></span>
-                                                                <div class="business-info-sec reviewComment">
+                                                                <div class="business-info-sec ">
                                                                     <h3>More  info</h3>
                                                                     <div class="business-name" v-if="atrrtributepoint.length>0  && isLoading==false " >
                                                                         <ul>
-                                                                            <li v-for="(item,index) in atrrtributepoint" :key="index" ><span><i class="fas fa-plus"></i>&nbsp;&nbsp;<span>{{item.content}} <strong>{{item | totalPercent}}</strong></span></span></li>
+                                                                            <li v-for="(item,index) in atrrtributepoint" :key="index" ><span style="display: flex;"><i class="fas fa-plus" style="margin-top: 5px; font-size: 13px;"></i>&nbsp;&nbsp;<span style="font-size: 13px;">{{item.content}} <strong>{{item | totalPercent}}</strong></span></span></li>
                                                                         </ul>
                                                                     </div>
                                                                     <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
@@ -171,14 +172,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <h2>Recommended Reviews <span>for Coaches</span></h2>
                                         <hr style="margin-bottom: 20px;">
                                         <div class="reviewOptionSort">
-                                            <div class="sortTagFlank">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i></span>
+                                            <div class="sortTagFlank">
+                                                <!-- Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i></span>
                                                 <ul>
                                                     <li><a href="">Flank Sort</a></li>
                                                     <li><a href="">Newest Sort</a></li>
                                                 </ul>
-                                                </strong>
+                                                </strong> -->
                                             </div>
                                             <div class="searchReview">
                                                 <form v-on:submit.prevent>
@@ -190,7 +193,8 @@
                                         <template v-if="reviews.length>0 && isLoading==false " >
                                             <div class="review-final" v-for="(item,index) in reviews" :key="index" >
                                                 <div class="row">
-                                                    <div class="col-md-5 col-sm-5">
+                                                    <div class="review-final-card">
+                                                        <div class="col-md-3 col-sm-3">
                                                         <div class="media">
                                                             <div class="media-left">
                                                                 <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
@@ -206,35 +210,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-7 col-sm-7">
+                                                    <div class="col-md-9 col-sm-9">
                                                         
-                                                        <div class="read-review">
-                                                            <div class="star-review">
-                                                                <p>
-                                                                    <span :class="(item.rating>0)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                    <span :class="(item.rating>1)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                    <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                    <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                    <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                    &nbsp;<small>3/3/2019</small>
-                                                                </p>
-                                                            </div>
-                                                            <p>{{item.content}}</p>
-                                                            <div class="profile-gallary">
-                                                                <ul>
-                                                                    <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
-                                                                    <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
-                                                                    <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <p id="resultReview"><strong>Was the review...?</strong></p>
-                                                            <ul>
-                                                                <template v-if="item.imos" >
-                                                                    <li  @click="reviewImo('cool',index,item.imos)" :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
-                                                                    <li  @click="reviewImo('funny',index,item.imos)" :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
-                                                                    <li  @click="reviewImo('useful',index,item.imos)" :class="(item.imos.auseful)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</li>
-                                                                </template>
-                                                            </ul>
+                                                        <div data-v-2c068581="" class="read-review"><div data-v-2c068581="" class="star-review"><p data-v-2c068581=""><span data-v-2c068581="" class="high rating-bg"><i data-v-2c068581="" class="fas fa-star"></i></span> <span data-v-2c068581="" class="high rating-bg"><i data-v-2c068581="" class="fas fa-star"></i></span> <span data-v-2c068581="" class="high rating-bg"><i data-v-2c068581="" class="fas fa-star"></i></span> <span data-v-2c068581="" class="high rating-bg"><i data-v-2c068581="" class="fas fa-star"></i></span> <span data-v-2c068581="" class="high rating-bg"><i data-v-2c068581="" class="fas fa-star"></i></span>
+                                                                &nbsp;<small data-v-2c068581="">3/3/2019</small></p></div> <p data-v-2c068581="">This is Good/orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but </p> <div data-v-2c068581="" class="profile-carousel" style="margin-top: 20px;"><div data-v-2c068581="" class="ivu-carousel"><button type="button" class="left ivu-carousel-arrow ivu-carousel-arrow-hover"><i class="ivu-icon ivu-icon-ios-arrow-back"></i></button> <div class="ivu-carousel-list"><div class="ivu-carousel-track" style="width: 1920px; transform: translate3d(-1920px, 0px, 0px); transition: transform 500ms ease 0s;"><div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div> <div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div> <div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div> <div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div></div> <div class="ivu-carousel-track higher" style="width: 1920px; transform: translate3d(-1px, 0px, 0px); transition: transform 500ms ease 0s; position: absolute; top: 0px;"><div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div> <div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div> <div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div> <div data-v-2c068581="" class="ivu-carousel-item" style="width: 480px; height: auto; left: 0px;"><div data-v-2c068581="" class="demo-carousel" style="width: 100%; height: 350px;"><img data-v-2c068581="" src="/image/300s.jpg" alt="" style="width: 100%;"></div></div></div></div> <button type="button" class="right ivu-carousel-arrow ivu-carousel-arrow-hover"><i class="ivu-icon ivu-icon-ios-arrow-forward"></i></button> <ul class="ivu-carousel-dots ivu-carousel-dots-inside"><li class="ivu-carousel-active"><button type="button" class=""></button></li><li class=""><button type="button" class=""></button></li><li class=""><button type="button" class=""></button></li><li class=""><button type="button" class=""></button></li></ul></div></div> <p data-v-2c068581="" id="resultReview" style="margin-top: 20px;"><strong data-v-2c068581="">Was the review...?</strong></p> <ul data-v-2c068581="" class="section-item-review"><li data-v-2c068581="" class=""><i data-v-2c068581="" class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;0</li> <li data-v-2c068581="" class=""><i data-v-2c068581="" class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;0</li> <li data-v-2c068581="" class=""><i data-v-2c068581="" class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;0</li></ul></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -248,12 +227,16 @@
                                             <hr>
                                         </template>
                                           <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
-                                          <h4 v-else class="noReview" >No Review for {{legendData.schoolName}}'s Coaches</h4>
+                                          <h4 v-else class="noReview" >
+                                              <span v-if="coach_id == -1" >There is no Review for {{legendData.schoolName}}'s Coaches</span>
+                                              <span v-else >There is no Review for {{coaches[coach_index].name}}</span>
+                                              
+                                              </h4>
                                    
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 reviewComment">
+                            <div class="col-md-4 " style="margin-top: 20px;">
                                 <div class="review-time-content">
                                     <ul>
                                         <li>
@@ -484,8 +467,10 @@ export default {
             isLoading:true,
             flip:-1,
             coach_id:-1,
+            coach_index:-1,
             page:1,
             str:'',
+            value2: 0,
         }
     },
     methods:{
@@ -512,6 +497,9 @@ export default {
         },
         async pageniateReview(){
             console.log( ' aim here')
+            if(this.coach_index != '-1'){
+                this.coach_id = this.coaches[this.coach_index].id
+            }
            let link = `/app/SchoolCoachReview/${this.$route.params.id}?page=${this.page}&str=${this.str}`
            if(this.coach_id != -1){
                link = link+`&coach=${this.coach_id}`
@@ -657,7 +645,7 @@ export default {
         },
         async getcoachatrributeConteptData(id,index){
             this.atrrtributepoint = []
-
+            this.coach_index = index
             const res = await this.callApi('get', `/app/coachatrributeConteptData/${id}`)
             if(res.status == 200){
                 this.atrrtributepoint = res.data

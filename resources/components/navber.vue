@@ -57,8 +57,9 @@
             </nav> -->
             <Modal
                 v-model="reviewModal"
-                title="Riview Modal"
+                title="Start Your Review "
                 width='500'
+                
                 >
                 <div class="row">
                     <div class="col-md-12">
@@ -70,17 +71,23 @@
                                 <div class="btn-role"  @click="rData.for=3"  ><Button :class="(rData.for == 3)? 'act-btn': ''" >Product</Button></div>
                             </div>
                             <template v-if="rData.for == 2" >
-                                <Input v-model="rData.key" placeholder="Enter Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
+                                <Input v-model="lData.key" placeholder="Enter Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
                                 <div v-if="coachList.length>0" style="border: 1px solid #0088cc;">
-                                    <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="goToLegendWall(item)" >{{item.name}}</p>
-                               
+                                    <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="selectLegendWall(item)" >{{item.name}}</p>
+                                </div>
+                                <div class="text-center m-2">
+                                    <Button  v-if="legendButton && coachList.length==0" type="dashed" @click="goToLegendWall">Continue</Button>
+                                    <Button v-else type="dashed" disabled>Continue</Button>
                                 </div>
                             </template>
                             <template v-if="rData.for ==3" >
-                                <Input v-model="rData.key" placeholder="Enter Product" style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyProduct" />
+                                <Input v-model="pData.key" placeholder="Enter Product" style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyProduct" />
                                 <div v-if="productList.length>0" style="border: 1px solid #0088cc;">
-                                    <p  class="pointer_like" v-for="(item,index) in productList" :key="index" @click="goToProductWall(item)" >{{item.name}}</p>
-                               
+                                    <p  class="pointer_like" v-for="(item,index) in productList" :key="index" @click="selectProductWall(item)" >{{item.name}}</p>
+                                </div>
+                                 <div class="text-center m-2">
+                                    <Button  v-if="productButton && productList.length==0" type="dashed" @click="goToProductWall">Continue</Button>
+                                    <Button v-else type="dashed" disabled>Continue</Button>
                                 </div>
                             </template>
                             <template v-else-if="rData.for==1" >
@@ -93,9 +100,13 @@
                                     <hr>
                                     <Input v-model="rData.key" placeholder="Enter School Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"  @on-keyup="SearchByKeySchoolCoach" />
                                     <div v-if="schoolCoachList.length>0 && sData.school !='' " style="border: 1px solid #0088cc;">
-                                        <p  class="pointer_like" v-for="(item,index) in schoolCoachList" :key="index" @click="goToCoachWall(item)" >{{item.name}}</p>
+                                        <p  class="pointer_like" v-for="(item,index) in schoolCoachList" :key="index" @click="selectCoachWall(item)" >{{item.name}}</p>
                                     </div>
-                                    <Button v-else @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
+                                    <Button v-else-if="schoolCoachList.length==0 &&  rData.key !='' && !schoolButton" @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
+                                    <div class="text-center m-2">
+                                    <Button  v-if="schoolButton && schoolCoachList.length==0" type="dashed" @click="goToCoachWall">Continue</Button>
+                                    <Button v-else type="dashed" disabled>Continue</Button>
+                                </div>
                                 </template>
                             </template>
                         </div>
@@ -126,10 +137,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="input-group" onclick="toggle_visibility('menu');">
+                            <div class="input-group" >
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
                                 <input type="text" class="form-control"  v-model="searchTxt" placeholder="Search any Attributes" aria-describedby="basic-addon1">
-                                <span @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}&pageOption=${pageOption}`)" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                                <span @click="SearchByKey()" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
                             </div>
                         </div>
                    </form>
@@ -144,7 +155,7 @@
             <div class="header-nav">
                <div class="container">
                    <ul class="main-nav">
-                       <li  ><a @click="$router.push(`/search_result?pageOption=coach`)" ><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach</a></li>
+                       <li  ><a @click="SearchByKey('coach')" ><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach</a></li>
                        <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Collage Coach&nbsp;<i class="fas fa-angle-down"></i></a>
                            <div class="nav-dropdown">
                                <ul class="pull-left">
@@ -161,15 +172,15 @@
                                </ul>
                            </div>
                        </li>
-                       <li><a  @click="$router.push(`/search_result`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Local Instructors</a></li>
+                       <li><a  @click="SearchByKey('legend')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Local Instructors</a></li>
                        <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;More&nbsp;<i class="fas fa-angle-down"></i></a>
                            <div class="nav-dropdown">
                                <ul class="pull-left">
-                                   <li><a @click="$router.push(`/search_result?sort=rated`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Best Rated Coaches</a></li>
-                                   <li><a @click="$router.push(`/search_result?sort=Worst`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Worst Rated Coaches</a></li>
-                                   <li><a @click="$router.push(`/search_result?sort=most`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Most Connected</a></li>
-                                   <li><a @click="$router.push(`/search_result`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Coaches</a></li>
-                                   <li><a @click="$router.push(`/search_result?pageOption=product`)"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & Services</a></li>
+                                   <li><a @click="SearchByKey('coach','rated')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Best Rated Coaches</a></li>
+                                   <li><a @click="SearchByKey('coach','Worst')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Worst Rated Coaches</a></li>
+                                   <li><a @click="SearchByKey('coach','most')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Most Connected</a></li>
+                                   <li><a @click="SearchByKey('coach')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Coaches</a></li>
+                                   <li><a @click="SearchByKey('product','rated')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & Services</a></li>
                                </ul>
                                <ul class="pull-left">
                                    
@@ -183,8 +194,8 @@
                    <ul class="main-nav right-top pull-right">
                        <li @click="reviewModal=true"><a ><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
                         <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
-                        <li v-if="isLoggedIn && packType !=2 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
-                        <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Profile</a></li>
+                        <li v-if="isLoggedIn " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >User Profile</a></li>
+                        <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Legend Profile</a></li>
                         <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                    </ul>
                </div>
@@ -205,17 +216,34 @@
                     key:'',
                     school:'',
                 },
+                pData:{
+                    key:'',
+                },
+                lData:{
+                    key:'',
+                },
+                schoolButton:false,
+                schoolButton_id:0,
+                legendButton:false,
+                legendButton_id:0,
+                productButton:false,
+                productButton_id:0,
                 coachList:[],
                 schoolList:[],
                 schoolCoachList:[],
                 productList:[],
                 sData:{
                     school_id:0,
+                    
+                },
+                legend:{
+                    id:'',
                 },
                 iamIndex:false,
                 searchTxt:'',
                 addressTxt:'',
                 pageOption:'',
+                sort:''
                 
             }
         },
@@ -238,6 +266,28 @@
             }
         },
         methods:{
+          
+        async SearchByKey(legend = '',sort = ''){
+            if(legend != '')
+                this.pageOption = legend
+            if(sort != '')
+                this.sort = sort
+            if(this.pageOption == '') this.pageOption = 'legend'
+            const res = await this.callApi('get', `/app/SearchData?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}`)
+            console.log("pamramiter Key")
+            if(res.status === 200){
+               
+                
+                this.$store.commit('setSearchData', res.data.data)
+                delete res.data.data
+                this.$store.commit('setPagination', res.data )
+                this.$store.commit('setPageOptino', this.pageOption )
+                this.$router.push(`/search_result?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}`)
+            }
+            else{
+                this.swr();
+            }
+        },
             closeModal(){
                 this.rData.for=0
                 this.rData.key=''
@@ -262,11 +312,13 @@
                 }
                 let tempCoach = {
                     school_id: this.sData.school_id,
-                    name:this.sData.school
+                    name:this.rData.key
                 }
                 const res = await this.callApi('post','/app/storeSchoolCoache',tempCoach)
                 if(res.status == 200){
+                    this.SearchByKeySchoolCoach()
                     this.s('Coach created successfully!')
+                   
                 }
                 else{
                     this.swr()
@@ -279,6 +331,7 @@
 
             },
             async SearchByKeySchoolCoach(){
+                console.log('This is ok')
                const res = await this.callApi('get',`/app/SearchByKeySchoolCoach?key=${this.rData.key}&school_id=${this.sData.school_id}`) 
                if(res.status=== 200){
                    this.schoolCoachList = res.data
@@ -288,7 +341,7 @@
                }
             },
             async SearchByKeyCoach(){
-               const res = await this.callApi('get',`/app/SearchByKeyCoach?key=${this.rData.key}`)
+               const res = await this.callApi('get',`/app/SearchByKeyCoach?key=${this.lData.key}`)
                if(res.status=== 200){
                    this.coachList = res.data
                }
@@ -297,7 +350,7 @@
                }
             },
             async SearchByKeyProduct(){
-               const res = await this.callApi('get',`/app/SearchByKeyProduct?key=${this.rData.key}`)
+               const res = await this.callApi('get',`/app/SearchByKeyProduct?key=${this.pData.key}`)
                if(res.status=== 200){
                    this.productList = res.data
                }
@@ -314,19 +367,37 @@
                    this.swr()
                }
             },
-            async goToLegendWall(item){
-                 this.reviewModal = false
-                this.$router.push(`/addreview/${item.id}`)
+            async selectLegendWall(item){
+                this.legendButton = true
+                this.legendButton_id = item.id
+                this.lData.key = item.name
+                this.coachList = []
+            },
+            async goToLegendWall(){
+               this.closeModal()
+                this.$router.push(`/addreview/${legendButton_id}`)
+            },
+            async goToProductWall(){
+                 this.closeModal()
+                this.$router.push(`/product_review/${productButton_id}`)
                
             },
-            async goToProductWall(item){
-                 this.reviewModal = false
-                this.$router.push(`/product_review/${item.id}`)
-               
+            async selectProductWall(item){
+                this.productButton = true
+                this.productButton_id = item.id
+                this.pData.key = item.name
+                this.productList = []
             },
             async goToCoachWall(item){
-                 this.reviewModal = false
-                this.$router.push(`/scoach_review/${item.id}`)
+                 this.closeModal()
+                this.$router.push(`/scoach_review/${schoolButton_id}`)
+               
+            },
+            async selectCoachWall(item){
+                 this.schoolButton = true
+                this.schoolButton_id = item.id
+                this.rData.key = item.name
+                this.schoolCoachList = []
                
             },
             async logout() {
@@ -341,6 +412,15 @@
         },
 
         async created(){
+            // let d = new Date('2019-08-11');
+            // d.setDate(d.getDate() + 60);
+            // let monthNumber = d.getMonth()+1
+            // monthNumber = ("0" + monthNumber).slice(-2);
+            // let dayNumber = d.getDate()
+            // dayNumber = ("0" + dayNumber).slice(-2);
+            // let today = `${d.getFullYear()}-${monthNumber}-${dayNumber}`
+            // console.log(today)
+
              if(this.isLoggedIn){
                  this.packType = this.authInfo.packType
                  const res = await this.callApi('get',`/app/getLegendId/${this.authInfo.id}`)

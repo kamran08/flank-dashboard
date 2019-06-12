@@ -147,7 +147,22 @@
                                     <h2>Recommended Reviews <span>for {{legendData.name}}</span></h2>
                                     <hr>
                                     <div class="searchByReview">
-                                        <div class="searchReview">
+                                       
+                                        
+                                        <div class="star-review" v-if=" user_id !== userData.id" >
+                                            <p>
+                                                <span :class="(reviewStar>0)? 'high rating-bg' : ''" @click="reviewPageWith(1)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>1)? 'high rating-bg' : ''" @click="reviewPageWith(2)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>2)? 'high rating-bg' : ''" @click="reviewPageWith(3)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>3)? 'high rating-bg' : ''" @click="reviewPageWith(4)" ><i class="fas fa-star"></i></span>
+                                                <span :class="(reviewStar>4)? 'high rating-bg' : ''" @click="reviewPageWith(5)" ><i class="fas fa-star"></i></span>
+                                            </p>
+                                            <hr>
+                                            <p class="moreD" ><nuxt-link :to="{name: 'addreview-id', params: { id:legendData.id } }">Start your review for <strong>{{legendData.name}}</strong></nuxt-link>
+                                                
+                                            </p>
+                                        </div>
+                                         <div class="searchReview">
                                             <input type="text" class="form-control" v-model="reviewSearch" placeholder="Search within the reviews">
                                             <button @click="SearchReviewResult" ><i class="fas fa-search"></i></button>
                                             <!-- <div class="sortTagOne">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i>
@@ -163,25 +178,11 @@
                                             
                                             <hr>
                                         </div>
-                                        
-                                        <div class="star-review" v-if=" user_id !== userData.id" >
-                                            <p>
-                                                <span :class="(reviewStar>0)? 'high rating-bg' : ''" @click="reviewPageWith(1)" ><i class="fas fa-star"></i></span>
-                                                <span :class="(reviewStar>1)? 'high rating-bg' : ''" @click="reviewPageWith(2)" ><i class="fas fa-star"></i></span>
-                                                <span :class="(reviewStar>2)? 'high rating-bg' : ''" @click="reviewPageWith(3)" ><i class="fas fa-star"></i></span>
-                                                <span :class="(reviewStar>3)? 'high rating-bg' : ''" @click="reviewPageWith(4)" ><i class="fas fa-star"></i></span>
-                                                <span :class="(reviewStar>4)? 'high rating-bg' : ''" @click="reviewPageWith(5)" ><i class="fas fa-star"></i></span>
-                                            </p>
-                                            <hr>
-                                            <p class="moreD" ><nuxt-link :to="{name: 'addreview-id', params: { id:legendData.id } }">Start your review for <strong>{{legendData.name}}</strong></nuxt-link>
-                                                
-                                            </p>
-                                        </div>
-                                        <hr>
                                         <template v-if="reviews.length>0 && isLoading==false " >
                                             <div class="review-final" v-for="(item,index) in reviews" :key="index" >
                                                 <div class="row">
-                                                    <div class="col-md-6 col-sm-6">
+                                                    <div class="review-final-card">
+                                                        <div class="col-md-3 col-sm-3">
                                                         <div class="media">
                                                             <div class="media-left">
                                                                 <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
@@ -197,7 +198,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6 col-sm-6">
+                                                    <div class="col-md-9 col-sm-9">
                                                         <div class="read-review">
                                                             <div class="star-review">
                                                                 <p>
@@ -206,19 +207,34 @@
                                                                     <span :class="(item.rating>2)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                                     <span :class="(item.rating>3)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
                                                                     <span :class="(item.rating>4)? 'high rating-bg' : ''"><i class="fas fa-star"></i></span>
-                                                                    &nbsp;<small>3/3/2019</small>
+                                                                    &nbsp;<small>{{item.created_at}}</small>
                                                                 </p>
                                                             </div>
                                                             <p>{{item.content}}</p>
-                                                            <div class="profile-gallary">
+                                                            <div class="profile-carousel"  style="margin-top: 20px;" v-if="item.images.length>0" >
+                                                                <template>
+                                                                <Carousel autoplay v-model="value2" loop>
+                                                                    <CarouselItem v-if="item.images[0]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[0].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem >
+                                                                    <CarouselItem v-if="item.images[1]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[1].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem>
+                                                                   <CarouselItem v-if="item.images[2]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[2].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem>
+                                                                </Carousel>
+                                                            </template>
+                                                            </div>
+                                                            <!-- <div class="profile-gallary">
                                                                 <ul>
-                                                                    <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
+                                                                    <li  ><a :href="item.images[0].url"><img ></a></li>
                                                                     <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
                                                                     <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
                                                                 </ul>
-                                                            </div>
-                                                            <p id="resultReview"><strong>Was the review...?</strong></p>
-                                                            <ul>
+                                                            </div> -->
+                                                            <p id="resultReview" style="margin-top: 20px;"><strong>Was the review...?</strong></p>
+                                                            <ul class="section-item-review">
                                                                 <template v-if="item.imos" >
                                                                     <li  @click="reviewImo('cool',index,item.imos)" :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
                                                                     <li  @click="reviewImo('funny',index,item.imos)" :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
@@ -226,6 +242,7 @@
                                                                 </template>
                                                             </ul>
                                                         </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -553,6 +570,7 @@ export default {
     data(){
         return{
             isEdit:false,
+            value2: 0,
             formData:{
                 name:'',
                 address:'',
@@ -845,6 +863,7 @@ export default {
         },
         
         async editOn(){
+
             this.formData.name = this.legendData.name
             this.formData.address = this.legendData.address
             this.formData.phone = this.legendData.phone
@@ -854,17 +873,11 @@ export default {
                     this.businessHour[i].time[0] = tp[0]
                     this.businessHour[i].time[1] = tp[1]
                     this.businessHour[i].active = true
-                    console.log(tp)
-                   
                 }
             }
             this.isEdit = true
         },
         async legendUpdate(){
-           console.log(this.businessHour)
-           console.log(this.showBusinessHour)
-
-
             if(this.formData.name == ''|| this.formData.address =='' || this.formData.phone == ''){
                 this.i("All fields must be filled !")
                 console.log('All fields must be filled !')

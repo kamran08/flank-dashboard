@@ -17,10 +17,15 @@
         float: right; } }
   
   .find-page-nav {
-    float: left; }
+    float: left;
+  margin-top: 20px; }
     @media only screen and (min-width: 992px) {
       .find-page-nav {
         float: left; } }
+
+        .find-page-nav h3 {
+          font-size: 16px;
+        }
   
   /* .filter {
     display: table;
@@ -136,7 +141,8 @@
 
           .filter {
             display: table;
-            margin-top: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
           }
 
           .filter-list {
@@ -170,6 +176,10 @@
           border-bottom: 1px solid #ddd;
         }
 
+        .filter-list ul li a:hover {
+          background: #eee;
+        }
+
         .filter-list ul li {
           list-style: none;
         }
@@ -195,7 +205,8 @@
   
   .sponsor-title {
     float: left;
-    width: 100%; }
+    width: 100%;
+  margin-bottom: 15px; }
     .sponsor-title h2 {
       font-size: 18px;
       color: #333;
@@ -286,7 +297,8 @@
       margin-bottom: 5px; }
   
   .body-para {
-    float: left; }
+    float: left;
+  width: 100%; }
     .body-para h4 {
       font-size: 15px;
       margin-top: 5px; }
@@ -320,9 +332,10 @@
         outline: 0; }
   
   .sponsor-item {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e6e6e6; }
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.09) }
   
   .sponsor-item:last-child {
     border-bottom: 0; }
@@ -731,6 +744,7 @@
   border-radius: 5px;
   overflow: hidden;
   margin-bottom: -30px;
+  padding: 10px;
 }
 
 .product-thumb {
@@ -1041,4 +1055,139 @@
 }
 .product-thumb figure img {
   width: 100%;
+}
+
+@keyframes placeHolderShimmer{
+  0%{
+      background-position: -468px 0
+  }
+  100%{
+      background-position: 468px 0
+  }
+}
+
+.animated-img figure {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 182px !important;
+}
+
+.text-one {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 19px;
+  width: 193px;
+  margin-bottom: 5px;
+}
+
+.text-two {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 22px;
+  width: 193px;
+  margin-bottom: 5px;
+}
+
+.text-three {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 18px;
+  width: 193px;
+  margin-bottom: 5px;
+}
+
+.text-four, .text-five {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 18px;
+  width: 102px;
+  margin-bottom: 5px;
+}
+
+.text-six {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 16px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.text-six_extra {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 44px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.text-seven {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  position: relative;
+  height: 88px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.review-final-card {
+  background: #fff;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.09);
+  float: left;
+  width: 100%;
+  padding: 25px 0;
+  margin-bottom: 20px;
 }
