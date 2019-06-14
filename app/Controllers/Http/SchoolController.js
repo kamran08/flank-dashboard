@@ -9,7 +9,7 @@
 const School = use('App/Models/School')
 const SchoolCoach = use('App/Models/SchoolCoach')
 const Attribute = use('App/Models/Attribute')
-const CoachReviewImage = use('App/Models/CoachReviewImage')
+const ReviewImage = use('App/Models/ReviewImage')
 const Review = use('App/Models/Review')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
 
@@ -339,6 +339,7 @@ class SchoolController {
       .where('id', params.id)
       .withCount('allreview')
       .with('coaches')
+      .with('coaches.avgRating')
       .with('allimages')
       .with('avgRating')
       .first()
@@ -384,7 +385,7 @@ class SchoolController {
       }
       uploadList.push(ob)
     }
-    await CoachReviewImage.createMany(uploadList)
+    await ReviewImage.createMany(uploadList)
     let AttributeInfo = []
     for (let d of AttributeInfoAll) {
       if (d.isPositive == '0' || d.isPositive == '1') {

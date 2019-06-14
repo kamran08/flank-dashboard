@@ -20,31 +20,30 @@
                                         <!-- <div class="sortTag no_pos">Sort by&nbsp;<strong>Popular&nbsp;
                                             <span><i class="fas fa-sort-down"></i></span>
                                             <ul>
-                                                <li><a href="">Popular</a></li>
+                                                <li><a href="">Popular</a></li><nuxt-link :to="{name: 'product_question_details-product_id-id', params: { product_id:legend_id , id:item.id } }" >View question details</nuxt-link>
                                                 <li><a href="">Most Answerd</a></li>
                                                 <li><a href="">Newest First</a></li>
                                             </ul>
                                             </strong>
                                         </div> -->
                                     </div>
-                                    <div class="comment-individual border-bottom" v-for="(item,index) in questionList" :key="index" >
-                                        <p><strong>{{item.content}}</strong></p>
-                                        <div class="media" v-if="item.answers.length>0" >
-                                            <div class="media-left">
-                                                <img class="profile_picU" :src="item.answers[0].user.img" alt="">
+                                    <div class="_questions _border_color">
+                                        <!-- Items -->
+                                        <div class="_que_title_main _border_color" v-for="(item,index) in questionList" :key="index" >
+                                            <div class="_que_pro">
+                                                <img class="_que_img" :src="item.user.img " alt="" title="">
                                             </div>
 
-                                            <div class="media-body">
-                                                <p>{{item.answers[0].user.firstName}} {{item.answers[0].user.lastName}}</p>
-                                                <span><small>Business Manager</small></span>
-                                                <br><br>
-                                                <p>{{item.answers[0].content}}</p>
-                                                <span><small>{{item.answers[0].created_at}}</small></span>
+                                            <div class="_que_details">
+                                                <p class="_que_details_title" @click="$router.push(`/product_question_details/${legend_id}/${item.id}`)" >{{item.content}}</p>
+                                                <p class="_que_details_text">By <span class="_color_user" @click="$router.push(`/flanker/${item.user.id}`)" >{{item.user.firstName}} {{item.user.lastName}} </span> Created_at  with {{item.created_at}}</p>
+                                            </div>
+
+                                            <div class="_que_details_time">
+                                                <p class="_que_details_titme_text"> {{item.__meta__.answers_count}} <i class="fas fa-sticky-note"></i></p>
                                             </div>
                                         </div>
-                                        <p>
-                                            <nuxt-link :to="{name: 'product_question_details-product_id-id', params: { product_id:legend_id , id:item.id } }" >View question details</nuxt-link>
-                                        </p>
+                                        <!-- Items -->
                                     </div>
                                     <div class="text-center">
                                         <div >
@@ -151,8 +150,13 @@ export default {
             const res = await this.callApi('post','/storeProductquestions',this.askData)
             if(res.status===200){
                 this.s("Your question has been posted successfully!")
-                res.data.answers = []
+                  let __meta__ = {
+                    answers_count:0
+                }
+                res.data.__meta__ = __meta__
+                 res.data.user = this.authInfo
                 this.questionList.unshift(res.data)
+                 this.askData.content = ''
                 this.askModal = false
             }
             else{

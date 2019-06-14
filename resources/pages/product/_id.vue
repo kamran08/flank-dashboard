@@ -194,15 +194,14 @@
                                             </div>
                                         </div> -->
                                     </div>
-                                    <div class="reviewComment " v-if=" isLoggedIn && user_id !== userData.id">
+                                    <div class="reviewComment card-box" v-if=" isLoggedIn && user_id !== userData.id">
                                         <h2>Ask the Community</h2>
                                         <hr>
                                         <div class="comment-individual">
                                             <Button @click="askModal=true" >Ask a question</Button>
                                         </div>
-                                        <hr>
                                     </div>
-                                    <div class="reviewComment askCommunity"  >
+                                    <div class=" askCommunity card-box"  >
                                         <h2>Ask the Community</h2>
                                         <template v-if="totalQuestion>0 && isLoading==false " >
                                             <div class="question-set" v-for="(item,index) in questionList" :key="index" >
@@ -225,17 +224,17 @@
                                         <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
 
                                         <h4 v-else class="noReview" >No question yet!</h4>
-                                        <hr>
                                     </div>
-                                    <div class="reviewItem">
-                                        <h2>Recommended Reviews <span>for {{productData.name}}</span></h2>
-                                        <hr>
+                                    <div class="reviewItem" style="margin-top: 0;">
+                                        
                                         <div class="searchByReview">
-                                            <div class="searchReview">
-                                                <input type="text" class="form-control" v-model="reviewSearch" placeholder="Search within the reviews">
-                                                <button @click="SearchReviewResult" ><i class="fas fa-search"></i></button>
+                                            <div class="card-box">
+                                                <h2>Recommended Reviews <span>for {{productData.name}}</span></h2>
                                                 <hr>
-                                            </div>
+                                                <div class="searchReview" style="margin-top: 15px;">
+                                                    <input type="text" class="form-control" v-model="reviewSearch" placeholder="Search within the reviews">
+                                                    <button @click="SearchReviewResult" ><i class="fas fa-search"></i></button>
+                                                </div>
                                             
                                             <div class="star-review" v-if=" user_id !== userData.id" >
                                                 <p>
@@ -250,16 +249,17 @@
                                                     
                                                 </p>
                                             </div>
+                                            </div>
                                              <template v-if="reviews.length>0 && isLoading==false " >
                                             <div class="review-final" v-for="(item,index) in reviews" :key="index" >
-                                                <div class="row">
+                                                <div class="row" style="margin-right: 15px;">
                                                     <div class="review-final-card">
-                                                        <div class="col-md-3 col-sm-3">
+                                                        <div class="col-md-2 col-sm-2">
                                                         <div class="media">
-                                                            <div class="media-left">
+                                                            <div class="media-left" style="display: block;">
                                                                 <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
                                                             </div>
-                                                            <div class="media-body">
+                                                            <div class="media-body" style="display: block;">
                                                                 <p><strong>{{item.reviwer.firstName}}</strong></p>
                                                                 <small><strong>{{item.reviwer.address}}</strong></small>
                                                                 <p>
@@ -270,7 +270,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-9 col-sm-9">
+                                                    <div class="col-md-10 col-sm-10">
                                                         <div class="read-review">
                                                             <div class="star-review">
                                                                 <p>
@@ -325,7 +325,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="intersted-part">
+                                    <div class="card-box">
+                                        <div class="intersted-part">
                                         <h3>Are you interested?</h3>
                                         <button class="inner-btn" @click="$router.push(`/product_review/${productData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
                                     </div>
@@ -412,6 +413,7 @@
                                             </div>
                                         </div>
                                         <p><a href="">See all</a></p>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

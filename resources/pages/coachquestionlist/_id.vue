@@ -10,7 +10,7 @@
                     <div class="review-content">
                         <div class="breadcrumbs">
                             <ul>
-                                <li><nuxt-link :to="{name: 'profile-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></li>
+                                <li><nuxt-link :to="{name: 'school-id', params: { id:legend_id } }">{{legendData.schoolName}}  {{legendData.sport}}</nuxt-link></li>
                                 <li><span><i class="fas fa-chevron-right"></i></span>Ask the Community</li>
                             </ul>
                         </div>
@@ -30,30 +30,30 @@
                                             </strong>
                                         </div> -->
                                     </div>
-                                    <div class="comment-individual border-bottom" v-for="(item,index) in questionList" :key="index" >
-                                        <p><strong>{{item.content}}</strong></p>
-                                        <div class="media" v-if="item.answers.length>0" >
-                                            <div class="media-left">
-                                                <img class="profile_picU" :src="item.answers[0].user.img" alt="">
+                                    
+                                     <div class="_questions _border_color">
+                                        <!-- Items -->
+                                        <div class="_que_title_main _border_color" v-for="(item,index) in questionList" :key="index" >
+                                            <div class="_que_pro">
+                                                <img class="_que_img" :src="item.user.img " alt="" title="">
                                             </div>
 
-                                            <div class="media-body">
-                                                <p>{{item.answers[0].user.firstName}} {{item.answers[0].user.lastName}}</p>
-                                                <span><small>Business Manager</small></span>
-                                                <br><br>
-                                                <p>{{item.answers[0].content}}</p>
-                                                <span><small>{{item.answers[0].created_at}}</small></span>
+                                            <div class="_que_details">
+                                                <p class="_que_details_title" @click="$router.push(`/coach_question_details/${legend_id}/${item.id}`)" >{{item.content}}</p>
+                                                <p class="_que_details_text">By <span class="_color_user" @click="$router.push(`/flanker/${item.user.id}`)">{{item.user.firstName}} {{item.user.lastName}} </span> Created_at  with {{item.created_at}}</p>
+                                            </div>
+
+                                            <div class="_que_details_time">
+                                                <p class="_que_details_titme_text"> {{item.__meta__.answers_count}} <i class="fas fa-sticky-note"></i></p>
                                             </div>
                                         </div>
-                                        <p>
-                                            <nuxt-link :to="{name: 'coach_question_details-school_id-id', params: { school_id:legend_id , id:item.id } }" >View question details</nuxt-link>
-                                        </p>
+                                        <!-- Items -->
                                     </div>
                                     <div class="text-center">
                                         <div >
                                             <Page :current="rpagination.page" :total="rpagination.total" @on-change="setPage($event)" :page-size="rpagination.perPage" />
                                         </div>
-                                        </div>
+                                    </div>
                                     <div class="question-button">
                                         <p>Don’t see your question? Ask away!</p>
                                         <button @click="askModal=true" >Ask a question</button>
@@ -154,8 +154,13 @@ export default {
             const res = await this.callApi('post','/storequestions',this.askData)
             if(res.status===200){
                 this.s("Your question has been posted successfully!")
-                res.data.answers = []
+                  let __meta__ = {
+                    answers_count:0
+                }
+                res.data.__meta__ = __meta__
+                 res.data.user = this.authInfo
                 this.questionList.unshift(res.data)
+                this.askData.content = ''
                 this.askModal = false
             }
             else{

@@ -20,7 +20,7 @@
                                 <div class="full-question border-right">
                                     <div class="ques">
                                         <h3>{{questionData.content}}</h3>
-                                        <span><small>Asked by <a >{{questionData.user.firstName}} {{questionData.user.lastName}} </a> </small></span>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span><small>{{questionData.created_at}}</small></span>
+                                        <span><small>Asked by <a @click="$router.push(`/flanker/${questionData.user.id}`)">{{questionData.user.firstName}} {{questionData.user.lastName}} </a> </small></span>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span><small>{{questionData.created_at}}</small></span>
                                         <span class="icon-flag"><i class="fas fa-flag"></i></span>
                                         <div class="bellow-link border-bottom">
                                             <p>{{questionData.allAnswers.length}} Answer</p>
@@ -185,6 +185,7 @@ export default {
                 this.s("Your answer has been posted successfully!")
                 res.data.user = this.authInfo
                 this.questionData.allAnswers.unshift(res.data)
+                this.answerData.content = ''
                 this.answerModal = false
             }
             else{

@@ -121,9 +121,8 @@
                                         </ul>
                                         </strong>
                                     </div> -->
-                                    <hr>
                                 </div>
-                                <div class="profile-fill-review" v-for="(item,index) in userData.reviews" :key="index" >
+                                <div class="profile-fill-review card-box" v-for="(item,index) in userData.reviews" :key="index" >
                                     <div class="profile-item">
                                             <div class="media" v-if="item.review_type == 'legend'" >
                                                 <div class="media-left">
@@ -190,7 +189,7 @@
                                                     </ul>
                                                 </div>
                                                 <p id="resultReview"><strong>Was the review...?</strong></p>
-                                                <ul>
+                                                <ul class="section-item-review">
                                                     <li><i class="fas fa-grin-beam"></i>&nbsp;Useful</li>
                                                     <li><i class="fas fa-grin-beam"></i>&nbsp;Funny</li>
                                                     <li><i class="fas fa-grin-beam"></i>&nbsp;Useful</li>
@@ -217,9 +216,8 @@
                                         </ul>
                                         </strong>
                                     </div> -->
-                                    <hr>
                                 </div>
-                                <div class="profile-fill-review" v-for="(item,index) in allProducts" :key="index" >
+                                <div class="profile-fill-review card-box" v-for="(item,index) in allProducts" :key="index" >
                                     <div class="profile-item">
                                             <div class="media">
                                                 <div class="media-left">
@@ -271,9 +269,8 @@
                                         </ul>
                                         </strong>
                                     </div> -->
-                                    <hr>
                                 </div>
-                                <div class="profile-fill-review" v-for="(item,index) in allReviews" :key="index" >
+                                <div class="profile-fill-review card-box" v-for="(item,index) in allReviews" :key="index" >
                                     <div class="profile-item">
                                            <div class="media" v-if="item.review_type == 'legend'" >
                                                 <div class="media-left">
@@ -319,7 +316,7 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="read-review">
+                                            <div class="">
                                                 <div class="star-review">
                                                     <p>
                                                         <span :class="(item.rating>0)? ' rating-bg high' : ''"><i class="fas fa-star"></i></span>
@@ -330,17 +327,32 @@
                                                         <small>{{item.created_at}}</small>
                                                     </p>
                                                 </div>
-                                                <p>{{item.content}} </p>
+                                                <p style="font-size: 16px; margin-top: 10px;">{{item.content}} </p>
+                                                <div class="profile-carousel"  style="margin-top: 20px;" v-if="item.images.length>0" >
+                                                                <template>
+                                                                <Carousel autoplay v-model="value2" loop>
+                                                                    <CarouselItem v-if="item.images[0]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[0].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem >
+                                                                    <CarouselItem v-if="item.images[1]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[1].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem>
+                                                                   <CarouselItem v-if="item.images[2]">
+                                                                        <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[2].url"  style="width: 100%;"></div>
+                                                                    </CarouselItem>
+                                                                </Carousel>
+                                                            </template>
+                                                            </div>
         
-                                                <div class="profile-gallary">
+                                                <!-- <div class="profile-gallary">
                                                     <ul>
                                                         <li v-if="item.images[0]" ><a :href="item.images[0].url"><img :src="item.images[0].url"></a></li>
                                                         <li v-if="item.images[1]"><a :href="item.images[1].url"><img :src="item.images[1].url"></a></li>
                                                         <li v-if="item.images[2]"><a :href="item.images[2].url"><img :src="item.images[2].url"></a></li>
                                                     </ul>
-                                                </div>
-                                                <p id="resultReview"><strong>Was the review...?</strong></p>
-                                                <ul>
+                                                </div> -->
+                                                <p id="resultReview" style="margin-top: 20px;" ><strong>Was the review...?</strong></p>
+                                                <ul class="section-item-review">
                                                     <li  :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
                                                     <li  :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
                                                     <li  :class="(item.imos.auseful)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</li>
@@ -363,7 +375,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="profile-about">
+                            <div class="profile-about card-box">
                                 <h3>About {{userData.firstName}} {{userData.lastName}}</h3>
                                 <p>Rating Distribution</p>
 

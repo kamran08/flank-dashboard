@@ -59,10 +59,11 @@
                 v-model="reviewModal"
                 title="Start Your Review "
                 width='500'
+                fullscreen 
                 
                 >
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <p class=" msg_box_header">Write Review For?</p>
                             <div class="review-button">
@@ -71,56 +72,98 @@
                                 <div class="btn-role"  @click="rData.for=3"  ><Button :class="(rData.for == 3)? 'act-btn': ''" >Product</Button></div>
                             </div>
                             <template v-if="rData.for == 2" >
-                                <Input v-model="lData.key" placeholder="Enter Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyCoach" />
-                                <div v-if="coachList.length>0" style="border: 1px solid #0088cc;">
-                                    <p  class="pointer_like" v-for="(item,index) in coachList" :key="index" @click="selectLegendWall(item)" >{{item.name}}</p>
-                                </div>
-                                <div class="text-center m-2">
-                                    <Button  v-if="legendButton && coachList.length==0" type="dashed" @click="goToLegendWall">Continue</Button>
-                                    <Button v-else type="dashed" disabled>Continue</Button>
-                                </div>
+                                 <AutoComplete
+                                    style="width: 100%;margin-top: 15px;"
+                                    v-model="lData.key"
+                                    icon="ios-search"
+                                    @on-change="SearchByKeyCoach"
+                                    placeholder="Enter Coach Name ..."
+                                    >
+                                    <div class="demo-auto-complete-item"  v-for="(item,index) in coachList" :key="index" @click="selectLegendWall(item)"  >
+                                            <p class="ivu-select-item">{{ item.name }}</p>
+                                    </div>
+                                </AutoComplete>
                             </template>
                             <template v-if="rData.for ==3" >
-                                <Input v-model="pData.key" placeholder="Enter Product" style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeyProduct" />
-                                <div v-if="productList.length>0" style="border: 1px solid #0088cc;">
-                                    <p  class="pointer_like" v-for="(item,index) in productList" :key="index" @click="selectProductWall(item)" >{{item.name}}</p>
-                                </div>
-                                 <div class="text-center m-2">
-                                    <Button  v-if="productButton && productList.length==0" type="dashed" @click="goToProductWall">Continue</Button>
-                                    <Button v-else type="dashed" disabled>Continue</Button>
-                                </div>
+                                  <AutoComplete
+                                    style="width: 100%;margin-top: 15px;"
+                                    v-model="pData.key"
+                                    icon="ios-search"
+                                    @on-change="SearchByKeyProduct"
+                                    placeholder="Enter Product Name ..."
+                                    >
+                                    <div class="demo-auto-complete-item"  v-for="(item,index) in productList" :key="index" @click="selectProductWall(item)"  >
+                                            <p class="ivu-select-item">{{ item.name }}</p>
+                                    </div>
+                                </AutoComplete>
                             </template>
                             <template v-else-if="rData.for==1" >
-                                <Input v-model="rData.school" placeholder="Enter School Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;" @on-keyup="SearchByKeySchool" />
-                                <div v-if="schoolList.length>0" style="border: 1px solid #0088cc;">
-                                    <p  class="pointer_like" v-for="(item,index) in schoolList" :key="index" @click="manageSchoolData(item)" >{{item.name}} | {{item.sport}}  </p>
-                                </div>
+                                  <AutoComplete
+                                    style="width: 100%;margin-top: 15px;"
+                                    v-model="rData.school"
+                                    icon="ios-search"
+                                    @on-change="SearchByKeySchool"
+                                    placeholder="Enter School Name ..."
+                                    >
+                                    <div class="demo-auto-complete-item"  v-for="(item,index) in schoolList" :key="index" @click="manageSchoolData(item)"  >
+                                            <p class="ivu-select-item">{{item.name}} | {{item.sport}} </p>
+                                    </div>
+                                </AutoComplete>
                                 
                                 <template v-if="sData.school_id !=0" >
-                                    <hr>
-                                    <Input v-model="rData.key" placeholder="Enter School Coach Name ..." style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"  @on-keyup="SearchByKeySchoolCoach" />
-                                    <div v-if="schoolCoachList.length>0 && sData.school !='' " style="border: 1px solid #0088cc;">
-                                        <p  class="pointer_like" v-for="(item,index) in schoolCoachList" :key="index" @click="selectCoachWall(item)" >{{item.name}}</p>
-                                    </div>
-                                    <Button v-else-if="schoolCoachList.length==0 &&  rData.key !='' && !schoolButton" @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
+                                       <AutoComplete
+                                        style="width: 100%;margin-top: 15px;"
+                                        v-model="rData.key"
+                                        icon="ios-search"
+                                        @on-change="SearchByKeySchoolCoach"
+                                        placeholder="Enter School Coach Name ..."
+                                        >
+                                        <div class="demo-auto-complete-item"  v-for="(item,index) in schoolCoachList" :key="index" @click="selectCoachWall(item)"  >
+                                                <p class="ivu-select-item">{{item.name}}</p>
+                                        </div>
+                                    </AutoComplete>
+                                    <Button v-if="schoolCoachList.length==0 &&  rData.key !='' && !schoolButton" @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
                                     <div class="text-center m-2">
-                                    <Button  v-if="schoolButton && schoolCoachList.length==0" type="dashed" @click="goToCoachWall">Continue</Button>
-                                    <Button v-else type="dashed" disabled>Continue</Button>
                                 </div>
                                 </template>
                             </template>
                         </div>
+
+                        <div class="footer_buttons">
+                            <div class="text-center m-2" v-if="rData.for == 2" >
+                                <Button  v-if="legendButton && coachList.length==0" type="info" @click="goToLegendWall">Continue</Button>
+                                <Button  class="disable_btn" v-else type="info" disabled>Continue</Button>
+                            </div>
+                            <div class="text-center m-2" v-if="rData.for == 1" >
+                                <Button  v-if="schoolButton && schoolCoachList.length==0" type="dashed" @click="goToCoachWall">Continue</Button>
+                                <Button class="disable_btn" v-else type="dashed" disabled>Continue</Button>
+                            </div>
+                            <div class="text-center m-2" v-if="rData.for == 3" >
+                                <Button  v-if="productButton && productList.length==0" type="dashed" @click="goToProductWall">Continue</Button>
+                                <Button class="disable_btn" v-else type="dashed" disabled>Continue</Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div slot="footer">
-                    <Button @click="closeModal">Close</Button> 
-                    <Button type="success">Send</Button>
+                    <!-- <div class="text-center m-2" v-if="rData.for == 2" >
+                        <Button  v-if="legendButton && coachList.length==0" type="info" @click="goToLegendWall">Continue</Button>
+                        <Button v-else type="info" disabled>Continue</Button>
+                    </div>
+                    <div class="text-center m-2" v-if="rData.for == 1" >
+                        <Button  v-if="schoolButton && schoolCoachList.length==0" type="dashed" @click="goToCoachWall">Continue</Button>
+                        <Button v-else type="dashed" disabled>Continue</Button>
+                    </div>
+                    <div class="text-center m-2" v-if="rData.for == 3" >
+                        <Button  v-if="productButton && productList.length==0" type="dashed" @click="goToProductWall">Continue</Button>
+                        <Button v-else type="dashed" disabled>Continue</Button>
+                    </div> -->
                 </div>
             </Modal>
                <header>
             <div class="header-second"> 
                 <div class="container">
-                    <a @click="$router.push(`/`)" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
+                    <a @click="$router.push(`/`)" class="navbar-brand show_logo"><img class="img-responsive" src="/image/default.png" alt=""></a>
                     <form action="#">
                         <div class="equal-div">
                             <div class="input-group pageOption">
@@ -375,11 +418,11 @@
             },
             async goToLegendWall(){
                this.closeModal()
-                this.$router.push(`/addreview/${legendButton_id}`)
+                this.$router.push(`/addreview/${this.legendButton_id}`)
             },
             async goToProductWall(){
                  this.closeModal()
-                this.$router.push(`/product_review/${productButton_id}`)
+                this.$router.push(`/product_review/${this.productButton_id}`)
                
             },
             async selectProductWall(item){
@@ -390,7 +433,7 @@
             },
             async goToCoachWall(item){
                  this.closeModal()
-                this.$router.push(`/scoach_review/${schoolButton_id}`)
+                this.$router.push(`/scoach_review/${this.schoolButton_id}`)
                
             },
             async selectCoachWall(item){
@@ -450,6 +493,9 @@
     left: 0 !important;
     top: 32px !important;
     z-index: 1;
+}
+.show_logo{
+    
 }
 .pageOption:hover .menu_dropDown_on {display: block;}
 .pageOption:hover .menu_dropDown_on_nav {display: block;}

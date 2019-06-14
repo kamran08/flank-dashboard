@@ -76,17 +76,15 @@
                                     </div>
                                 </div>
 
-                                <div class="reviewComment " v-if=" isLoggedIn && user_id !== userData.id">
+                                <div class=" card-box" v-if=" isLoggedIn && user_id !== userData.id">
                                     <h2>Ask the Community</h2>
-                                    <hr>
-                                    <div class="comment-individual">
+                                    <div class="comment-individual" style="margin-bottom: 0 !important;">
                                         <!-- <p><strong>Is it okay to order a pastrami sandwich to share?</strong></p> -->
                                         <!-- <p><a href="">View 22 more answers</a></p> -->
-                                         <Button @click="askModal=true" >Ask a question</Button>
+                                         <Button @click="askModal=true"  >Ask a question</Button>
                                     </div>
-                                    <hr>
                                 </div>
-                                <div class="reviewComment askCommunity"  >
+                                <div class=" askCommunity card-box"  >
                                     <h2>Ask the Community</h2>
                                     <template v-if="totalQuestion>0 && isLoading==false " >
                                         <div class="question-set" v-for="(item,index) in questionList" :key="index" >
@@ -133,7 +131,6 @@
                                     <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
 
                                     <h4 v-else class="noReview" >No question yet!</h4>
-                                    <hr>
 
                                     <!-- <div class="pageCount">
                                         <ul>
@@ -144,12 +141,10 @@
                                     <hr> -->
                                 </div>
                                 <div class="reviewItem">
-                                    <h2>Recommended Reviews <span>for {{legendData.name}}</span></h2>
-                                    <hr>
-                                    <div class="searchByReview">
-                                       
-                                        
-                                        <div class="star-review" v-if=" user_id !== userData.id" >
+                                    <div class="card-box">
+                                        <h2>Recommended Reviews <span>for {{legendData.name}}</span></h2>
+                                        <hr>
+                                        <div class="star-review" v-if=" user_id !== userData.id" style="margin-top: 20px; margin-bottom: 10px;" >
                                             <p>
                                                 <span :class="(reviewStar>0)? 'high rating-bg' : ''" @click="reviewPageWith(1)" ><i class="fas fa-star"></i></span>
                                                 <span :class="(reviewStar>1)? 'high rating-bg' : ''" @click="reviewPageWith(2)" ><i class="fas fa-star"></i></span>
@@ -157,11 +152,15 @@
                                                 <span :class="(reviewStar>3)? 'high rating-bg' : ''" @click="reviewPageWith(4)" ><i class="fas fa-star"></i></span>
                                                 <span :class="(reviewStar>4)? 'high rating-bg' : ''" @click="reviewPageWith(5)" ><i class="fas fa-star"></i></span>
                                             </p>
-                                            <hr>
                                             <p class="moreD" ><nuxt-link :to="{name: 'addreview-id', params: { id:legendData.id } }">Start your review for <strong>{{legendData.name}}</strong></nuxt-link>
                                                 
                                             </p>
                                         </div>
+                                    </div>
+                                    <div class="searchByReview">
+                                       
+                                        
+                                        
                                          <div class="searchReview">
                                             <input type="text" class="form-control" v-model="reviewSearch" placeholder="Search within the reviews">
                                             <button @click="SearchReviewResult" ><i class="fas fa-search"></i></button>
@@ -175,19 +174,17 @@
                                                 </strong>
                                                 
                                             </div> -->
-                                            
-                                            <hr>
                                         </div>
-                                        <template v-if="reviews.length>0 && isLoading==false " >
+                                        <template v-if="reviews.length>0 && isLoading==false " > 
                                             <div class="review-final" v-for="(item,index) in reviews" :key="index" >
-                                                <div class="row">
+                                                <div class="row" style="margin-right: 15px;">
                                                     <div class="review-final-card">
-                                                        <div class="col-md-3 col-sm-3">
+                                                        <div class="col-md-2 col-sm-2">
                                                         <div class="media">
-                                                            <div class="media-left">
+                                                            <div class="media-left" style="display: block;">
                                                                 <img class="media-object profile_picU" :src="item.reviwer.img" alt="">
                                                             </div>
-                                                            <div class="media-body">
+                                                            <div class="media-body" style="display: block;">
                                                                 <p><strong>{{item.reviwer.firstName}}</strong></p>
                                                                 <small><strong>{{item.reviwer.address}}</strong></small>
                                                                 <p>
@@ -198,7 +195,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-9 col-sm-9">
+                                                    <div class="col-md-10 col-sm-10">
                                                         <div class="read-review">
                                                             <div class="star-review">
                                                                 <p>
@@ -261,7 +258,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 reviewComment">
+                            <div class="col-md-4 " style="margin-top: 30px;">
                                 <div class="review-time-content">
                                     <ul>
                                         <li>
@@ -330,7 +327,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="section-left-border"> 
+                                <div class="section-left-border card-box"> 
                                     <div class="widget-biz-hour">
                                         <h3>Business Hours</h3>
                                         <table class="table-simple-biz-hour" v-if="isLoading==false"  >
@@ -346,12 +343,8 @@
                                                     <th  >Mon</th>
                                                     <td class="table-data"  >
                                                     <span  class="nowrap">{{showBusinessHour[0].time}}</span>
-                                                    
                                                 </td>
                                                 </template>
-                                                
-                                                
-                                                
                                             </tr>
                                             <tr>
                                                 <template v-if="isEdit" >
@@ -530,9 +523,10 @@
                 <Button type="info" @click="askQuestion">Ask</Button>
             </div>
         </Modal>
-        <Modal title="Image Gallery" v-model="galleryModal">
+        <div class="ivu-modal-custom">
+            <Modal title="Image Gallery" v-model="galleryModal">
            <div class="row">
-               <div class="col-md-8">
+               <div class="modal-image-carousel">
                     <figure>
                         <img v-if="uploadList[galleryIndex]" :src="uploadList[galleryIndex].url" style="width: 100%">
                         <div data-v-2c068581="" class="modal-button">
@@ -548,19 +542,48 @@
                         </button>
                     </figure>
                </div>
-               <div class="col-md-4">
+               <div class="modal-image-thumb">
+                   <div class="item active">
+                       <figure>
+                           <img src="/uploads/1555598317645.jpeg" alt="">
+                       </figure>
+                   </div>
+                   <div class="item">
+                       <figure>
+                           <img src="/uploads/1555598317645.jpeg" alt="">
+                       </figure>
+                   </div>
+                   <div class="item">
+                       <figure>
+                           <img src="/uploads/1555598317645.jpeg" alt="">
+                       </figure>
+                   </div>
+                   <div class="item">
+                       <figure>
+                           <img src="/uploads/1555598317645.jpeg" alt="">
+                       </figure>
+                   </div>
+                   <div class="item">
+                       <figure>
+                           <img src="/uploads/1555598317645.jpeg" alt="">
+                       </figure>
+                   </div>
+               </div>
+               <!-- <div class="col-md-4">
                    <ul class="modal-list" >
                        <li  v-for="(item,index) in uploadList" :key="index" :class="(index==galleryIndex)? 'selected' : ''"><img :src="item.url" @click="galleryIndex=index" ></li>
                    </ul>
-                   <!-- <div class="col-md-6"><img :src="imgName" style="width: 100%"></div>
-                   <div class="col-md-6"><img :src="imgName" style="width: 100%"></div> -->
+                   <div class="col-md-6"><img :src="imgName" style="width: 100%"></div>
+                   <div class="col-md-6"><img :src="imgName" style="width: 100%"></div>
 
-               </div>
+               </div> -->
            </div>
            <div slot="footer">
                 <Button type="info"  @click="galleryModal=false">Close</Button>
             </div>
         </Modal>
+        </div>
+        
 
     </div>
 </template>
@@ -1099,7 +1122,50 @@ export default {
         text-align: center;
         padding: 10px;
     }
-    .table_extra_p{
+    .ivu-modal-wrap {
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+}
 
-    }
+.ivu-modal-content {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.ivu-modal-header {
+  display: none;
+}
+
+.ivu-modal-footer {
+  display: none;
+}
+
+.ivu-modal {
+  position: initial !important;
+  top: 0 !important;
+}
+
+.ivu-modal-content {
+  position: initial !important;
+}
+
+.ivu-modal-close {
+    right: 10% !important;
+    top: 10% !important;
+}
+
+.ivu-modal-close i {
+  color: #fff !important;
+  font-size: 50px !important;
+}
+
+.modal-image-carousel {
+  width: 50%;
+  margin: auto;
+}
+
+.ivu-modal {
+  width: 100% !important;
+}
 </style>

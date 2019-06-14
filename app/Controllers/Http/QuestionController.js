@@ -77,8 +77,7 @@ class QuestionController {
     return await Question.query()
       .where('legend_id', params.id)
       .with('user')
-      .with('answers')
-      .with('answers.user')
+      .withCount('answers')
       .orderBy('id', 'desc')
       .paginate(page, 3)
   }
@@ -88,8 +87,7 @@ class QuestionController {
     return await SchoolQuestion.query()
       .where('school_id', params.id)
       .with('user')
-      .with('answers')
-      .with('answers.user')
+      .withCount('answers')
       .orderBy('id', 'desc')
       .paginate(page, 3)
   }
@@ -98,8 +96,7 @@ class QuestionController {
     return await ProductQuestion.query()
       .where('product_id', params.id)
       .with('user')
-      .with('answers')
-      .with('answers.user')
+      .withCount('answers')
       .orderBy('id', 'desc')
       .paginate(page, 3)
   }

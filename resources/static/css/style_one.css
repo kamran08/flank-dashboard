@@ -741,10 +741,10 @@
   flex-flow: row;
   flex-wrap: wrap;
   border: 1px solid #e6e6e6;
-  border-radius: 5px;
   overflow: hidden;
   margin-bottom: -30px;
   padding: 10px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
 }
 
 .product-thumb {
@@ -853,10 +853,6 @@
 
 .profile-content-discuss {
   margin-top: 40px;
-}
-
-.profile-full-box {
-  border-right: 1px solid #e6e6e6;
 }
 
 .profile-content-discuss-header {
@@ -1185,9 +1181,11 @@
 
 .review-final-card {
   background: #fff;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.09);
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
   float: left;
   width: 100%;
   padding: 25px 0;
+  margin: 0 15px;
   margin-bottom: 20px;
+  border: 1px solid #e6e6e6;
 }

@@ -312,7 +312,8 @@
           <div class="reviewDay">
             <div class="row">
               <div class="col-md-offset-2 col-sm-offset-2 col-md-8 col-sm-6">
-                <div class="text-center">
+                <div class="explore-item">
+                  <div class="text-center">
                   <h3 class="text-center">Review of the Day</h3>
                 </div>
                 <div class="figcap-border" v-if="review_of_day.info && loading == false">
@@ -372,6 +373,8 @@
                 <div v-else>
                   <h3 class="text-center">No Content.....</h3>
                 </div>
+                </div>
+                
                 <!-- <div class="text-center">
                                    <p class="moreD"><a href="">Read previous reviews</a></p>
                 </div>-->
@@ -464,12 +467,27 @@
                       </div>
                     </div>
                   </div>
-
-                  <hr>
                   <div class="emoicon">
+                    <ul>
+                      <li>
+                        <p><span><i class="far fa-grin-beam"></i></span><span>01</span></p>
+                        <small>Usefull</small>
+                      </li>
+                      <li>
+                        <p><span><i class="far fa-grin-beam"></i></span><span>01</span></p>
+                        <small>Usefull</small>
+                      </li>
+                      <li>
+                        <p><span><i class="far fa-grin-beam"></i></span><span>01</span></p>
+                        <small>Usefull</small>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- <div class="emoicon">
                     <p class="pull-left">
                       <span>
                         <i class="far fa-grin-beam"></i>
+                        <span>01</span>
                         <small>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</small>
                       </span>
                       <span>
@@ -489,7 +507,7 @@
                         <small>Useful</small>
                       </span>
                     </p>
-                  </div>
+                  </div> -->
                 </figcaption>
               </div>
             </div>

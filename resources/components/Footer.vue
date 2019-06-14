@@ -1,8 +1,8 @@
 <template>
- <footer class="section-margin">
+ <footer class="">
    <hr>
       <div class="container">
-          <div class="section-content">
+          <div class="section-content" >
               <div class="row">
                   <div class="col-md-3 col-sm-3">
                       <div class="foo-individual">
@@ -41,7 +41,7 @@
                   </div>
               </div>
               <div class="footer-bg"></div>
-              <div class="text-center"><small class="main-footer_copyright">Copyright © 2004–2019 Yelp Inc. Yelp, <img src="/image/logo_desktop_xsmall_outline.png" alt="">, <img src="/image/burst_desktop_xsmall_outline.png" alt=""> and related marks are registered trademarks of Yelp.</small></div>
+              <div class="text-center"><small class="main-footer_copyright">Copyright © 2004–2019 Yelp Inc. Flank, and related marks are registered trademarks of Flank.</small></div>
           </div>
       </div>
   </footer>

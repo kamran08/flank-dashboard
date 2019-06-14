@@ -1,6 +1,71 @@
 <template>
-    <div>
+    <div  >
+        <Row>
+        <Col span="12"> <template class="text-center">
+    <Form :model="formLeft" label-position="left" :label-width="100">
+        <FormItem label="Name">
+            <Input v-model="formData.name" ></Input>
+        </FormItem>
+        <FormItem label="Address">
+            <Input  v-model="formData.address"  ></Input>
+        </FormItem>
+        <FormItem label="phone number" >
+            <Input  v-model="formData.phone"  ></Input>
+        </FormItem>
+    
+            <FormItem label="Monday"  >
+                
+                <td class="table-input table_extra_p">
+                    <TimePicker v-model="businessHour[0].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                    <Checkbox v-model="businessHour[0].active">Active</Checkbox>
+                </td>
+            </FormItem>
+            <FormItem label="Tuesday" >
+                <td class="table-input"  >
+                    <TimePicker v-model="businessHour[1].time"  format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                    <Checkbox v-model="businessHour[1].active">Active</Checkbox>
+                </td>
+            </FormItem>
+             <FormItem label="Wednesday"  >
+                <td class="table-input" >
+                    <TimePicker v-model="businessHour[2].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                    <Checkbox v-model="businessHour[2].active">Active</Checkbox>
+                </td>
+            </FormItem>
+            <FormItem label="Thursday">
+                <td class="table-input"  >
+                    <TimePicker v-model="businessHour[3].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                    <Checkbox v-model="businessHour[3].active">Active</Checkbox>
+                </td>
+            </FormItem>
+            <FormItem label="Friday">
+                <td class="table-input"  >
+                    <TimePicker v-model="businessHour[4].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                    <Checkbox v-model="businessHour[4].active">Active</Checkbox>
+                </td>
+            </FormItem>
+            <FormItem label="Saturday" >
+                <td class="table-input"  >
+                    <TimePicker v-model="businessHour[5].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                    <Checkbox v-model="businessHour[5].active">Active</Checkbox>
+                </td>
+            </FormItem>
+            <FormItem label="Sunday" >
+                <td class="table-input" >
+                    <TimePicker v-model="businessHour[6].time" format="hh:mm A" type="timerange" placement="bottom-end" placeholder="Select time"></TimePicker>
+                    <Checkbox v-model="businessHour[6].active">Active</Checkbox>
+                </td>
+            </FormItem>
+            <FormItem>
+            <Button type="primary">Submit</Button>
+            <Button style="margin-left: 8px">Cancel</Button>
+        </FormItem>
         
+    </Form>
+</template></Col>
+    </Row>
+        </div>
+       
     </div>
 </template>
 
@@ -86,6 +151,13 @@ export default {
                 },
                 
             ],
+            legendData:{},
+            userData:{},
+            formData:{
+                name:'',
+                address:'',
+                phone:''
+            },
         }
     },
     methods:{
@@ -136,26 +208,17 @@ export default {
             }
         },
     },
-    async asyncData({app, store,redirect, params}){
-    try {
-        let {data} = await app.$axios.get(`/legends/${params.id}`)
-        return{
-            legendData : data.legend,
-            userData : data.user,
-        }
-	}catch (error) {
-        console.log(error)
-        return redirect('/')
-	}
-    },
-    created(){
+    async created(){
               if(this.isLoggedIn) this.user_id = this.authInfo.id
         
-        const [res2] = await Promise.all([
+        const [res2,res3] = await Promise.all([
             this.callApi('get', `/app/getAdditionlegendInfo/${this.$route.params.id}`),
+            this.callApi('get', `/legends/${this.$route.params.id}`),
         ])
         if( res2.status===200 ){
             this.hours = res2.data.hours
+            this.legendData = res3.data.legend
+            this.userData = res3.data.user
             this.isLoading = false
             
         } else{
@@ -174,12 +237,15 @@ export default {
                 }
             }
         }
-         for(let i in showBusinessHour){
-            if(showBusinessHour[i].active == true){
-                let tp = showBusinessHour[i].time.split('-')
-                businessHour[i].time[0] = tp[0]
-                businessHour[i].time[1] = tp[1]
-                businessHour[i].active = true
+        this.formData.name = this.legendData.name
+        this.formData.address = this.legendData.address
+        this.formData.phone = this.legendData.phone
+         for(let i in this.showBusinessHour){
+            if(this.showBusinessHour[i].active == true){
+                let tp = this.showBusinessHour[i].time.split('-')
+                this.businessHour[i].time[0] = tp[0]
+                this.businessHour[i].time[1] = tp[1]
+                this.businessHour[i].active = true
             }
         }
     }

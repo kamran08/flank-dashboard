@@ -121,7 +121,7 @@ class UserController {
     }
     const maxv = Math.max.apply(Math, ratingD.map(function (d) { return d.total }))
     for (let d of ratingD) {
-      d.padding = parseInt((80 * d.total) / maxv)
+      d.padding = parseInt((50 * d.total) / maxv)
     }
 
     if (userData) {
