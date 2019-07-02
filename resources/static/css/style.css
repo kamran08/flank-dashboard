@@ -4240,3 +4240,11 @@ ul.pull-right.navbar-nav.nav li {
 .mobile-dropdown-list.active a {
   color: #0088cc;
 }
+
+.other-ques-det {
+  margin-top: 10px;
+}
+
+.other-ques-det p {
+  font-size: 15px;
+}

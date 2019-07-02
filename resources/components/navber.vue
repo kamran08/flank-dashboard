@@ -235,7 +235,7 @@
                        </li>
                    </ul>
                    <ul class="main-nav right-top pull-right">
-                       <li @click="reviewModal=true"><a ><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
+                       <li ><a href="/review" ><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
                         <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
                         <li v-if="isLoggedIn " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >User Profile</a></li>
                         <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Legend Profile</a></li>

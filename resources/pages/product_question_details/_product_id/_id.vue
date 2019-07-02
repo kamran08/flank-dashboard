@@ -112,6 +112,115 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="view-sect">
+                                    <h3 >People also viewed</h3>
+                                    <div class="view-media" style="margin-top: 10px;">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img src="/image/80.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4><a href="">The Grubbies</a></h4>
+                                                <div class="star-review mt-5">
+                                                    <p style="margin-bottom: 5px;"><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class="high rating-bg"><i class="fas fa-star"></i></span><span class=""><i class="fas fa-star"></i></span>&nbsp;<small>3/3/2019</small></p>
+                                                    <span>$$</span>&nbsp;&nbsp;•&nbsp;&nbsp;<span>Japanese, Sushi Bars</span>
+                                                    <span>Financial District</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
