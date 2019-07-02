@@ -684,7 +684,7 @@
 }
 
 .full-question .media-left {
-    width: 7%;
+    /* width: 7%; */
     float: left;
 }
 
