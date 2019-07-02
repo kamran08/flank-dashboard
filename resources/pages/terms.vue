@@ -110,10 +110,10 @@
                     <div class="row">
                         <h2>Terms of Service</h2>
                         <hr>
-                        <div class="about-content">
+                        <div class="about-content mt-10">
                              <p><strong>Last Updated on November 27, 2012.</strong> These terms and conditions are effective immediately for those registering accounts after that date and will become effective December 27, 2012 for those with pre-existing accounts. To review the previous terms, please click <a href="">here.</a></p>
                              <p>These terms and conditions (the <strong>"Terms"</strong>) govern your access to and use of Yelp's websites and mobile applications that link to or reference these Terms (<strong>"Site"</strong>). By accessing or using the Site, you are agreeing to these Terms and concluding a legally binding contract with Yelp Inc., a Delaware corporation headquartered in San Francisco, California (<strong>"Flank"</strong>). Do not access or use the Site if you are unwilling or unable to be bound by the Terms.</p>
-                            <ol class="terms">
+                            <ol class="terms mt-10">
                                 <li><strong>Definitions</strong>
                                     <ol type="A">
                                         <li><strong>Parties</strong> <br> <br>

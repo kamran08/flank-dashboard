@@ -3,11 +3,11 @@
         
         <!-- Header-->
         
-        <header>
-            <div class="header-second">
-                <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    <form action="#">
+        <!-- <header> -->
+            <!-- <div class="header-second"> -->
+                <!-- <div class="container"> -->
+                    <!-- <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a> -->
+                    <!-- <form action="#">
                         <div class="equal-div">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
@@ -35,16 +35,16 @@
                                 </ul>
                             </div>
                         </div>
-                   </form>
+                   </form> -->
                    <!-- <div class="pull-right">
                        <ul class="logsign">
                            <li><a href="">Log In</a></li>
                            <li><a href="">Sign Up</a></li>
                        </ul>
                    </div> -->
-                </div>
-            </div>
-            <div class="header-nav">
+                <!-- </div> -->
+            <!-- </div> -->
+            <!-- <div class="header-nav">
                <div class="container">
                    <ul class="main-nav">
                        <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach&nbsp;<i class="fas fa-angle-down"></i></a>
@@ -101,8 +101,8 @@
                        <li><a href="review.html"><i class="fas fa-pen"></i>&nbsp;For Business</a></li>
                    </ul>
                </div>
-            </div>
-        </header>
+            </div> -->
+        <!-- </header> -->
         
         <section class="local-blog-section second-section">
             <div class="container">
@@ -120,8 +120,8 @@
                 </div>
                 <div class="section-content">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="content-indi content-left">
+                        <div class="col-md-8 col-sm-8">
+                            <div class="content-indi content-left" style="margin-bottom: 20px;">
                                 <div class="pull-right">
                                     <span>March 6, 2019</span>
                                 </div>
@@ -147,8 +147,8 @@
                                                 </div>
                                                 <div class="media-body">
                                                     <h3><a href="">Decor Aid</a></h3>
-                                                    <div class="star-review">
-                                                        <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>57 reviews
+                                                    <div class="star-review mt-5 mb-5">
+                                                        <p class="pf"><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>57 reviews
                                                         </small></p>
                                                     </div>
                                                     <span class="review-span">Interior Design</span><br>
@@ -169,8 +169,8 @@
                                                 </div>
                                                 <div class="media-body">
                                                     <h3><a href="">Decor Aid</a></h3>
-                                                    <div class="star-review">
-                                                        <p><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>57 reviews
+                                                    <div class="star-review mt-5 mb-5">
+                                                        <p class="pf"><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span class="rating-bg"><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>57 reviews
                                                         </small></p>
                                                     </div>
                                                     <span class="review-span">Interior Design</span><br>
@@ -189,7 +189,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-4">
                             <div class="content-indi content-right">
                                 <div class="stay-up">
                                     <h3>Stay up on what’s hot and new!</h3>

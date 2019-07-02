@@ -90,12 +90,12 @@
                     </div>
                 </div>
                 <div class="sidebar open none">
-                    <button>
+                    <button class="sidebar-action">
                         <span><i class="fas fa-caret-right"></i></span>
                     </button>
                     
                     <div class="sidebar-inner">
-                        <h2>Recent Review</h2>
+                        <h2 class="mt-20">Recent Review</h2>
                         <template v-if="reviews.length>0" >
                             <div class="sidebar-review-individual" v-for="(item,index) in reviews " :key="index" >
                                 <div class="media">
@@ -291,6 +291,18 @@ export default {
         font-size: 20px;
         cursor: pointer;
         margin: 0 2px;
+    }
+
+    @media only screen and (max-width: 767px) {
+
+        .sidebar {
+            width: 80%;
+            background: #fff;
+        }
+
+        .sidebar .sidebar-inner {
+            padding-right: 20px;
+        }
     }
 </style>
 

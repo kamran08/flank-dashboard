@@ -3,6 +3,99 @@
         
         <!-- Header--> 
         
+        <div class="section-header-new">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="new-left">
+                            <div class="new-left-up">
+                                <div class="new-left-icon">
+                                    <ul class="icon-list-new">
+                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
+                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
+                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
+                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
+                                        <li><span><i class="fas fa-star"></i></span></li>
+                                    </ul>
+                                    <h3>Coach: <span class="cname">Mike Powell</span></h3>
+                                    <figure class="new-ch">
+                                        <img src="../../static/image/bong.png" alt="">
+                                    </figure>
+                                    <div class="new-ch-p">
+                                        <p class="ch-tt">Cal State Northridge</p>
+                                        <p class="ch-play">NCAA D1 • Baseball</p>
+                                        <p class="ch-city">Los Angeles, CA</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="new-middle">
+                            <p class="summary-btn">Summary</p>
+                            <div class="ch-score">
+                                <div class="ch-score-item">
+                                    <div class="score-point">
+                                        <div class="scr">
+                                            <h2>60</h2>
+                                        </div>
+                                        <p>Score</p>
+                                    </div>
+                                </div>
+                                <div class="ch-score-item-2">
+                                    <div class="speed-lim">
+                                        <p>Speed limit</p>
+                                        <h3>60</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="new-right">
+                            <div class="review-option"><button><i class="fas fa-star"></i>&nbsp;Write a Review</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="new-left-bottom">
+                    <p class="pow">Powered by FLANKSccres</p>
+                    <ul class="ch-quick-link">
+                        <li><a href="#"><sub>38</sub> Player reviews</a></li>
+                        <li><a href="#"><sub>11</sub> Answered questions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section-flex-row">
+            <div class="section-flex-item">
+                <p>Sport</p>
+                <h3>Baseball</h3>
+            </div>
+            <div class="section-flex-item">
+                <p>Division</p>
+                <h3>NCAA D1</h3>
+            </div>
+            <div class="section-flex-item">
+                <p>Roaster</p>
+                <h3>34</h3>
+            </div>
+            <div class="section-flex-item">
+                <p>Alumni</p>
+                <h3>- -</h3>
+            </div>
+            <div class="section-flex-item">
+                <p>Intersted athlets</p>
+                <h3>1,241</h3>
+            </div>
+            <div class="section-flex-item">
+                <p>Committed reqruits</p>
+                <h3>55</h3>
+            </div>
+            <div class="section-flex-item">
+                <p>Placed athlets</p>
+                <h3>- -</h3>
+            </div>
+        </div>
 
         
         <section class="rd second-section bg">
@@ -161,9 +254,9 @@
                                        
                                         
                                         
-                                         <div class="searchReview">
+                                         <div class="searchReview" style="margin-bottom: 20px;">
                                             <input type="text" class="form-control" v-model="reviewSearch" placeholder="Search within the reviews">
-                                            <button @click="SearchReviewResult" ><i class="fas fa-search"></i></button>
+                                            <button @click="SearchReviewResult" style="padding: 8px 12px;"><i class="fas fa-search"></i></button>
                                             <!-- <div class="sortTagOne">Sort by&nbsp;<strong>Flank Sort&nbsp;<span><i class="fas fa-sort-down"></i>
                                                   
                                                </span>

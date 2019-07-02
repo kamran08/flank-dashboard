@@ -249,6 +249,7 @@
       float: left;
       width: 35%;
       position: relative; }
+      
       .sponsor-media .sponsor-media-left figure {
         width: 230px;
         height: 230px;
@@ -275,6 +276,8 @@
       float: left;
       padding-left: 20px;
       width: 65%; }
+
+      
       .sponsor-media .sponsor-media-body h3 {
         margin-top: 0;
         margin-bottom: 5px; }
@@ -293,6 +296,27 @@
   .body-part-two {
     float: right;
     text-align: right; }
+
+    @media only screen and (max-width: 767px) {
+      .sponsor-media .sponsor-media-left {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .sponsor-media .sponsor-media-body {
+        width: 100% }
+
+        .body-part-one {
+          float: left;
+        width: 100%; }
+        
+        .body-part-two {
+          float: left;
+          text-align: left;
+        width: 100%;
+      margin-top: 10px;
+    margin-bottom: 10px; }
+    }
     .body-part-two p {
       margin-bottom: 5px; }
   
@@ -331,11 +355,10 @@
       .order-card button:focus, .order-card button:active {
         outline: 0; }
   
-  .sponsor-item {
-    background: rgba(255, 255, 255, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.09) }
+        .sponsor-item {
+          margin-bottom: 20px;
+          padding: 20px 0;
+          border-bottom: 1px solid #e6e6e6; }
   
   .sponsor-item:last-child {
     border-bottom: 0; }
@@ -469,8 +492,7 @@
     width: 100%;
     float: left; }
     .topic-media .topic-media-left {
-      float: left;
-      width: 9%; }
+      float: left; }
       .topic-media .topic-media-left figure {
         width: 60px;
         height: 60px; }
@@ -531,7 +553,8 @@
     border: 1px solid #e6e6e6;
     border-radius: 3px;
     padding: 15px;
-    margin-top: 30px; }
+    margin-top: 30px;
+  margin-bottom: 30px; }
     .missing-box hr {
       border-color: #e6e6e6;
       margin-bottom: 10px; }
@@ -736,7 +759,7 @@
 }
 
 .product-thumb-data {
-  background: #fff;
+  /* background: #fff; */
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -744,7 +767,7 @@
   overflow: hidden;
   margin-bottom: -30px;
   padding: 10px;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05); */
 }
 
 .product-thumb {
@@ -997,6 +1020,8 @@
   color: #fff;
   margin-right: 3px;
   border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 3px;
 }
 .nearby-part .media .media-body .star-review p span i {
   font-weight: 900;
@@ -1180,8 +1205,8 @@
 }
 
 .review-final-card {
-  background: #fff;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
+  /* background: #fff; */
+  /* box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05); */
   float: left;
   width: 100%;
   padding: 25px 0;

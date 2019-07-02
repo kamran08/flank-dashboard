@@ -1,11 +1,10 @@
 <template>
  <footer class="">
-   <hr>
       <div class="container">
           <div class="section-content" >
               <div class="row">
                   <div class="col-md-3 col-sm-3">
-                      <div class="foo-individual">
+                      <div class="foo-individual" style="margin-bottom: 20px;">
                           <h3>About</h3>
                           <div class="foo-option">
                               <ul>
@@ -18,7 +17,7 @@
                       </div>
                   </div>
                   <div class="col-md-3 col-sm-3">
-                      <div class="foo-individual">
+                      <div class="foo-individual" style="margin-bottom: 20px;">
                           <h3>Discover</h3>
                           <div class="foo-option">
                               <ul>
@@ -29,7 +28,7 @@
                       </div>
                   </div>
                   <div class="col-md-3 col-sm-3">
-                      <div class="foo-individual">
+                      <div class="foo-individual" style="margin-bottom: 20px;">
                           <h3>Flank for Business <br> Owners</h3>
                           <div class="foo-option">
                               <ul>

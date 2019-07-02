@@ -3,7 +3,7 @@
         
         <!-- Header-->
         
-        <header>
+        <!-- <header>
             <div class="header-second">
                 <div class="container">
                     <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
@@ -101,13 +101,13 @@
                    </ul>
                </div>
             </div>
-        </header>
+        </header> -->
         
         <section class="rp second-section bg">
             <div class="container">
                 <div class="section-content">
                     <div class="row">
-                        <div class="col-md-9 col-sm-9">
+                        <div class="col-md-8 col-sm-8">
                             <div class="review-content">
                                 <h1><strong>Your First Review Awaits</strong></h1>
                                 <p>Review your favorite businesses and share your experiences with our community. Need a little help getting started? <a href="">Check out these tips.</a></p>
@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3">
+                        <div class="col-md-4 col-sm-4">
                             <figure>
                                 <img src="/image/260x160_bizhouse_YNRA.png" alt="">
                             </figure>
@@ -139,7 +139,7 @@
                <h2>Been to Business Seriously?</h2>
                <div class="section-content">
                    <div class="row">
-                       <div class="col-md-6 col-sm-6">
+                       <div class="col-md-6 col-sm-6 col-xs-6">
                            <div class="figcap-border review-suggestion">
                                <div class="media">
                                     <div class="media-left">
@@ -157,6 +157,8 @@
                                     <span><i class="fas fa-times"></i><small>Ignore this suggestion for a while</small></span>
                                 </div>
                            </div>
+                       </div>
+                       <div class="col-md-6 col-sm-6 col-xs-6">
                            <div class="figcap-border review-suggestion">
                                <div class="media">
                                     <div class="media-left">
@@ -175,7 +177,7 @@
                                 </div>
                            </div>
                        </div>
-                       <div class="col-md-6 col-sm-6">
+                       <div class="col-md-6 col-sm-6 col-xs-6">
                            <div class="figcap-border review-suggestion">
                                <div class="media">
                                     <div class="media-left">
@@ -193,6 +195,8 @@
                                     <span><i class="fas fa-times"></i><small>Ignore this suggestion for a while</small></span>
                                 </div>
                            </div>
+                       </div>
+                       <div class="col-md-6 col-sm-6 col-xs-6">
                            <div class="figcap-border review-suggestion">
                                <div class="media">
                                     <div class="media-left">
@@ -214,7 +218,7 @@
                    </div>
                </div>
                <div class="text-center">
-                   <p class="moreD"><a href=""><i class="fas fa-angle-down"></i>&nbsp;Show more suggestions</a></p>
+                   <p class="moreD" style="padding-botton: 20px;"><a href=""><i class="fas fa-angle-down"></i>&nbsp;Show more suggestions</a></p>
                </div>
            </div>
        </section>
@@ -250,4 +254,22 @@ export default {
 
 <style>
 
+    @media only screen and (max-width: 767px) {
+        .media-left {
+            display: block;
+            margin: auto;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .media-body {
+            text-align: center;
+        }
+    }
+
+    @media only screen and (max-width: 510px) {
+        .col-xs-6 {
+            width: 100%;
+        }
+    }
 </style>

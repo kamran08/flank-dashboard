@@ -92,7 +92,7 @@
             <div class="container">
                 <div class="section-content">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-sm-3">
                             <div class="profile-link">
                                 <h2>{{userData.firstName}}'s Profile</h2>
                                 <ul>
@@ -107,7 +107,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-6" v-if="tab == 1" >
+                        <div class="col-md-6 col-sm-6" v-if="tab == 1" >
                             <div class="profile-review reviewItem">
                                 <h2>Reviews</h2>
                                 <div class="review-sort">
@@ -197,12 +197,12 @@
                                             </div>
                                     </div>
                                 </div>
-                                <div class="profile-fill-more" v-if="userData.reviews.length>0" >
+                                <div class="profile-fill-more" v-if="userData.reviews.length>0" style="margin-bottom: 20px; border-bottom: 0;">
                                     <p><a @click="tab=2" >More reviews by {{userData.firstName}}</a></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6" v-if="tab==3" >
+                        <div class="col-md-6 col-sm-6" v-if="tab==3" >
                             <div class="profile-review reviewItem">
                                 <h2>All Products</h2>
                                 <div class="review-sort">
@@ -255,7 +255,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6" v-if="tab==2" >
+                        <div class="col-md-6 col-sm-6" v-if="tab==2" >
                             <div class="profile-review reviewItem">
                                 <h2>All Reviews</h2>
                                 <div class="review-sort">
@@ -363,7 +363,7 @@
                                             </div>
                                     </div>
                                 </div>
-                                <div class="profile-fill-more" v-if="allReviews.length>0" >
+                                <div class="profile-fill-more" v-if="allReviews.length>0">
                                    <hr>
                                     <div class="text-center ">
                                         <div class="pagination-padding">
@@ -374,7 +374,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-sm-3">
                             <div class="profile-about card-box">
                                 <h3>About {{userData.firstName}} {{userData.lastName}}</h3>
                                 <p>Rating Distribution</p>
@@ -717,5 +717,15 @@ export default {
 }
 .Details_profie_img_div:hover .Details_profie_img_edit{
     bottom:0;
+}
+
+@media only screen and (max-width: 767px) {
+    .profile-review.reviewItem {
+        margin-top: 20px;
+    }
+
+    .profile-about  {
+        margin-top: 20px;
+    }
 }
 </style>

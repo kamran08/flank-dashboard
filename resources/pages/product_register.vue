@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="form-group">
                                              <InputNumber 
-                                                style="width: 300px"
+                                                style="width: 100%"
                                                 placeholder="Enter Price..." 
                                                 :min="1" v-model="productData.price">
                                             </InputNumber>

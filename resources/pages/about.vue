@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <h3>About Flank</h3>
-                            <ul>
+                            <ul class="mt-10">
                                 <li class="active"><a href="about.html">About Us</a></li>
                                 <li><a href="guidelines.html">Current Guidelines</a></li>
                                 <li><a href="terms.html">Terms of Services</a></li>
@@ -26,7 +26,7 @@
                         <div class="col-md-9">
                             <h2>About Us</h2>
                             <hr>
-                            <div class="about-content">
+                            <div class="about-content mt-10">
                                 <p>Our purpose: <strong>To connect people with great local businesses</strong></p>
                                 <h3>10 Things You Should Know About Flank</h3>
                                 <ol type="1">

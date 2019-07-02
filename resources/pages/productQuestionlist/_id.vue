@@ -13,8 +13,8 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8">
-                                <div class="reviewComment no_margin border-right">
+                            <div class="col-md-8 col-sm-8">
+                                <div class="reviewComment no_margin border-right" style="margin-bottom: 30px;">
                                     <div class="comment_title border-bottom" >
                                         <h2>Ask the Community</h2>
                                         <!-- <div class="sortTag no_pos">Sort by&nbsp;<strong>Popular&nbsp;
@@ -50,13 +50,13 @@
                                             <Page :current="rpagination.page" :total="rpagination.total" @on-change="setPage($event)" :page-size="rpagination.perPage" />
                                         </div>
                                         </div>
-                                    <div class="question-button">
+                                    <div class="question-button" style="margin-bottom: 20px;">
                                         <p>Don’t see your question? Ask away!</p>
                                         <button @click="askModal=true" >Ask a question</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-4">
 
                                 <div class="view-sect">
                                     <div class="view-media">

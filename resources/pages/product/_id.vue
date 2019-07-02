@@ -117,7 +117,7 @@
                     <div class="profileProdut-sec">
                         <div class="row">
                             <div class="profilePrduct-content">
-                                <div class="col-md-9 profile-full-box">
+                                <div class="col-md-9 col-sm-9 profile-full-box">
                                     <div class="profile-content-des">
                                         <template v-if="!isEdit" >
                                             <h3>Description:</h3>
@@ -201,7 +201,7 @@
                                             <Button @click="askModal=true" >Ask a question</Button>
                                         </div>
                                     </div>
-                                    <div class=" askCommunity card-box"  >
+                                    <div class=" askCommunity card-box mt-20"  >
                                         <h2>Ask the Community</h2>
                                         <template v-if="totalQuestion>0 && isLoading==false " >
                                             <div class="question-set" v-for="(item,index) in questionList" :key="index" >
@@ -324,7 +324,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-3">
                                     <div class="card-box">
                                         <div class="intersted-part">
                                         <h3>Are you interested?</h3>
@@ -788,5 +788,9 @@ export default {
 
 .pageOption:hover .menu_dropDown_on {
   display: block;
+}
+
+.reviewItem .searchByReview .searchReview button {
+    padding: 8px 12px;
 }
 </style>

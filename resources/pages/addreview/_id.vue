@@ -14,7 +14,7 @@
                                 <div class="textarea">
                                     <div class="star-review" style="background: #fff; text-align: center;" >
                                         <p><small>Select your rating</small></p>
-                                        <Rate v-model="rating" icon="md-star" @on-change="reviewData.rating=rating" />
+                                        <Rate v-model="rating" icon="md-star" @on-change="reviewData.rating=rating" style="margin-bottom: 10px;" />
                                     </div>
                                     <textarea v-model="reviewData.content" class="form-control" id="my_textarea" rows="15" placeholder="Your review helps others learn about great local businesses. 
                                     Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees." name="message"></textarea>
@@ -80,12 +80,12 @@
                     </div>
                 </div>
                 <div class="sidebar open none">
-                    <button>
+                    <button class="sidebar-action">
                         <span><i class="fas fa-caret-right"></i></span>
                     </button>
                     
                     <div class="sidebar-inner">
-                        <h2>Recent Review</h2>
+                        <h2 class="mt-10">Recent Review</h2>
                         <template v-if="reviews.length>0" >
                             <div class="sidebar-review-individual" v-for="(item,index) in reviews " :key="index" >
                                 <div class="media">
@@ -284,5 +284,18 @@ export default {
         cursor: pointer;
         margin: 0 2px;
     }
+
+    @media only screen and (max-width: 767px) {
+
+        .sidebar {
+            width: 80%;
+            background: #fff;
+        }
+
+        .sidebar .sidebar-inner {
+            padding-right: 20px;
+        }
+    }
+
 </style>
 

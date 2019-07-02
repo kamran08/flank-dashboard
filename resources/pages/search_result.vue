@@ -109,7 +109,7 @@
             <div class="container">
                 <div class="section-content">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-sm-9">
                             <div class="sponsor-part" v-if="!isLoading && searchData.length>0" >
                                 <div class="sponsor-title">
                                     <h2>All Results</h2>
@@ -417,7 +417,7 @@
                                    
                                 </div>
                             </div>
-                            <!-- <div class="city-related-topic">
+                            <div class="city-related-topic">
                                 <div class="inner-title">
                                     <h3>Related with topics</h3>
                                 </div>
@@ -444,9 +444,9 @@
                                     </div>
                                 </div>
                                 <p><a href="">More Topics</a></p>
-                            </div> -->
+                            </div>
                         </div>
-                        <!-- <div class="col-md-4">
+                        <div class="col-md-4 col-sm-3">
                             <div class="partner-website-add">
                                 <div class="partner-website-link">
                                     <div class="website-link">
@@ -467,12 +467,12 @@
                             </div>
                             <div class="missing-box">
                                 <h3>Not here? Tell us what we're missing.</h3>
-                                <p>If the business you're looking for isn't here, add it!</p>
-                                <button>Add a business</button>
+                                <p class="mt-5">If the business you're looking for isn't here, add it!</p>
+                                <button class="mt-5">Add a business</button>
                                 <hr>
                                 <p>Got search feedback? <a href="">Help us improve.</a></p>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>

@@ -242,6 +242,46 @@
                         <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
                    </ul>
                </div>
+               <div class="container">
+                   <div class="mobile-main-nav">
+                       <div class="mobile-nav-button">
+                           <button><span><i class="fas fa-bars"></i></span></button>
+                       </div>
+                       <div class="mobile-main-nav-list">
+                           <ul class="main-list-mobile">
+                               <li class="main-list-link"><a href="" class="main-list-act"><span><i class="fas fa-calculator"></i></span>High school coach</a></li>
+                               <li class="main-list-link"><a href="" class="main-list-act"><span><i class="fas fa-calculator"></i></span>College coach<span class="determiner"><i class="fas fa-caret-down"></i></span></a>
+                                <ul class="mobile-dropdown">
+                                    <li class="mobile-dropdown-list">
+                                        <a href=""><span><i class="fas fa-calculator"></i></span>Junior College</a>
+                                    </li>
+                                    <li class="mobile-dropdown-list">
+                                        <a href=""><span><i class="fas fa-calculator"></i></span>MCLA</a>
+                                    </li>
+                                    <li class="mobile-dropdown-list">
+                                        <a href=""><span><i class="fas fa-calculator"></i></span>NAIA</a>
+                                    </li>
+                                    <li class="mobile-dropdown-list">
+                                        <a href=""><span><i class="fas fa-calculator"></i></span>NCAA DI</a>
+                                    </li>
+                                    <li class="mobile-dropdown-list">
+                                        <a href=""><span><i class="fas fa-calculator"></i></span>NCAA DII</a>
+                                    </li>
+                                    <li class="mobile-dropdown-list">
+                                        <a href=""><span><i class="fas fa-calculator"></i></span>NCAA DIII</a>
+                                    </li>
+                                </ul>
+                               
+                               </li>
+                               <li class="main-list-link"><a href="" class="main-list-act"><span><i class="fas fa-calculator"></i></span>Local Instructors</a></li>
+                               <li class="main-list-link"><a href="" class="main-list-act"><span><i class="fas fa-calculator"></i></span>More</a></li>
+                               <li class="main-list-link"><a href="" class="main-list-act"><span><i class="fas fa-pen"></i></span>Write a review</a></li>
+                               <li class="main-list-link"><a href="" class="main-list-act"><span><i class="fas fa-user-shield"></i></span>Sign in</a></li>
+                               <li class="main-list-link"><a href="" class="main-list-act"><span><i class="fas fa-sign-in-alt"></i></span>Sign up</a></li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
             </div>
         </header>
 </div>
@@ -499,5 +539,16 @@
 }
 .pageOption:hover .menu_dropDown_on {display: block;}
 .pageOption:hover .menu_dropDown_on_nav {display: block;}
+
+@media only screen and (max-width: 992px) {
+    
+    .main-nav {
+        display: none;
+    }
+
+    .main-nav.right-top.pull-right {
+        display: none;
+    }
+}
 </style>
 

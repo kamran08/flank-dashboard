@@ -59,7 +59,7 @@
                                     </template>
                                     
 
-                                    <div class="question-button">
+                                    <div class="question-button" style="margin-bottom: 20px;">
                                         <p>Provide an answer:</p>
                                         <button  @click="answerModal = true" >Post an Answer</button>
                                     </div>
@@ -91,7 +91,7 @@
                                         <div class="other-ques">
                                             <h4 class="border-bottom">Other questions for {{legendData.schoolName}}</h4>
                                             <template v-if="similarQuestion.length>0 && isLoading==false ">
-                                                <div class="other-ques-det" v-for="(item,index) in similarQuestion " :key="index"  >
+                                                <div class="other-ques-det" v-for="(item,index) in similarQuestion " :key="index" style="margin-top: 10px;" >
                                                     <p>{{item.content}}</p>
                                                     <p v-if="item.__meta__.answers_count>0">
                                                         <nuxt-link :to="{name: 'question_details-legend_id-id', params: { legend_id:legend_id , id:item.id } }" >View {{item.__meta__.answers_count}} answer</nuxt-link>

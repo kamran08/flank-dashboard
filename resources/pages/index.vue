@@ -5,7 +5,7 @@
       <nav class="navbar">
         <div class="container">
           <ul class="navbar-nav nav">
-            <!-- <li><a href="review.html">Write a Review</a></li> -->
+            <!-- <li><a href="review.html">Write a Review</a></li> --> 
           </ul>
 
           <ul class="pull-right navbar-nav nav" v-if="!isLoggedIn">
@@ -119,8 +119,8 @@
           </h2>
         </div>
         <div class="section-content">
-          <div class="row">
-            <div class="col-md-3 col-sm-3">
+          <div class="row row-flex">
+            <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
               <div class="business-category" @click="$router.push(`/search_result?sort=rated`)">
                 <figure>
                   <img src="/image/two.jpeg" alt="find_business_category_image">
@@ -130,7 +130,7 @@
                 </figcaption>
               </div>
             </div>
-            <div class="col-md-3 col-sm-3">
+            <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
               <div class="business-category" @click="$router.push(`/search_result?sort=Worst`)">
                 <figure>
                   <img src="/image/one.jpeg" alt="find_business_category_image">
@@ -140,7 +140,7 @@
                 </figcaption>
               </div>
             </div>
-            <div class="col-md-3 col-sm-3">
+           <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
               <div class="business-category" @click="$router.push(`/search_result?sort=most`)">
                 <figure>
                   <img src="/image/four.jpeg" alt="find_business_category_image">
@@ -150,7 +150,7 @@
                 </figcaption>
               </div>
             </div>
-            <div class="col-md-3 col-sm-3">
+            <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
               <div class="business-category" @click="$router.push(`/search_result`)">
                 <figure>
                   <img src="/image/three.jpeg" alt="find_business_category_image">
@@ -174,7 +174,7 @@
           <div class="media-body">
             <h4 class="media-heading">Flank the Community</h4>
             <p>Find Flank reviews helpful? Start helping others by sharing your experiences</p>
-            <button>
+            <button class="mt-10">
               <a @click="reviewModal=true">start your first review</a>
             </button>
           </div>
@@ -182,7 +182,7 @@
       </div>
     </section>
 
-    <section class="lp third-section section-margin">
+    <section class="lp third-section">
       <div class="container">
         <div class="text-center">
           <h2>Flank Los Angeles</h2>
@@ -211,7 +211,6 @@
                 </a>
               </li>
             </ul>
-            <hr>
           </div>
           <div class="review-coach">
             <div class="text-center">
@@ -385,7 +384,7 @@
       </div>
     </section>
 
-    <section class="lp fourth-section section-margin">
+    <section class="lp fourth-section mt-30">
       <div class="container">
         <div class="text-center">
           <h2>Recent Activity</h2>
@@ -531,8 +530,8 @@
           <h2>Browse Coaches by Category</h2>
         </div>
         <div class="section-content">
-          <div class="row">
-            <div class="col-md-3 col-sm-3">
+          <div class="row row-flex">
+            <div class="col-md-3 col-sm-3 col-xs-4">
               <div
                 class="browse-category-individual text-center"
                 @click="$router.push(`/search_result?pageOption=coach`)"
