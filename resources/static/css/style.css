@@ -3869,6 +3869,7 @@ ul.pull-right.navbar-nav.nav li {
 
 .wr-review-item-main .ivu-input-wrapper {
   margin-bottom: 15px;
+  position: relative;
 }
 
 .review-confirm-button {
@@ -3884,7 +3885,7 @@ ul.pull-right.navbar-nav.nav li {
 }
 
 .inner-dropdown {
-  display: none;
+  /* display: none; */
 }
 
 .pf {
@@ -4247,4 +4248,39 @@ ul.pull-right.navbar-nav.nav li {
 
 .other-ques-det p {
   font-size: 15px;
+}
+
+.inner-dropdown-content {
+  background: #f5f5f5;
+  border-radius: 3px;
+  padding: 10px;
+  transform: scaleY(0);
+  height: 0;
+  transition: all 0.3s ease-out;
+  transform-origin:top;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+}
+
+.inner-dropdown-content ul {
+  width: 100%;
+}
+
+.inner-dropdown-content ul li {
+  width: 100%;
+  list-style: none;
+  background: #fff;
+  padding: 5px 10px;
+  margin-bottom: 7px;
+  cursor: pointer;
+}
+
+.inner-dropdown-content ul li:last-child {
+  margin: 0;
+}
+
+.inner-dropdown input:focus ~ .inner-dropdown-content {
+  transform: scaleY(1);
+  height: auto;
 }

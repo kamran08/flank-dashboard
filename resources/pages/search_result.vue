@@ -41,14 +41,7 @@
                         </ul>
                         <h3>Filter <span><i class="fas fa-chevron-down"></i></span></h3>
                         <ul class="filter">
-                            <!-- <li class="filter-list"><a  class="filter-action"><span></span>{{dropName}}</a>
-                                <ul>
-                                    <li   ><a :class="(sort == '')? 'active_ON': ''"></a></li> 
-                                    <li  ><a :class="(sort == '')? 'active_ON': ''" ></a></li>
-                                    <li   ><a :class="(sort == '')? 'active_ON': ''" ></a></li>
-                                    <li><a :class="(sort == '')? 'active_ON': ''" ></a></li>
-                                </ul>
-                            </li> -->
+                           
                             <li class="filter-list" @click="changesSortType('normal')"><a  class="filter-action" :class="(sort == 'normal')? 'active_ON': ''" >Recomended</a></li>
                             <li class="filter-list" @click="changesSortType('most')"><a  class="filter-action" :class="(sort == 'most')? 'active_ON': ''" >Most Reviewed</a></li>
                             <li class="filter-list" @click="changesSortType('rated')"><a  class="filter-action"  :class="(sort == 'rated')? 'active_ON': ''" >Highest Rated</a></li>
@@ -58,6 +51,18 @@
                                 <li class="filter-list" @click="changePriceType(99)"><a  class="filter-action" :class="(price>9 && price<=99 )? 'active_ON' : ''"  >$$</a></li>
                                 <li class="filter-list" @click="changePriceType(999)"><a  class="filter-action" :class="(price>99 && price<=999 )? 'active_ON' : ''"  >$$$</a></li>
                                 <li class="filter-list" @click="changePriceType(9999)"><a  class="filter-action" :class="(price>999 && price<=9999 )? 'active_ON' : ''"  >$$$$</a></li>
+                            </template>
+                        </ul>
+                        <h3  v-if="pageOptinoInfo == 'coach'">Division <span><i class="fas fa-chevron-down"></i></span></h3>
+                        <ul class="filter"  v-if="pageOptinoInfo == 'coach'">
+                            <template >
+                                <li class="filter-list" @click="changeDivType('Junior College')"><a  class="filter-action" :class="(div == 'Junior College')? 'active_ON': ''"  >Junior College</a></li>
+                                <li class="filter-list" @click="changeDivType('MCLA')"><a  class="filter-action" :class="(div == 'MCLA')? 'active_ON': ''"  >MCLA</a></li>
+                                <li class="filter-list" @click="changeDivType('NAIA')"><a  class="filter-action" :class="(div == 'NAIA')? 'active_ON': ''"  >NAIA</a></li>
+                                <li class="filter-list" @click="changeDivType('NCAA DI')"><a  class="filter-action" :class="(div == 'NCAA DI')? 'active_ON': ''"  >NCAA DI</a></li>
+                                <li class="filter-list" @click="changeDivType('NCAA DII')"><a  class="filter-action" :class="(div == 'NCAA DII')? 'active_ON': ''"  >NCAA DII</a></li>
+                                <li class="filter-list" @click="changeDivType('NCAA DIII')"><a  class="filter-action" :class="(div == 'NCAA DIII')? 'active_ON': ''"  >NCAA DIII</a></li>
+                                <li class="filter-list" @click="changeDivType('clear')"><a  class="filter-action"   >Clear</a></li>
                             </template>
                         </ul>
                         <div class="filter-content" v-if="filterFlag" >
@@ -498,7 +503,8 @@ export default {
             showCurrentPage:0,
             sort:'normal',
             isLoading:true,
-            dropName:''
+            dropName:'',
+            div:'',
 
         }
     },
@@ -509,6 +515,15 @@ export default {
         },
         changePriceType(item){
             this.price = item
+            this.SearchByKey()
+        },
+        changeDivType(item){
+            if(item != 'clear'){
+                this.div = item
+            }
+            else {
+                this.div = ''
+            }
             this.SearchByKey()
         },
         changesSortType(item){
@@ -528,7 +543,7 @@ export default {
         },
         async SearchByKey(){
 
-            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}`)
+            const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}&div=${this.div}`)
             if(res.status === 200){
                 this.$store.commit('setPageOptino', this.pageOption )
                 this.$store.commit('setSearchData', res.data.data)
@@ -596,6 +611,7 @@ export default {
         this.str = (this.$route.query.str)? this.$route.query.str :''
         this.pageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'legend'
         this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
+        this.div = (this.$route.query.div)? this.$route.query.div :''
        
 
         this.changeSortName(this.sort)

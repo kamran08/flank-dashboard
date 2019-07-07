@@ -11,20 +11,20 @@
                             <div class="new-left-up">
                                 <div class="new-left-icon">
                                     <ul class="icon-list-new">
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li><span><i class="fas fa-star"></i></span></li>
+                                        <li  :class="(averageRating>0)? ' yellow' : ''"><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>1)? ' yellow' : ''" ><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>2)? ' yellow' : ''" ><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>3)? ' yellow' : ''" ><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>4)? ' yellow' : ''"  ><span><i class="fas fa-star"></i></span></li>
                                     </ul>
-                                    <h3>Coach: <span class="cname">Mike Powell</span></h3>
+                                    <h3>Coach: <span class="cname">{{legendData.name}}</span></h3>
                                     <figure class="new-ch">
                                         <img src="../../static/image/bong.png" alt="">
                                     </figure>
                                     <div class="new-ch-p">
                                         <p class="ch-tt">Cal State Northridge</p>
                                         <p class="ch-play">NCAA D1 • Baseball</p>
-                                        <p class="ch-city">Los Angeles, CA</p>
+                                        <p class="ch-city">{{legendData.address}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <div class="new-right">
+                        <div class="new-right" v-if="user_id != legendData.id">
                             <div class="review-option"><button><i class="fas fa-star"></i>&nbsp;Write a Review</button></div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
 
                         <div class="row">
                             <div class="col-md-8 col-sm-8">
-                                <div class="review-section-title">
+                                <!-- <div class="review-section-title">
                                     <h1 v-if="!isEdit" >
                                         <strong>{{legendData.name}} <span @click="storePulse(1)" ><i class="fas fa-thumbs-up"></i></span> <span @click="storePulse(2)"><i class="fas fa-thumbs-down"></i></span>
                                          <span v-if="healthPulse.GoodCount > healthPulse.BadCount"><i class="fas fa-heartbeat"></i></span>
@@ -137,7 +137,7 @@
                                           <span v-else ><i class="far fa-heart"></i></span>
                                            </strong>
 
-                                                <!-- <small><i class="fas fa-check-circle"></i> Claimed</small> -->
+                                                <small><i class="fas fa-check-circle"></i> Claimed</small>
                                     </h1>
                                     <div class="header-input big-input" v-else >
                                         <input v-model="formData.name" type="text">
@@ -150,26 +150,25 @@
                                             <span :class="(averageRating>3)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                             <span :class="(averageRating>4)? ' rating-bg' : ''"><i class="fas fa-star"></i></span>
                                             &nbsp;<small class="review-number">{{totalReview}} reviews</small>
-                                            <!-- <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span> -->
+                                            <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span>
                                         </p>
                                     </div>
-                                    <!-- <div class="detail-content">
+                                    <div class="detail-content">
                                         <p>$$ &nbsp;&#8226;&nbsp;<span><a href="">Pizza</a>,<a href="">Italian</a></span>&nbsp;<span class="edit-button">Edit</span></p>
-                                    </div> -->
+                                    </div>
                                      <div class="review-option">
                                         <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
                                         
                                         <ul>
                                             <li @click="openImageModal" v-if="isLoggedIn && user_id == userData.id" ><a ><i class="fas fa-camera"></i>&nbsp;Add Photo</a></li>
-                                            <!-- <li><a href=""><i class="fas fa-share-square"></i>&nbsp;Share</a></li> -->
                                             <li v-if="isLoggedIn && user_id == userData.id" > <a v-if="!isEdit" @click="editOn" ><i class="fas fa-bookmark"></i>&nbsp;Edit</a>
                                             <a v-else @click="legendUpdate"><i class="fas fa-bookmark"></i>&nbsp;Save</a>
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <div class=" card-box" v-if=" isLoggedIn && user_id !== userData.id">
+                                <div class=" review-section-title card-box" v-if=" isLoggedIn && user_id !== userData.id">
                                     <h2>Ask the Community</h2>
                                     <div class="comment-individual" style="margin-bottom: 0 !important;">
                                         <!-- <p><strong>Is it okay to order a pastrami sandwich to share?</strong></p> -->

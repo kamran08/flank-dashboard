@@ -2,7 +2,7 @@
 <template>
 <div>
     <!-- <div class="top-bar">
-            <div class="container">
+            <div class="container"> 
                 <div class="top-bar-inner">
                     <div class="pull-left">
                         <div class="bar-logo">
@@ -198,32 +198,32 @@
             <div class="header-nav">
                <div class="container">
                    <ul class="main-nav">
-                       <li  ><a @click="SearchByKey('coach')" ><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach</a></li>
-                       <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Collage Coach&nbsp;<i class="fas fa-angle-down"></i></a>
+                       <li  ><a @click="searchByKey('coach')" ><i class="fas fa-calculator"></i>&nbsp;&nbsp;High School Coach</a></li>
+                       <li><i class="fas fa-calculator"></i>&nbsp;&nbsp;Collage Coach&nbsp;<i class="fas fa-angle-down"></i>
                            <div class="nav-dropdown">
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;Junior College</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;MCLA</a></li>
+                                   <li><a @click="searchByKey('coach','Recomended','Junior College')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Junior College</a></li>
+                                   <li><a @click="searchByKey('coach','Recomended','MCLA')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;MCLA</a></li>
                                </ul>
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NAIA</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DI</a></li>
+                                   <li><a @click="searchByKey('coach','Recomended','NAIA')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;NAIA</a></li>
+                                   <li><a @click="searchByKey('coach','Recomended','NCAA DI')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DI</a></li>
                                </ul>
                                <ul class="pull-left">
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DII</a></li>
-                                   <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DIII</a></li>
+                                   <li><a @click="searchByKey('coach','Recomended','NCAA DII')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DII</a></li>
+                                   <li><a @click="searchByKey('coach','Recomended','NCAA DIII')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;NCAA DIII</a></li>
                                </ul>
                            </div>
                        </li>
-                       <li><a  @click="SearchByKey('legend')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Local Instructors</a></li>
+                       <li><a  @click="searchByKey('legend')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Local Instructors</a></li>
                        <li><a href=""><i class="fas fa-calculator"></i>&nbsp;&nbsp;More&nbsp;<i class="fas fa-angle-down"></i></a>
                            <div class="nav-dropdown">
                                <ul class="pull-left">
-                                   <li><a @click="SearchByKey('coach','rated')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Best Rated Coaches</a></li>
-                                   <li><a @click="SearchByKey('coach','Worst')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Worst Rated Coaches</a></li>
-                                   <li><a @click="SearchByKey('coach','most')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Most Connected</a></li>
-                                   <li><a @click="SearchByKey('coach')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Coaches</a></li>
-                                   <li><a @click="SearchByKey('product','rated')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & Services</a></li>
+                                   <li><a @click="searchByKey('coach','rated')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Best Rated Coaches</a></li>
+                                   <li><a @click="searchByKey('coach','Worst')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Worst Rated Coaches</a></li>
+                                   <li><a @click="searchByKey('coach','most')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Most Connected</a></li>
+                                   <li><a @click="searchByKey('coach')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Travel Coaches</a></li>
+                                   <li><a @click="searchByKey('product','rated')"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Products & Services</a></li>
                                </ul>
                                <ul class="pull-left">
                                    
@@ -236,6 +236,7 @@
                    </ul>
                    <ul class="main-nav right-top pull-right">
                        <li ><a href="/review" ><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
+                       <!-- <li ><a @click="reviewModal = true" ><i class="fas fa-pen"></i>&nbsp;Write a Review 2</a></li> -->
                         <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
                         <li v-if="isLoggedIn " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >User Profile</a></li>
                         <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Legend Profile</a></li>
@@ -350,13 +351,15 @@
         },
         methods:{
           
-        async SearchByKey(legend = '',sort = ''){
+        async searchByKey(legend = '',sort = '',div=''){
             if(legend != '')
                 this.pageOption = legend
             if(sort != '')
                 this.sort = sort
+            if(div != '')
+                this.div = div
             if(this.pageOption == '') this.pageOption = 'legend'
-            const res = await this.callApi('get', `/app/SearchData?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}`)
+            const res = await this.callApi('get', `/app/SearchData?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}&div=${this.div}`)
             console.log("pamramiter Key")
             if(res.status === 200){
                
@@ -365,7 +368,7 @@
                 delete res.data.data
                 this.$store.commit('setPagination', res.data )
                 this.$store.commit('setPageOptino', this.pageOption )
-                this.$router.push(`/search_result?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}`)
+                this.$router.push(`/search_result?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}&div=${this.div}`)
             }
             else{
                 this.swr();

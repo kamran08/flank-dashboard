@@ -16,6 +16,7 @@ class SearchController {
     let page = request.input('page') ? request.input('page') : 1
     let price = request.input('price') ? request.input('price') : ''
     let sort = request.input('sort') ? request.input('sort') : ''
+    let div = request.input('div') ? request.input('div') : ''
     let pageOption = request.input('pageOption') ? request.input('pageOption') : 'legend'
 
     let data = {}
@@ -70,6 +71,11 @@ class SearchController {
         .with('avgRating')
         .withCount('allreview as allreview')
         .with('school')
+      if (div) {
+        data.whereHas('school', (builder) => {
+          builder.where('division', div)
+        })
+      }
 
       if (str) {
         data.where('name', 'LIKE', '%' + str + '%')
