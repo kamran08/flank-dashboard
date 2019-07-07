@@ -127,7 +127,7 @@
 
                         <div class="row">
                             <div class="col-md-8 col-sm-8" style="border-right: 1px solid #e6e6e6; margin-top: 20px;">
-                                <div class="product-profile school-profile" style="margin: 0;">
+                                <div class="product-profile school-profile" style="margin-bottom: 82px;">
                                     <div class="product-thumb-data">
                                         <div class="product-thumb">
                                             <figure>
@@ -172,15 +172,43 @@
                                     </div>
                                 </div>
 
-                                <div class="reviewComment card-box" >
+                                <div class="comment-individual" style="margin: 0px 0px;">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" style="width: 50px; margin-right: 3px;" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>“ <strong style="color:#0088cc">Suri</strong> and Hector are professional, reliable, responsive, and deliver (literally!) great service and value.” <a href="">in 9 reviews</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" style="width: 50px; margin-right: 3px;" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>“ <strong style="color:#0088cc">Suri</strong> and Hector are professional, reliable, responsive, and deliver (literally!) great service and value.” <a href="">in 9 reviews</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" style="width: 50px; margin-right: 3px;" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>“ <strong style="color:#0088cc">Suri</strong> and Hector are professional, reliable, responsive, and deliver (literally!) great service and value.” <a href="">in 9 reviews</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="reviewComment" style="margin-bottom: 41px;margin-top: 28px;">
                                     <h2>Ask the Community</h2>
                                     <hr>
                                     <div class="comment-individual" style="margin-bottom: 0;">
                                          <Button @click="askModal=true" >Ask a question</Button>
                                     </div>
                                 </div>
-                                <div class=" askCommunity card-box"  >
+                                <div class=" askCommunity"  >
                                     <h2>Ask the Community</h2>
+                                    <hr>
                                     <template v-if="totalQuestion>0 && isLoading==false " >
                                         <div class="question-set" v-for="(item,index) in questionList" :key="index" >
                                             <div class="comment-individual">
