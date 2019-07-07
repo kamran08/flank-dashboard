@@ -24,7 +24,8 @@ module.exports = {
   // },
   plugins: [
     '~plugins/vuecommon',
-    '~plugins/ivuew'
+    '~plugins/ivuew',
+    '~plugins/googlechart'
     // {src: '~plugins/clickout', ssr: false},
   ],
   head: {

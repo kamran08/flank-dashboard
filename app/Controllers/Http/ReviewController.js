@@ -186,6 +186,7 @@ class ReviewController {
   }
 
   async SchoolCoachReviewShow ({ params, request, response, auth }) {
+    
     let page = request.input('page') ? request.input('page') : 1
     let str = request.input('str') ? request.input('str') : ''
     let coach = request.input('coach') ? request.input('coach') : 0
@@ -207,6 +208,60 @@ class ReviewController {
     if (coach != 0) {
       mdata.where('reviewFor', coach)
     }
+    if (user_id != 0) {
+      mdata.with('imosall', (builder) => {
+        builder.where('user_id', user_id)
+      })
+    }
+    if (str) {
+      mdata.where('content', 'LIKE', '%' + str + '%')
+    }
+    let data = await mdata.orderBy('id', 'desc')
+      .paginate(page, 5)
+
+    data = data.toJSON()
+    let tempData = JSON.parse(JSON.stringify(data))
+
+    for (let r of tempData.data) {
+      if (r.imos == null) {
+        r.imos = {
+          'id': 0,
+          'review_id': 0,
+          'cool': 0,
+          'funny': 0,
+          'useful': 0
+        }
+      } else {
+        if (r.imosall) {
+          if (r.imosall.cool == 1) r.imos.acool = true
+          if (r.imosall.funny == 1) r.imos.afunny = true
+          if (r.imosall.useful == 1) r.imos.auseful = true
+        }
+      }
+    }
+
+    return tempData
+  }
+  async singleSchoolCoachReviewShow ({ params, request, response, auth }) {
+
+    let page = request.input('page') ? request.input('page') : 1
+    let str = request.input('str') ? request.input('str') : ''
+    let coach = request.input('coach') ? request.input('coach') : 0
+    let user_id = 0
+    // let user
+    // try {
+    //   user = await auth.getUser()
+    //   user_id = user.id
+    // } catch (error) {
+    //   //response.send('You are not logged in')
+    // }
+
+    let mdata = Review.query().where('reviewFor', params.id).where('review_type', 'school')
+      .with('reviwer')
+      .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
+      .with('imos')
+      .with('images')
+   
     if (user_id != 0) {
       mdata.with('imosall', (builder) => {
         builder.where('user_id', user_id)

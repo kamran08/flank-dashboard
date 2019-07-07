@@ -34,6 +34,7 @@ Route.resource('pulses', 'PulseController')
 Route.resource('schools', 'SchoolController')
 Route.resource('products', 'ProductController')
 Route.resource('reviews', 'ReviewController')
+Route.resource('coaches', 'ReviewController')
 
 // legend controller
 Route.post('/uploadLegendPhotos', 'LegendController.uploadLegendPhotos')
@@ -75,6 +76,7 @@ Route.get('/app/SearchByKeySchoolCoach', 'SearchController.SearchByKeySchoolCoac
 Route.get('/app/schoolcoach/:id', 'SchoolController.showSchoolCoach')
 Route.get('/app/coachatrributeConteptData/:id', 'ReviewController.coachatrributeConteptData')
 Route.get('/app/SchoolCoachReview/:id', 'ReviewController.SchoolCoachReviewShow')
+Route.get('/app/singleSchoolCoachReview/:id', 'ReviewController.singleSchoolCoachReviewShow')
 Route.post('/app/storeSchoolCoachReview', 'SchoolController.storeSchoolCoachReview')
 Route.post('/app/storeSchoolCoache', 'SchoolController.storeSchoolCoache')
 Route.post('/stoteCoachReviewImo', 'ReviewController.stoteCoachReviewImo')
