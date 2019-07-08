@@ -13,6 +13,10 @@ module.exports = {
     // With options
 
   ],
+  axios: {
+    baseURL: 'https://flank360.com/'
+   // baseURL: 'http://localhost:3000'
+  },
   // build: {
   //   plugins: [
   //     new webpack.ProvidePlugin({
