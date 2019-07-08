@@ -12,7 +12,7 @@ class Legend extends Model {
     return this.hasOne('App/Models/Review', 'id', 'reviewFor').where('review_type', 'legend')
   }
   avgRating () {
-    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('id', 'reviewFor', Database.raw('cast(AVG(rating) as decimal(10,2)) AS averageRating')).groupBy('reviewFor').where('review_type', 'legend')
+    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select('reviewFor', Database.raw('cast(AVG(rating) as decimal(10,2)) AS averageRating')).groupBy('reviewFor').where('review_type', 'legend')
   }
   legendimages () {
     return this.hasMany('App/Models/LegendImage', 'id', 'legend_id')

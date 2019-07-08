@@ -23,7 +23,7 @@ class ProductReview extends Model {
     return this.hasOne('App/Models/ProductImo', 'id', 'review_id')
   }
   imos () {
-    return this.hasOne('App/Models/ProductImo', 'id', 'review_id').select('id', 'review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
+    return this.hasOne('App/Models/ProductImo', 'id', 'review_id').select( 'review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
   }
   recentReviews () {
     return this.morphMany('App/Models/RecentReview', 'id', 'review_id', 'review_type')

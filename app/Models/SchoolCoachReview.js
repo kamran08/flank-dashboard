@@ -24,7 +24,7 @@ class SchoolCoachReview extends Model {
     return this.hasOne('App/Models/CoachImo', 'id', 'review_id')
   }
   imos () {
-    return this.hasOne('App/Models/CoachImo', 'id', 'review_id').select('id', 'review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
+    return this.hasOne('App/Models/CoachImo', 'id', 'review_id').select( 'review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
   }
   // recentReviews () {
   //   console.log('schoole review')

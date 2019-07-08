@@ -36,7 +36,7 @@ class Review extends Model {
     return this.hasOne('App/Models/Reviewimo')
   }
   imos () {
-    return this.hasOne('App/Models/Reviewimo').select('id', 'review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
+    return this.hasOne('App/Models/Reviewimo').select('review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
   }
 }
 

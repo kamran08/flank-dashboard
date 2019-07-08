@@ -33,7 +33,7 @@ module.exports = {
     // {src: '~plugins/clickout', ssr: false},
   ],
   head: {
-    title: 'Adonuxt',
+    title: 'Flank 360',
     meta: [
       {
         charset: 'utf-8'
