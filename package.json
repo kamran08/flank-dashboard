@@ -38,6 +38,7 @@
     "standard": "^12.0.1",
     "vue-chartjs": "^3.4.2",
     "vue-google-charts": "^0.3.2",
+    "vue-media-queries": "0.0.5",
     "youch": "^2.0.10"
   },
   "standard": {

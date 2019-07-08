@@ -62,7 +62,12 @@ class CoachController {
     .where('id', params.id)
     .withCount('allreview')
     .with('school')
+   // .withCount('school.questions')
+    .with('school', (builder) => {
+      builder.withCount('questions')
+    })
     .with('avgRating')
+   // .with('totalRating')
     .first()
   if (legendData) {
     return response.status(200).json({
@@ -108,6 +113,27 @@ class CoachController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+  }
+  async getCoachTopReviews ({ response, params }) {
+    
+    let legendData = await Review.query()
+      .where('reviewFor', params.id)
+      .where('review_type', 'school')
+      .with('reviwer')
+      .orderBy('rating', 'DESC')
+      .limit(3)
+      .fetch()
+
+    return legendData
+  }
+  async similar_coaches ({ params, request, response, view }) {
+    const data = request.all()
+    return await ProductQuestion.query()
+      .where('product_id', data.product_id)
+      .whereNot('id', data.question_id)
+      .withCount('answers')
+      .orderBy('id', 'desc')
+      .paginate(1, 3)
   }
 }
 

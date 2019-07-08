@@ -129,7 +129,7 @@
 
                         <div class="row">
                             <div class="col-md-8 col-sm-8">
-                                <!-- <div class="review-section-title">
+                                <div class="review-section-title">
                                     <h1 v-if="!isEdit" >
                                         <strong>{{legendData.name}} <span @click="storePulse(1)" ><i class="fas fa-thumbs-up"></i></span> <span @click="storePulse(2)"><i class="fas fa-thumbs-down"></i></span>
                                          <span v-if="healthPulse.GoodCount > healthPulse.BadCount"><i class="fas fa-heartbeat"></i></span>
@@ -166,7 +166,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div> -->
+                                </div>
 
                                 <div class=" review-section-title card-box" v-if=" isLoggedIn && user_id !== userData.id">
                                     <h2>Ask the Community</h2>

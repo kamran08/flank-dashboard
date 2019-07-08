@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {mapGetters} from 'vuex'
+
 Vue.mixin({
   methods: {
     async callApi (method, url, dataObj) {

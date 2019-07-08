@@ -1,11 +1,21 @@
 <template>
 <div>
-     <GChart
+     <div class="full">
+         <GChart
         type="AreaChart"
         :data="chartData"
         :options="chartOptions"
+        class="full"
     />
-      <h1>This is cool</h1>
+     </div>
+
+      <!-- <div>
+        <div>
+        <strong>Screen Size:</strong>
+        </div>
+        <div v-if="$resize && $mq.above(992)">Desktop</div>
+        <div v-else>Tablet and Below</div>
+    </div> -->
 </div>
   
 </template>
@@ -15,6 +25,7 @@
 // Vue.use(VueGoogleCharts)
 import { GChart } from 'vue-google-charts'
 export default {
+    
     data(){
         return{
             chartData: [
@@ -36,10 +47,10 @@ export default {
                 vAxis:{
                     gridlines: {
                         color: '#5C5C5C',
-                        count: 1,
+                        count: 4,
                     },
                     minorGridlines: {
-                        color: 'transparent',
+                        color: '#5C5C5C',
 
                     },
                     textStyle:{

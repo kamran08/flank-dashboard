@@ -183,7 +183,7 @@
                             <div class="input-group" >
                                 <span class="input-group-addon" id="basic-addon1">Find</span>
                                 <input type="text" class="form-control"  v-model="searchTxt" placeholder="Search any Attributes" aria-describedby="basic-addon1">
-                                <span @click="SearchByKey()" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
+                                <span @click="searchByKey()" class="input-group-btn search-btn position-top"><i class="fas fa-search"></i></span>
                             </div>
                         </div>
                    </form>

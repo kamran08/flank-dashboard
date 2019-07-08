@@ -11,20 +11,20 @@
                             <div class="new-left-up">
                                 <div class="new-left-icon">
                                     <ul class="icon-list-new">
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li class="yellow"><span><i class="fas fa-star"></i></span></li>
-                                        <li><span><i class="fas fa-star"></i></span></li>
+                                       <li  :class="(averageRating>0)? ' yellow' : ''"><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>1)? ' yellow' : ''" ><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>2)? ' yellow' : ''" ><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>3)? ' yellow' : ''" ><span><i class="fas fa-star"></i></span></li>
+                                        <li :class="(averageRating>4)? ' yellow' : ''"  ><span><i class="fas fa-star"></i></span></li>
                                     </ul>
-                                    <h3>Coach: <span class="cname">Mike Powell</span></h3>
+                                    <h3>Coach: <span class="cname">{{legendData.name}}</span></h3>
                                     <figure class="new-ch">
-                                        <img src="../../static/image/bong.png" alt="">
+                                        <img :src="legendData.school.logo" alt="">
                                     </figure>
                                     <div class="new-ch-p">
-                                        <p class="ch-tt">Cal State Northridge</p>
-                                        <p class="ch-play">NCAA D1 • Baseball</p>
-                                        <p class="ch-city">Los Angeles, CA</p>
+                                        <p class="ch-tt">{{legendData.school.schoolName}}</p>
+                                        <p class="ch-play">{{(legendData.school.division)? legendData.school.division+' • ' : '' }} • {{legendData.school.sport}}</p>
+                                        <p class="ch-city">{{legendData.school.city}} {{(legendData.school.state)? ' ,'+legendData.school.state : '' }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                 <div class="ch-score-item">
                                     <div class="score-point">
                                         <div class="scr">
-                                            <h2>60</h2>
+                                            <h2>{{totalRating}}</h2> 
                                         </div>
                                         <p>Score</p>
                                     </div>
@@ -45,7 +45,7 @@
                                 <div class="ch-score-item-2">
                                     <div class="speed-lim">
                                         <p>Speed limit</p>
-                                        <h3>60</h3>
+                                        <h3>{{totalReview*5}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -53,15 +53,24 @@
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <div class="new-right">
-                            <div class="review-option"><button><i class="fas fa-star"></i>&nbsp;Write a Review</button></div>
+                            <div class="review-option" @click="$router.push(`/scoach_review/${legendData.id}`)" ><button><i class="fas fa-star"></i>&nbsp;Write a Review</button></div>
+                        </div>
+                        <div>
+                                <GChart
+                                type="AreaChart"
+                                :data="chartData"
+                                :options="chartOptions"
+                               
+                                
+                            />
                         </div>
                     </div>
                 </div>
                 <div class="new-left-bottom">
                     <p class="pow">Powered by FLANKSccres</p>
                     <ul class="ch-quick-link">
-                        <li><a href="#"><sub>38</sub> Player reviews</a></li>
-                        <li><a href="#"><sub>11</sub> Answered questions</a></li>
+                        <li><a href="#AllReviews"><sub>{{totalReview}}</sub> Player reviews</a></li>
+                        <li><a href="#AskCommunity" ><sub>{{legendData.school.__meta__.questions_count}}</sub> Answered questions</a></li>
                     </ul>
                 </div>
             </div>
@@ -69,31 +78,31 @@
         <div class="section-flex-row">
             <div class="section-flex-item">
                 <p>Sport</p>
-                <h3>Baseball</h3>
+                <h3>{{(legendData.school.sport)? legendData.school.sport : '---' }}</h3>
             </div>
             <div class="section-flex-item">
                 <p>Division</p>
-                <h3>NCAA D1</h3>
+                   <h3>{{(legendData.school.division)? legendData.school.division : '---' }}</h3>
             </div>
             <div class="section-flex-item">
                 <p>Roaster</p>
-                <h3>34</h3>
+                   <h3>{{(legendData.school.roster)? legendData.school.roster : '---' }}</h3>
             </div>
             <div class="section-flex-item">
                 <p>Alumni</p>
-                <h3>- -</h3>
+                   <h3>{{(legendData.school.alumni)? legendData.school.alumni : '---' }}</h3>
             </div>
             <div class="section-flex-item">
                 <p>Intersted athlets</p>
-                <h3>1,241</h3>
+                    <h3>{{(legendData.school.interestedAthletes)? legendData.school.interestedAthletes : '---' }}</h3>
             </div>
             <div class="section-flex-item">
                 <p>Committed reqruits</p>
-                <h3>55</h3>
+                   <h3>{{(legendData.school.committedRecruit)? legendData.school.committedRecruit : '---' }}</h3>
             </div>
             <div class="section-flex-item">
                 <p>Placed athlets</p>
-                <h3>- -</h3>
+                    <h3>{{(legendData.school.placedAthletes)? legendData.school.placedAthletes : '---' }}</h3>
             </div>
         </div>
         <section class="rd second-section bg">
@@ -172,29 +181,13 @@
                                     </div>
                                 </div> -->
 
-                                <div class="comment-individual" style="margin: 0px 0px;">
-                                    <div class="media">
+                                <div class="comment-individual" style="margin: 0px 0px;" v-if="topReviews.length>0" >
+                                    <div class="media" v-for="(item,index) in topReviews" :key="index" >
                                         <div class="media-left">
-                                            <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" style="width: 50px; margin-right: 3px;" alt="">
+                                            <img :src="item.reviwer.img" style="width: 50px; margin-right: 3px;" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <p>“ <strong style="color:#0088cc">Suri</strong> and Hector are professional, reliable, responsive, and deliver (literally!) great service and value.” <a href="">in 9 reviews</a></p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" style="width: 50px; margin-right: 3px;" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>“ <strong style="color:#0088cc">Suri</strong> and Hector are professional, reliable, responsive, and deliver (literally!) great service and value.” <a href="">in 9 reviews</a></p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" style="width: 50px; margin-right: 3px;" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>“ <strong style="color:#0088cc">Suri</strong> and Hector are professional, reliable, responsive, and deliver (literally!) great service and value.” <a href="">in 9 reviews</a></p>
+                                            <p>“ <strong style="color:#0088cc">Suri</strong> {{item.content}}” <a  href="#AllReviews">view {{totalReview}} reviews</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +199,7 @@
                                          <Button @click="askModal=true" >Ask a question</Button>
                                     </div>
                                 </div>
-                                <div class=" askCommunity"  >
+                                <div class=" askCommunity"  id="AskCommunity" >
                                     <h2>Ask the Community</h2>
                                     <hr>
                                     <template v-if="totalQuestion>0 && isLoading==false " >
@@ -224,7 +217,7 @@
                                             </div>
                                             <p v-if="totalQuestion==1" class="all-que"><a @click="$router.push(`/coach_question_details/${legendData.id}/${item.id}`)" >View question details</a></p>
                                         </div>
-                                        <p v-if="totalQuestion>1" class="all-que"><nuxt-link :to="{name: 'coachquestionlist-id', params: { id:legendData.id } }" >See all {{totalQuestion}} questions for {{legendData.schoolName}}</nuxt-link></p>
+                                        <p v-if="totalQuestion>1" class="all-que"><nuxt-link :to="{name: 'coachquestionlist-id', params: { id:legendData.school.id } }" >See all {{totalQuestion}} questions for {{legendData.name}}</nuxt-link></p>
                                     </template>
                                     
                                     <h4 v-else-if="isLoading==true" class="noReview" >Content is Loading...</h4>
@@ -239,7 +232,7 @@
                                     </div>
                                     <hr> -->
                                 </div>
-                                <div class="reviewItem">
+                                <div class="reviewItem" id="AllReviews" >
                                     <!-- <h2>{{legendData.schoolName}} | {{legendData.sport}} <span> Coaches</span></h2>
                                     <hr> -->
                                     <div class="searchByReview">
@@ -413,7 +406,7 @@
                                                 <div class="short-def-list">
                                                     <span   >
                                                          <strong class="u-space-r-half">
-                                                             {{legendData.sport}}
+                                                             {{legendData.school.sport}}
                                                         </strong>
                                                     </span>
                                                    
@@ -432,9 +425,9 @@
                                                 <div class="short-def-list">
                                                     <span   >
                                                          <strong class="u-space-r-half">
-                                                             {{legendData.city}}
-                                                             {{(legendData.state)? ' ,'+legendData.state : '' }}
-                                                             {{(legendData.division)? ' ,'+legendData.division : '' }}
+                                                             {{legendData.school.city}}
+                                                             {{(legendData.school.state)? ' ,'+legendData.school.state : '' }}
+                                                             
                                                         </strong>
                                                     </span>
                                                    
@@ -443,7 +436,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-time-content" v-if="legendData.teamWebsite" >
+                                <div class="review-time-content" v-if="legendData.school.teamWebsite" >
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
@@ -452,7 +445,7 @@
                                             <div class="biz-hours-time">
                                                 <div class="short-def-list">
                                                     <span   >
-                                                         <a class="u-space-r-half" :href="legendData.teamWebsite" >{{legendData.teamWebsite}}</a>
+                                                         <a class="u-space-r-half" :href="legendData.school.teamWebsite" >{{legendData.school.teamWebsite}}</a>
                                                     </span>
                                                    
                                                 </div>
@@ -460,7 +453,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-time-content" v-if="legendData.roster"  >
+                                <div class="review-time-content" v-if="legendData.school.roster"  >
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
@@ -470,14 +463,14 @@
                                                 <div class="short-def-list">
                                                     <span class="attribute-key">Roster</span>
                                                     <span>
-                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.roster}}</span></strong>
+                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.school.roster}}</span></strong>
                                                     </span>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-time-content" v-if="legendData.alumni"  >
+                                <div class="review-time-content" v-if="legendData.school.alumni"  >
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
@@ -487,14 +480,14 @@
                                                 <div class="short-def-list">
                                                     <span class="attribute-key">Alumni</span>
                                                     <span>
-                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.alumni}}</span></strong>
+                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.school.alumni}}</span></strong>
                                                     </span>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-time-content" v-if="legendData.placedAthletes"  >
+                                <div class="review-time-content" v-if="legendData.school.placedAthletes"  >
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
@@ -504,14 +497,14 @@
                                                 <div class="short-def-list">
                                                     <span class="attribute-key">Placed Athletes</span>
                                                     <span>
-                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.placedAthletes}}</span></strong>
+                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.school.placedAthletes}}</span></strong>
                                                     </span>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-time-content" v-if="legendData.committedRecruit"  >
+                                <div class="review-time-content" v-if="legendData.school.committedRecruit"  >
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
@@ -521,14 +514,14 @@
                                                 <div class="short-def-list">
                                                     <span class="attribute-key">Committed Recruit</span>
                                                     <span>
-                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.committedRecruit}}</span></strong>
+                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.school.committedRecruit}}</span></strong>
                                                     </span>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-time-content" v-if="legendData.interestedAthletes"  >
+                                <div class="review-time-content" v-if="legendData.school.interestedAthletes"  >
                                     <ul>
                                         <li>
                                             <div class="biz-hours-icon">
@@ -538,7 +531,7 @@
                                                 <div class="short-def-list">
                                                     <span class="attribute-key">Interested Athletes</span>
                                                     <span>
-                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.interestedAthletes}}</span></strong>
+                                                        <strong class="u-space-r-half"><span class="nowrap">{{legendData.school.interestedAthletes}}</span></strong>
                                                     </span>
                                                 </div>
                                             </div>
@@ -674,55 +667,18 @@
                 <Button type="info" @click="askQuestion">Ask</Button>
             </div>
         </Modal>
-        <Modal title="Image Gallery" v-model="galleryModal">
-           <div class="row">
-               <div class="col-md-8">
-                    <figure>
-                        <img v-if="uploadList[galleryIndex]" :src="uploadList[galleryIndex].url" style="width: 100%">
-                        <div data-v-2c068581="" class="modal-button">
-                            <div data-v-2c068581="" class="button-left">
-                                <span data-v-2c068581="" @click="prevModalImage" ><i data-v-2c068581="" class="fas fa-chevron-left"></i></span>
-                            </div> 
-                            <div data-v-2c068581="" class="button-right" @click="nextModalImage" >
-                                <span data-v-2c068581=""><i data-v-2c068581="" class="fas fa-chevron-right"></i></span>
-                            </div>
-                        </div>
-                    </figure>
-               </div>
-               <div class="col-md-4">
-                   <ul class="modal-list" >
-                       <li  v-for="(item,index) in uploadList" :key="index" :class="(index==galleryIndex)? 'selected' : ''"><img :src="item.url" @click="galleryIndex=index" ></li>
-                   </ul>
-                   <!-- <div class="col-md-6"><img :src="imgName" style="width: 100%"></div>
-                   <div class="col-md-6"><img :src="imgName" style="width: 100%"></div> -->
-
-               </div>
-           </div>
-           <div slot="footer">
-                <Button type="info"  @click="galleryModal=false">Close</Button>
-            </div>
-        </Modal>
 
     </div>
 </template>
 
 <script>
+
+
 export default {
     data(){
         return{
-            isEdit:false,
-            formData:{
-                name:'',
-                address:'',
-                phone:''
-            },
-            img_index:0,
-            user_id:0,
-            addImageModal:false,
-            defaultList: [],
             imgName: '/uploads/default.png',
             askModal:false,
-            galleryModal:false,
             answerModal:false,
             askData:{
                 content:'',
@@ -746,6 +702,54 @@ export default {
             page:1,
             str:'',
             value2: 0,
+            topReviews: [],
+            
+            chartData: [
+                ['Year', 'Sales'],
+                [2014, 1000],
+                [2015, 1170],
+                [2016, 660],
+                [2017, 1030]
+            ],
+            chartOptions: {
+                chart: {
+                title: 'Company Performance',
+                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                },
+                 width: 300,
+                  height: 300,
+                colors: ['#e63131', '#e46a6a'],
+                backgroundColor:'transparent',
+                vAxis:{
+                    gridlines: {
+                        color: '#5C5C5C',
+                        count: 4,
+                    },
+                    minorGridlines: {
+                        color: '#5C5C5C',
+
+                    },
+                    textStyle:{
+                        color: '#FFF',
+                    }
+                },
+                hAxis:{
+                    // maxValue: 1,
+                    // format: '#%',
+                     textStyle:{
+                        color: '#FFF',
+                    },
+                    gridlines: {
+                        color: '#5C5C5C',
+                        count: 4,
+                    },
+                   
+                   
+                },
+                trendlines: { 0: {} } ,
+
+            },
+       
         }
     },
     methods:{
@@ -789,36 +793,10 @@ export default {
                 this.swr()
             }
         },
-        galleryModalOn(index){
-            if(this.uploadList[index]){
-                 this.galleryIndex = index
-                this.galleryModal = true
-            }
-        },
-        prevImage(){
-            if(this.img_index>0){
-                this.img_index--;
-            }
-        },
-        nextImage(){
-            if(this.img_index+4<this.uploadList.length){
-                this.img_index++;
-            }
-        },
         prevModalImage(){
             if(this.galleryIndex>0){
                 this.galleryIndex--;
             }
-        },
-        nextModalImage(){
-            if(this.galleryIndex+1<this.uploadList.length){
-                this.galleryIndex++;
-            }
-        },
-        openImageModal(){
-            if(this.uploadList.length>0) this.imgName = this.uploadList[(this.uploadList.length-1)].url
-
-            this.addImageModal=true
         },
         async answerModalOpen(item,index){
             this.answerData.question_id = item.id
@@ -837,7 +815,7 @@ export default {
                 return
             }
 
-            this.askData.school_id = this.legendData.id
+            this.askData.school_id = this.legendData.school.id
             const res = await this.callApi('post','/storequestions',this.askData)
             if(res.status===200){
                 this.s("Your question has been posted successfully!")
@@ -875,8 +853,6 @@ export default {
                     imoItem.useful++
                     imoItem.auseful = true
                 }
-               
-                
             }
             else{
                 this.swr();
@@ -886,31 +862,6 @@ export default {
         handleView (item) {
                 this.imgName = item;
                 
-        },
-        handleRemove (index) {
-            this.uploadList.splice(index, 1);
-        },
-        handleSuccess (res, file) {
-            console.log(res)
-            let ob = {
-                url:res.file
-            }
-            this.imgName = res.file
-            this.uploadList.push(ob)
-            // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
-            // file.name = '7eb99afb9d5f317c912f08b5212fd69a';
-        },
-        handleFormatError (file) {
-            this.$Notice.warning({
-                title: 'The file format is incorrect',
-                desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
-            });
-        },
-        handleMaxSize (file) {
-            this.$Notice.warning({
-                title: 'Exceeding file size limit',
-                desc: 'File  ' + file.name + ' is too large, no more than 2M.'
-            });
         },
         getImoName(name,index){
            return 
@@ -948,24 +899,27 @@ export default {
                 legendData : data.School,
                 totalReview : data.School.__meta__.allreview_count,
                 averageRating : (data.School.avgRating)? data.School.avgRating.averageRating : 0 , 
+                totalRating : (data.School.avgRating)? data.School.avgRating.totalRating : 0 , 
                 
             }
 		}catch (error) {
             console.log(error)
-          //  return redirect('/')
+            return redirect('/')
 		}
     },
    
    async created(){
        
-        const [ res2, res4] = await Promise.all([
+        const [ res2, res4,res5] = await Promise.all([
             this.callApi('get', `/app/getAdditionCoachInfo/${this.$route.params.id}`),
             this.callApi('get', `/app/singleSchoolCoachReview/${this.$route.params.id}`),
+            this.callApi('get', `/app/getCoachTopReviews/${this.$route.params.id}`),
         ])
         if( res2.status===200 && res4.status === 200){
             
             this.reviews = res4.data.data
             this.rpagination = res4.data
+            this.topReviews = res5.data
             delete this.rpagination.data
             this.questionList = res2.data.questions
             this.totalQuestion = res2.data.__meta__.totalQuestion

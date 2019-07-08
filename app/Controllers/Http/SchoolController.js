@@ -419,6 +419,7 @@ class SchoolController {
   }
 
   async getAdditionCoachInfo ({ response, params }) {
+    
     let legendData = await School.query()
       .where('id', params.id)
       .with('questions', (builder) => builder.limit(2))
