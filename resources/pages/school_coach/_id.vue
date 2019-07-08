@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="new-left-bottom">
+                <div class="new-left-bottom"> 
                     <p class="pow">Powered by FLANKSccres</p>
                     <ul class="ch-quick-link">
                         <li><a href="#AllReviews"><sub>{{totalReview}}</sub> Player reviews</a></li>
@@ -705,11 +705,14 @@ export default {
             topReviews: [],
             
             chartData: [
-                ['Year', 'Sales'],
-                [2014, 1000],
-                [2015, 1170],
-                [2016, 660],
-                [2017, 1030]
+                ['Days', 'Ratings'],
+                [1, 5],
+                [2, 4],
+                [3, 3],
+                [4, 5],
+                [5, 4],
+                [6, 2],
+                [7, 5],
             ],
             chartOptions: {
                 chart: {
@@ -721,9 +724,12 @@ export default {
                 colors: ['#e63131', '#e46a6a'],
                 backgroundColor:'transparent',
                 vAxis:{
+                    
+                    minValue:0,
+                    maxValue:5,
                     gridlines: {
                         color: '#5C5C5C',
-                        count: 4,
+                        count: 5,
                     },
                     minorGridlines: {
                         color: '#5C5C5C',
@@ -736,12 +742,17 @@ export default {
                 hAxis:{
                     // maxValue: 1,
                     // format: '#%',
+                    title:'Days',
+                    titleTextStyle: {
+                        color: '#FFF'
+                    },
+                    type:'string',
                      textStyle:{
                         color: '#FFF',
                     },
                     gridlines: {
                         color: '#5C5C5C',
-                        count: 4,
+                        count: 7,
                     },
                    
                    

@@ -3,7 +3,7 @@
         
         <!-- Header--> 
         
-        <div class="section-header-new">
+        <!-- <div class="section-header-new">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
@@ -65,8 +65,8 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="section-flex-row">
+        </div> -->
+        <!-- <div class="section-flex-row">
             <div class="section-flex-item">
                 <p>Sport</p>
                 <h3>Baseball</h3>
@@ -95,7 +95,7 @@
                 <p>Placed athlets</p>
                 <h3>- -</h3>
             </div>
-        </div>
+        </div> -->
 
         
         <section class="rd second-section bg">
@@ -137,7 +137,7 @@
                                           <span v-else ><i class="far fa-heart"></i></span>
                                            </strong>
 
-                                                <small><i class="fas fa-check-circle"></i> Claimed</small>
+                                                <!-- <small><i class="fas fa-check-circle"></i> Claimed</small> -->
                                     </h1>
                                     <div class="header-input big-input" v-else >
                                         <input v-model="formData.name" type="text">
@@ -153,9 +153,9 @@
                                             <span id="showReviewDetails"><i class="fas fa-chart-bar"></i>&nbsp;Details <small>Review details</small></span>
                                         </p>
                                     </div>
-                                    <div class="detail-content">
+                                    <!-- <div class="detail-content">
                                         <p>$$ &nbsp;&#8226;&nbsp;<span><a href="">Pizza</a>,<a href="">Italian</a></span>&nbsp;<span class="edit-button">Edit</span></p>
-                                    </div>
+                                    </div> -->
                                      <div class="review-option">
                                         <button @click="$router.push(`/addreview/${legendData.id}`)" v-if=" user_id !== userData.id"  ><i class="fas fa-star"></i>&nbsp;Write a Review</button>
                                         

@@ -327,7 +327,8 @@
                 searchTxt:'',
                 addressTxt:'',
                 pageOption:'',
-                sort:''
+                sort:'',
+                div:'',
                 
             }
         },

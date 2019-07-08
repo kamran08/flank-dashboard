@@ -3,7 +3,7 @@
 
         <!-- Header--> 
         
-        <div class="section-header-new">
+        <!-- <div class="section-header-new">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
@@ -95,7 +95,7 @@
                 <p>Placed athlets</p>
                 <h3>- -</h3>
             </div>
-        </div>
+        </div> -->
         <section class="rd second-section bg">
             <div class="container">
                 <div class="section-content">
@@ -276,7 +276,7 @@
                                                                         <span class=" high rating-bg" data-v-2a1016fc=""><i class="fas fa-star" data-v-2a1016fc=""></i></span> <span class=" high rating-bg" data-v-2a1016fc=""><i class="fas fa-star" data-v-2a1016fc=""></i></span> <span class=" high rating-bg" data-v-2a1016fc=""><i class="fas fa-star" data-v-2a1016fc=""></i></span> <span class=" high rating-bg" data-v-2a1016fc=""><i class="fas fa-star" data-v-2a1016fc=""></i></span> <span class=" high rating-bg" data-v-2a1016fc=""><i class="fas fa-star" data-v-2a1016fc=""></i></span>
                                                         &nbsp; <br><small class="review-number" data-v-2a1016fc="">3 reviews</small></p></div>
                                                                 <div class="card-toggle-button"  >
-                                                                    <button @click="getcoachatrributeConteptData(item.id,index)"  >Click here</button>
+                                                                    <button @click="getcoachatrributeConteptData(item.id,index)"  >More Info</button>
                                                                     <button @click="$router.push(`/scoach_review/${item.id}`)" >Give Review</button>
                                                                 </div>
                                                             </div>

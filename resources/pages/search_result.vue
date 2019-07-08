@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3 v-if="pageOptinoInfo=='legend'" ><span>{{index+1}}.</span> <a @click="$router.push(`profile/${item.id}`)" >{{item.name}}</a></h3>
+                                                <h3 v-if="pageOptinoInfo=='legend'" > <a @click="$router.push(`profile/${item.id}`)" >{{item.name}}</a></h3>
                                                 <div class="badge-review">
                                                     <p>
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
@@ -192,7 +192,7 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3 v-if="pageOptinoInfo =='product'" ><span>{{index+1}}.</span> <a @click="$router.push(`product/${item.id}`)" >{{item.name}}</a></h3>
+                                                <h3 v-if="pageOptinoInfo =='product'" > <a @click="$router.push(`product/${item.id}`)" >{{item.name}}</a></h3>
                                                 <div class="badge-review">
                                                     <p>
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
@@ -247,7 +247,7 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3 ><span>{{index+1}}.</span>{{item.name}}</h3>
+                                                <h3 class="pointer_like" @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}}</h3>
                                                 <div class="badge-review">
                                                     <p>
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
@@ -309,7 +309,7 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3 ><span>{{index+1}}.</span> <a @click="$router.push(`school/${item.id}`)" >{{item.schoolName}} {{item.sport}} </a></h3>
+                                                <h3 > <a @click="$router.push(`school/${item.id}`)" >{{item.schoolName}} {{item.sport}} </a></h3>
                                                 <div class="badge-review">
                                                     <p>
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>
@@ -632,6 +632,9 @@ export default {
 }
 .pagination_mark{
         text-align: center;
+}
+.pointer_like{
+    cursor: pointer;
 }
 
 </style>

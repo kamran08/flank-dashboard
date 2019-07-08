@@ -429,11 +429,18 @@ class SchoolController {
 
     return legendData
   }
-  async getSchoolcoaches ({ response, params }) {
-    return await SchoolCoach.query()
-      .with('school')
+  async getSchoolcoaches ({ request, params }) {
+    let city = request.input('city') ? request.input('city') : ''
+    let data = SchoolCoach.query()
+              .with('school')
+              .withCount('allreview')
+    if(city){
+      data.whereHas('school', (builder) => {
+        builder.where('city', city)
+      })
+    }
+    return await data
       .orderBy('average_rating', 'desc')
-      .withCount('allreview')
       .limit(3)
       .fetch()
   }

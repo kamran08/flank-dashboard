@@ -185,30 +185,16 @@
     <section class="lp third-section">
       <div class="container">
         <div class="text-center">
-          <h2>Flank Los Angeles</h2>
+          <h2>Flank {{city}}</h2>
         </div>
         <div class="section-content">
           <div class="cityName">
             <ul>
-              <li>
-                <a href>San Francisco</a>
+              <li  >
+                <a @click="getCity('All citys')">All</a>
               </li>
-              <li>
-                <a href>New York</a>
-              </li>
-              <li>
-                <a href>Chicago</a>
-              </li>
-              <li>
-                <a href>Palo Alto</a>
-              </li>
-              <li>
-                <a href>Texas</a>
-              </li>
-              <li>
-                <a href>
-                  <i class="fas fa-search"></i>&nbsp;More Cities
-                </a>
+              <li v-for="(item,index) in allCity" :key="index" >
+                <a @click="getCity(item.city)">{{item.city}}</a>
               </li>
             </ul>
           </div>
@@ -219,11 +205,11 @@
             <div class="row" v-if="schoolCoaches.length">
               <div class="col-md-4 col-sm-4" v-for="(item,index) in schoolCoaches" :key="index">
                 <div class="review-photo">
-                  <figure>
+                  <figure @click="$router.push(`/school_coach/${item.id}`)" style="cursor:pointer;" >
                     <img :src="item.school.logo" alt>
                   </figure>
                   <figcaption class="figcap-border">
-                    <h4 @click="$router.push(`/school/${item.school_id}`)">
+                    <h4 @click="$router.push(`/school_coach/${item.id}`)">
                       <strong>
                         <a>{{item.name}}</a>
                       </strong>
@@ -246,7 +232,7 @@
                       </span>
                       &nbsp;{{item.__meta__.allreview_count}} reviews
                     </p>
-                    <p>
+                    <p  @click="$router.push(`/school/${item.school_id}`)" style="cursor:pointer;"> 
                       {{item.school.schoolName}} ,
                       <template>{{item.school.city}}</template>
                       <template>,{{item.school.state}}</template>
@@ -755,7 +741,9 @@ export default {
       sData: {
         school_id: 0
       },
-      iamIndex: false
+      iamIndex: false,
+      city:'All citys',
+      allCity:[],
     };
   },
   async asyncData({ app, store, redirect, params }) {
@@ -883,18 +871,33 @@ export default {
           `/product/${this.review_of_day.bestReview.product_id}`
         );
       }
+    },
+    async getCity(item) {
+      this.city = item
+      if(item == 'All citys'){
+        item=''
+      }
+      const res  = await this.callApi('get',`/app/getSchoolcoaches?city=${item}`)
+      if(res.status === 200){
+        this.schoolCoaches = res.data
+      }
+      else{
+        this.swr()
+      }
     }
   },
   async created() {
-    const [res1, res2, res3] = await Promise.all([
+    const [res1, res2,res4, res3] = await Promise.all([
       this.callApi("get", `/app/getSchoolcoaches`),
       this.callApi("get", `/app/reviewOfTheDay`),
+      this.callApi("get", `/app/recentCitys`),
       this.callApi("get", `/app/getRecentReview`)
     ]);
     if (res1.status === 200 && res2.status == 200) {
       this.schoolCoaches = res1.data;
       this.review_of_day = res2.data;
       this.recentReview = res3.data;
+      this.allCity = res4.data;
       // this.review_of_day.bestReview = res2.data.bestReview
       this.loading = false;
     } else {

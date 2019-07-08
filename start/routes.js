@@ -87,6 +87,7 @@ Route.get('/app/productShow/:id', 'QuestionController.productShow')
 Route.get('/app/getAdditionCoachInfo/:id', 'SchoolController.getAdditionCoachInfo')
 Route.get('/app/getCoachTopReviews/:id', 'CoachController.getCoachTopReviews')
 Route.get('/app/similar_coaches', 'CoachController.similar_coaches')
+Route.get('/app/recentCitys', 'CoachController.recentCitys')
 Route.get('/app/getSchoolcoaches', 'SchoolController.getSchoolcoaches')
 
 // products

@@ -9,6 +9,7 @@ const Attribute = use('App/Models/Attribute')
 const ReviewImage = use('App/Models/ReviewImage')
 const Review = use('App/Models/Review')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
+const Database = use('Database')
 /**
  * Resourceful controller for interacting with coaches
  */
@@ -134,6 +135,13 @@ class CoachController {
       .withCount('answers')
       .orderBy('id', 'desc')
       .paginate(1, 3)
+  }
+  async recentCitys ({ params, request, response, view }) {
+    const data = request.all()
+    return await School.query()
+      .select( Database.raw('DISTINCT city'))
+      .limit(5)
+      .fetch()
   }
 }
 
