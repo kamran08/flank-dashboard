@@ -433,16 +433,14 @@ class SchoolController {
     let city = request.input('city') ? request.input('city') : ''
     let data = SchoolCoach.query()
               .with('school')
+              .with('avgRatingTopThree')
               .withCount('allreview')
     if(city){
       data.whereHas('school', (builder) => {
         builder.where('city', city)
       })
     }
-    return await data
-      .orderBy('average_rating', 'desc')
-      .limit(3)
-      .fetch()
+    return await data.limit(3).fetch()
   }
 
   /**

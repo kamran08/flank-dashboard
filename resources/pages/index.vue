@@ -218,16 +218,16 @@
                       <span :class="(item.average_rating>0)? ' rating-bg' : ''">
                         <i class="fas fa-star"></i>
                       </span>
-                      <span :class="(item.average_rating>0)? ' rating-bg' : ''">
+                      <span :class="(item.average_rating>1)? ' rating-bg' : ''">
                         <i class="fas fa-star"></i>
                       </span>
-                      <span :class="(item.average_rating>0)? ' rating-bg' : ''">
+                      <span :class="(item.average_rating>2)? ' rating-bg' : ''">
                         <i class="fas fa-star"></i>
                       </span>
-                      <span :class="(item.average_rating>0)? ' rating-bg' : ''">
+                      <span :class="(item.average_rating>3)? ' rating-bg' : ''">
                         <i class="fas fa-star"></i>
                       </span>
-                      <span :class="(item.average_rating>0)? ' rating-bg' : ''">
+                      <span :class="(item.average_rating>4)? ' rating-bg' : ''">
                         <i class="fas fa-star"></i>
                       </span>
                       &nbsp;{{item.__meta__.allreview_count}} reviews

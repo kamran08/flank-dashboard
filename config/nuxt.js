@@ -14,8 +14,8 @@ module.exports = {
 
   ],
   axios: {
-    baseURL: 'https://flank360.com/'
-   // baseURL: 'http://localhost:3000'
+   // baseURL: 'https://flank360.com/'
+   
   },
   // build: {
   //   plugins: [
@@ -80,7 +80,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#744d82' },
+  loading: { color: 'orange' },
   /*
   ** Point to resources
   */

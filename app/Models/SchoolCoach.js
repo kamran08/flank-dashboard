@@ -8,6 +8,10 @@ class SchoolCoach extends Model {
   avgRating () {
     return this.hasOne('App/Models/Review', 'id', 'reviewFor').select( 'reviewFor', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating'), Database.raw('(cast(sum(rating) as decimal(10,2))) AS totalRating')).where('review_type', 'school')
   }
+  avgRatingTopThree () {
+    return this.hasOne('App/Models/Review', 'id', 'reviewFor').select( 'reviewFor', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS averageRating  '), Database.raw('(cast(sum(rating) as decimal(10,2))) AS totalRating')).where('review_type', 'school')
+  }
+
   allreview () {
     return this.hasMany('App/Models/Review', 'id', 'reviewFor').where('review_type', 'school')
   }
