@@ -14,7 +14,7 @@ module.exports = {
 
   ],
   axios: {
-   // baseURL: 'https://flank360.com/'
+   baseURL: 'https://flank360.com/'
    
   },
   // build: {
