@@ -1,166 +1,7 @@
 
 <template>
 <div>
-    <!-- <div class="top-bar">
-            <div class="container"> 
-                <div class="top-bar-inner">
-                    <div class="pull-left">
-                        <div class="bar-logo">
-                            <img src="/image/accountants.png" alt="">
-                            <span>Get ahead of tax season</span>
-                        </div>
-                    </div>
-                    <div class="pull-right">
-                        <div class="bar-nav">
-                            <ul>
-                                <li><a href="">Accountants</a></li>
-                                <li><a href="">CPA Firms</a></li>
-                                <li><a href="">Small Business Accountants</a></li>
-                                <li><a href="">Tax Services</a></li>
-                            </ul>
-                            <div id="bar-hide">
-                                <span><i class="fas fa-times"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- <nav class="navbar border-less-nav game-nav">
-            <div class="navbar-logo">
-                <ul>
-                    <li><a href=""><img src="/image/downloa.png" alt=""></a></li>
-                    <li><a @click="$router.push('/')" ><img src="/image/download.png" alt=""></a></li>
-                </ul>
-            </div>
-            <div class="navbar-item">
-                <ul>
-                    <li><a href="">Get Fortnite</a></li>
-                    <li><a href="">Battle Pass</a></li>
-                    <li><a href="">Creative</a></li>
-                    <li><a href="">Competitive</a></li>
-                    <li><a href="">Watch</a></li>
-                    <li><a href="">News</a></li>
-                    <li><a href="">Faq</a></li>
-                    <li><a href="">Help</a></li>
-                    <li><nuxt-link to="/about" >About</nuxt-link></li>
-                    <li @click="reviewModal=true" ><a>Give Review</a></li>
-                </ul>
-                <ul>
-                    <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
-                    <li v-if="isLoggedIn && packType !=2 " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >Profile</a></li>
-                    <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Profile</a></li>
-                    <li v-if="isLoggedIn" @click="logout" ><a >Log Out</a></li>
-                    <li><a href="">Download</a></li>
-                </ul>
-            </div>
-            </nav> -->
-            <Modal
-                v-model="reviewModal"
-                title="Start Your Review "
-                width='500'
-                fullscreen 
-                
-                >
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <p class=" msg_box_header">Write Review For?</p>
-                            <div class="review-button">
-                                <div class="btn-role"  @click="rData.for=1"  ><Button :class="(rData.for == 1)? 'act-btn': ''" >School</Button></div>
-                                <div class="btn-role"  @click="rData.for=2"  ><Button :class="(rData.for == 2)? 'act-btn': ''" >Local Legend</Button></div>
-                                <div class="btn-role"  @click="rData.for=3"  ><Button :class="(rData.for == 3)? 'act-btn': ''" >Product</Button></div>
-                            </div>
-                            <template v-if="rData.for == 2" >
-                                 <AutoComplete
-                                    style="width: 100%;margin-top: 15px;"
-                                    v-model="lData.key"
-                                    icon="ios-search"
-                                    @on-change="SearchByKeyCoach"
-                                    placeholder="Enter Coach Name ..."
-                                    >
-                                    <div class="demo-auto-complete-item"  v-for="(item,index) in coachList" :key="index" @click="selectLegendWall(item)"  >
-                                            <p class="ivu-select-item">{{ item.name }}</p>
-                                    </div>
-                                </AutoComplete>
-                            </template>
-                            <template v-if="rData.for ==3" >
-                                  <AutoComplete
-                                    style="width: 100%;margin-top: 15px;"
-                                    v-model="pData.key"
-                                    icon="ios-search"
-                                    @on-change="SearchByKeyProduct"
-                                    placeholder="Enter Product Name ..."
-                                    >
-                                    <div class="demo-auto-complete-item"  v-for="(item,index) in productList" :key="index" @click="selectProductWall(item)"  >
-                                            <p class="ivu-select-item">{{ item.name }}</p>
-                                    </div>
-                                </AutoComplete>
-                            </template>
-                            <template v-else-if="rData.for==1" >
-                                  <AutoComplete
-                                    style="width: 100%;margin-top: 15px;"
-                                    v-model="rData.school"
-                                    icon="ios-search"
-                                    @on-change="SearchByKeySchool"
-                                    placeholder="Enter School Name ..."
-                                    >
-                                    <div class="demo-auto-complete-item"  v-for="(item,index) in schoolList" :key="index" @click="manageSchoolData(item)"  >
-                                            <p class="ivu-select-item">{{item.name}} | {{item.sport}} </p>
-                                    </div>
-                                </AutoComplete>
-                                
-                                <template v-if="sData.school_id !=0" >
-                                       <AutoComplete
-                                        style="width: 100%;margin-top: 15px;"
-                                        v-model="rData.key"
-                                        icon="ios-search"
-                                        @on-change="SearchByKeySchoolCoach"
-                                        placeholder="Enter School Coach Name ..."
-                                        >
-                                        <div class="demo-auto-complete-item"  v-for="(item,index) in schoolCoachList" :key="index" @click="selectCoachWall(item)"  >
-                                                <p class="ivu-select-item">{{item.name}}</p>
-                                        </div>
-                                    </AutoComplete>
-                                    <Button v-if="schoolCoachList.length==0 &&  rData.key !='' && !schoolButton" @click="CreateNewCoach" style="margin-top: 10px;" >Create a Coach</Button>
-                                    <div class="text-center m-2">
-                                </div>
-                                </template>
-                            </template>
-                        </div>
-
-                        <div class="footer_buttons">
-                            <div class="text-center m-2" v-if="rData.for == 2" >
-                                <Button  v-if="legendButton && coachList.length==0" type="info" @click="goToLegendWall">Continue</Button>
-                                <Button  class="disable_btn" v-else type="info" disabled>Continue</Button>
-                            </div>
-                            <div class="text-center m-2" v-if="rData.for == 1" >
-                                <Button  v-if="schoolButton && schoolCoachList.length==0" type="dashed" @click="goToCoachWall">Continue</Button>
-                                <Button class="disable_btn" v-else type="dashed" disabled>Continue</Button>
-                            </div>
-                            <div class="text-center m-2" v-if="rData.for == 3" >
-                                <Button  v-if="productButton && productList.length==0" type="dashed" @click="goToProductWall">Continue</Button>
-                                <Button class="disable_btn" v-else type="dashed" disabled>Continue</Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div slot="footer">
-                    <!-- <div class="text-center m-2" v-if="rData.for == 2" >
-                        <Button  v-if="legendButton && coachList.length==0" type="info" @click="goToLegendWall">Continue</Button>
-                        <Button v-else type="info" disabled>Continue</Button>
-                    </div>
-                    <div class="text-center m-2" v-if="rData.for == 1" >
-                        <Button  v-if="schoolButton && schoolCoachList.length==0" type="dashed" @click="goToCoachWall">Continue</Button>
-                        <Button v-else type="dashed" disabled>Continue</Button>
-                    </div>
-                    <div class="text-center m-2" v-if="rData.for == 3" >
-                        <Button  v-if="productButton && productList.length==0" type="dashed" @click="goToProductWall">Continue</Button>
-                        <Button v-else type="dashed" disabled>Continue</Button>
-                    </div> -->
-                </div>
-            </Modal>
-               <header>
+    <!-- <header>
             <div class="header-second"> 
                 <div class="container">
                     <a @click="$router.push(`/`)" class="navbar-brand show_logo"><img class="img-responsive" src="/image/default.png" alt=""></a>
@@ -187,12 +28,6 @@
                             </div>
                         </div>
                    </form>
-                   <!-- <div class="pull-right">
-                       <ul class="logsign">
-                           <li><a href="">Log In</a></li>
-                           <li><a href="">Sign Up</a></li>
-                       </ul>
-                   </div> -->
                 </div>
             </div>
             <div class="header-nav">
@@ -236,7 +71,7 @@
                    </ul>
                    <ul class="main-nav right-top pull-right">
                        <li ><a href="/review" ><i class="fas fa-pen"></i>&nbsp;Write a Review</a></li>
-                       <!-- <li ><a @click="reviewModal = true" ><i class="fas fa-pen"></i>&nbsp;Write a Review 2</a></li> -->
+                      
                         <li v-if="!isLoggedIn" ><nuxt-link class="nav-link" to="/login" ><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Sign In</nuxt-link>
                         <li v-if="isLoggedIn " @click="$router.push(`/flanker/${authInfo.id}`)" ><a >User Profile</a></li>
                         <li v-if="isLoggedIn && packType == 2 " @click="$router.push(`/profile/${legend_id}`)" ><a >Legend Profile</a></li>
@@ -284,7 +119,74 @@
                    </div>
                </div>
             </div>
-        </header>
+        </header> -->
+        <div class="new-top-nav">
+            <div class="container-fluid">
+                <div class="new-top-nav-inner">
+                    <div class="new-top-nav-left">
+                        <a href="#" class="new-top-nav-brand"><img src="/images/new-l.png" alt=""></a>
+                        <div class="mobile-button"><span><i class="fas fa-bars"></i></span></div>
+                    </div>
+
+                    <div class="new-top-navbar-left">
+                        <ul class="new-nav-left-list">
+                            <li><a href="#">Hsc</a></li>
+                            <li><a href="#">Cc</a></li>
+                            <li><a href="#">Local</a></li>
+                            <li><a href="#">Local</a></li>
+                            <li><a href="#">Pro</a></li>
+                            <li><a href="#"><span><i class="fas fa-ellipsis-h"></i></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="new-top-navbar-right">
+                        <ul class="new-nav-right-list">
+                            <li class="right-logo"><a href="#"><img src="/images/new-logo.png" alt=""></a></li>
+                            <li class="right-grid-icon"><a href="#"><img src="/images/Top-Toolbar.png" alt=""></a></li>
+                            <li class="right-search">
+                                <a href="#">
+                                    <div class="right-search-icon">
+                                        <img src="/images/toolbar-search.png" alt="">
+                                    </div>
+                                    <div class="right-search-input">
+                                        <input type="text">
+                                    </div>
+                                </a>
+                                <!-- <form action="#"><input type="text" id="right-search-bar"></form> -->
+                            </li>
+                            <li class="right-user">
+                                <a href="#">
+                                    <img src="/images/user.png" alt="">
+                                </a>
+                                <ul class="right-user-dropdown">
+                                    <li><a href="#">Dashboard</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="mobile-search-bar">
+                            <form action="#">
+                                <div class="mobile-search-input">
+                                    <input type="text">
+                                </div>
+
+                                <div class="mobile-search-icon">
+                                    <span><i class="fas fa-search"></i></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="new-banner-section">
+            <div class="container-fluid">
+                <div class="inner-banner">
+                    <figure>
+                        <img src="/images/new-top.png" alt="">
+                    </figure>
+                </div>
+            </div>
+        </div>
 </div>
 </template>
 

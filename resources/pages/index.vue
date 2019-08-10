@@ -1,918 +1,940 @@
 <template>
   <div>
-    <header id="main-header" class="mainHeader">
-      <div class="opacity"></div>
-      <nav class="navbar">
-        <div class="container">
-          <ul class="navbar-nav nav">
-            <!-- <li><a href="review.html">Write a Review</a></li> --> 
-          </ul>
 
-          <ul class="pull-right navbar-nav nav" v-if="!isLoggedIn">
-            <li>
-              <nuxt-link class="nav-link" to="/login">Log In</nuxt-link>
-            </li>
-            <li class="border-nav">
-              <nuxt-link class="nav-link" to="/register">Sign Up</nuxt-link>
-            </li>
-          </ul>
-        </div>
-      </nav>
 
-      <div class="container">
-        <div class="header-content">
-          <div class="contentInCenter">
-            <div class="text-center landing-page-logo">
-              <a @click="$router.push('/')">
-                <img src="/image/default.png" alt="page_logo">
-              </a>
-
-              <form action="#">
-                <div class="equal-div">
-                  <div class="input-group pageOption">
-                    <span class="input-group-addon position-top" id="basic-addon1">Coach</span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="pageOption"
-                      placeholder="Different type of Sport Coaches"
-                    >
-                    <div class="right-dropdown menu_dropDown_on">
-                      <div class="menu_dropDown_on_main">
-                        <ul>
-                          <li @click="pageOption = 'school'">
-                            <a>
-                              <i class="fas fa-running"></i>School
-                            </a>
-                          </li>
-                          <li @click="pageOption = 'coach'">
-                            <a>
-                              <i class="fas fa-running"></i>Coach
-                            </a>
-                          </li>
-                          <li @click="pageOption = 'legend'">
-                            <a>
-                              <i class="fas fa-running"></i>Local Legend
-                            </a>
-                          </li>
-                          <li @click="pageOption = 'product'">
-                            <a>
-                              <i class="fas fa-running"></i>Products & services
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group" onclick="toggle_visibility('menu');">
-                    <span class="input-group-addon" id="basic-addon1">Find</span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="searchTxt"
-                      placeholder="Search any Attributes"
-                      aria-describedby="basic-addon1"
-                    >
-                    <span
-                      @click="$router.push(`/search_result?place=${addressTxt}&str=${searchTxt}&pageOption=${pageOption}`)"
-                      class="input-group-btn search-btn position-top"
-                    >
-                      <i class="fas fa-search"></i>
-                    </span>
-                  </div>
-                </div>
-              </form>
-              <div class="homepage-category">
-                <ul>
-                  <li>
-                    <i class="fas fa-calculator"></i>
-                    <a @click="$router.push(`/search_result?pageOption=coach`)">High school coaches</a>
-                  </li>
-                  <li>
-                    <i class="fas fa-utensils"></i>
-                    <a @click="$router.push(`/search_result?pageOption=school`)">College coaches</a>
-                  </li>
-                  <li>
-                    <i class="fas fa-tools"></i>
-                    <a @click="$router.push(`/search_result?pageOption=legend`)">Travel team coaches</a>
-                  </li>
-                  <li>
-                    <i class="fas fa-truck"></i>
-                    <a
-                      @click="$router.push(`/search_result?pageOption=product`)"
-                    >Products & services</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section class="lp bg second-section padding-top-bottom-bg">
-      <div class="container">
-        <div class="text-center">
-          <h2>
-            Flank
-            <span>360</span>
-          </h2>
-        </div>
-        <div class="section-content">
-          <div class="row row-flex">
-            <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
-              <div class="business-category" @click="$router.push(`/search_result?sort=rated`)">
-                <figure>
-                  <img src="/image/two.jpeg" alt="find_business_category_image">
-                </figure>
-                <figcaption>
-                  <a>Best Rated Coaches</a>
-                </figcaption>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
-              <div class="business-category" @click="$router.push(`/search_result?sort=Worst`)">
-                <figure>
-                  <img src="/image/one.jpeg" alt="find_business_category_image">
-                </figure>
-                <figcaption>
-                  <a>Worst Rated Coachess</a>
-                </figcaption>
-              </div>
-            </div>
-           <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
-              <div class="business-category" @click="$router.push(`/search_result?sort=most`)">
-                <figure>
-                  <img src="/image/four.jpeg" alt="find_business_category_image">
-                </figure>
-                <figcaption>
-                  <a>Most Connected</a>
-                </figcaption>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-6 mt-10">
-              <div class="business-category" @click="$router.push(`/search_result`)">
-                <figure>
-                  <img src="/image/three.jpeg" alt="find_business_category_image">
-                </figure>
-                <figcaption>
-                  <a>Local Instruction</a>
-                </figcaption>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="lp comm">
-      <div class="container">
-        <div class="media bg">
-          <div class="media-left">
-            <img class="media-object" src="/image/coffee shop stars _Converted_.png" alt>
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">Flank the Community</h4>
-            <p>Find Flank reviews helpful? Start helping others by sharing your experiences</p>
-            <button class="mt-10">
-              <a @click="reviewModal=true">start your first review</a>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="lp third-section">
-      <div class="container">
-        <div class="text-center">
-          <h2>Flank {{city}}</h2>
-        </div>
-        <div class="section-content">
-          <div class="cityName">
-            <ul>
-              <li  >
-                <a @click="getCity('All citys')">All</a>
-              </li>
-              <li v-for="(item,index) in allCity" :key="index" >
-                <a @click="getCity(item.city)">{{item.city}}</a>
-              </li>
-            </ul>
-          </div>
-          <div class="review-coach">
-            <div class="text-center">
-              <h3>Hot & Cold Coaches</h3>
-            </div>
-            <div class="row" v-if="schoolCoaches.length">
-              <div class="col-md-4 col-sm-4" v-for="(item,index) in schoolCoaches" :key="index">
-                <div class="review-photo">
-                  <figure @click="$router.push(`/school_coach/${item.id}`)" style="cursor:pointer;" >
-                    <img :src="item.school.logo" alt>
-                  </figure>
-                  <figcaption class="figcap-border">
-                    <h4 @click="$router.push(`/school_coach/${item.id}`)">
-                      <strong>
-                        <a>{{item.name}}</a>
-                      </strong>
-                    </h4>
-                    <p>
-                      <span :class="(item.average_rating>0)? ' rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(item.average_rating>1)? ' rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(item.average_rating>2)? ' rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(item.average_rating>3)? ' rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(item.average_rating>4)? ' rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      &nbsp;{{item.__meta__.allreview_count}} reviews
-                    </p>
-                    <p  @click="$router.push(`/school/${item.school_id}`)" style="cursor:pointer;"> 
-                      {{item.school.schoolName}} ,
-                      <template>{{item.school.city}}</template>
-                      <template>,{{item.school.state}}</template>
-                    </p>
-                    <p class="fire">
-                      <i class="fas fa-fire"></i>&nbsp;Submitted 4 weeks ago
-                    </p>
-                  </figcaption>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center">
-            <p class="moreD">
-              <a>See more hot & cold coaches</a>
-            </p>
-          </div>
-          <div class="row text-center">
-            <div class="col-md-offset-2 col-sm-offset-2 col-md-8 col-sm-6">
-              <div class="explore-item">
-                <h3 class="text-center">The Local Flank</h3>
-                <figure>
-                  <a @click="$router.push(`/search_result?pageOption=legend`)">
-                    <img src="/image/h.jpg" alt>
-                  </a>
-                </figure>
-                <figcaption class="figcap-border">
-                  <h4 @click="$router.push(`/search_result?pageOption=legend`)">
-                    <strong>
-                      <a>
-                        It’s Wednesday, do you need a cocktail?&nbsp;
-                        <i class="fas fa-trophy"></i>
-                      </a>
-                    </strong>
-                  </h4>
-                  <p>Up, fizzy, on the rocks––no matter how you like ‘em, cocktails take the edge off and sure do taste good going down. We’ve put together a list of local libations that will have you calling for another ...</p>
-                  <p class="bltitle">The Local Flank</p>
-                </figcaption>
-              </div>
-              <!-- <div class="text-center">
-                               <p class="moreD"><a href="">See more</a></p>
-              </div>-->
-            </div>
-            <!-- <div class="col-md-4 col-sm-6">
-                           <div class="explore-item">
-                               <h3 class="text-center">Product spotlight</h3>
-                               <figure>
-                                <a href="local_flank.html"><img src="/image/300s.jpg" alt=""></a>
-                               </figure>
-                               <figcaption class="figcap-border">
-                                   <h4><a href="">UYE: Let it Awash all over you!!!</a></h4>
-                                   <p>Saturday, March 9 @ 1pm is happening! Our generous hosts @ Awash BK have ...</p>
-                                   <p>Sat, Mar 9, 1:00 pm</p>
-                               </figcaption>
-                           </div>
-                           <div class="text-center">
-                               <p class="moreD"><a href="">See all events</a></p>
-                           </div>
-            </div>-->
-          </div>
-          <!-- Review of the day -->
-          <div class="reviewDay">
-            <div class="row">
-              <div class="col-md-offset-2 col-sm-offset-2 col-md-8 col-sm-6">
-                <div class="explore-item">
-                  <div class="text-center">
-                  <h3 class="text-center">Review of the Day</h3>
-                </div>
-                <div class="figcap-border" v-if="review_of_day.info && loading == false">
-                  <div class="media">
-                    <div class="media-left">
-                      <img class="profile_picU" :src="review_of_day.bestReview.reviwer.img" alt>
-                    </div>
-                    <div class="media-body">
-                      <strong>
-                        <a
-                          @click="$router.push(`/flanker/${review_of_day.bestReview.reviwer.id}`)"
-                        >{{review_of_day.bestReview.reviwer.firstName}} {{review_of_day.bestReview.reviwer.lastName}}</a>
-                      </strong>
-                      <p></p>
-                      <p>
-                        <span>
-                          <i class="fas fa-star"></i>
-                          &nbsp;{{review_of_day.bestReview.reviwer.__meta__.totalreviewbyuser}}
-                        </span>
-                        <!-- <span><i class="fas fa-male"></i>&nbsp;1304</span> -->
-                        <!-- <span><a href="">Elite ’19</a></span> -->
-                      </p>
-                    </div>
-                  </div>
-                  <div class="badge-banner">
-                    Wrote a review for
-                    <strong>
-                      <a @click="goToProfilePage()">{{review_of_day.bestReview.reviewforInfo.name}}</a>
-                    </strong>
-                    <img src="/image/40x40_rotd.png" alt>
-                  </div>
-                  <div class="badge-review">
-                    <p>
-                      <span :class="(review_of_day.bestReview.rating>0)? 'high rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(review_of_day.bestReview.rating>1)? 'high rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(review_of_day.bestReview.rating>2)? 'high rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(review_of_day.bestReview.rating>3)? 'high rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      <span :class="(review_of_day.bestReview.rating>4)? 'high rating-bg' : ''">
-                        <i class="fas fa-star"></i>
-                      </span>
-                      &nbsp;{{review_of_day.bestReview.created_at}}
-                    </p>
-                  </div>
-                  <div class="review-text">{{review_of_day.bestReview.content}}</div>
-                </div>
-                <div v-else-if="loading == true">
-                  <h3 class="text-center">Content Loading....</h3>
-                </div>
-                <div v-else>
-                  <h3 class="text-center">No Content.....</h3>
-                </div>
-                </div>
-                
-                <!-- <div class="text-center">
-                                   <p class="moreD"><a href="">Read previous reviews</a></p>
-                </div>-->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="lp fourth-section mt-30">
-      <div class="container">
-        <div class="text-center">
-          <h2>Recent Activity</h2>
-        </div>
-        <div class="section-content" v-if="recentReview.length>0  && loading == false">
-          <div class="row">
-            <div class="col-md-4 col-sm-4" v-for="(item,index) in recentReview " :key="index">
-              <div class="activity-individual">
-                <div class="media">
-                  <div class="media-left">
-                    <img class="profile_picU" :src="item.reviwer.img" alt>
-                  </div>
-                  <div class="media-body">
-                    <strong>
-                      <a href>{{item.reviwer.firstName}} {{item.reviwer.lastName}}</a>
-                    </strong>
-                    <p>
-                      <span>
-                        <i class="fas fa-star"></i>
-                        &nbsp;{{item.reviwer.__meta__.totalreviewbyuser}}
-                      </span>
-                    </p>
-                    <small>Wrote a Review</small>
-                  </div>
-                </div>
-                <figcaption>
-                  <p>
-                    <strong>
-                      <a
-                        v-if="item.review_type=='product'"
-                        @click="$router.push(`/product/${item.prodcut.id}`)"
-                      >{{item.product.name}}</a>
-                      <a
-                        v-if="item.review_type=='legend'"
-                        @click="$router.push(`/profile/${item.prodcut.id}`)"
-                      >{{item.legend.name}}</a>
-                      <a
-                        v-if="item.review_type=='school'"
-                        @click="$router.push(`/school/${item.school.id}`)"
-                      >{{item.coach.name}}</a>
-                    </strong>
-                  </p>
-                  <hr>
-                  <div class="scroll-review-sec">
-                    <div class="activity-review">
-                      <p>
-                        <span :class="(item.rating>0)? 'high rating-bg' : ''">
-                          <i class="fas fa-star"></i>
-                        </span>
-                        <span :class="(item.rating>1)? 'high rating-bg' : ''">
-                          <i class="fas fa-star"></i>
-                        </span>
-                        <span :class="(item.rating>2)? 'high rating-bg' : ''">
-                          <i class="fas fa-star"></i>
-                        </span>
-                        <span :class="(item.rating>3)? 'high rating-bg' : ''">
-                          <i class="fas fa-star"></i>
-                        </span>
-                        <span :class="(item.rating>4)? 'high rating-bg' : ''">
-                          <i class="fas fa-star"></i>
-                        </span>
-                        &nbsp;
-                        <small>{{item.created_at}}</small>
-                      </p>
-                    </div>
-                    <p>{{item.content}}</p>
-                    <hr>
-                    <div class="scroll-image-grid" v-if="item.images.length>0">
-                      <div class="grid-full-item">
-                        <img src="/image/300s.jpg" alt>
-                      </div>
-                      <div class="grid-half-item">
-                        <div class="grid-inner-flex">
-                          <img src="/image/300s.jpg" alt>
+        <div class="new-section-content">
+            <div class="container">
+                <div class="new-content-inner">
+                    <div class="row">
+                        <div class="new-inner-item-1">
+                            <div class="col-md-3 col-sm-3">
+                                <div class="quick-link-content">
+                                    <h4>Quick links</h4>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <figure>
+                                                    <img src="/images/quick.png" alt="">
+                                                </figure>
+                                                <div class="quick-link-caption">
+                                                    <p>High school coaches</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <figure>
+                                                    <img src="/images/quick2.png" alt="">
+                                                </figure>
+                                                <div class="quick-link-caption">
+                                                    <p>College coaches</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <figure>
+                                                    <img src="/images/quic3k.png" alt="">
+                                                </figure>
+                                                <div class="quick-link-caption">
+                                                    <p>Professional sports</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <figure>
+                                                    <img src="/images/quick4.png" alt="">
+                                                </figure>
+                                                <div class="quick-link-caption">
+                                                    <p>Travel team coaches</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <figure>
+                                                    <img src="/images/quick5.png" alt="">
+                                                </figure>
+                                                <div class="quick-link-caption">
+                                                    <p>Local instructors</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <figure>
+                                                    <img src="/images/quick6.png" alt="">
+                                                </figure>
+                                                <div class="quick-link-caption">
+                                                    <p>Products & service</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="review-content">
+                                    <h4>Review your coach</h4>
+                                    <ul>
+                                        <li>
+                                            <button>Sign up</button>
+                                        </li>
+                                        <li>
+                                            <button>Log in</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="recent-activity-part">
+                                    <div class="linear-border"></div>
+                                    <ul class="activity-list">
+                                        <li class="activity-list-inner">
+                                            <div class="recent-activity-part-inner">
+                                                <div class="activ-thumb">
+                                                    <figure>
+                                                        <img src="/images/act.png" alt="">
+                                                    </figure>
+                                                </div>
+                                                <div class="activ-det">
+                                                    <ul>
+                                                        <li>
+                                                            <h3>Coach mike berger</h3>
+                                                            <h4>Austin, TX</h4>
+                                                            <p>Sometimes I get to the little community of Austin. Be lorem ipsum dolor sit amet,</p>
+                                                            <h5>By. Randy B.</h5>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="activity-list-inner">
+                                            <div class="recent-activity-part-inner">
+                                                <div class="activ-thumb">
+                                                    <figure>
+                                                        <img src="/images/act.png" alt="">
+                                                    </figure>
+                                                </div>
+                                                <div class="activ-det">
+                                                    <ul>
+                                                        <li>
+                                                            <h3>Coach mike berger</h3>
+                                                            <h4>Austin, TX</h4>
+                                                            <p>Sometimes I get to the little community of Austin. Be lorem ipsum dolor sit amet,</p>
+                                                            <h5>By. Randy B.</h5>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="activity-list-inner">
+                                            <div class="recent-activity-part-inner">
+                                                <div class="activ-thumb">
+                                                    <figure>
+                                                        <img src="/images/act.png" alt="">
+                                                    </figure>
+                                                </div>
+                                                <div class="activ-det">
+                                                    <ul>
+                                                        <li>
+                                                            <h3>Coach mike berger</h3>
+                                                            <h4>Austin, TX</h4>
+                                                            <p>Sometimes I get to the little community of Austin. Be lorem ipsum dolor sit amet,</p>
+                                                            <h5>By. Randy B.</h5>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="recent-title">
+                                        <h2>Recent Activity</h2>
+                                    </div>
+                                </div>
+                                <div class="spotlight-content">
+                                    <h4>The Deals Keep going</h4>
+                                    <div class="spotlight-img">
+                                        <figure>
+                                            <img src="/images/Spotlight.png" alt="">
+                                        </figure>
+                                    </div>
+                                    <div class="spotlight-foot-img">
+                                        <figure>
+                                            <img src="/images/flank.png" alt="">
+                                        </figure>
+                                    </div>
+                                    <p><a href="#">Learn more</a></p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="grid-inner-flex">
-                          <img src="/image/300s.jpg" alt>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="emoicon">
-                    <ul>
-                      <li>
-                        <p><span><i class="far fa-grin-beam"></i></span><span>01</span></p>
-                        <small>Usefull</small>
-                      </li>
-                      <li>
-                        <p><span><i class="far fa-grin-beam"></i></span><span>01</span></p>
-                        <small>Usefull</small>
-                      </li>
-                      <li>
-                        <p><span><i class="far fa-grin-beam"></i></span><span>01</span></p>
-                        <small>Usefull</small>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- <div class="emoicon">
-                    <p class="pull-left">
-                      <span>
-                        <i class="far fa-grin-beam"></i>
-                        <span>01</span>
-                        <small>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</small>
-                      </span>
-                      <span>
-                        <i class="far fa-grin-beam"></i>
-                        <small>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</small>
-                      </span>
-                      <span>
-                        <i class="far fa-grin-beam"></i>
-                        <small>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</small>
-                      </span>
-                    </p>
-                    <p class="pull-right">
-                      <span>
-                        <a href>
-                          <i class="far fa-grin-beam"></i>
-                        </a>
-                        <small>Useful</small>
-                      </span>
-                    </p>
-                  </div> -->
-                </figcaption>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <!-- <div class="text-center">
-                       <p class="moreD"><a href=""><i class="fas fa-angle-down"></i>&nbsp;Show more work in New York</a></p>
-          </div>-->
-        </div>
-        <div v-else-if="loading == true">
-          <h3 class="text-center">Content Loading....</h3>
-        </div>
-        <div v-else>
-          <h3 class="text-center">No Content.....</h3>
-        </div>
-      </div>
-    </section>
-    <section class="padding-top-bottom-bg bg lp fifth-section section-margin">
-      <div class="container">
-        <div class="text-center">
-          <h2>Browse Coaches by Category</h2>
-        </div>
-        <div class="section-content">
-          <div class="row row-flex">
-            <div class="col-md-3 col-sm-3 col-xs-4">
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result?pageOption=coach`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>High School Coaches</strong>
-                </figcaption>
-              </div>
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result?pageOption=product`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>Products & Services</strong>
-                </figcaption>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-3">
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>College Coaches</strong>
-                </figcaption>
-              </div>
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result?sort=rated`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>Best Rated Instructions</strong>
-                </figcaption>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-3">
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result?pageOption=coach`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>Travel Coaches</strong>
-                </figcaption>
-              </div>
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result?sort=Worst`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>Worst Rated Instructions</strong>
-                </figcaption>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-3">
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>Local Instruction</strong>
-                </figcaption>
-              </div>
-              <div
-                class="browse-category-individual text-center"
-                @click="$router.push(`/search_result?sort=most`)"
-              >
-                <figure>
-                  <img src="/image/72x72_restaurants.png" alt>
-                </figure>
-                <figcaption>
-                  <strong>Most Connected</strong>
-                </figcaption>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <Modal v-model="reviewModal" title="Riview Modal" width="500">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <p class="msg_box_header">Write Review For?</p>
-            <div class="review-button">
-              <div class="btn-role" @click="rData.for=1">
-                <Button :class="(rData.for == 1)? 'act-btn': ''">School</Button>
-              </div>
-              <div class="btn-role" @click="rData.for=2">
-                <Button :class="(rData.for == 2)? 'act-btn': ''">Local Legend</Button>
-              </div>
-              <div class="btn-role" @click="rData.for=3">
-                <Button :class="(rData.for == 3)? 'act-btn': ''">Product</Button>
-              </div>
-            </div>
-            <template v-if="rData.for == 2">
-              <Input
-                v-model="rData.key"
-                placeholder="Enter Coach Name ..."
-                style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"
-                @on-keyup="SearchByKeyCoach"
-              />
-              <div v-if="coachList.length>0" style="border: 1px solid #0088cc;">
-                <p
-                  class="pointer_like"
-                  v-for="(item,index) in coachList"
-                  :key="index"
-                  @click="goToLegendWall(item)"
-                >{{item.name}}</p>
-              </div>
-            </template>
-            <template v-if="rData.for ==3">
-              <Input
-                v-model="rData.key"
-                placeholder="Enter Product"
-                style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"
-                @on-keyup="SearchByKeyProduct"
-              />
-              <div v-if="productList.length>0" style="border: 1px solid #0088cc;">
-                <p
-                  class="pointer_like"
-                  v-for="(item,index) in productList"
-                  :key="index"
-                  @click="goToProductWall(item)"
-                >{{item.name}}</p>
-              </div>
-            </template>
-            <template v-else-if="rData.for==1">
-              <Input
-                v-model="rData.school"
-                placeholder="Enter School Name ..."
-                style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"
-                @on-keyup="SearchByKeySchool"
-              />
-              <div v-if="schoolList.length>0" style="border: 1px solid #0088cc;">
-                <p
-                  class="pointer_like"
-                  v-for="(item,index) in schoolList"
-                  :key="index"
-                  @click="manageSchoolData(item)"
-                >{{item.name}} | {{item.sport}}</p>
-              </div>
+                        <div class="new-inner-item-2">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="inner-item-blog-sect">
+                                    <div class="inner-item-blg">
+                                        <figure>
+                                            <img src="/images/header_0.jpg" alt="">
+                                        </figure>
+                                        <div class="inner-item-form">
+                                            <form action="#">
+                                                <div class="form-inner">
+                                                    <label>Find</label>
+                                                    <input type="text" placeholder="School Name, Coach Name">
+                                                    <button><img src="/images/form-search.png" alt=""></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- <div class="blg-caption">
+                                            <figure>
+                                                <img src="/images/flank.png" alt="">
+                                            </figure>
+                                        </div> -->
+                                    </div>
+                                    <div class="inner-rated-iconic">
+                                        <div class="rated-iconic-item">
+                                            <figure><img src="/images/lg.png" alt=""></figure>
+                                            <div class="iconic-coaches-caption">
+                                                <p>Best rated coaches</p>
+                                            </div>
+                                        </div>
+                                        <div class="rated-iconic-item">
+                                            <figure><img src="/images/lg1.png" alt=""></figure>
+                                            <div class="iconic-coaches-caption">
+                                                <p>Worst rated coaches</p>
+                                            </div>
+                                        </div>
+                                        <div class="rated-iconic-item">
+                                            <figure><img src="/images/lg2.png" alt=""></figure>
+                                            <div class="iconic-coaches-caption">
+                                                <p>Most connected</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="coach-scandal">
+                                    <div class="coach-scandal-title">
+                                        <figure>
+                                            <img src="/images/st.png" alt="">
+                                        </figure>
+                                        <div class="scandal-head">
+                                            <h2>Coach scandal</h2>
+                                        </div>
+                                    </div>
+                                    <div class="inner-scandal">
+                                        <figure>
+                                            <img src="/images/soccer.png" alt="">
+                                        </figure>
+                                        <div class="scandal-caption">
+                                            <figure>
+                                                <img src="/images/round.png" alt="">
+                                            </figure>
+                                            <div class="blg-inner-cap">
+                                                <p>Come for the tour. But leave your review behind</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-              <template v-if="sData.school_id !=0">
-                <hr>
-                <Input
-                  v-model="rData.key"
-                  placeholder="Enter School Coach Name ..."
-                  style="width: 100%; padding: 15px; background: #F2F2F2;margin-top: 15px;"
-                  @on-keyup="SearchByKeySchoolCoach"
-                />
-                <div
-                  v-if="schoolCoachList.length>0 && sData.school !='' "
-                  style="border: 1px solid #0088cc;"
-                >
-                  <p
-                    class="pointer_like"
-                    v-for="(item,index) in schoolCoachList"
-                    :key="index"
-                    @click="goToCoachWall(item)"
-                  >{{item.name}}</p>
+                                    <div class="inner-scandal-video">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="inner-scandal-video-item">
+                                                    <figure>
+                                                        <img src="/images/one.jpeg" alt="">
+                                                        <div class="play-caption">
+                                                            <span><i class="fas fa-play"></i></span>
+                                                        </div>
+                                                        <div class="video-duration">
+                                                            <p class="duration"><span>2:17</span></p>
+                                                        </div>
+                                                    </figure>
+                                                    <div class="scandal-video-caption">
+                                                        <p>Out of control Coache's abusive behaviour caught on tape.</p>
+                                                    </div>
+                                                    <div class="video-logo">
+                                                        <img src="/images/flank.png" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="inner-scandal-video-item">
+                                                    <figure>
+                                                        <img src="/images/one.jpeg" alt="">
+                                                        <div class="play-caption">
+                                                            <span><i class="fas fa-play"></i></span>
+                                                        </div>
+                                                        <div class="video-duration">
+                                                            <p class="duration"><span>2:17</span></p>
+                                                        </div>
+                                                    </figure>
+                                                    <div class="scandal-video-caption">
+                                                        <p>Out of control Coache's abusive behaviour caught on tape.</p>
+                                                    </div>
+                                                    <div class="video-logo">
+                                                        <img src="/images/flank.png" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="inner-scandal-video-item">
+                                                    <figure>
+                                                        <img src="/images/one.jpeg" alt="">
+                                                        <div class="play-caption">
+                                                            <span><i class="fas fa-play"></i></span>
+                                                        </div>
+                                                        <div class="video-duration">
+                                                            <p class="duration"><span>2:17</span></p>
+                                                        </div>
+                                                    </figure>
+                                                    <div class="scandal-video-caption">
+                                                        <p>Rutgers coach fired for abuse of players.</p>
+                                                    </div>
+                                                    <div class="video-logo">
+                                                        <img src="/images/flank.png" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="inner-scandal-video-item">
+                                                    <figure>
+                                                        <img src="/images/one.jpeg" alt="">
+                                                        <div class="play-caption">
+                                                            <span><i class="fas fa-play"></i></span>
+                                                        </div>
+                                                        <div class="video-duration">
+                                                            <p class="duration"><span>2:17</span></p>
+                                                        </div>
+                                                    </figure>
+                                                    <div class="scandal-video-caption">
+                                                        <p>Out of control Coache's abusive behaviour caught on tape.</p>
+                                                    </div>
+                                                    <div class="video-logo">
+                                                        <img src="/images/flank.png" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-sect-part">
+                                    <div class="drop-title">
+                                        <h2>Review of the Day</h2>
+                                    </div>
+                                    <div class="review-sect">
+                                        <div class="linear-border"></div>
+                                        <div class="review-sect-header">
+                                            <figure>
+                                                <img src="/images/review-1.png" alt="">
+                                            </figure>
+                                            <div class="review-header-title">
+                                                <h3>By. Samatha Harris</h3>
+                                                <ul>
+                                                    <li><span class="rev-ti-im"><img src="/images/mw.png" alt=""></span><span class="rev-ti-p">87</span></li>
+                                                    <li><span class="rev-ti-ic"><i class="fas fa-star"></i></span><span class="rev-ti-p">1119</span></li>
+                                                </ul>
+                                                <h4 class="wr-re">Wrote a review for: <span>Coach mike berger</span></h4>
+                                            </div>
+                                        </div>
+                                        <div class="review-border">
+                                            <div class="review-border-left">
+                                                <img src="/images/sticker-3.png" alt="">
+                                            </div>
+                                            <div class="review-border-right">
+                                                <img src="/images/r.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="review-star">
+                                            <ul>
+                                                <li><span><i class="fas fa-star"></i></span></li>
+                                                <li><span><i class="fas fa-star"></i></span></li>
+                                                <li><span><i class="fas fa-star"></i></span></li>
+                                                <li><span><i class="fas fa-star"></i></span></li>
+                                                <li><span><i class="fas fa-star"></i></span></li>
+                                            </ul>
+                                            <div class="review-time">
+                                                <p>7/02/2019</p>
+                                            </div>
+                                        </div>
+                                        <div class="revt-details">
+                                            <p>
+                                                I was incredibly skeptical of Vespertine. And why wouldn't you be? Jordan Kahn is the Elon Musk of the fine dining world, and it's the equivalent of paying a lot of money for something that Musk thought up - it could very well be brilliant, because he's clearly off on his own planet with everything he's doing,or it could be a disaster and you wont know until you give it a go...<a href="#">Continous reading</a>
+                                            </p>
+                                        </div>
+                                        <div class="recent-title">
+                                            <div class="drop-bottom-icon">
+                                                <ul>
+                                                    <li><img src="/images/ic1.png" alt=""></li>
+                                                    <li><img src="/images/ic2.png" alt=""></li>
+                                                    <li><img src="/images/ic3.png" alt=""></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-sect-part">
+                                    <div class="drop-title">
+                                        <h2>Recent drops</h2>
+                                    </div>
+                                    <div class="drop-content">
+                                        <div class="row">
+                                            <div class="drop-item">
+                                                <div class="drop-item-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="drop-item-title">
+                                                        <figure>
+                                                            <img src="/images/dr-1.png" alt="">
+                                                        </figure>
+                                                        <div class="drop-title-caption">
+                                                            <h3>Bob g.</h3>
+                                                            <p>Wrote a review</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drop-inner">
+                                                        <div class="drop-inner-figure">
+                                                            <figure>
+                                                                <img src="/images/cmnt1.png" alt="">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="drop-inner-cap">
+                                                            <div class="drop-inner-coach">
+                                                                <h4>Coach Tim Nelson</h4>
+                                                            </div>
+                                                            <div class="review-star">
+                                                                <ul>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="drop-inner-coach-txt">
+                                                                <p>Anybody who misses the Golden opportunity to work with Vinny is missing out. He's new to Westlake Village and he had me run through a specific set of lorem ipsum dolor sit amet</p>
+                                                                <a href="#">Continous reading</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="drop-bottom-icon">
+                                                            <ul>
+                                                                <li><img src="/images/ic1.png" alt=""></li>
+                                                                <li><img src="/images/ic2.png" alt=""></li>
+                                                                <li><img src="/images/ic3.png" alt=""></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="drop-item">
+                                                <div class="drop-item-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="drop-item-title">
+                                                        <figure>
+                                                            <img src="/images/dr-2.png" alt="">
+                                                        </figure>
+                                                        <div class="drop-title-caption">
+                                                            <h3>Bob g.</h3>
+                                                            <p>Wrote a review</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drop-inner">
+                                                        <div class="drop-inner-figure">
+                                                            <figure>
+                                                                <img src="/images/cmnt2.png" alt="">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="drop-inner-cap">
+                                                            <div class="drop-inner-coach">
+                                                                <h4>Coach vinny velasquez</h4>
+                                                            </div>
+                                                            <div class="review-star">
+                                                                <ul>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="drop-inner-coach-txt">
+                                                                <p>Anybody who misses the Golden opportunity to work with Vinny is missing out. He's new to Westlake Village and he had me run through a specific set of lorem ipsum dolor sit amet</p>
+                                                                <a href="#">Continous reading</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="drop-bottom-icon">
+                                                            <ul>
+                                                                <li><img src="/images/ic1.png" alt=""></li>
+                                                                <li><img src="/images/ic2.png" alt=""></li>
+                                                                <li><img src="/images/ic3.png" alt=""></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="drop-item">
+                                                <div class="drop-item-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="drop-item-title">
+                                                        <figure>
+                                                            <img src="/images/dr-3.png" alt="">
+                                                        </figure>
+                                                        <div class="drop-title-caption">
+                                                            <h3>Bob g.</h3>
+                                                            <p>Wrote a review</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drop-inner">
+                                                        <div class="drop-inner-figure">
+                                                            <figure>
+                                                                <img src="/images/cmnt3.png" alt="">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="drop-inner-cap">
+                                                            <div class="drop-inner-coach">
+                                                                <h4>Coach vinny velasquez</h4>
+                                                            </div>
+                                                            <div class="review-star">
+                                                                <ul>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="drop-inner-coach-txt">
+                                                                <p>Anybody who misses the Golden opportunity to work with Vinny is missing out. He's new to Westlake Village and he had me run through a specific set of lorem ipsum dolor sit amet</p>
+                                                                <a href="#">Continous reading</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="drop-bottom-icon">
+                                                            <ul>
+                                                                <li><img src="/images/ic1.png" alt=""></li>
+                                                                <li><img src="/images/ic2.png" alt=""></li>
+                                                                <li><img src="/images/ic3.png" alt=""></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="drop-item">
+                                                <div class="drop-item-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="drop-item-title">
+                                                        <figure>
+                                                            <img src="/images/dr-3.png" alt="">
+                                                        </figure>
+                                                        <div class="drop-title-caption">
+                                                            <h3>Bob g.</h3>
+                                                            <p>Wrote a review</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drop-inner">
+                                                        <div class="drop-inner-figure">
+                                                            <figure>
+                                                                <img src="/images/cmnt3.png" alt="">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="drop-inner-cap">
+                                                            <div class="drop-inner-coach">
+                                                                <h4>Coach vinny velasquez</h4>
+                                                            </div>
+                                                            <div class="review-star">
+                                                                <ul>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="drop-inner-coach-txt">
+                                                                <p>Anybody who misses the Golden opportunity to work with Vinny is missing out. He's new to Westlake Village and he had me run through a specific set of lorem ipsum dolor sit amet</p>
+                                                                <a href="#">Continous reading</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="drop-bottom-icon">
+                                                            <ul>
+                                                                <li><img src="/images/ic1.png" alt=""></li>
+                                                                <li><img src="/images/ic2.png" alt=""></li>
+                                                                <li><img src="/images/ic3.png" alt=""></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="drop-item">
+                                                <div class="drop-item-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="drop-item-title">
+                                                        <figure>
+                                                            <img src="/images/dr-3.png" alt="">
+                                                        </figure>
+                                                        <div class="drop-title-caption">
+                                                            <h3>Bob g.</h3>
+                                                            <p>Wrote a review</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drop-inner">
+                                                        <div class="drop-inner-figure">
+                                                            <figure>
+                                                                <img src="/images/cmnt3.png" alt="">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="drop-inner-cap">
+                                                            <div class="drop-inner-coach">
+                                                                <h4>Coach vinny velasquez</h4>
+                                                            </div>
+                                                            <div class="review-star">
+                                                                <ul>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="drop-inner-coach-txt">
+                                                                <p>Anybody who misses the Golden opportunity to work with Vinny is missing out. He's new to Westlake Village and he had me run through a specific set of lorem ipsum dolor sit amet</p>
+                                                                <a href="#">Continous reading</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="drop-bottom-icon">
+                                                            <ul>
+                                                                <li><img src="/images/ic1.png" alt=""></li>
+                                                                <li><img src="/images/ic2.png" alt=""></li>
+                                                                <li><img src="/images/ic3.png" alt=""></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="drop-item">
+                                                <div class="drop-item-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="drop-item-title">
+                                                        <figure>
+                                                            <img src="/images/dr-3.png" alt="">
+                                                        </figure>
+                                                        <div class="drop-title-caption">
+                                                            <h3>Bob g.</h3>
+                                                            <p>Wrote a review</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drop-inner">
+                                                        <div class="drop-inner-figure">
+                                                            <figure>
+                                                                <img src="/images/cmnt3.png" alt="">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="drop-inner-cap">
+                                                            <div class="drop-inner-coach">
+                                                                <h4>Coach vinny velasquez</h4>
+                                                            </div>
+                                                            <div class="review-star">
+                                                                <ul>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                    <li class="star-half"><span><i class="fas fa-star"></i></span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="drop-inner-coach-txt">
+                                                                <p>Anybody who misses the Golden opportunity to work with Vinny is missing out. He's new to Westlake Village and he had me run through a specific set of lorem ipsum dolor sit amet</p>
+                                                                <a href="#">Continous reading</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="drop-bottom-icon">
+                                                            <ul>
+                                                                <li><img src="/images/ic1.png" alt=""></li>
+                                                                <li><img src="/images/ic2.png" alt=""></li>
+                                                                <li><img src="/images/ic3.png" alt=""></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-sect-part">
+                                    <div class="drop-title">
+                                        <h2>Recent Activity</h2>
+                                    </div>
+                                    <div class="activity-sec">
+                                        <div class="row">
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-1.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>High school coaches</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-2.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>College coaches</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-3.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>Travel coaches</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-4.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>Local instructors</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-5.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>Best rated coaches</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-6.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>Worst rated coaches</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-7.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>Healthiest coaches</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-inner">
+                                                    <div class="linear-border"></div>
+                                                    <div class="activity-inner-fig">
+                                                        <figure>
+                                                            <img src="/images/ac-8.png" alt="">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="activity-inner-caption">
+                                                        <p>Products & services</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="inner-item-form">
+                                    <form action="#">
+                                        <div class="form-inner">
+                                            <label>Find</label>
+                                            <input type="text" placeholder="School Name, Coach Name">
+                                            <button><img src="/images/form-search.png" alt=""></button>
+                                        </div>
+                                    </form>
+                                </div> -->
+                                <!-- <div class="inner-rated-iconic">
+                                    <div class="rated-iconic-item">
+                                        <figure><img src="/images/lg.png" alt=""></figure>
+                                        <div class="iconic-coaches-caption">
+                                            <p>Best rated coaches</p>
+                                        </div>
+                                    </div>
+                                    <div class="rated-iconic-item">
+                                        <figure><img src="/images/lg1.png" alt=""></figure>
+                                        <div class="iconic-coaches-caption">
+                                            <p>Worst rated coaches</p>
+                                        </div>
+                                    </div>
+                                    <div class="rated-iconic-item">
+                                        <figure><img src="/images/lg2.png" alt=""></figure>
+                                        <div class="iconic-coaches-caption">
+                                            <p>Most connected</p>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="new-inner-item-1">
+                            <div class="col-md-3 col-sm-3">
+                                <div class="headline-link-content">
+                                    <h4>Top headlines</h4>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                Example Test of Headline - Example 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Example Test of Headline - Example 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Example Test of Headline - Example 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Example Test of Headline - Example 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Example Test of Headline - Example 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                Example Test of Headline - Example 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <img src="/images/flan.png" alt="">
+                                                Example Test of Headline - Example 1
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="flank-banner">
+                                    <figure>
+                                        <img src="/images/flank-banner.png" alt="">
+                                    </figure>
+                                </div>
+                                <div class="scandal-analytics">
+                                    <div class="scandal-analytics-title">
+                                        <h4>FLANK Analytics</h4>
+                                    </div>
+                                    <div class="scandal-ana-banner">
+                                        <figure>
+                                            <img src="/images/banner-2.png" alt="">
+                                        </figure>
+                                    </div>
+                                    <div class="scandal-list">
+                                        <ul>
+                                            <li>
+                                                <a href="#">Coach Power Index</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Player Happiness Index</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Strength of Team Index</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="scandal-extra-link">
+                                        <ul>
+                                            <li>
+                                                <a href="#">Terms of Service</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Continent Guidelines</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Privacy Policy</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Free Speech Act</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Add Choice</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Advertise on Flank</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="flank-daily-sec">
+                                    <div class="flank-daily-img">
+                                        <figure>
+                                            <img src="/images/flank-daily.png" alt="">
+                                        </figure>
+                                    </div>
+                                    <div class="flank-daily-content">
+                                        <h2>Get the best of FLANK sent to your inbox</h2>
+                                        <p>The FLANK Daily delivers the most important team predictions for your team.</p>
+                                        <form action="#">
+                                            <div class="fla-form-full">
+                                                <input type="text" placeholder="Email Address">
+                                            </div>
+                                            <div class="fla-form-button">
+                                                <button>Sign me up!</button>
+                                            </div>
+                                        </form>
+                                        <div class="priv">
+                                            <p><a href="#">Privacy policy</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <Button v-else @click="CreateNewCoach" style="margin-top: 10px;">Create a Coach</Button>
-              </template>
-            </template>
-          </div>
+            </div>
         </div>
-      </div>
-      <div slot="footer">
-        <Button @click="closeModal">Close</Button>
-        <Button type="success">Send</Button>
-      </div>
-    </Modal>
-  </div>
+
+        
+
+        <footer class="new-footer">
+            <div class="new-footer-top"></div>
+        </footer>
+
+        <!--================
+				SCRIPT
+        ====================-->
+        
+
+		<!-- JQUERY-1.12.0 -->
+        <script src="/js/jquery-1.12.0.min.js" type="text/javascript"></script>
+        <script src="/js/owl.carousel.min.js" type="text/javascript"></script>
+
+		<!-- MAIN.JS -->
+        <script src="/js/custom.js" type="text/javascript"></script>
+        
+    </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      name: "",
-      searchTxt: "",
-      pageOption: "",
-      addressTxt: "",
-      openSearchDrop: false,
-      schoolCoaches: [],
-      recentReview: [],
-      review_of_day: {},
-      loading: true,
-      packType: 0,
-      legend_id: 0,
-      reviewModal: false,
-      rData: {
-        for: 0,
-        key: "",
-        school: ""
-      },
-      coachList: [],
-      schoolList: [],
-      schoolCoachList: [],
-      productList: [],
-      sData: {
-        school_id: 0
-      },
-      iamIndex: false,
-      city:'All citys',
-      allCity:[],
-    };
-  },
-  async asyncData({ app, store, redirect, params }) {
-    try {
-      let { data } = await app.$axios.get(`/legends`);
-
-      return {
-        legendList: data
-      };
-    } catch (error) {
-      //return redirect('/404')
-    }
-  },
-  methods: {
-    closeModal() {
-       this.rData.for=0
-        this.rData.key=''
-        this.rData.school=''
-        this.coachList=[]
-        this.schoolList=[]
-        this.schoolCoachList=[]
-        this.productList=[]
-        this.sData.school_id = 0
-
-      this.reviewModal = false;
-    },
-    async CreateNewCoach() {
-      if (this.sData.school == "") {
-        this.i("Please Write a Coach Name");
-        return;
-      }
-      if (this.isLoggedIn == false) {
-        this.i("Please login first !");
-        this.$router.push("/login");
-        return;
-      }
-      let tempCoach = {
-        school_id: this.sData.school_id,
-        name: this.sData.school
-      };
-      const res = await this.callApi(
-        "post",
-        "/app/storeSchoolCoache",
-        tempCoach
-      );
-      if (res.status == 200) {
-        this.s("Coach created successfully!");
-      } else {
-        this.swr();
-      }
-    },
-    manageSchoolData(item) {
-      this.rData.school = item.name + " | " + item.sport;
-      this.sData.school_id = item.id;
-      this.schoolList = [];
-    },
-    async SearchByKeySchoolCoach() {
-      const res = await this.callApi(
-        "get",
-        `/app/SearchByKeySchoolCoach?key=${this.rData.key}&school_id=${
-          this.sData.school_id
-        }`
-      );
-      if (res.status === 200) {
-        this.schoolCoachList = res.data;
-      } else {
-        this.swr();
-      }
-    },
-    async SearchByKeyCoach() {
-      const res = await this.callApi(
-        "get",
-        `/app/SearchByKeyCoach?key=${this.rData.key}`
-      );
-      if (res.status === 200) {
-        this.coachList = res.data;
-      } else {
-        this.swr();
-      }
-    },
-    async SearchByKeyProduct() {
-      const res = await this.callApi(
-        "get",
-        `/app/SearchByKeyProduct?key=${this.rData.key}`
-      );
-      if (res.status === 200) {
-        this.productList = res.data;
-      } else {
-        this.swr();
-      }
-    },
-    async SearchByKeySchool() {
-      const res = await this.callApi(
-        "get",
-        `/app/SearchByKeySchool?key=${this.rData.school}`
-      );
-      if (res.status === 200) {
-        this.schoolList = res.data;
-      } else {
-        this.swr();
-      }
-    },
-    async goToLegendWall(item) {
-      this.reviewModal = false;
-      this.$router.push(`/addreview/${item.id}`);
-    },
-    async goToProductWall(item) {
-      this.reviewModal = false;
-      this.$router.push(`/product_review/${item.id}`);
-    },
-    async goToCoachWall(item) {
-      this.reviewModal = false;
-      this.$router.push(`/scoach_review/${item.id}`);
-    },
-    async SearchData() {},
-    goToProfilePage() {
-      if (this.review_of_day.info.model == "legend") {
-        this.$router.push(
-          `/profile/${this.review_of_day.bestReview.reviewFor}`
-        );
-      } else if (this.review_of_day.info.model == "coach") {
-        this.$router.push(`/school/${this.review_of_day.bestReview.school_id}`);
-      } else if (this.review_of_day.info.model == "product") {
-        this.$router.push(
-          `/product/${this.review_of_day.bestReview.product_id}`
-        );
-      }
-    },
-    async getCity(item) {
-      this.city = item
-      if(item == 'All citys'){
-        item=''
-      }
-      const res  = await this.callApi('get',`/app/getSchoolcoaches?city=${item}`)
-      if(res.status === 200){
-        this.schoolCoaches = res.data
-      }
-      else{
-        this.swr()
-      }
-    }
-  },
-  async created() {
-    const [res1, res2,res4, res3] = await Promise.all([
-      this.callApi("get", `/app/getSchoolcoaches`),
-      this.callApi("get", `/app/reviewOfTheDay`),
-      this.callApi("get", `/app/recentCitys`),
-      this.callApi("get", `/app/getRecentReview`)
-    ]);
-    if (res1.status === 200 && res2.status == 200) {
-      this.schoolCoaches = res1.data;
-      this.review_of_day = res2.data;
-      this.recentReview = res3.data;
-      this.allCity = res4.data;
-      // this.review_of_day.bestReview = res2.data.bestReview
-      this.loading = false;
-    } else {
-      this.swr();
-      this.loading = false;
-    }
-  }
-};
-</script>
-<style>
-.profile_picU {
-  width: 40px;
-}
-
-.pageOption:hover .menu_dropDown_on {
-  display: block;
-}
-</style>

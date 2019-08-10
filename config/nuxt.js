@@ -60,13 +60,16 @@ module.exports = {
       { rel: 'stylesheet', href: '/css/owl.carousel.min.css' },
       { rel: 'stylesheet', href: '/css/owl.theme.default.min.css' },
 
+     
       { rel: 'stylesheet', href: '/css/style.css' },
-      { rel: 'stylesheet', href: '/css/style_one.css' }
+      { rel: 'stylesheet', href: '/css/style_one.css' },
+      { rel: 'stylesheet', href: '/css/new_style.css' }
 
     ],
     script: [
       { src: '/js/plugin-js/jquery-1.12.0.min.js' },
       { src: '/js/plugin-js/owl.carousel.min.js' },
+      { src: '/js/plugin-js/custom.js' },
       { src: '/js/script.js' }
     ]
 
