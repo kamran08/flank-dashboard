@@ -33,7 +33,7 @@ module.exports = {
     // {src: '~plugins/clickout', ssr: false},
   ],
   head: {
-    title: 'Flank 360',
+    title: 'Go Flank',
     meta: [
       {
         charset: 'utf-8'

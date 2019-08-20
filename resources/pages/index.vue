@@ -107,8 +107,20 @@
                                                     </figure>
                                                 </div>
                                                 <div class="activ-det">
-                                                    <h3>{{item.coach.name}}</h3>
-                                                    <h4>{{item.school.city}}</h4>
+                                                    <template v-if="item.review_type == 'school'" >
+                                                         <h3>{{item.coach.name}}</h3>
+                                                        <h4>{{item.school.city}}</h4>
+                                                    </template>
+                                                    <template v-if="item.review_type == 'product'" >
+                                                         <h3>{{item.product.name}}</h3>
+                                                        <h4>{{item.product.address}}</h4>
+                                                    </template>
+                                                    <template v-if="item.review_type == 'legend'" >
+                                                         <h3>{{item.legend.name}}</h3>
+                                                        <h4>{{item.legend.address}}</h4>
+                                                    </template>
+                                                   
+
                                                     <p>{{item.content}}</p>
                                                     <h5>By {{item.reviwer.firstName}} {{item.reviwer.lastName}}</h5>
                                                 </div>
@@ -414,7 +426,9 @@
                                                         </div>
                                                         <div class="drop-inner-cap">
                                                             <div class="drop-inner-coach">
-                                                                <h4>Coach {{item.coach.name}}</h4>
+                                                                <h4 v-if="item.review_type == 'school'">Coach {{item.coach.name}}</h4>
+                                                                <h4 v-if="item.review_type == 'product'">{{item.product.name}}</h4>
+                                                                <h4 v-if="item.review_type == 'legend'">Instruction {{item.legend.name}}</h4>
                                                             </div>
                                                             <div class="review-star">
                                                                 <ul>
