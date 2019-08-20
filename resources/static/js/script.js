@@ -44,4 +44,9 @@ $(document).ready(function () {
     e.preventDefault()
     $(this).siblings('.mobile-dropdown.add-active-mobile-list').slideToggle()
   });
+
+  $(".form-main-dropdown").hide();
+  $(".form-inner-drop-tit").click(function() {
+    $(".form-main-dropdown").slideToggle();
+  });
 });

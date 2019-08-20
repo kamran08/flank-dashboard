@@ -120,7 +120,7 @@
                </div>
             </div>
         </header> -->
-        <div class="new-top-nav">
+        <div class="new-top-nav"> 
             <div class="container-fluid">
                 <div class="new-top-nav-inner">
                     <div class="new-top-nav-left">
@@ -144,11 +144,11 @@
                             <li class="right-grid-icon"><a href="#"><img src="/images/Top-Toolbar.png" alt=""></a></li>
                             <li class="right-search">
                                 <a href="#">
-                                    <div class="right-search-icon">
+                                    <div class="right-search-icon" >
                                         <img src="/images/toolbar-search.png" alt="">
                                     </div>
                                     <div class="right-search-input">
-                                        <input type="text">
+                                         <input type="text" v-model="searchTxt"  v-on:keyup.enter="searchByKey()" >
                                     </div>
                                 </a>
                                 <!-- <form action="#"><input type="text" id="right-search-bar"></form> -->
@@ -163,27 +163,17 @@
                             </li>
                         </ul>
                         <div class="mobile-search-bar">
-                            <form action="#">
+                            <div >
                                 <div class="mobile-search-input">
-                                    <input type="text">
+                                    <input type="text" v-model="searchTxt"  v-on:keyup.enter="searchByKey" >
                                 </div>
 
                                 <div class="mobile-search-icon">
-                                    <span><i class="fas fa-search"></i></span>
+                                    <span @click="searchByKey"><i class="fas fa-search"></i></span>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="new-banner-section">
-            <div class="container-fluid">
-                <div class="inner-banner">
-                    <figure>
-                        <img src="/images/new-top.png" alt="">
-                    </figure>
                 </div>
             </div>
         </div>

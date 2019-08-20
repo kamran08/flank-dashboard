@@ -1,8 +1,19 @@
 <template>
   <div>
+      
+
+        <div class="new-banner-section">
+            <div class="container-fluid">
+                <div class="inner-banner">
+                    <figure>
+                        <img src="/images/new-top.png" alt="">
+                    </figure>
+                </div>
+            </div>
+        </div>
 
 
-        <div class="new-section-content">
+        <div class="new-section-content"> 
             <div class="container">
                 <div class="new-content-inner">
                     <div class="row">
@@ -175,9 +186,26 @@
                                         <div class="inner-item-form">
                                             <form action="#">
                                                 <div class="form-inner">
-                                                    <label>Find</label>
+                                                    <div class="form-inner-dropdown">
+                                                        <div class="form-inner-drop-tit">
+                                                            <label>Find</label>
+                                                            <span><i class="fas fa-caret-down"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <label>Find</label> -->
                                                     <input type="text" placeholder="School Name, Coach Name">
                                                     <button><img src="/images/form-search.png" alt=""></button>
+                                                    <div class="form-main-dropdown">
+                                                        <ul>
+                                                            <li><a href="#">hi</a></li>
+                                                            <li><a href="#">hi</a></li>
+                                                            <li><a href="#">hi</a></li>
+                                                            <li><a href="#">hi</a></li>
+                                                            <li><a href="#">hi</a></li>
+                                                            <li><a href="#">hi</a></li>
+                                                            <li><a href="#">hi</a></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
