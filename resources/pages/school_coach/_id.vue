@@ -360,12 +360,12 @@
                                                     <p>{{item.content}}</p>
                                                 </div>
                                                 
-                                                <div class="review-gallary">
+                                                <!-- <div class="review-gallary">
                                                     <figure>
                                                         <img src="/images/1000s.jpg" alt="">
                                                         <figcaption><p>Very simple menu</p></figcaption>
                                                     </figure>
-                                                </div>
+                                                </div> -->
                                                 <div class="review-btn-sec">
                                                     <p>Was this review ...?</p>
                                                     <div class="review-btn">
@@ -380,46 +380,6 @@
                                                             </figure>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="flank-given-review-item">
-                                        <div class="linear-border"></div>
-                                        <div class="review-item-inner">
-                                            <div class="review-item-left">
-                                                <div class="review-item-left-fig">
-                                                    <figure>
-                                                        <img src="/images/act.png" alt="">
-                                                    </figure>
-                                                    <div class="review-item-left-fig-c">
-                                                        <h4>Valerie C.</h4>
-                                                        <h5>Los Angeles, CA</h5>
-                                                        <ul class="left-fig-link">
-                                                            <li><img src="/images/mw.png" alt=""><span>3 Friends</span></li>
-                                                            <li><img src="/images/mstar.png" alt=""><span>7 reviews</span></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="review-figure-exper">
-                                                    <ul>
-                                                        <li>
-                                                            <img src="/images/mstar.png" alt="">
-                                                            <p>Share review</p>
-                                                        </li>
-                                                        <li>
-                                                            <img src="/images/mstar.png" alt="">
-                                                            <p>Embeded Review</p>
-                                                        </li>
-                                                        <li>
-                                                            <img src="/images/mstar.png" alt="">
-                                                            <p>Send message</p>
-                                                        </li>
-                                                        <li>
-                                                            <img src="/images/mstar.png" alt="">
-                                                            <p>Follow valerie C.</p>
-                                                        </li>
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
