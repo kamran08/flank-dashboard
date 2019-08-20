@@ -89,6 +89,7 @@ Route.get('/app/getCoachTopReviews/:id', 'CoachController.getCoachTopReviews')
 Route.get('/app/similar_coaches', 'CoachController.similar_coaches')
 Route.get('/app/recentCitys', 'CoachController.recentCitys')
 Route.get('/app/getSchoolcoaches', 'SchoolController.getSchoolcoaches')
+Route.get('/app/getSimilarCoach/:id', 'SchoolController.getSimilarCoach')
 
 // products
 Route.get('/app/ProductReview/:id', 'ReviewController.ProductReview')

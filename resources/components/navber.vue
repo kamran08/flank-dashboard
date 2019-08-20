@@ -124,18 +124,23 @@
             <div class="container-fluid">
                 <div class="new-top-nav-inner">
                     <div class="new-top-nav-left">
-                        <a href="#" class="new-top-nav-brand"><img src="/images/new-l.png" alt=""></a>
+                        <a @click="$router.push('/')" class="new-top-nav-brand"><img src="/images/new-l.png" alt=""></a>
                         <div class="mobile-button"><span><i class="fas fa-bars"></i></span></div>
                     </div>
 
                     <div class="new-top-navbar-left">
                         <ul class="new-nav-left-list">
-                            <li><a href="#">Hsc</a></li>
-                            <li><a href="#">Cc</a></li>
-                            <li><a href="#">Local</a></li>
-                            <li><a href="#">Local</a></li>
-                            <li><a href="#">Pro</a></li>
-                            <li><a href="#"><span><i class="fas fa-ellipsis-h"></i></span></a></li>
+                            <li><a @click="searchByKey('coach','Recomended','High School')">Hsc</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','Club/Travel')">Cc</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','NCAA DI')">NCAA DI</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','NCAA DII')">NCAA DII</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','NCAA DIII')">NCAA DIII</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','Junior College')">Jrc</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','NAIA')">NAIA</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','MCLA')">MCLA</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','FL')">flanker</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','MO')">MO</a></li>
+                            <li><a @click="searchByKey('coach','Recomended','Junior College')"><span><i class="fas fa-ellipsis-h"></i></span></a></li>
                         </ul>
                     </div>
                     <div class="new-top-navbar-right">

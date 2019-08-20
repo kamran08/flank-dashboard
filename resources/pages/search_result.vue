@@ -57,8 +57,12 @@
                         <ul class="filter"  v-if="pageOptinoInfo == 'coach'">
                             <template >
                                 <li class="filter-list" @click="changeDivType('Junior College')"><a  class="filter-action" :class="(div == 'Junior College')? 'active_ON': ''"  >Junior College</a></li>
+                                <li class="filter-list" @click="changeDivType('High School')"><a  class="filter-action" :class="(div == 'High School')? 'active_ON': ''"  >Hsc</a></li>
                                 <li class="filter-list" @click="changeDivType('MCLA')"><a  class="filter-action" :class="(div == 'MCLA')? 'active_ON': ''"  >MCLA</a></li>
+                                <li class="filter-list" @click="changeDivType('Club/Travel')"><a  class="filter-action" :class="(div == 'Club/Travel')? 'active_ON': ''"  >Club/Travel</a></li>
                                 <li class="filter-list" @click="changeDivType('NAIA')"><a  class="filter-action" :class="(div == 'NAIA')? 'active_ON': ''"  >NAIA</a></li>
+                                <li class="filter-list" @click="changeDivType('FL')"><a  class="filter-action" :class="(div == 'FL')? 'active_ON': ''"  >FL</a></li>
+                                <li class="filter-list" @click="changeDivType('MO')"><a  class="filter-action" :class="(div == 'MO')? 'active_ON': ''"  >MO</a></li>
                                 <li class="filter-list" @click="changeDivType('NCAA DI')"><a  class="filter-action" :class="(div == 'NCAA DI')? 'active_ON': ''"  >NCAA DI</a></li>
                                 <li class="filter-list" @click="changeDivType('NCAA DII')"><a  class="filter-action" :class="(div == 'NCAA DII')? 'active_ON': ''"  >NCAA DII</a></li>
                                 <li class="filter-list" @click="changeDivType('NCAA DIII')"><a  class="filter-action" :class="(div == 'NCAA DIII')? 'active_ON': ''"  >NCAA DIII</a></li>

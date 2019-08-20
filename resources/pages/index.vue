@@ -23,17 +23,17 @@
                                     <h4>Quick links</h4>
                                     <ul>
                                         <li>
-                                            <a href="#">
+                                            <a @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
                                                 <figure>
                                                     <img src="/images/quick.png" alt="">
                                                 </figure>
-                                                <div class="quick-link-caption">
+                                                <div class="quick-link-caption" >
                                                     <p>High school coaches</p>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a @click="$router.push(`/search_result?pageOption=coach&div=Junior College`)">
                                                 <figure>
                                                     <img src="/images/quick2.png" alt="">
                                                 </figure>
@@ -43,7 +43,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
                                                 <figure>
                                                     <img src="/images/quic3k.png" alt="">
                                                 </figure>
@@ -53,7 +53,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
                                                 <figure>
                                                     <img src="/images/quick4.png" alt="">
                                                 </figure>
@@ -63,7 +63,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a @click="$router.push(`/search_result?pageOption=legend`)">
                                                 <figure>
                                                     <img src="/images/quick5.png" alt="">
                                                 </figure>
@@ -73,7 +73,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a @click="$router.push(`/search_result?pageOption=product`)">
                                                 <figure>
                                                     <img src="/images/quick6.png" alt="">
                                                 </figure>
@@ -98,7 +98,24 @@
                                 <div class="recent-activity-part">
                                     <div class="linear-border"></div>
                                     <ul class="activity-list">
-                                        <li class="activity-list-inner">
+
+                                        <li class="activity-list-inner" v-for="(item,index) in recentReview " :key="index">
+                                            <div class="recent-activity-part-inner">
+                                                <div class="activ-thumb">
+                                                    <figure>
+                                                        <img :src="item.reviwer.img"  alt="">
+                                                    </figure>
+                                                </div>
+                                                <div class="activ-det">
+                                                    <h3>{{item.coach.name}}</h3>
+                                                    <h4>{{item.school.city}}</h4>
+                                                    <p>{{item.content}}</p>
+                                                    <h5>By {{item.reviwer.firstName}} {{item.reviwer.lastName}}</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <!-- <li class="activity-list-inner">
                                             <div class="recent-activity-part-inner">
                                                 <div class="activ-thumb">
                                                     <figure>
@@ -135,26 +152,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </li>
-                                        <li class="activity-list-inner">
-                                            <div class="recent-activity-part-inner">
-                                                <div class="activ-thumb">
-                                                    <figure>
-                                                        <img src="/images/act.png" alt="">
-                                                    </figure>
-                                                </div>
-                                                <div class="activ-det">
-                                                    <ul>
-                                                        <li>
-                                                            <h3>Coach mike berger</h3>
-                                                            <h4>Austin, TX</h4>
-                                                            <p>Sometimes I get to the little community of Austin. Be lorem ipsum dolor sit amet,</p>
-                                                            <h5>By. Randy B.</h5>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                     <div class="recent-title">
                                         <h2>Recent Activity</h2>
@@ -184,26 +182,21 @@
                                             <img src="/images/header_0.jpg" alt="">
                                         </figure>
                                         <div class="inner-item-form">
-                                            <form action="#">
+                                            <form v-on:submit.prevent>
                                                 <div class="form-inner">
                                                     <div class="form-inner-dropdown">
                                                         <div class="form-inner-drop-tit">
-                                                            <label>Find</label>
+                                                            <label>{{(pageOption)? pageOption: 'Find'}}</label>
                                                             <span><i class="fas fa-caret-down"></i></span>
                                                         </div>
                                                     </div>
                                                     <!-- <label>Find</label> -->
-                                                    <input type="text" placeholder="School Name, Coach Name">
-                                                    <button><img src="/images/form-search.png" alt=""></button>
+                                                    <input type="text" placeholder="School Name, Coach Name" v-model="searchTxt" v-on:keyup.enter="$router.push(`/search_result?str=${searchTxt}&pageOption=${pageOption}`)"  >
+                                                    <button @click="$router.push(`/search_result?str=${searchTxt}&pageOption=${pageOption}`)"><img src="/images/form-search.png" alt=""></button>
                                                     <div class="form-main-dropdown">
                                                         <ul>
-                                                            <li><a href="#">hi</a></li>
-                                                            <li><a href="#">hi</a></li>
-                                                            <li><a href="#">hi</a></li>
-                                                            <li><a href="#">hi</a></li>
-                                                            <li><a href="#">hi</a></li>
-                                                            <li><a href="#">hi</a></li>
-                                                            <li><a href="#">hi</a></li>
+                                                            <li><a @click="pageOption='school'">School Name</a></li>
+                                                            <li><a @click="pageOption='coach'">Coach Name</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -340,7 +333,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="review-sect-part">
+                                <div class="review-sect-part" v-if="review_of_day.info && loading == false">
                                     <div class="drop-title">
                                         <h2>Review of the Day</h2>
                                     </div>
@@ -351,12 +344,12 @@
                                                 <img src="/images/review-1.png" alt="">
                                             </figure>
                                             <div class="review-header-title">
-                                                <h3>By. Samatha Harris</h3>
+                                                <h3 @click="$router.push(`/flanker/${review_of_day.bestReview.reviwer.id}`)"> By {{review_of_day.bestReview.reviwer.firstName}} {{review_of_day.bestReview.reviwer.lastName}}</h3>
                                                 <ul>
-                                                    <li><span class="rev-ti-im"><img src="/images/mw.png" alt=""></span><span class="rev-ti-p">87</span></li>
-                                                    <li><span class="rev-ti-ic"><i class="fas fa-star"></i></span><span class="rev-ti-p">1119</span></li>
+                                                    <li><span class="rev-ti-im"><img src="/images/mw.png" alt=""></span><span class="rev-ti-p">{{review_of_day.bestReview.reviwer.__meta__.totalreviewbyuser}}</span></li>
+                                                    <li><span class="rev-ti-ic"><i class="fas fa-star"></i></span><span class="rev-ti-p">{{review_of_day.bestReview.reviwer.__meta__.totalreviewbyuser}}</span></li>
                                                 </ul>
-                                                <h4 class="wr-re">Wrote a review for: <span>Coach mike berger</span></h4>
+                                                <h4 class="wr-re">Wrote a review for: <span @click="goToProfilePage()">{{review_of_day.bestReview.reviewforInfo.name}}</span></h4>
                                             </div>
                                         </div>
                                         <div class="review-border">
@@ -381,7 +374,7 @@
                                         </div>
                                         <div class="revt-details">
                                             <p>
-                                                I was incredibly skeptical of Vespertine. And why wouldn't you be? Jordan Kahn is the Elon Musk of the fine dining world, and it's the equivalent of paying a lot of money for something that Musk thought up - it could very well be brilliant, because he's clearly off on his own planet with everything he's doing,or it could be a disaster and you wont know until you give it a go...<a href="#">Continous reading</a>
+                                               {{review_of_day.bestReview.content}}<a >Continous reading</a>
                                             </p>
                                         </div>
                                         <div class="recent-title">
@@ -401,15 +394,15 @@
                                     </div>
                                     <div class="drop-content">
                                         <div class="row">
-                                            <div class="drop-item">
+                                            <div class="drop-item"  v-for="(item,index) in recentReview " :key="index">
                                                 <div class="drop-item-inner">
                                                     <div class="linear-border"></div>
                                                     <div class="drop-item-title">
                                                         <figure>
-                                                            <img src="/images/dr-1.png" alt="">
+                                                            <img :src="item.reviwer.img"  alt="">
                                                         </figure>
                                                         <div class="drop-title-caption">
-                                                            <h3>Bob g.</h3>
+                                                            <h3>{{item.reviwer.firstName}} {{item.reviwer.lastName}}</h3>
                                                             <p>Wrote a review</p>
                                                         </div>
                                                     </div>
@@ -421,20 +414,20 @@
                                                         </div>
                                                         <div class="drop-inner-cap">
                                                             <div class="drop-inner-coach">
-                                                                <h4>Coach Tim Nelson</h4>
+                                                                <h4>Coach {{item.coach.name}}</h4>
                                                             </div>
                                                             <div class="review-star">
                                                                 <ul>
-                                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                                    <li  :class="(item.rating>0)? '' : 'star-half'"><span><i class="fas fa-star"></i></span></li>
+                                                                    <li :class="(item.rating>1)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
+                                                                    <li :class="(item.rating>2)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
+                                                                    <li :class="(item.rating>3)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
+                                                                    <li :class="(item.rating>4)? '' : 'star-half'"  ><span><i class="fas fa-star"></i></span></li>
                                                                 </ul>
                                                             </div>
                                                             <div class="drop-inner-coach-txt">
-                                                                <p>Anybody who misses the Golden opportunity to work with Vinny is missing out. He's new to Westlake Village and he had me run through a specific set of lorem ipsum dolor sit amet</p>
-                                                                <a href="#">Continous reading</a>
+                                                                <p>{{item.content}}</p>
+                                                                <a >Continous reading</a>
                                                             </div>
                                                         </div>
                                                         <div class="drop-bottom-icon">
@@ -447,7 +440,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="drop-item">
+                                            <!-- <div class="drop-item">
                                                 <div class="drop-item-inner">
                                                     <div class="linear-border"></div>
                                                     <div class="drop-item-title">
@@ -676,7 +669,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -694,7 +687,7 @@
                                                             <img src="/images/ac-1.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
                                                         <p>High school coaches</p>
                                                     </div>
                                                 </div>
@@ -707,7 +700,7 @@
                                                             <img src="/images/ac-2.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Junior College`)">
                                                         <p>College coaches</p>
                                                     </div>
                                                 </div>
@@ -720,7 +713,7 @@
                                                             <img src="/images/ac-3.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
                                                         <p>Travel coaches</p>
                                                     </div>
                                                 </div>
@@ -733,7 +726,7 @@
                                                             <img src="/images/ac-4.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=legend`)">
                                                         <p>Local instructors</p>
                                                     </div>
                                                 </div>
@@ -746,7 +739,7 @@
                                                             <img src="/images/ac-5.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
                                                         <p>Best rated coaches</p>
                                                     </div>
                                                 </div>
@@ -759,7 +752,7 @@
                                                             <img src="/images/ac-6.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=Worst`)">
                                                         <p>Worst rated coaches</p>
                                                     </div>
                                                 </div>
@@ -772,7 +765,7 @@
                                                             <img src="/images/ac-7.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
                                                         <p>Healthiest coaches</p>
                                                     </div>
                                                 </div>
@@ -785,7 +778,7 @@
                                                             <img src="/images/ac-8.png" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption">
+                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=product`)">
                                                         <p>Products & services</p>
                                                     </div>
                                                 </div>
@@ -951,18 +944,201 @@
         <footer class="new-footer">
             <div class="new-footer-top"></div>
         </footer>
-
-        <!--================
-				SCRIPT
-        ====================-->
-        
-
-		<!-- JQUERY-1.12.0 -->
-        <script src="/js/jquery-1.12.0.min.js" type="text/javascript"></script>
-        <script src="/js/owl.carousel.min.js" type="text/javascript"></script>
-
-		<!-- MAIN.JS -->
-        <script src="/js/custom.js" type="text/javascript"></script>
         
     </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      name: "",
+      searchTxt: "",
+      pageOption: "",
+      addressTxt: "",
+      openSearchDrop: false,
+      schoolCoaches: [],
+      recentReview: [],
+      review_of_day: {},
+      loading: true,
+      packType: 0,
+      legend_id: 0,
+      reviewModal: false,
+      rData: {
+        for: 0,
+        key: "",
+        school: ""
+      },
+      coachList: [],
+      schoolList: [],
+      schoolCoachList: [],
+      productList: [],
+      sData: {
+        school_id: 0
+      },
+      iamIndex: false,
+      city:'All citys',
+      allCity:[],
+    };
+  },
+  async asyncData({ app, store, redirect, params }) {
+    try {
+      let { data } = await app.$axios.get(`/legends`);
+
+      return {
+        legendList: data
+      };
+    } catch (error) {
+      //return redirect('/404')
+    }
+  },
+  methods: {
+    closeModal() {
+       this.rData.for=0
+        this.rData.key=''
+        this.rData.school=''
+        this.coachList=[]
+        this.schoolList=[]
+        this.schoolCoachList=[]
+        this.productList=[]
+        this.sData.school_id = 0
+
+      this.reviewModal = false;
+    },
+    async CreateNewCoach() {
+      if (this.sData.school == "") {
+        this.i("Please Write a Coach Name");
+        return;
+      }
+      if (this.isLoggedIn == false) {
+        this.i("Please login first !");
+        this.$router.push("/login");
+        return;
+      }
+      let tempCoach = {
+        school_id: this.sData.school_id,
+        name: this.sData.school
+      };
+      const res = await this.callApi(
+        "post",
+        "/app/storeSchoolCoache",
+        tempCoach
+      );
+      if (res.status == 200) {
+        this.s("Coach created successfully!");
+      } else {
+        this.swr();
+      }
+    },
+    manageSchoolData(item) {
+      this.rData.school = item.name + " | " + item.sport;
+      this.sData.school_id = item.id;
+      this.schoolList = [];
+    },
+    async SearchByKeySchoolCoach() {
+      const res = await this.callApi(
+        "get",
+        `/app/SearchByKeySchoolCoach?key=${this.rData.key}&school_id=${
+          this.sData.school_id
+        }`
+      );
+      if (res.status === 200) {
+        this.schoolCoachList = res.data;
+      } else {
+        this.swr();
+      }
+    },
+    async SearchByKeyCoach() {
+      const res = await this.callApi(
+        "get",
+        `/app/SearchByKeyCoach?key=${this.rData.key}`
+      );
+      if (res.status === 200) {
+        this.coachList = res.data;
+      } else {
+        this.swr();
+      }
+    },
+    async SearchByKeyProduct() {
+      const res = await this.callApi(
+        "get",
+        `/app/SearchByKeyProduct?key=${this.rData.key}`
+      );
+      if (res.status === 200) {
+        this.productList = res.data;
+      } else {
+        this.swr();
+      }
+    },
+    async SearchByKeySchool() {
+      const res = await this.callApi(
+        "get",
+        `/app/SearchByKeySchool?key=${this.rData.school}`
+      );
+      if (res.status === 200) {
+        this.schoolList = res.data;
+      } else {
+        this.swr();
+      }
+    },
+    async goToLegendWall(item) {
+      this.reviewModal = false;
+      this.$router.push(`/addreview/${item.id}`);
+    },
+    async goToProductWall(item) {
+      this.reviewModal = false;
+      this.$router.push(`/product_review/${item.id}`);
+    },
+    async goToCoachWall(item) {
+      this.reviewModal = false;
+      this.$router.push(`/scoach_review/${item.id}`);
+    },
+    async SearchData() {},
+    goToProfilePage() {
+      if (this.review_of_day.info.model == "legend") {
+        this.$router.push(
+          `/profile/${this.review_of_day.bestReview.reviewFor}`
+        );
+      } else if (this.review_of_day.info.model == "coach") {
+        this.$router.push(`/school/${this.review_of_day.bestReview.school_id}`);
+      } else if (this.review_of_day.info.model == "product") {
+        this.$router.push(
+          `/product/${this.review_of_day.bestReview.product_id}`
+        );
+      }
+    },
+    async getCity(item) {
+      this.city = item
+      if(item == 'All citys'){
+        item=''
+      }
+      const res  = await this.callApi('get',`/app/getSchoolcoaches?city=${item}`)
+      if(res.status === 200){
+        this.schoolCoaches = res.data
+      }
+      else{
+        this.swr()
+      }
+    }
+  },
+  async created() {
+    const [res1, res2,res4, res3] = await Promise.all([
+      this.callApi("get", `/app/getSchoolcoaches`),
+      this.callApi("get", `/app/reviewOfTheDay`),
+      this.callApi("get", `/app/recentCitys`),
+      this.callApi("get", `/app/getRecentReview`)
+    ]);
+    if (res1.status === 200 && res2.status == 200) {
+      this.schoolCoaches = res1.data;
+      this.review_of_day = res2.data;
+      this.recentReview = res3.data;
+      this.allCity = res4.data;
+      // this.review_of_day.bestReview = res2.data.bestReview
+      this.loading = false;
+    } else {
+      this.swr();
+      this.loading = false;
+    }
+  }
+};
+</script>
