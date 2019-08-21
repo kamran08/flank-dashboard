@@ -133,8 +133,8 @@ ul {
   text-transform: uppercase;
   transition: all 0.3s;
   font-family: ceraPro;
-  font-weight: bold;
-  color: #808081;
+  font-weight: 400;
+  color: #fff;
   line-height: 1.24;
 }
 .new-nav-left-list li a:hover {
@@ -400,15 +400,15 @@ ul {
 
 .quick-link-content, .headline-link-content, .switch-link-content {
   background: #fff;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 15px 15px 0;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
-  margin-bottom: 20px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
+  margin-bottom: 10px;
   margin-top: 20px;
 }
 .quick-link-content h4, .headline-link-content h4, .switch-link-content h4 {
-  font-size: 16px;
-  text-transform: uppercase;
+  font-size: 14px;
+  text-transform: capitalize;
   color: #141414;
   font-weight: 900;
   font-family: CeraPro;
@@ -443,23 +443,23 @@ ul {
 
 .quick-link-caption p {
   color: #141414;
-  font-weight: bold;
+  font-weight: 400;
   font-size: 14px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin: 0;
   font-family: CeraPro;
 }
 
 .review-content {
   background: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
   margin-bottom: 10px;
 }
 .review-content h4 {
-  font-size: 18px;
-  text-transform: uppercase;
+  font-size: 14px;
+  text-transform: capitalize;
   color: #000;
   font-weight: 900;
   border-bottom: 2px solid #141414;
@@ -493,8 +493,8 @@ ul {
   color: #fff;
 }
 .review-content ul li:first-child button:hover {
-  background: #fff;
-  color: #C81630;
+  /* background: #fff;
+  color: #C81630; */
 }
 .review-content ul li:last-child button:hover {
   background: #C81630;
@@ -502,7 +502,7 @@ ul {
 }
 
 .inner-item-blg {
-  border-radius: 15px 15px 0 0;
+  border-radius: 10 10 0 0;
   /* overflow: hidden; */
   position: relative;
 }
@@ -550,8 +550,8 @@ ul {
   margin: 0;
   flex: 0 0 10%;
   width: 100%;
-  font-size: 20px;
-  font-weight: 900;
+  font-size: 16px;
+  font-weight: 400;
   text-transform: capitalize;
   color: #000;
   font-family: CeraPro;
@@ -568,8 +568,8 @@ ul {
 }
 .form-inner input::placeholder {
   color: #B2B2B2;
-  font-weight: 900;
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 16px;
   font-family: CeraPro;
   letter-spacing: 1px;
   line-height: 1;
@@ -589,9 +589,9 @@ ul {
 }
 
 .inner-item-blog-sect {
-  border-radius: 15px;
+  border-radius: 10px;
   background: #fff;
-  box-shadow: 0 0 20px 0px rgba(151, 151, 151, 0.9);
+  /* box-shadow: 0 0 20px 0px rgba(151, 151, 151, 0.9); */
   overflow: hidden;
   margin-top: 20px;
 }
@@ -611,17 +611,18 @@ ul {
   display: flex;
   flex-flow: row;
   align-items: flex-end;
+  margin-bottom: 10px;
 }
 .inner-rated-iconic .rated-iconic-item .iconic-coaches-caption p {
   margin: 0;
-  font-size: 17px;
+  font-size: 14px;
   text-transform: capitalize;
   line-height: 1;
   margin-left: 5px;
   font-family: CeraPro;
   color: #000;
   letter-spacing: 1px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .headline-link-content {
@@ -660,14 +661,17 @@ ul {
   color: #000;
   padding: 10px 0;
   font-family: CeraPro;
-  font-weight: 500;
+  font-weight: 400;
+}
+.headline-link-content ul li a:hover {
+  color: #2d8cf0;
 }
 .headline-link-content ul li a img {
   width: 20px;
 }
 
 .flank-banner {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .flank-banner figure {
   width: 100%;
@@ -679,9 +683,9 @@ ul {
 .coach-scandal {
   background: #fff;
   padding: 10px 15px;
-  border-radius: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
-  margin-top: 20px;
+  border-radius: 10px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
+  margin-top: 10px;
 }
 .coach-scandal .inner-item-blg {
   margin: 20px 10px 20px;
@@ -704,7 +708,7 @@ ul {
 }
 .coach-scandal-title .scandal-head h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -721,7 +725,7 @@ ul {
 .inner-scandal figure img {
   width: 100%;
   border-radius: 15px 15px 0 0;
-  box-shadow: 0 0 20px 0px rgba(151, 151, 151, 0.4);
+  /* box-shadow: 0 0 20px 0px rgba(151, 151, 151, 0.4); */
 }
 
 .scandal-caption {
@@ -730,7 +734,7 @@ ul {
   padding: 15px 20px;
   margin-top: 5px;
   border-radius: 0 0 15px 15px;
-  box-shadow: 0 0 20px 0px rgba(151, 151, 151, 0.4);
+  box-shadow: 0 0 7px 0px rgba(151, 151, 151, 0.4);
 }
 .scandal-caption figure {
   width: 13px;
@@ -752,15 +756,17 @@ ul {
   color: #000;
   font-family: CeraPro;
   letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .scandal-analytics {
   background: #fff;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 15px 10px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
-  margin-top: 20px;
-  min-height: 800px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
+  margin-top: 10px;
+  /* min-height: 800px; */
 }
 .scandal-analytics h4 {
   line-height: 1.2;
@@ -796,7 +802,7 @@ ul {
   border-bottom: 2px solid #EDEEF0;
   font-size: 13px;
   color: #000;
-  padding: 15px 0;
+  padding: 10px 0;
   text-decoration: none;
   display: block;
   font-weight: bold;
@@ -816,9 +822,9 @@ ul {
 }
 .scandal-extra-link ul li a {
   text-decoration: underline;
-  font-weight: 900;
+  font-weight: 400;
   color: #000;
-  font-size: 15px;
+  font-size: 14px;
   font-family: CeraPro;
 }
 
@@ -891,8 +897,8 @@ ul {
 
 .inner-scandal-video-item {
   border: 1px solid #B0B6BC;
-  border-radius: 15px;
-  box-shadow: 0 0 20px 0px rgba(151, 151, 151, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.4);
   overflow: hidden;
   position: relative;
   height: 100%;
@@ -912,11 +918,11 @@ ul {
   margin-bottom: 40px;
 }
 .scandal-video-caption p {
-  font-weight: 600;
+  font-weight: 400;
   font-size: 13px;
   font-family: CeraPro;
   color: #000;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 .video-logo {
@@ -985,8 +991,8 @@ ul {
 
 .recent-activity-part {
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  border-radius: 10px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
   position: relative;
   overflow: hidden;
   margin-bottom: 10px;
@@ -1020,7 +1026,7 @@ ul {
   font-weight: 600;
   font-size: 14px;
   margin: 0;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   text-transform: capitalize;
   font-family: CeraPro;
   letter-spacing: 1px;
@@ -1031,7 +1037,7 @@ ul {
   font-weight: 900;
   font-size: 14px;
   margin: 0;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   font-family: CeraPro;
   letter-spacing: 1px;
 }
@@ -1040,13 +1046,14 @@ ul {
   color: #000;
   font-size: 14px;
   margin: 0;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-family: CeraPro;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 15px;
 }
 
 .recent-title {
@@ -1057,7 +1064,7 @@ ul {
   margin: 0;
   font-weight: 900;
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 14px;
   font-family: CeraPro;
   color: #000;
 }
@@ -1073,11 +1080,11 @@ ul {
 
 .review-sect {
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  border-radius: 10px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
   position: relative;
   overflow: hidden;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .review-sect-header {
@@ -1115,7 +1122,7 @@ ul {
 }
 .review-header-title h4 {
   color: #000;
-  font-weight: 900;
+  font-weight: 400;
   font-size: 15px;
   margin: 0;
   margin-bottom: 5px;
@@ -1125,6 +1132,7 @@ ul {
 .review-header-title h4 span {
   color: #0088cc;
   text-transform: capitalize;
+  font-weight: 900;
 }
 
 .rev-ti-im {
@@ -1228,7 +1236,7 @@ ul {
 }
 
 .review-sect-part {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .review-sect-part .drop-title {
   margin-bottom: 0;
@@ -1239,14 +1247,22 @@ ul {
 }
 .revt-details p {
   margin-bottom: 0;
-  line-height: 19px;
+  line-height: 22px;
   font-family: CeraPro;
-  font-weight: 500;
-  letter-spacing: 1px;
-  color: #000;
+  font-weight: 400;
+  /* letter-spacing: 1px; */
+  color: #48494a;
+  font-size: 13px;
 }
 .revt-details p a {
   color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: CeraPro;
+}
+
+.revt-details p a:hover {
+  color: #2d8cf0;
   font-weight: 600;
   text-decoration: none;
   font-family: CeraPro;
@@ -1273,7 +1289,7 @@ ul {
 .flank-daily-content h2 {
   margin: 0;
   margin-bottom: 15px !important;
-  font-size: 25px;
+  font-size: 16px;
   font-weight: 600;
   font-family: CeraPro;
   letter-spacing: 1px;
@@ -1284,7 +1300,7 @@ ul {
   color: #000;
   font-weight: 500;
   font-size: 13px;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   font-family: CeraPro;
 }
 
@@ -1303,7 +1319,7 @@ ul {
 .fla-form-full input::placeholder {
   color: #000;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 14px;
   font-family: CeraPro;
 }
 
@@ -1339,7 +1355,7 @@ ul {
 }
 
 .drop-content {
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 .drop-content .row {
   display: flex;
@@ -1354,7 +1370,7 @@ ul {
   text-align: center;
 }
 .drop-title h2 {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
   color: #C81630;
   margin: 0;
@@ -1364,7 +1380,7 @@ ul {
 }
 
 .drop-item {
-  margin-top: 15px;
+  margin-top: 10px;
   padding: 0 10px;
   flex: 33.33%;
   width: 100%;
@@ -1372,10 +1388,10 @@ ul {
 .drop-item .drop-item-inner {
   background: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
   position: relative;
   overflow: hidden;
-  border: 1px solid #797B7E;
+  /* border: 1px solid #797B7E; */
   height: 100%;
 }
 
@@ -1409,7 +1425,7 @@ ul {
 }
 .drop-item-title .drop-title-caption p {
   color: #000;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 0;
   font-size: 13px;
   font-family: CeraPro;
@@ -1452,22 +1468,22 @@ ul {
   padding-bottom: 10px;
 }
 .drop-inner-coach-txt p {
-  color: #000;
-  font-weight: 500;
+  color: #48494a;
+  font-weight: 400;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 0;
   font-family: CeraPro;
-  font-size: 12px;
+  font-size: 13px;
 }
 .drop-inner-coach-txt a {
   text-decoration: none;
-  color: #0088cc;
+  color: #000;
   font-size: 12px;
   font-family: CeraPro;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .drop-bottom-icon {
@@ -1508,14 +1524,14 @@ ul {
 
 .spotlight-content {
   background: #fff;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
   margin-bottom: 20px;
   text-align: center;
 }
 .spotlight-content h4 {
-  font-size: 18px;
+  font-size: 14px;
   color: #000;
   font-weight: 900;
   padding-bottom: 10px;
@@ -1529,6 +1545,10 @@ ul {
   font-size: 13px;
   font-weight: 500;
   color: #000;
+}
+
+.spotlight-content p a:hover {
+  color: #2d8cf0;
 }
 
 .spotlight-img {
@@ -1564,13 +1584,13 @@ ul {
   padding: 0 10px;
   flex: 0 0 25%;
   width: 100%;
-  margin-top: 15px;
+  margin-top: 10px;
   cursor:pointer;
 }
 .activity-item .activity-inner {
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  border-radius: 10px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
   position: relative;
   overflow: hidden;
   text-align: center;
@@ -1649,6 +1669,7 @@ ul {
   font-weight: 400;
   font-size: 20px;
   text-transform: uppercase;
+  font-family: CeraPro;
 }
 .flank-header-cap h1 span {
   font-weight: 600;
@@ -1661,6 +1682,7 @@ ul {
 .flank-header-cap ul li {
   list-style: none;
   margin-right: 5px;
+  font-family: CeraPro;
 }
 .flank-header-cap ul li img {
   width: 20px;
@@ -1674,22 +1696,24 @@ ul {
 
 .flank-head-btn button {
   padding: 5px 35px;
-  border: 2px solid #C0C0C2;
+  border: 2px solid #C81630;
   border-radius: 25px;
   outline: 0;
-  background: #fff;
-  color: #000;
+  background: #C81630;
+  color: #fff;
   text-transform: uppercase;
   font-size: 15px;
   transition: all linear 0.3s;
   letter-spacing: 1px;
   font-weight: 600;
+  font-family: CeraPro;
 }
 
 .flank-item-left-list table tbody tr td {
   padding: 5px 1rem;
   text-transform: uppercase;
   font-weight: 400;
+  font-family: CeraPro;
 }
 .flank-item-left-list table tbody tr td .green {
   width: 5px;
@@ -1725,6 +1749,8 @@ ul {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 14px;
+  margin-bottom: 3px;
+  font-family: CeraPro;
 }
 .right-list-inner .right-list-inner-item .review-star ul {
   margin: 0;
@@ -1779,6 +1805,8 @@ ul {
   font-weight: 400;
   text-transform: capitalize;
   text-decoration: none;
+  font-family: CeraPro;
+  font-size: 14px;
 }
 .flank-page-bottom-nav ul li:hover {
   border-bottom: 3px solid #DD0000;
@@ -1794,7 +1822,7 @@ ul {
 
 .switch-link-content {
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .switch-link-content h4 {
   text-transform: capitalize;
@@ -1805,38 +1833,52 @@ ul {
 }
 
 .switch-link-btn {
-  border-top: 2px solid #C0C0C2;
+  border-top: 2px solid #EDEEF0;
   margin: 0 15px;
-  padding: 10px 0;
+  padding: 0 0 10px;
 }
 .switch-link-btn ul li {
   margin-bottom: 10px;
   display: block !important;
 }
 .switch-link-btn ul li button {
+  padding: 10px 5px;
+  border: 2px solid #C81630;
   width: 100%;
-  border: 2px solid #C0C0C2;
-  background: transparent;
-  outline: 0;
-  padding: 10px 20px;
   border-radius: 25px;
-  font-weight: 400;
+  outline: 0;
+  background: #fff;
+  color: #C81630;
   text-transform: capitalize;
-  color: #555;
-  text-align: left;
-  font-size: 16px;
+  font-size: 15px;
+  transition: all linear 0.3s;
+  font-family: CeraPro;
+  letter-spacing: 1px;
+}
+
+.switch-link-btn ul li:first-child button {
+  background: #C81630;
+  color: #fff;
+}
+
+.switch-link-btn ul li:last-child button:hover {
+  background: #C81630;
+  color: #fff;
 }
 
 .switch-coach {
   display: flex;
   flex-flow: row;
-  align-items: flex-start;
+  align-items: center;
   padding: 10px 15px;
 }
+.switch-coach:hover {
+  background: #fff;
+}
 .switch-coach figure {
-  flex: 0 0 60px;
-  width: 60px;
-  height: 60px;
+  flex: 0 0 45px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid #C0C0C2;
@@ -1853,14 +1895,15 @@ ul {
   padding-top: 5px;
 }
 .switch-coach .switch-coach-caption p {
+  font-weight: 400;
   font-size: 14px;
-  font-weight: 600;
   text-transform: capitalize;
   margin: 0;
+  font-family: CeraPro;
 }
 
 .switch-coach .switch-coach-caption p a {
-  color: #000;
+  color: #141414;
   text-decoration: none;
 }
 
@@ -1871,29 +1914,32 @@ ul {
 .switch-link-foot {
   margin: 0 15px;
   padding: 10px 0;
-  border-top: 2px solid #C0C0C2;
+  border-top: 2px solid #EDEEF0;
   text-align: center;
 }
 .switch-link-foot p {
-  font-size: 16px;
-  font-weight: 600;
+  margin: 0;
+  font-weight: 900;
   text-transform: uppercase;
+  font-size: 14px;
+  font-family: CeraPro;
   color: #C9273B;
 }
 
 .inner-item-table-sec {
   background: #fff;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
-  margin-bottom: 20px;
-  margin-top: 30px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 .inner-item-table-sec .inner-item-table-title h4 {
-  color: #000;
-  font-weight: 900;
   text-transform: capitalize;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 900;
+  font-family: CeraPro;
+  color: #000;
 }
 
 
@@ -1902,10 +1948,11 @@ ul {
 
 .inner-item-table {
   overflow-x: scroll;
+  margin-top: 15px;
 }
 
 .inner-item-table table {
-  border-top: 2px solid #d6dddf;
+  border-top: 2px solid #EDEEF0;
   width: 100%;
 }
 .inner-item-table table thead tr th {
@@ -1913,15 +1960,17 @@ ul {
   padding: 5px 0.2rem;
   text-transform: uppercase;
   border-bottom: 1px solid #e7e7e7;
+  font-family: CeraPro;
 }
 .inner-item-table table .th-nor {
-  font-weight: 400;
+  font-weight: 600;
   border-right: 1px solid #e7e7e7;
 }
 .inner-item-table table tbody tr td {
   border-bottom: 1px solid #e7e7e7;
   padding: 2px 0.2rem;
   font-weight: 400;
+  font-family: CeraPro;
 }
 .inner-item-table table tbody tr:last-child td {
   background: #fafafa;
@@ -1929,10 +1978,10 @@ ul {
 
 .inner-item-review-sec {
   background: #fff;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
-  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 15px 25px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
+  margin-bottom: 10px;
   position: relative;
   overflow: hidden;
 }
@@ -1957,12 +2006,13 @@ ul {
 }
 .inner-item-rev-item .rev-item-caption p {
   font-weight: 400;
-  font-size: 14px;
-
+  font-size: 13px;
+  color: #48494a;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-family: CeraPro;
 }
 
 .inner-item-rev-item:last-child {
@@ -1980,18 +2030,20 @@ ul {
 
 .inner-item-reco-sec {
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  border-radius: 10px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
   position: relative;
   overflow: hidden;
 }
 
 .inner-item-reco-title {
-  padding: 5px 25px;
+  padding: 15px;
 }
 .inner-item-reco-title h4 {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 17px;
+  font-family: CeraPro;
+  color: #000;
 }
 .inner-item-reco-title h4 span {
   font-weight: 400;
@@ -2001,7 +2053,7 @@ ul {
   display: flex;
   flex-flow: row;
   background: #fafafa;
-  padding: 5px 25px;
+  padding: 5px 15px;
 }
 .inner-item-top-con figure {
   flex: 0 0 45px;
@@ -2014,6 +2066,8 @@ ul {
 .inner-item-top-con .top-con-cap p {
   font-weight: 400;
   font-size: 14px;
+  font-family: CeraPro;
+  color: #48494a;
 }
 .inner-item-top-con .top-con-cap p span {
   font-weight: 600;
@@ -2025,7 +2079,7 @@ ul {
 
 .new-flank-form {
   background: #fff;
-  padding: 0 25px;
+  padding: 0 15px;
 }
 
 .new-flank-sort-sec {
@@ -2056,7 +2110,12 @@ ul {
   border-radius: 5px 0 0 5px;
 }
 .new-flank-search .search-new-box input::placeholder {
-  color: #B1AEB5;
+  color: #B2B2B2;
+  font-weight: 400;
+  font-size: 13px;
+  font-family: CeraPro;
+  /* letter-spacing: 1px; */
+  line-height: 1;
 }
 .new-flank-search .search-new-box button {
   outline: 0;
@@ -2085,14 +2144,16 @@ ul {
 .new-flank-sort .new-flank-select h4 {
   font-weight: 400;
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   color: #000;
+  font-family: CeraPro;
 }
 .new-flank-sort .new-flank-select select {
   font-weight: 600;
   color: #000;
   border: 0;
   outline: 0;
+  font-family: CeraPro;
 }
 
 .new-flank-img {
@@ -2212,6 +2273,7 @@ ul {
   font-size: 15px;
   color: #FE0101;
   margin-bottom: 0;
+  font-family: CeraPro;
 }
 .start-link p span {
   font-weight: 600;
@@ -2220,18 +2282,18 @@ ul {
 
 .flank-given-review-item {
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
-  margin-bottom: 20px;
+  border-radius: 10px;
+  /* box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2); */
+  margin-bottom: 10px;
   position: relative;
   overflow: hidden;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .review-item-inner {
   display: flex;
   flex-flow: row;
-  padding: 20px 20px 5px;
+  padding: 20px 15px 5px;
 }
 
 .review-item-left {
@@ -2257,29 +2319,32 @@ ul {
 }
 
 .review-item-left-fig-c h4 {
-  font-size: 16px;
+  font-size: 15px;
   color: #CF273E;
   font-weight: 600;
   text-transform: capitalize;
   margin: 0;
   margin-bottom: 5px;
+  font-family: CeraPro;
 }
 .review-item-left-fig-c h5 {
-  font-size: 16px;
+  font-size: 15px;
   color: #000;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: capitalize;
   margin: 0;
   margin-bottom: 5px;
+  font-family: CeraPro;
 }
 .review-item-left-fig-c .left-fig-link {
   width: 100%;
+  margin-top: 15px;
 }
 .review-item-left-fig-c .left-fig-link li {
   display: flex;
   flex-flow: row;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   font-weight: 400;
   font-size: 14px;
 }
@@ -2314,6 +2379,17 @@ ul {
   border-bottom: 1px solid #ECECEC;
   width: 100%;
   padding: 4px 0;
+  color: #48494a;
+  font-family: CeraPro;
+}
+
+.review-figure-exper ul li p a {
+  color: #48494a;
+  font-family: CeraPro;
+}
+
+.review-figure-exper ul li p a:hover {
+  color: #2b85e4;
 }
 
 .review-item-right {
@@ -2344,22 +2420,29 @@ ul {
   color: #fff;
 }
 .review-item-right-rat ul li span i {
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 
 .review-date p {
   margin: 0;
-  color: #686667;
+  color: #48494a;
+  font-family: CeraPro;
+  font-size: 13px;
+}
+
+.review-date p span {
+  margin-left: 5px;
 }
 
 .review-item-right-details {
   margin-top: 10px;
 }
 .review-item-right-details p {
-  color: #2A2A2A;
+  color: #48494a;
   margin-bottom: 10px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
+  font-family: CeraPro;
 }
 
 .review-btn {
@@ -2390,6 +2473,7 @@ ul {
   font-size: 12px;
   color: #000;
   font-weight: 400;
+  font-family: CeraPro;
 }
 
 .review-btn-img {
@@ -2408,10 +2492,11 @@ ul {
   margin-top: 35px;
 }
 .review-btn-sec p {
-  color: #686667;
-  font-size: 15px;
+  color: #48494a;
+  font-size: 13px;
   font-weight: 400;
   margin-bottom: 10px;
+  font-family: CeraPro;
 }
 
 .review-gallary {
@@ -2507,6 +2592,7 @@ ul {
   margin: 0;
   font-weight: 600;
   font-size: 15px;
+  font-family: CeraPro;
 }
 .playing-list ul li .video-info ul {
   padding: 0;
@@ -2522,6 +2608,7 @@ ul {
   width: auto;
   margin-right: 10px;
   padding: 0;
+  font-family: CeraPro;
 }
 .playing-list ul li .video-info ul li span {
   margin-left: 3px;
@@ -2610,7 +2697,7 @@ ul {
     display: block;
     padding: 3px 10px;
     transition: all 0.3s linear;
-    font-size: 18px;
+    font-size: 14px;
 }
 .form-main-dropdown ul li a:hover {
   background: #E51937;

@@ -326,19 +326,19 @@
                                                     <ul>
                                                         <li>
                                                             <img src="/images/mstar.png" alt="">
-                                                            <p>Share review</p>
+                                                            <p><a>Share review</a></p>
                                                         </li>
                                                         <li>
                                                             <img src="/images/mstar.png" alt="">
-                                                            <p>Embeded Review</p>
+                                                            <p><a>Embeded Review</a></p>
                                                         </li>
                                                         <li>
                                                             <img src="/images/mstar.png" alt="">
-                                                            <p>Send message</p>
+                                                            <p><a>Send message</a></p>
                                                         </li>
                                                         <li>
                                                             <img src="/images/mstar.png" alt="">
-                                                            <p>Follow valerie C.</p>
+                                                            <p><a>Follow valerie C.</a></p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -353,6 +353,7 @@
                                                         <li :class="(item.rating>4)? '' : 'star-half'"  ><span><i class="fas fa-star"></i></span></li>
                                                     </ul>
                                                     <div class="review-date">
+                                                        <!-- <p>5/8/2019 <span>5:25:36</span></p> -->
                                                         <p>{{item.created_at}}</p>
                                                     </div>
                                                 </div>
