@@ -88,7 +88,7 @@
                                     <h4>Review your coach</h4>
                                     <ul>
                                         <li>
-                                            <button>Sign up</button>
+                                            <button>Sign up</button> 
                                         </li>
                                         <li>
                                             <button>Log in</button>
@@ -101,24 +101,26 @@
 
                                         <li class="activity-list-inner" v-for="(item,index) in recentReview " :key="index">
                                             <div class="recent-activity-part-inner">
-                                                <div class="activ-thumb">
+                                                <div class="activ-thumb" @click="directToCoachWall(item)" style="cursor: pointer;" >
                                                     <figure>
-                                                        <img :src="item.reviwer.img"  alt="">
+                                                        <img v-if="item.review_type == 'school'"  :src="item.school.logo"  alt="">
+                                                        <img v-if="item.review_type == 'product'" :src="item.product.img"  alt="">
+                                                        <img   v-if="item.review_type == 'legend'"  :src="item.legend.img"  alt="">
                                                     </figure>
                                                 </div>
                                                 <div class="activ-det">
-                                                    <template v-if="item.review_type == 'school'" >
+                                                    <div v-if="item.review_type == 'school'" @click="directToCoachWall(item)" style="cursor: pointer;" >
                                                          <h3>{{item.coach.name}}</h3>
                                                         <h4>{{item.school.city}}</h4>
-                                                    </template>
-                                                    <template v-if="item.review_type == 'product'" >
+                                                    </div>
+                                                    <div v-if="item.review_type == 'product'" @click="directToCoachWall(item)" style="cursor: pointer;" >
                                                          <h3>{{item.product.name}}</h3>
                                                         <h4>{{item.product.address}}</h4>
-                                                    </template>
-                                                    <template v-if="item.review_type == 'legend'" >
+                                                    </div>
+                                                    <div v-if="item.review_type == 'legend'"  @click="directToCoachWall(item)" style="cursor: pointer;">
                                                          <h3>{{item.legend.name}}</h3>
                                                         <h4>{{item.legend.address}}</h4>
-                                                    </template>
+                                                    </div>
                                                    
 
                                                     <p>{{item.content}}</p>
@@ -203,7 +205,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- <label>Find</label> -->
-                                                    <input type="text" placeholder="School Name, Coach Name" v-model="searchTxt" v-on:keyup.enter="$router.push(`/search_result?str=${searchTxt}&pageOption=${pageOption}`)"  >
+                                                    <input type="text"  v-model="searchTxt" v-on:keyup.enter="$router.push(`/search_result?str=${searchTxt}&pageOption=${pageOption}`)"  >
                                                     <button @click="$router.push(`/search_result?str=${searchTxt}&pageOption=${pageOption}`)"><img src="/images/form-search.png" alt=""></button>
                                                     <div class="form-main-dropdown">
                                                         <ul>
@@ -269,7 +271,7 @@
                                             <div class="col-md-3 col-sm-6">
                                                 <div class="inner-scandal-video-item">
                                                     <figure>
-                                                        <img src="/images/one.jpeg" alt="">
+                                                        <img src="/image/Thumbnailone.png" alt="">
                                                         <div class="play-caption">
                                                             <span><i class="fas fa-play"></i></span>
                                                         </div>
@@ -288,7 +290,7 @@
                                             <div class="col-md-3 col-sm-6">
                                                 <div class="inner-scandal-video-item">
                                                     <figure>
-                                                        <img src="/images/one.jpeg" alt="">
+                                                        <img src="/image/Thumbnaitwo.png" alt="">
                                                         <div class="play-caption">
                                                             <span><i class="fas fa-play"></i></span>
                                                         </div>
@@ -307,7 +309,7 @@
                                             <div class="col-md-3 col-sm-6">
                                                 <div class="inner-scandal-video-item">
                                                     <figure>
-                                                        <img src="/images/one.jpeg" alt="">
+                                                        <img src="/image/Thumbnailthree.png" alt="">
                                                         <div class="play-caption">
                                                             <span><i class="fas fa-play"></i></span>
                                                         </div>
@@ -326,7 +328,7 @@
                                             <div class="col-md-3 col-sm-6">
                                                 <div class="inner-scandal-video-item">
                                                     <figure>
-                                                        <img src="/images/one.jpeg" alt="">
+                                                        <img src="/image/Thumbnailfour.png" alt="">
                                                         <div class="play-caption">
                                                             <span><i class="fas fa-play"></i></span>
                                                         </div>
@@ -698,12 +700,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-1.png" alt="">
+                                                            <img src="/image/HighSchoolCoaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
                                                         <p>High school coaches</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="activity-item">
@@ -711,12 +713,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-2.png" alt="">
+                                                            <img src="/image/College-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Junior College`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Junior College`)">
                                                         <p>College coaches</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="activity-item">
@@ -724,12 +726,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-3.png" alt="">
+                                                            <img src="/image/Travel-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
                                                         <p>Travel coaches</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="activity-item">
@@ -737,12 +739,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-4.png" alt="">
+                                                            <img src="/image/Local-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=legend`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=legend`)">
                                                         <p>Local instructors</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="activity-item">
@@ -750,12 +752,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-5.png" alt="">
+                                                            <img src="/image/Best-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
                                                         <p>Best rated coaches</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="activity-item">
@@ -763,12 +765,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-6.png" alt="">
+                                                            <img src="/image/Worst-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=Worst`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=Worst`)">
                                                         <p>Worst rated coaches</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="activity-item">
@@ -776,12 +778,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-7.png" alt="">
+                                                            <img src="/image/Most-Connected.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
                                                         <p>Healthiest coaches</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="activity-item">
@@ -789,12 +791,12 @@
                                                     <div class="linear-border"></div>
                                                     <div class="activity-inner-fig">
                                                         <figure>
-                                                            <img src="/images/ac-8.png" alt="">
+                                                            <img src="/image/ProductsServices.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=product`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=product`)">
                                                         <p>Products & services</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -891,13 +893,16 @@
                                     <div class="scandal-list">
                                         <ul>
                                             <li>
-                                                <a href="#">Coach Power Index</a>
+                                                <a href="#">Health Score Index (HSI)</a>
                                             </li>
                                             <li>
-                                                <a href="#">Player Happiness Index</a>
+                                                <a href="#">Strength of Team Index (STI)</a>
                                             </li>
                                             <li>
-                                                <a href="#">Strength of Team Index</a>
+                                                <a href="#">Program Chemistry Index (PCI)</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Coach Corruption Index (CCI)</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -1007,6 +1012,13 @@ export default {
     }
   },
   methods: {
+    directToCoachWall(item){
+       // return this.i();
+       console.log(item)
+        if(item.review_type == 'school') this.$router.push(`/school_coach/${item.coach.id}`)
+        else if(item.review_type == 'product') this.$router.push(`/product/${item.product.id}`)
+        else if(item.review_type == 'legend') this.$router.push(`/profile/${item.legend.id}`)
+    },
     closeModal() {
        this.rData.for=0
         this.rData.key=''

@@ -332,7 +332,7 @@
                                                             <img src="/images/mstar.png" alt="">
                                                             <p><a>Embeded Review</a></p>
                                                         </li>
-                                                        <li>
+                                                        <li> 
                                                             <img src="/images/mstar.png" alt="">
                                                             <p><a>Send message</a></p>
                                                         </li>
