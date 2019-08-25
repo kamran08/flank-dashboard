@@ -25,7 +25,7 @@
                                         <li>
                                             <a @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
                                                 <figure>
-                                                    <img src="/images/quick.png" alt="">
+                                                    <img src="/image/High-School-Coaches.gif" alt="">
                                                 </figure>
                                                 <div class="quick-link-caption" >
                                                     <p>High school coaches</p>
@@ -35,7 +35,7 @@
                                         <li>
                                             <a @click="$router.push(`/search_result?pageOption=coach&div=Junior College`)">
                                                 <figure>
-                                                    <img src="/images/quick2.png" alt="">
+                                                    <img src="/image/College-Coaches.gif" alt="">
                                                 </figure>
                                                 <div class="quick-link-caption">
                                                     <p>College coaches</p>
@@ -45,7 +45,7 @@
                                         <li>
                                             <a @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
                                                 <figure>
-                                                    <img src="/images/quic3k.png" alt="">
+                                                    <img src="/image/Most-Connected.gif" alt="">
                                                 </figure>
                                                 <div class="quick-link-caption">
                                                     <p>Professional sports</p>
@@ -55,7 +55,7 @@
                                         <li>
                                             <a @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
                                                 <figure>
-                                                    <img src="/images/quick4.png" alt="">
+                                                    <img src="/image/Travel-Coaches.gif" alt="">
                                                 </figure>
                                                 <div class="quick-link-caption">
                                                     <p>Travel team coaches</p>
@@ -65,7 +65,7 @@
                                         <li>
                                             <a @click="$router.push(`/search_result?pageOption=legend`)">
                                                 <figure>
-                                                    <img src="/images/quick5.png" alt="">
+                                                    <img src="/image/Local-Coaches.gif" alt="">
                                                 </figure>
                                                 <div class="quick-link-caption">
                                                     <p>Local instructors</p>
@@ -75,7 +75,7 @@
                                         <li>
                                             <a @click="$router.push(`/search_result?pageOption=product`)">
                                                 <figure>
-                                                    <img src="/images/quick6.png" alt="">
+                                                    <img src="/image/ProductsServices.gif" alt="">
                                                 </figure>
                                                 <div class="quick-link-caption">
                                                     <p>Products & service</p>

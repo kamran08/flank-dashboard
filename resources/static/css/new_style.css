@@ -433,12 +433,17 @@ ul {
   padding: 5px 0;
 }
 .quick-link-content ul li a figure, .headline-link-content ul li a figure, .switch-link-content ul li a figure {
-  flex: 0 0 40px;
-  width: 40px;
+  flex: 0 0 59px;
+  width: 51px;
   margin-right: 10px;
+  overflow: hidden;
+  height: 48px;
 }
 .quick-link-content ul li a figure img, .headline-link-content ul li a figure img, .switch-link-content ul li a figure img {
-  width: 100%;
+  width: 114px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .quick-link-caption p {
