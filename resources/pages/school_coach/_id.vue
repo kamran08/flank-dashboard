@@ -341,7 +341,7 @@
                                                             <p><a>Follow valerie C.</a></p>
                                                         </li>
                                                     </ul>
-                                                </div>
+                                                </div> 
                                             </div>
                                             <div class="review-item-right">
                                                 <div class="review-item-right-rat">
@@ -390,6 +390,46 @@
                         </div>
                         <div class="new-inner-item-1">
                             <div class="col-md-3 col-sm-3">
+                                <!-- Health Meter -->
+                                <div class="switch-link-content _1health">
+                                    <div class="_1health_title">
+                                        <p class="_1health_title_text">Health Meter</p>
+
+                                        <img class="_1health_img" src="/image/coach-review45.jpg" alt="" title="">
+
+                                        <p class="_1health_value">100%</p>
+                                    </div>
+
+                                    <p class="_1health_subtitle">HEALTHY</p>
+
+                                    <div class="_1health_numbers">
+                                        <p class="_1health_numbers_text"><span>100</span></p>
+                                        <p class="_1health_numbers_text"><span></span></p>
+                                        <p class="_1health_numbers_text _1health_numbers_text_o"><span>50</span></p>
+                                        <p class="_1health_numbers_text"><span></span></p>
+                                        <p class="_1health_numbers_text"><span>100</span></p>
+                                    </div>
+
+                                    <p class="_1health_subtitle _1health_subtitle_border">HEALTHY</p>
+
+                                    <div class="_1health_main">
+                                        <p class="_1health_main_title">Flank News:We've enhanced our Health Meter</p>
+
+                                        <ul class="_1health_main_list">
+                                            <li>We've always working to improve the autherticity of the attributeselected on Flank</li>
+                                            <li>We've always working to improve the autherticity of the attributeselected on Flank</li>
+                                            <li>We've always working to improve the autherticity of the attributeselected on Flank</li>
+                                        </ul>
+                                    </div>
+
+                                    <p class="_1health_more">
+                                        <a class="_1health_more_a" href="">LEARN MORE</a>
+                                    </p>
+                                </div>
+                                <!-- Health Meter -->
+
+                                <div class="switch-link-content"></div>
+
                                 <div class="switch-link-content">
                                     <div class="switch-link-title">
                                         <h4>Latest videos</h4>

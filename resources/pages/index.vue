@@ -51,7 +51,7 @@
                                                     <p>Professional sports</p>
                                                 </div>
                                             </a>
-                                        </li>
+                                        </li> 
                                         <li>
                                             <a @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
                                                 <figure>
