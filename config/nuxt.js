@@ -64,7 +64,9 @@ module.exports = {
      
       { rel: 'stylesheet', href: '/css/style.css' },
       { rel: 'stylesheet', href: '/css/style_one.css' },
-      { rel: 'stylesheet', href: '/css/new_style.css' }
+      { rel: 'stylesheet', href: '/css/new_style.css' },
+      { rel: 'stylesheet', href: '/css/new.css' },
+      { rel: 'stylesheet', href: '/css/responsive.css' }
 
     ],
     script: [

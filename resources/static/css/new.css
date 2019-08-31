@@ -1,0 +1,404 @@
+a:hover{
+    text-decoration: none;
+}
+a:focus {
+    text-decoration: none;
+    outline: none;
+}
+input:focus, button{
+    outline:none;
+}
+input[type="checkbox"] {
+    cursor: pointer;
+}
+p {
+    line-height: 22px;
+}
+.p_r0 {
+    padding-right: 0;
+}
+.padd_tb40{
+    padding: 40px 0px;
+}
+.mar_b20{
+    margin-bottom: 20px;
+}
+.mar_b30{
+    margin-bottom: 30px;
+}
+
+/* =========== Topbar ============= */
+.sign-up-topbar{
+    background-color:#000;
+}
+.sign-up-logo img {
+    width: 148px;
+    padding: 2px 0px;
+}
+.sign-up-search {
+    display: inline-flex;
+}
+.sign-up-search input {
+    padding: 6px;
+    outline: none;
+    border: 1px solid #fff;
+}
+.sign-up-search select {
+    padding: 7px;
+    border: 0;
+    outline: none;
+}
+.sign-up-search li {
+    display: inline-block;
+    border-right: 1px solid #bdbdbd4d;
+    background-color: #fff;
+}
+.sign-up-search li:nth-child(2) {
+    width: 500px;
+}
+.sign-up-search li:nth-child(2) input {
+    width: 100%;
+}
+.sign-up-search li:nth-child(3) {
+    padding: 6px 10px;
+}
+.sign-up-search li:last-child{
+    border-right: none;
+}
+.search-icon {
+    background-color: #E51937;
+    color: #fff;
+    height: 34px;
+    display: inline-block;
+    width: 37px;
+    line-height: 34px;
+    text-align: center;
+    cursor: pointer;
+}
+/* ============Menu========= */
+.sign-up-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+.sign-up-list li {
+    display: inline-flex;
+    border: 1px solid #bdbdbd4d;
+    border-right: 0px;
+    /* flex: 1 1; */
+    overflow: hidden;
+    padding: 0px 15px;
+    height: 56px;
+}
+.sign-up-list li:last-child{
+    border-right:1px solid #bdbdbd4d;
+}
+.sign-up-list li span {
+    align-items: center;
+    display: flex;
+}
+.header-icon img {
+    width: 30px;
+    height: 28px;
+}
+.sign-up-list li select {
+    border: 0;
+    outline: none;
+    width: 100%;
+    background-color: #FAFAFA;
+}
+.sign-up-header{
+    background-color: #FAFAFA;
+}
+.sign-up-menu {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.sign-up-reviw {
+    list-style: none;
+    margin-left: 68px;
+}
+.sign-up-reviw li {
+    padding: 0px 15px;
+    height: 56px;
+    line-height: 56px;
+    border: 1px solid #bdbdbd4d;
+}
+
+/* ============Left Content========= */
+.signcont-left {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.create-account {
+    margin: 0px 0px 10px 0px;
+}
+.sign-up-social i {
+    font-size: 18px;
+    padding-right: 4px;
+}
+a.sign-social-facebook:focus{
+    color:#fff;
+}
+.sign-up-social a {
+    display: block;
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+    transition: .5s;
+}
+.sign-social-facebook{
+    background-color: #3B5999;
+    color: #fff;
+}
+.sign-social-facebook:hover {
+    background-color: #3B5999;
+    color: #fff;
+}
+.group-item input:focus{
+    background-color: #FFF7C6;
+}
+.group-item input {
+    width: 100%;
+    outline: none;
+    border: 1px solid #ddd;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+.group-item {
+    margin-bottom: 18px;
+    position: relative;
+}
+.group-item input[type="submit"]{
+    background-color: #FFF7C6;
+    transition:.5s;
+}
+.group-item input[type="submit"]:hover{
+    background-color: #E51937;
+    color:#fff;
+}
+.group-item-right {
+    position: absolute;
+    right: 0;
+}
+.sign-in {
+    color: #E51937;
+}
+/* ============Right Content========= */
+.signcont-right{
+    text-align: center;
+}
+.signcont-right img {
+    max-width: 100%;
+}
+.signcont-img {
+    padding: 100px 40px;
+}
+/* =========================== Step 2 page ======================= */
+.group-item-gender label {
+    display: block;
+}
+.block-btn {
+    background-color: #E51937!important;
+    color: #fff;
+    transition:.5s;
+}
+.block-btn:hover{
+    background-color: #fff!important;
+    color: #E51937!important;
+}
+.step2-left-top {
+    text-align: center;
+}
+.step2-img img{
+    width:100%
+}
+.upload-btn {
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.group-item .block-btn {
+    border-color: #E51937;
+}
+.group-item-gender input {
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+/* =========================== Step 3 page ======================= */
+.step3_left_head {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+.step3_social_list {
+    list-style: none;
+}
+.step3_social_list li{
+    position: relative;
+}
+.step3_social_list_active{
+    background-color: #F8F8F8;
+}
+.step3_social_list_active a {
+    color: #A1A1A1!important;
+}
+.step3_social_list_active:after {
+    position: absolute;
+    content: "";
+    width: 5px;
+    height: 100%;
+    background-color: #E51937;
+    top: 0;
+    left: 0;
+}
+.step3_social_list li a {
+    padding: 13px;
+    display: block;
+    border-bottom: 1px solid #ddd;
+    font-size: 17px;
+    color:#000000b8;
+}
+.step3_social_list li i {
+    font-size: 18px;
+    padding-right: 3px;
+}
+.step3-search input {
+    position: relative;
+    width: 100%;
+    height: 34px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+.step3-search {
+    padding: 20px 0px;
+}
+.step3-search label {
+    font-size: 16px;
+}
+.step3-search .search-icon {
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+    border-radius: 0px 5px 5px 2px;
+}
+
+/* =============== Step 3 right ============= */
+.step3_border {
+    border: 13px solid #C8C7C7;
+}
+.red-alert{
+    color:#E51937;
+}
+.step3-title {
+    font-size: 24px;
+}
+.step3-sub {
+    font-size: 15px;
+}
+.find-fb-friend{
+    padding: 14px;
+}
+.find-fb-friend {
+    padding: 5px 11px;
+    font-size: 13px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.find-fb-friend i {
+    font-size: 18px;
+    padding-right: 5px;
+}
+/* =========================== Step 4 page ======================= */
+.step4_right_social li {
+    display: inline-flex;
+    width: 175px;
+    height: 190px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-right: 6px;
+    align-items: center;
+    position: relative;
+}
+.step4_right_social li a {
+    margin: 0 auto;
+}
+.step4_social_single{
+    text-align: center;
+}
+.step4_social_single img {
+    margin-bottom: 12px;
+}
+.step4_social_single p {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #0073C6;
+}
+.safe-item {
+    font-size: 18px;
+    margin: 15px 0px 10px 0px;
+}
+.safe-item i {
+    color: #666666;
+    font-size: 16px;
+    padding-right: 2px;
+}
+/* =========================== Step 5 page ======================= */
+.add-acc {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    color: #075788;
+}
+.step5_right .group-item label {
+    display: block;
+    font-size: 15px;
+}
+.step5_right input[type="email"] {
+    width: 570px;
+    padding: 5px 10px;
+}
+.step5_right input[type="submit"] {
+    width:208px;
+}
+.new-flank {
+    position: relative;
+    text-align: center;
+}
+.new-flank .new-flank-cont {
+    background-color: #fff;
+    padding: 0 10px;
+    color:#A7A7A7;
+}
+.new-flank:after{
+    position: absolute;
+    content:"";
+    width:100%;
+    height:1px;
+    background-color: #A7A7A7;
+    top:50%;
+    left:0;
+    z-index: -1;
+}
+.create-btn {
+    padding: 4px 6px;
+    width: 100%;
+    background-color: #EBECF0;
+    border: 1px solid #B9B9B9;
+    border-radius: 4px;
+    transition: .5s;
+}
+.create-btn:hover{
+    background-color: #E51937;
+    border-color:#E51937;
+    color:#fff;
+}

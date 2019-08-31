@@ -19,17 +19,17 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="text-center">
-                                <form v-on:submit.prevent="onSubmit">
+                                <form v-on:submit.prevent>
                                     <h2>Log In to Flank</h2>
                                     <p><strong>Need to Flank?</strong> <nuxt-link to="/register"><strong>Sign up</strong></nuxt-link></p>
                                     <small>By logging in, you agree to Yelp’s <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.</small><br>
-                                    <!-- <div class="social-login">
-                                        <button><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;&nbsp;Log In with Facebook</button>
+                                    <div class="social-login">
+                                        <a @click="goToFacebook"  ><button><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;&nbsp;Log In with Facebook</button></a>
                                         <button><i class="fab fa-google"></i>&nbsp;&nbsp;&nbsp; Log In with Google&nbsp;&nbsp;</button>
                                     </div>
                                     <div class="afbe">
-                                        <span>OR</span>
-                                    </div> -->
+                                        <span>OR</span> 
+                                    </div>
                                     <div class="input">
                                         <div class="form-group">
                                             <input type="text" class="form-control"  v-model="formData.email" placeholder="Email">
@@ -40,7 +40,7 @@
                                         <nuxt-link to='/authentication/resetpassword' >Forget password?</nuxt-link>
                                     </div>
                                     <div class="submit">
-                                        <button type="submit">Log In</button>
+                                        <button  @click="onSubmit" >Log In</button>
                                         <span>New to Flank? <nuxt-link to="/register">Sign Up</nuxt-link></span>
                                     </div>
                                 </form>
@@ -183,6 +183,11 @@ export default {
                 this.swr();
             }
         },
+        goToFacebook(){
+           // href="/login/facebook"
+           window.location = '/login/facebook'
+           
+        }
     },
     created(){
       

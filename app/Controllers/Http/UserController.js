@@ -49,19 +49,29 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, response, auth }) {
     const formInfo = request.all()
     delete formInfo.password_confirmation
     const data = await User.create(formInfo)
+
+    let user = await auth.query().attempt(formInfo.email, formInfo.password)
+    return user
+
+    // try {
+     
+    // } catch (e) {
+    //   return response.status(401).json({
+    //     'message': 'Invalid email or password. Please try again.'
+    //   })
+    // }
     // eslint-disable-next-line eqeqeq
-    if (data.packType != 2) { return data } else {
-      const ledata = {
-        user_id: data.id,
-        name: data.firstName
-      }
-      await Legend.create(ledata)
-      return data
-    }
+    // if (data.packType != 2) { return data } else {
+    //   const ledata = {
+    //     user_id: data.id,
+    //     name: data.firstName
+    //   }
+    //   await Legend.create(ledata)
+    // }
   }
 
   async userLogin ({ request, response, auth, session }) {

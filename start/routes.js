@@ -22,7 +22,7 @@ Route.resource('users', 'UserController').validator(new Map([
 Route.post('/authentication/login', 'UserController.userLogin').middleware(['guest'])
 Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
-Route.get('/app/user/updateProfileImage', 'UserController.updateProfileImage')
+Route.post('/app/user/updateProfileImage', 'UserController.updateProfileImage')
 Route.get('/app/user/updateProductProfileImage/:id', 'ProductController.updateProductProfileImage')
 Route.put('/app/updateEmail', 'UserController.updateEmail')
 Route.put('/app/updatePassword', 'UserController.updatePassword')
@@ -99,6 +99,18 @@ Route.get('/app/productReviewInfo/:id', 'ProductController.productReviewinfo')
 Route.post('/app/storeProductReview', 'ProductController.storeProductReview')
 // test
 Route.get('/pagenateData/:id', 'LegendController.paginatedata')
+
+
+// Social Login FaceBook
+Route.get('/login/facebook', 'SocialLoginController.redirect')
+Route.get('authenticated/facebook', 'SocialLoginController.callback')
+
+// Social Login FaceBook Get Image
+Route.get('/login/facebook/image', 'SocialLoginController.getFBImage')
+
+// Social Login Google
+Route.get('/login/google', 'SocialLoginController.googleRedirect')
+Route.get('/authenticated/google', 'SocialLoginController.googleCallback')
 
 Route.get('app/initdata', 'UserController.initdata')
 Route.any('*', 'NuxtController.render')

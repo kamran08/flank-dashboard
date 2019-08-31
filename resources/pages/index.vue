@@ -1148,6 +1148,8 @@ export default {
     }
   },
   async created() {
+
+    if(this.$route.query.login == 'success') this.i("Login Successful !")
     const [res1, res2,res4, res3] = await Promise.all([
       this.callApi("get", `/app/getSchoolcoaches`),
       this.callApi("get", `/app/reviewOfTheDay`),
