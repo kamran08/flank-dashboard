@@ -37,6 +37,9 @@ p {
 }
 .sign-up-search {
     display: inline-flex;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 14px 0 0;
 }
 .sign-up-search input {
     padding: 6px;
@@ -49,9 +52,12 @@ p {
     outline: none;
 }
 .sign-up-search li {
-    display: inline-block;
+    display: inline-flex;
     border-right: 1px solid #bdbdbd4d;
     background-color: #fff;
+    align-items: center;
+    font-family: CeraPro;
+    color: #000;
 }
 .sign-up-search li:nth-child(2) {
     width: 500px;
@@ -89,10 +95,20 @@ p {
     overflow: hidden;
     padding: 0px 15px;
     height: 56px;
+    font-family: CeraPro;
+    color: #000;
+}
+.sign-social-google{
+    color: #000;
 }
 .sign-up-list li:last-child{
     border-right:1px solid #bdbdbd4d;
 }
+.sign-up-reviw a{
+    font-family: CeraPro;
+    color: #000;
+}
+.sign-up-reviw{}
 .sign-up-list li span {
     align-items: center;
     display: flex;
@@ -131,9 +147,19 @@ p {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-family: CeraPro;
+    color: #000;
+}
+.by {
+    font-size: 12px;
+    line-height: 17px;
+    margin: 0 0 37px;
 }
 .create-account {
-    margin: 0px 0px 10px 0px;
+    margin: 0px 0px 12px 0px;
+    color: #000;
+    font-weight: bold;
+    font-size: 22px;
 }
 .sign-up-social i {
     font-size: 18px;
@@ -149,6 +175,7 @@ a.sign-social-facebook:focus{
     margin-bottom: 15px;
     border-radius: 4px;
     text-align: center;
+    font-family: CeraPro;
     transition: .5s;
 }
 .sign-social-facebook{
@@ -172,6 +199,8 @@ a.sign-social-facebook:focus{
 .group-item {
     margin-bottom: 18px;
     position: relative;
+    color: #000;
+    font-family: CeraPro;
 }
 .group-item input[type="submit"]{
     background-color: #FFF7C6;

@@ -132,14 +132,14 @@
                                     <input type="submit"  @click="onSubmit"   value="Create your flank account">
                                 </div>
                             </form>
-                            <p>By creating an account, you agree to Conditions Flank's of Use and Privacy Notice</p>
+                            <p class="by">By creating an account, you agree to Conditions Flank's of Use and Privacy Notice</p>
                             <p>Already have an account? <router-link to='/nlogin/signin' class="sign-in">Sign in</router-link></p>
                         </div>
                     </div>
                     <div class="col-sm-5">
                         <div class="signcont-right">
                             <div class="signcont-img">
-                                <img src="/images/flank-1.png" alt="">
+                                <img src="/images/flank-1.png" alt=""> 
                                 <img src="/images/sign-up1.jpg" alt="">
                             </div>
                         </div>
