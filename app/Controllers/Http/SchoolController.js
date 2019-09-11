@@ -26,7 +26,7 @@ class SchoolController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
     let tempCoach = [
 
       // {
@@ -310,7 +310,7 @@ class SchoolController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
   }
 
   /**
@@ -321,7 +321,7 @@ class SchoolController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, response }) {
 
   }
 
@@ -334,7 +334,7 @@ class SchoolController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) { 
+  async show({ params, request, response, view }) {
     const legendData = await School.query()
       .where('id', params.id)
       .withCount('allreview')
@@ -355,7 +355,7 @@ class SchoolController {
     }
   }
 
-  async showSchoolCoach ({ params, request, response, view }) {
+  async showSchoolCoach({ params, request, response, view }) {
     const AttributeInfo = await Attribute.all()
     const SchoolCoachData = await SchoolCoach.find(params.id)
 
@@ -365,13 +365,13 @@ class SchoolController {
     })
   }
 
-  async storeSchoolCoachReview ({ request, response, auth }) {
+  async storeSchoolCoachReview({ request, response, auth }) {
     let data = request.all()
     const user_id = await auth.user.id
     data.reviwer_id = user_id
     let uploadList = []
     //const AttributeInfoAll = data.AttributeInfo
-   // delete data.AttributeInfo
+    // delete data.AttributeInfo
 
     //const tempUpload = data.uploadList
     //delete data.uploadList
@@ -404,53 +404,127 @@ class SchoolController {
     return rdata
   }
 
-  async storeSchoolCoache ({ params, request, response, view }) { 
+  async storeSchoolCoache({ params, request, response, view }) {
     const data = request.all()
     return await SchoolCoach.create(data)
   }
 
-  async getAdditionCoachInfo ({ response, params }) {
-    
-   
-    let healthSore =  await Review.query().where('reviewFor', params.id)
-                                  .select(Database.raw('cast(AVG(healthyIndex) as decimal(10,2)) AS healthyIndex'), Database.raw('cast(AVG(harmfulIndex) as decimal(10,2)) AS harmfulIndex'))
-                                  .first();
-  let sCoach =   SchoolCoach.query().where('id',params.id)
-               //    .withCount('allreview as PositiveReview' ,(builder) => { builder.where('healthyIndex', '>', 'harmfulIndex')})
-                   // .withCount('allreview as NegativeReview' ,(builder) => { builder.where(' harmfulIndex', '>', 'healthyIndex')})
-                    .first()
-  let asss =  await Database.raw('SELECT COUNT(id) as NegativeReview ,(SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ?) as PositiveReview   From `reviews` WHERE `healthyIndex` < `harmfulIndex` and `reviewFor` = ?', [params.id,params.id])
-  
-  let legendData = await School.query()
-    .where('id', params.id)
-    .with('questions', (builder) => builder.limit(2))
-    .withCount('questions as totalQuestion')
-    .with('questions.user')
-    .first()
+  async getAdditionCoachInfo({ response, params }) {
 
-  
+
+    let healthSoreIndex = await Review.query().where('reviewFor', params.id)
+      .select(Database.raw('cast(AVG(healthyIndex) as decimal(10,2)) AS healthyIndex'), Database.raw('cast(AVG(harmfulIndex) as decimal(10,2)) AS harmfulIndex'))
+      .first();
+    let sCoach = SchoolCoach.query().where('id', params.id)
+      //    .withCount('allreview as PositiveReview' ,(builder) => { builder.where('healthyIndex', '>', 'harmfulIndex')})
+      // .withCount('allreview as NegativeReview' ,(builder) => { builder.where(' harmfulIndex', '>', 'healthyIndex')})
+      .first()
+    let asss = await Database.raw('SELECT COUNT(id) as NegativeReview ,(SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ?) as PositiveReview   From `reviews` WHERE `healthyIndex` < `harmfulIndex` and `reviewFor` = ?', [params.id, params.id])
+
+    let legendData = await School.query()
+      .where('id', params.id)
+      .with('questions', (builder) => builder.limit(2))
+      .withCount('questions as totalQuestion')
+      .with('questions.user')
+      .first()
+
+    // let streak = await this.getStreak(params.id)
+    let allreview = await Database.raw('SELECT * FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ? ORDER BY id DESC', [params.id])
+
+    // let allreview = await Review.query().where('reviewFor', params.id).where('healthyIndex', '>=', 'harmfulIndex').orderBy('id', 'asc').fetch()
+
+    let data = allreview[0]
+
+    let tempData = []
+    for (let i of data) {
+      tempData.push(i.id)
+    }
+    let streak = this.countNumberOfPositiveReview(tempData)
+
+
+    let corruption = await Database.raw('SELECT COUNT(id) as totalCorruption From `review_attributes` WHERE `attribute_id` = 20 and `reviewFor` = ?', [params.id])
+
+    // let last10 = await Database.raw('SELECT COUNT(id) as NegativeReview ,(SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ? ORDER BY id DESC LIMIT 10) as PositiveReview From `reviews` WHERE `healthyIndex` < `harmfulIndex` and `reviewFor` = ? ORDER BY id DESC LIMIT 10 ', [params.id, params.id])
+
+    let last10 = this.countLast10(data)
+
+    let healthSore = ((asss[0][0].PositiveReview - asss[0][0].NegativeReview) * 6.67)
+    let STI = streak + asss[0][0].PositiveReview + ((asss[0][0].PositiveReview - asss[0][0].NegativeReview) * 6.67)
     return response.status(200).json({
       legendData: legendData,
+      healthSoreIndex: healthSoreIndex,
+      metrice: asss[0][0],
+      streak: streak,
+      totalCorruption: corruption[0][0].totalCorruption,
+      last10: last10,
       healthSore: healthSore,
-      metrice: asss[0][0]
+      STI: STI,
     })
   }
-  async getSchoolcoaches ({ request, params }) {
+
+
+  // method for counting consecutive positive review
+  countNumberOfPositiveReview(arr) {
+
+    const numbers = new Set(arr), counts = {};
+    var max = 1;
+    for (const num of numbers.values()) {
+      // console.log(num)
+      let counting = true, next = num + 1;
+      numbers.delete(num);
+      while (counting) {
+        counting = false;
+        while (numbers.has(next)) { numbers.delete(next++) }
+        if (counts[next]) { counting = numbers.has(next += counts[next]) }
+      }
+      max = Math.max(counts[num] = next - num, max);
+    }
+    return max;
+  }
+
+
+  // last 10
+  countLast10(arr) {
+
+    let temp = 0
+    let data = {
+      PositiveReview: 0,
+      NegativeReview: 0
+    }
+
+    for (let i of arr) {
+      if (temp >= 10) {
+        break
+      } 
+      console.log(i.healthyIndex + " dfgdf " + i.harmfulIndex)
+
+      if (i.healthyIndex >= i.harmfulIndex) {
+        data.PositiveReview += 1
+        temp++
+      }
+
+    }
+    data.NegativeReview = 10 - data.PositiveReview
+
+    return data
+  }
+
+  async getSchoolcoaches({ request, params }) {
     let city = request.input('city') ? request.input('city') : ''
     let data = SchoolCoach.query()
-              .with('school')
-              .with('avgRatingTopThree')
-              .withCount('allreview')
-    if(city){
+      .with('school')
+      .with('avgRatingTopThree')
+      .withCount('allreview')
+    if (city) {
       data.whereHas('school', (builder) => {
         builder.where('city', city)
       })
     }
     return await data.limit(3).fetch()
   }
-  async getSimilarCoach ({ request, params }) {
-   
-    return SchoolCoach.query().where('school_id',params.id).fetch()
+  async getSimilarCoach({ request, params }) {
+
+    return SchoolCoach.query().where('school_id', params.id).fetch()
   }
 
   /**
@@ -462,7 +536,7 @@ class SchoolController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit({ params, request, response, view }) {
   }
 
   /**
@@ -473,7 +547,7 @@ class SchoolController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
   }
 
   /**
@@ -484,7 +558,7 @@ class SchoolController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
   }
 }
 

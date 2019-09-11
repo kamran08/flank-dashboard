@@ -119,6 +119,19 @@ Route.get('/social/test', 'SocialLoginController.test')
 Route.get('/social/test2', 'SocialLoginController.test2')
 Route.get('/authenticated/google', 'SocialLoginController.googleCallback')
 
+
+
+
+
+
+
+
+// kollol
+Route.get('/app/getStreak/:id', 'SchoolController.getStreak')
+
+
+
+
 Route.get('app/initdata', 'UserController.initdata')
 Route.any('*', 'NuxtController.render')
 

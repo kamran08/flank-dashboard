@@ -174,20 +174,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr v-if="allTableData.metrice">
                                                     <td class="th-nor">Regular season</td>
+                                                    <td>{{ allTableData.healthSore }}</td>
                                                     <td>00</td>
-                                                    <td>00</td>
-                                                    <td>00</td>
-                                                    <td>00</td>
-                                                    <td>00</td>
+                                                    <td>{{ (allTableData.metrice.PositiveReview) ? allTableData.metrice.PositiveReview : 0 }}</td>
+                                                    <td>{{ (allTableData.metrice.NegativeReview) ? allTableData.metrice.NegativeReview : 0 }}</td>
                                                     <td>00%</td>
-                                                    <td>0.0%</td>
-                                                    <td>+01</td>
-                                                    <td>00%</td>
-                                                    <td>01</td>
-                                                    <td>01</td>
-                                                    <td>1.00</td>
+                                                    <td>{{ (allTableData.healthSoreIndex.healthyIndex) ? allTableData.healthSoreIndex.healthyIndex : 0}}</td>
+                                                    <td>{{ (allTableData.healthSoreIndex.harmfulIndex) ? allTableData.healthSoreIndex.harmfulIndex : 0 }}</td>
+                                                    <td>{{ ( allTableData.metrice ) ? allTableData.metrice.PositiveReview - allTableData.metrice.NegativeReview : ''}}</td>
+                                                    <td>{{ allTableData.totalCorruption }}</td>
+                                                    <td>{{ allTableData.streak }}</td>
+                                                    <td>{{ allTableData.last10.PositiveReview + "-" + allTableData.last10.NegativeReview }}</td>
+                                                    <td>{{ allTableData.STI }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="th-nor">Overall</td>
@@ -594,6 +594,9 @@ export default {
                 trendlines: { 0: {} } ,
 
             },
+
+
+            allTableData: {}
        
         }
     },
@@ -773,6 +776,8 @@ export default {
             this.healthSore = res2.data.healthSore
             this.totalQuestion = res2.data.legendData.__meta__.totalQuestion
             this.isLoading = false
+
+            this.allTableData = res2.data
             
         } else{
             this.swr()
