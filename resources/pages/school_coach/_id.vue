@@ -18,7 +18,7 @@
                                     <li>&bull;</li>
                                     <li>{{legendData.school.sport}}</li>
                                 </ul>
-                                <div class="flank-head-btn">
+                                <div class="flank-head-btn"  @click="$router.push(`/scoach_review/${legendData.id}`)">
                                     <button>Review</button>
                                 </div>
                             </div>
