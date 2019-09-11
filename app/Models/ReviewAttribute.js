@@ -4,6 +4,11 @@
 const Model = use('Model')
 
 class ReviewAttribute extends Model {
+    healthyIndex () {
+        return this.hasMany('App/Models/Review', 'review_id')
+      }
+
 }
+
 
 module.exports = ReviewAttribute

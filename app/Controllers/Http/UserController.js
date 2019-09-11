@@ -11,6 +11,7 @@ const Legend = use('App/Models/Legend')
 const Product = use('App/Models/Product')
 const Database = use('Database')
 const Hash = use('Hash')
+const axios = require('axios')
 /**
  * Resourceful controller for interacting with users
  */
@@ -318,6 +319,32 @@ class UserController {
       msg: 'Image has been uploaded successfully!',
       file: `/uploads/${name}`
     })
+  }
+
+  async FoulMethods(){
+
+    let dataObj = {
+      'code' : '',
+      'client_id' : '359194021269-7oesnmcnemu54uh7mvsbcrvml80r6ogl.apps.googleusercontent.com' ,
+      'client_secret' : 'OvS-acgHB6d53-t4c_Yn4wY9' ,
+      'redirect_uri' : 'http://localhost/contact/',
+      'grant_type' : 'authorization_code'
+    }
+    
+      const res = await axios({
+                    method: 'post',
+                    url: 'https://accounts.google.com/o/oauth2/token',
+                    data: dataObj,
+                    headers: { 'Content-Type': 'application/json' },
+                  })
+        
+
+        return res.data;
+      
+      
+      
+      
+
   }
 }
 

@@ -1,155 +1,142 @@
-<template>
+
+<template >
     <div>
-        
-        <!-- Header-->
-        
-        <!-- <header>
-            <div class="header-second">
-                <div class="container">
-                    <div class="img-center">
-                        <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </header> -->
-        
-        <section class="second-section log-sign">
+       <!-- ========== Topbar Start ============= -->
+       <div class="sign-up-topbar">
             <div class="container">
-                <div class="section-content">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="text-center">
-                                <form v-on:submit.prevent>
-                                    <h2>Log In to Flank</h2>
-                                    <p><strong>Need to Flank?</strong> <nuxt-link to="/register"><strong>Sign up</strong></nuxt-link></p>
-                                    <small>By logging in, you agree to Yelp’s <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.</small><br>
-                                    <div class="social-login">
-                                        <a @click="goToFacebook"  ><button><i class="fab fa-facebook-f"></i>&nbsp;&nbsp;&nbsp;Log In with Facebook</button></a>
-                                        <button><i class="fab fa-google"></i>&nbsp;&nbsp;&nbsp; Log In with Google&nbsp;&nbsp;</button>
-                                    </div>
-                                    <div class="afbe">
-                                        <span>OR</span> 
-                                    </div>
-                                    <div class="input">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"  v-model="formData.email" placeholder="Email">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" v-model="formData.password" placeholder="Password">
-                                        </div>
-                                        <nuxt-link to='/authentication/resetpassword' >Forget password?</nuxt-link>
-                                    </div>
-                                    <div class="submit">
-                                        <button  @click="onSubmit" >Log In</button>
-                                        <span>New to Flank? <nuxt-link to="/register">Sign Up</nuxt-link></span>
-                                    </div>
-                                </form>
-                            </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-3 col-xs-12">
+                        <div class="sign-up-logo">
+                            <img src="/images/logo-new.png" alt=""> 
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="signup-illustration">
-                                <img src="/image/signup_illustration.png" alt="">
-                            </div>
-                        </div>
+                    </div>
+                    <div class="col-md-10 col-sm-9 col-xs-12">
+                        <ul class="sign-up-search">
+                            <li>
+                                <select name="All">
+                                    <option>All</option>
+                                    <option>Demo</option>
+                                </select>
+                            </li>
+                            <li>
+                                <input type="text">
+                            </li>
+                            <li>
+                                Near
+                            </li>
+                            <li>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <div class="search-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </li> 
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
-       
-       <hr>
-       
-       <footer class="section-margin">
+        </div>
+        <!-- ========== Topbar End ============= -->
+        <!-- ========== Header Start ============= -->
+        <div class="sign-up-header">
             <div class="container">
-                <div class="section-content">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>About</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                        <li><a href="about.html">About Flank</a></li>
-                                        <li><a href="guidelines.html">Current Guidelines</a></li>
-                                        <li><a href="terms.html">Terms of Services</a></li>
-                                        <li><a href="privacy.html">Privacy Policy</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="sign-up-menu">
+                            <ul class="sign-up-list">
+                                <li>
+                                    <span class="header-icon">
+                                        <img src="/images/header_icon1.png" alt="">
+                                    </span>
+                                    <select name="HS Coaches">
+                                        <option>HS Coaches</option>
+                                        <option>Demo</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <span class="header-icon"> 
+                                        <img src="/images/header_icon2.png" alt="">
+                                    </span>
+                                    <select name="Cc Coaches">
+                                        <option>Cc Coaches</option>
+                                        <option>Demo</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <span class="header-icon"> 
+                                        <img src="/images/header_icon3.png" alt="">
+                                    </span>
+                                    <select name="Local Coaches">
+                                        <option>Local Coaches</option>
+                                        <option>Demo</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select name="More">
+                                        <option>More</option>
+                                        <option>Demo</option>
+                                    </select>
+                                </li>
+                            </ul>
+                            
+                            <ul class="sign-up-reviw">
+                                <li>
+                                    <a href="#" class="header-icon">
+                                        <img src="/images/header_icon4.png" alt=""> Write a Review
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>Discover</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                        <li><a href="blog.html">Flank BLog</a></li>
-                                        <li><a href="support.html">Support</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>Flank for Business <br> Owners</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                        <li><a href="advertise.html">Advertise on Flank</a></li>
-                                        <li><a href="business-blog.html">Flank Blog for Business Owners</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!--<div class="col-md-3 col-sm-3">
-                            <div class="foo-individual">
-                                <h3>Languages</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                         <li>
-                                             <input id="language" type="checkbox" name="menu"/>
-                                             <label for="language">English&nbsp;<i class="fas fa-sort-down"></i></label>
-                                             <ul class="submenu">
-                                                 <li><a href="#">Bahasha Malaysia</a></li>
-                                                 <li><a href="#">English (Australia)</a></li>
-                                                 <li><a href="#">English (UK)</a></li>
-                                                 <li><a href="#">English (US)</a></li>
-                                                 <li><a href="#">English (Canada)</a></li>
-                                                 <li><a href="#">Bangla</a></li>
-                                                 <li><a href="#">French</a></li>
-                                             </ul>
-                                         </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="foo-individual">
-                                <h3>Country</h3>
-                                <div class="foo-option">
-                                    <ul>
-                                         <li>
-                                             <input id="country" type="checkbox" name="menu"/>
-                                             <label for="country">United States&nbsp;<i class="fas fa-sort-down"></i></label>
-                                             <ul class="submenu">
-                                                 <li><a href="#">Bangladesh</a></li>
-                                                 <li><a href="#">Australia</a></li>
-                                                 <li><a href="#">United Kingdom</a></li>
-                                                 <li><a href="#">Germany</a></li>
-                                                 <li><a href="#">Canada</a></li>
-                                                 <li><a href="#">United States</a></li>
-                                                 <li><a href="#">Franch</a></li>
-                                             </ul>
-                                         </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        -->
                     </div>
-                    <div class="footer-bg"></div>
-                    <div class="text-center"><small class="main-footer_copyright">Copyright © 2004–2019 Yelp Inc. Yelp, <img src="/image/logo_desktop_xsmall_outline.png" alt="">, <img src="/image/burst_desktop_xsmall_outline.png" alt=""> and related marks are registered trademarks of Yelp.</small></div>
                 </div>
             </div>
-        </footer>
+        </div>
+        <!-- ========== Header End ============= -->
+        <div class="sign-up-content padd_tb40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="signcont-left">
+                            <h3 class="create-account">Sign-In</h3>
+                            <form v-on:submit.prevent>
+                                <div class="group-item">
+                                    <label >Email</label>
+                                    <input type="email" v-model="formData.email">
+                                </div>
+                                <div class="group-item">
+                                    <label >Password</label>
+                                    <nuxt-link  class="group-item-right red-alert"  to='/authentication/resetpassword' >Fogot password?</nuxt-link>
+                                    <input type="password" v-model="formData.password">
+                                </div>
+                                <div class="group-item">
+                                    <input type="submit" @click="onSubmit" value="Sign-In">
+                                </div>
+                            </form>
+                            <p class="mar_b20">By continuing, you agree to Conditions Flank's of Use and Privacy Notice</p>
+                            <h5 class="mar_b30"><input type="checkbox" name="vehicle1" value="Bike"> Keep me sign in. <a href="#" class="sign-in">Details</a></h5>
+                            <p class="new-flank">
+                                <span class="new-flank-cont">
+                                    New to Flank?
+                                </span>               
+                            </p>
+                             <nuxt-link   to='/nlogin/signup' > <button class="create-btn">Create your Flank account</button></nuxt-link>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="signcont-right">
+                            <div class="signcont-img">
+                                <img src="/images/flank-1.png" alt="">
+                                <img src="/images/sign-up1.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
-
 <script>
 export default {
     middleware: 'guest',

@@ -77,13 +77,13 @@
                                         <div class="right-list-inner-item">
                                             <h4>Heali</h4>
                                             <div class="ti">
-                                                <p>0.0</p>
+                                                <p>{{healthSore.healthyIndex}}</p>
                                             </div>
                                         </div>
                                         <div class="right-list-inner-item">
                                             <h4>Harmi</h4>
                                             <div class="ti">
-                                                <p>0.0</p>
+                                                <p>{{healthSore.harmfulIndex}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -524,6 +524,7 @@ export default {
             similarCoaches:[],
             galleryIndex:0,
             todayHour:{},
+            healthSore:{},
             rpagination:{},
             totalQuestion:0,
             reviewSearch:'',
@@ -756,7 +757,7 @@ export default {
    async created(){
        
         const [ res2, res4,res5,res6] = await Promise.all([
-            this.callApi('get', `/app/getAdditionCoachInfo/${this.$route.params.id}`),
+            this.callApi('get', `/app/getAdditionCoachInfo/${this.$route.params.id}`), 
             this.callApi('get', `/app/singleSchoolCoachReview/${this.$route.params.id}`),
             this.callApi('get', `/app/getCoachTopReviews/${this.$route.params.id}`),
             this.callApi('get', `/app/getSimilarCoach/${this.school_id}`),
@@ -768,8 +769,9 @@ export default {
             this.rpagination = res4.data
             this.topReviews = res5.data
             delete this.rpagination.data
-            this.questionList = res2.data.questions
-            this.totalQuestion = res2.data.__meta__.totalQuestion
+            this.questionList = res2.data.legendData.questions
+            this.healthSore = res2.data.healthSore
+            this.totalQuestion = res2.data.legendData.__meta__.totalQuestion
             this.isLoading = false
             
         } else{

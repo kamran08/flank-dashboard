@@ -12,7 +12,7 @@ const Attribute = use('App/Models/Attribute')
 const ReviewImage = use('App/Models/ReviewImage')
 const Review = use('App/Models/Review')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
-
+const Database = use('Database')
 /**
  * Resourceful controller for interacting with schools
  */
@@ -370,64 +370,70 @@ class SchoolController {
     const user_id = await auth.user.id
     data.reviwer_id = user_id
     let uploadList = []
-    const AttributeInfoAll = data.AttributeInfo
-    delete data.AttributeInfo
+    //const AttributeInfoAll = data.AttributeInfo
+   // delete data.AttributeInfo
 
-    const tempUpload = data.uploadList
-    delete data.uploadList
+    //const tempUpload = data.uploadList
+    //delete data.uploadList
     data.review_type = 'school'
     const rdata = await Review.create(data)
 
-    for (let i of tempUpload) {
-      let ob = {
-        url: i,
-        review_id: rdata.id
-      }
-      uploadList.push(ob)
-    }
-    await ReviewImage.createMany(uploadList)
-    let AttributeInfo = []
-    for (let d of AttributeInfoAll) {
-      if (d.isPositive == '0' || d.isPositive == '1') {
-        let ob = {
-          review_id: rdata.id,
-          attribute_id: d.id,
-          user_id: user_id,
-          points: (d.isPositive == '0') ? (d.points * -1) : d.points
+    // for (let i of tempUpload) {
+    //   let ob = {
+    //     url: i,
+    //     review_id: rdata.id
+    //   }
+    //   uploadList.push(ob)
+    // }
+    //await ReviewImage.createMany(uploadList)
+    //let AttributeInfo = []
+    // for (let d of AttributeInfoAll) {
+    //   if (d.isPositive == '0' || d.isPositive == '1') {
+    //     let ob = {
+    //       review_id: rdata.id,
+    //       attribute_id: d.id,
+    //       user_id: user_id,
+    //       points: (d.isPositive == '0') ? (d.points * -1) : d.points
 
-        }
-        AttributeInfo.push(ob)
-      }
-    }
+    //     }
+    //     AttributeInfo.push(ob)
+    //   }
+    // }
 
-    await ReviewAttribute.createMany(AttributeInfo)
-    // const averageRating = await Database.raw('SELECT (cast(AVG(rating) as decimal(10,2))) AS averageRating  FROM `school_coach_reviews` WHERE `coach_id` = ?', [data.coach_id])
-    // SchoolCoach.query().where('id', data.coach_id).update({
-    //   average_rating: averageRating[0][0].averageRating
-    // })
-
-    // await RecentReview.create({
-    //   review_id: rdata.id,
-    //   review_type: 'App/Models/SchoolCoachReview'
-    // })
+    //await ReviewAttribute.createMany(AttributeInfo)
     return rdata
   }
 
-  async storeSchoolCoache ({ params, request, response, view }) {
+  async storeSchoolCoache ({ params, request, response, view }) { 
     const data = request.all()
     return await SchoolCoach.create(data)
   }
 
   async getAdditionCoachInfo ({ response, params }) {
     
-    let legendData = await School.query()
-      .where('id', params.id)
-      .with('questions', (builder) => builder.limit(2))
-      .withCount('questions as totalQuestion')
-      .with('questions.user')
-      .first()
+   
+    let healthSore =  await Review.query().where('reviewFor', params.id)
+                                  .select(Database.raw('cast(AVG(healthyIndex) as decimal(10,2)) AS healthyIndex'), Database.raw('cast(AVG(harmfulIndex) as decimal(10,2)) AS harmfulIndex'))
+                                  .first();
+  let sCoach =   SchoolCoach.query().where('id',params.id)
+               //    .withCount('allreview as PositiveReview' ,(builder) => { builder.where('healthyIndex', '>', 'harmfulIndex')})
+                   // .withCount('allreview as NegativeReview' ,(builder) => { builder.where(' harmfulIndex', '>', 'healthyIndex')})
+                    .first()
+  let asss =  await Database.raw('SELECT COUNT(id) as NegativeReview ,(SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ?) as PositiveReview   From `reviews` WHERE `healthyIndex` < `harmfulIndex` and `reviewFor` = ?', [params.id,params.id])
+  
+  let legendData = await School.query()
+    .where('id', params.id)
+    .with('questions', (builder) => builder.limit(2))
+    .withCount('questions as totalQuestion')
+    .with('questions.user')
+    .first()
 
-    return legendData
+  
+    return response.status(200).json({
+      legendData: legendData,
+      healthSore: healthSore,
+      metrice: asss[0][0]
+    })
   }
   async getSchoolcoaches ({ request, params }) {
     let city = request.input('city') ? request.input('city') : ''

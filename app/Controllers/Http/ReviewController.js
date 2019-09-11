@@ -14,7 +14,7 @@ const ReviewImage = use('App/Models/ReviewImage')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
 const ProductReview = use('App/Models/ProductReview')
 const ProductImo = use('App/Models/ProductImo')
-
+const Attribute = use('App/Models/Attribute')
 const Helpers = use('Helpers')
 const Database = use('Database')
 /**
@@ -579,6 +579,61 @@ class ReviewController {
     }
 
     return tempData
+  }
+
+  async getAllAttributes({request }){
+    let atIndex =   request.input('atIndex') ? request.input('atIndex') : ''
+    let data = Attribute.query();
+    if(atIndex){
+      data.where('atIndex',atIndex)
+    }
+    let realData =  await data.fetch()
+    realData = JSON.parse(JSON.stringify(realData))
+    for(let d of realData){
+      d.isSelected = false
+    }
+    return realData;
+  }
+
+  async storeAttributes({request,auth,response}){
+    let AttributeInfo = []
+    const user_id = await auth.user.id
+    let AttributeInfoAll = request.all();
+    let index = '';
+    for (let d of AttributeInfoAll.data) {
+      if (d.isSelected == true) {
+        let ob = {
+          review_id: AttributeInfoAll.review_id,
+          attribute_id: d.id,
+          user_id: user_id,
+          points:  d.points,
+          atIndex:  d.atIndex
+
+        }
+        index = d.atIndex
+        AttributeInfo.push(ob)
+      }
+    }
+
+    await ReviewAttribute.createMany(AttributeInfo)
+    console.log(AttributeInfo.length)
+    if(AttributeInfo.length>0){
+      if(index == 'Healthy')
+        await Review.query().where('id',AttributeInfoAll.review_id).update({
+          healthyIndex:AttributeInfo.length
+        })
+        else  await Review.query().where('id',AttributeInfoAll.review_id).update({
+          harmfulIndex:AttributeInfo.length
+        })
+    }
+    return response.status(200).json({
+      msg: 'Atrribute Created!!',
+      
+    })
+  }
+  async getReviewInfo({request,auth,response,params}){
+   
+   return await Review.query().where('id',params.id).with('reviwer').with('coach').with('school').first()
   }
 }
 

@@ -62,6 +62,10 @@ Route.get('/app/getRecentReview', 'ReviewController.getRecentReview')
 Route.get('/app/reviewOfTheDay', 'ReviewController.reviewOfTheDay')
 Route.get('/app/getAllReview/:id', 'ReviewController.getAllReview')
 Route.get('/app/getUserallReview/:id', 'ReviewController.getUserallReview')
+Route.get('/app/getReviewInfo/:id', 'ReviewController.getReviewInfo')
+
+Route.get('/app/attributes', 'ReviewController.getAllAttributes')
+Route.post('/app/attributes', 'ReviewController.storeAttributes')
 
 // Search controller
 
@@ -110,6 +114,9 @@ Route.get('/login/facebook/image', 'SocialLoginController.getFBImage')
 
 // Social Login Google
 Route.get('/login/google', 'SocialLoginController.googleRedirect')
+Route.get('/login/FoulMethods', 'UserController.FoulMethods')
+Route.get('/social/test', 'SocialLoginController.test')
+Route.get('/social/test2', 'SocialLoginController.test2')
 Route.get('/authenticated/google', 'SocialLoginController.googleCallback')
 
 Route.get('app/initdata', 'UserController.initdata')

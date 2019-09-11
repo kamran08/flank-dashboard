@@ -1,124 +1,172 @@
-<template>
-<div>
-        
-        <!-- Header-->
-        
-        <header>
-            <div class="header-second">
-                <div class="container">
-                    <a href="index.html" class="navbar-brand"><img class="img-responsive" src="/image/default.png" alt=""></a>
-                    <h2>Write a Review For School Coach</h2>
-                   <!-- <div class="pull-right">
-                       <ul class="logsign wr">
-                           <li><a href="login.html">Log In</a></li>
-                           <li><a href="signup.html">Sign Up</a></li> 
-                       </ul>
-                   </div> -->
+    <template>
+        <div>
+      <!-- ========== Topbar Start ============= -->
+       <div class="sign-up-topbar main-review-topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-sm-3 col-xs-12">
+                        <div class="sign-up-logo">
+                            <img src="/images/logo-new.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="top-write-review">
+                            <h2>Write a Review</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-3 col-xs-12">
+                        <ul class="header-login">
+                            <li><a href="">Log in</a></li>
+                            <li><a href="">Sign Up</a></li> 
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </header>
-        
-        <section class="rd second-section bg wr-page">
+        </div>
+        <!-- ========== Topbar End ============= -->
+
+        <div class="write-review-area">
             <div class="container">
-                <div class="section-content">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="wr-page-title">
-                                <h1><a @click="$router.push(`/profile/${coachData.id}`)"><strong>{{coachData.name}}</strong></a></h1>
-                                <p><a href="">Read our review guidelines</a></p>
+                <div class="row">
+                    <!-- Write Review Left -->
+                    <div class="col-md-6 col-md-offset-2 col-sm-7 col-sm-offset-1">
+                        <div class="write-review-left">
+                            <div class="write-review-title-area mar_b10">
+                                <h2 class="red-alert write-review-title">{{coachData.name}}</h2>
+                                <p class="red-alert write-review-sub">Read our review Guidelines</p>
                             </div>
-                            <br>
-                            <div class="full-text-area-box">
-                                <div class="textarea">
-                                    <div class="star-review" style="background: #fff; text-align: center; padding: 10px 0;" >
-                                        <p><small>Select your rating</small></p>
-                                        <Rate v-model="rating" icon="md-star" @on-change="reviewData.rating=rating" />
+                            <div class="write-review-box">
+                                <form v-on:submit.prevent >
+                                    <div class="write-review-box-top mar_b20">
+                                        <ul class="review-star-list">
+                                        <li @mouseover="changeDataHover(1)" @mouseleave="changeDataHoverLeave"   :class="(drating.index > 0)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                        <li  @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 1)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                        <li  @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 2)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                        <li @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 3)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                        <li @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 4)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                    </ul>
+                                    <span>{{(drating.text)? drating.text : 'Select your rating'}}</span>
                                     </div>
-                                    <textarea v-model="reviewData.content" class="form-control" id="my_textarea" rows="15" placeholder="Your review helps others learn about great local businesses. 
-                                    Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees." name="message"></textarea>
-                                    
+                                <!-- <ul class="write-review-box-cont mar_b20">
+                                    <li>Your review help us to learn about good and bad coaches. </li>
+                                    <li>You have been lied to. </li>
+                                    <li>You have been lied to. </li>
+                                    <li>You have been lied to. </li>
+                                    <li>You have been lied to. </li>
+                                </ul> -->
+                                <div class="write-review-input-box">    
+                                    <textarea  v-model="reviewData.content" name="" id="" cols="30" rows="10" placeholder="Your review help us to learn about good and bad coaches"></textarea>   
                                 </div>
-                                <button @click="postReview">Post a Review</button>
+                                <button class="block-btn post-btn" @click="postReview">Post Review</button>
+                               </form>
                             </div>
-                            <div class="text-area-checkbox">
-                                <div class="demo-upload-list" v-for="(item,index) in uploadList" :key="index">
-                                    <template >
-                                        <img :src="item">
-                                        <div class="demo-upload-list-cover">
-                                            <Icon type="ios-eye-outline" @click.native="handleView(item)"></Icon>
-                                            <Icon type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
-                                        </div>
-                                    </template>
-                                </div>
-                                <Upload
-                                    ref="upload"
-                                    :show-upload-list="false"
-                                    :default-file-list="defaultList"
-                                    :on-success="handleSuccess"
-                                    :format="['jpg','jpeg','png']"
-                                    :max-size="2048"
-                                    :on-format-error="handleFormatError"
-                                    :on-exceeded-size="handleMaxSize"
-                                    :before-upload="handleBeforeUpload"
-                                    multiple
-                                    type="drag"
-                                    action="/app/upload-review-file"
-                                    style="display: inline-block;width:58px;">
-                                    <div style="width: 58px;height:58px;line-height: 58px;" v-if="uploadList.length<3" >
-                                        <Icon type="ios-camera" size="20"></Icon>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="review-sidebar">
+                            <span class="review-sidebar-arrow">
+                                 <i class="fas fa-caret-right"></i>
+                            </span>
+                            <div class="review-sidebar_main">
+                                <h2 class="review-title">Recent Review</h2>
+                                <!-- Item -->
+                                <div class="review-item">
+                                    <div class="review-item-top">
+                                       <div class="review-item-top-img">
+                                            <img src="/images/Main-Review-Page.png" alt="">
+                                       </div> 
+                                        <div class="review-item-top-cont">
+                                            <h3>Amber R.</h3>
+                                           <p>Wrote a review</p>
+                                       </div> 
                                     </div>
-                                </Upload>
-                                <Modal title="View Image" v-model="visible">
-                                    <img :src="imgName" v-if="visible" style="width: 100%">
-                                </Modal>
-                                <ul>
-                                    <li>Atrrtibute</li>
-                                    <li v-for="(item,index) in AttributeInfo" :key="index" >
-                                        <span>{{item.content}}</span> 
-                                        <RadioGroup v-model="item.isPositive">
-                                            <Radio label=1>
-                                                <span>Yes</span>
-                                            </Radio>
-                                            <Radio label=0>
-                                                <span>No</span>
-                                            </Radio>
-                                        </RadioGroup>
-                                    </li>
-                                </ul>
+                                    <div class="review-item-star">
+                                        <ul class="review-star-list">
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li><span><i class="fas fa-star"></i></span></li>
+                                           <li><span><i class="fas fa-star"></i></span></li>
+                                       </ul>
+                                        <span class="review-date">9/2/2019</span>
+                                    </div>
+                                    <div class="review-item-cont-area">
+                                        <p class="review-item-cont">Review good or bad coaches and share your experience with our community. Need a little help for getting started. Need a little help for getting started.Need a little help for getting started </p>
+
+                                        <button class="review-continue">...</button>
+                                    </div>
+                                     <div class="review-item-btn-area">
+                                        <button class="review-item-btn">- Read More</button>
+                                    </div>
+                                </div>
+                                <!-- Item -->
+                                <!-- Item -->
+                                <div class="review-item">
+                                    <div class="review-item-top">
+                                       <div class="review-item-top-img">
+                                            <img src="/images/Main-Review-Page.png" alt="">
+                                       </div> 
+                                        <div class="review-item-top-cont">
+                                            <h3>Amber R.</h3>
+                                           <p>Wrote a review</p>
+                                       </div> 
+                                    </div>
+                                    <div class="review-item-star">
+                                        <ul class="review-star-list">
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li><span><i class="fas fa-star"></i></span></li>
+                                           <li><span><i class="fas fa-star"></i></span></li>
+                                       </ul>
+                                        <span class="review-date">9/2/2019</span>
+                                    </div>
+                                    <div class="review-item-cont-area">
+                                        <p class="review-item-cont">Review good or bad coaches and share your experience with our community. Need a little help for getting started. Need a little help for getting started.Need a little help for getting started </p>
+                                        <button class="review-continue">...</button>
+                                    </div>
+                                     <div class="review-item-btn-area">
+                                        <button class="review-item-btn">- Read More</button>
+                                    </div>
+                                </div>
+                                <!-- Item -->
+                                <!-- Item -->
+                                <div class="review-item">
+                                    <div class="review-item-top">
+                                       <div class="review-item-top-img">
+                                            <img src="/images/Main-Review-Page.png" alt="">
+                                       </div> 
+                                        <div class="review-item-top-cont">
+                                            <h3>Amber R.</h3>
+                                           <p>Wrote a review</p>
+                                       </div> 
+                                    </div>
+                                    <div class="review-item-star">
+                                        <ul class="review-star-list">
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li class="review-star-red"><span><i class="fas fa-star"></i></span></li>
+                                           <li><span><i class="fas fa-star"></i></span></li>
+                                           <li><span><i class="fas fa-star"></i></span></li>
+                                       </ul>
+                                       <span class="review-date">9/2/2019</span>
+                                    </div>
+                                    <div class="review-item-cont-area">
+                                        <p class="review-item-cont">Review good or bad coaches and share your experience with our community. Need a little help for getting started. Need a little help for getting started.Need a little help for getting started </p>
+                                        <button class="review-continue">...</button>
+                                    </div>
+                                     <div class="review-item-btn-area">
+                                        <button class="review-item-btn">- Read More</button>
+                                    </div>
+                                </div>
+                                <!-- Item -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="sidebar open none">
-                    <button class="sidebar-action">
-                        <span><i class="fas fa-caret-right"></i></span>
-                    </button>
-                    
-                    <div class="sidebar-inner">
-                        <h2 class="mt-20">Recent Review</h2>
-                        <template v-if="reviews.length>0" >
-                            <div class="sidebar-review-individual" v-for="(item,index) in reviews " :key="index" >
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img class="profile_picU"  :src="item.reviwer.img" alt="">
-                                    </div>
-        
-                                    <div class="media-body">
-                                        <p>{{item.reviwer.firstName}} {{item.reviwer.lastName}} </p>
-                                        <p>
-                                            <span><i class="fas fa-star"></i>{{item.reviwer.__meta__.totalreviewbyuser}}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <p class="sidebar-rev"><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i></span>&nbsp;&nbsp;<small>3/5/2019</small></p>
-                                <p>{{item.content}}</p>
-                            </div>
-                        </template>
-                        <h4 class="noReviewClass" v-else >No Recent Reviews</h4>
-                    </div>
-                </div>
             </div>
-        </section>
+        </div>
     </div>
 </template>
 
@@ -146,7 +194,17 @@ export default {
             imgName: '',
             visible: false,
             uploadList: [],
-            reviews: []
+            reviews: [],
+            drating:{
+                class:'',
+                text:'Select your rating',
+                index: 0
+            },
+            oldrating:{
+                class:'',
+                text:'',
+                index:0,
+            }
             
             
         }
@@ -155,16 +213,51 @@ export default {
         try {
             let {data} = await app.$axios.get(`/app/schoolcoach/${params.id}`)
           
+            if(data.SchoolCoachData == null){
+
+                 return redirect('/')
+            }
             return{
                 coachData : data.SchoolCoachData,
                 AttributeInfo : data.AttributeInfo,
             }
 		}catch (error) {
             
-           // return redirect('/')
+            return redirect('/')
 		}
     },
     methods:{
+        changeDataHover(index){
+            this.drating.index = index
+            if(index == 1){
+                this.drating.class = 'review-star-1'
+                this.drating.text = 'Eek! Methinks not.'
+
+            }
+            else if(index == 2){
+                this.drating.class = 'review-star-2'
+                this.drating.text = "Meh. I've experienced better."
+            }
+            else if(index == 3){
+                this.drating.class = 'review-star-3'
+                this.drating.text = 'A-OK.'
+            }
+            else if(index == 4){
+                this.drating.class = 'review-star-4'
+                this.drating.text = "Yay! I'm a fan"
+            }
+            else if(index == 5){
+                this.drating.class = 'review-star-5'
+                this.drating.text = "Woohoo! As good as it gets!"
+            }
+           
+        },
+        
+        changeDataHoverLeave(){
+            // this.drating.index = 0
+            // this.drating.class = 0
+            // this.drating.text = 0
+        },
         async postReview(){
              if(this.isLoggedIn == false){
                 this.i('Please login first !')
@@ -176,18 +269,23 @@ export default {
                 return
             }
             if(this.reviewData.content == ''){
+                this.i("You must write something in the review box!")
+                return
+            }
+            if(this.drating.index == 0 ){
                 this.i('Please rate this coach !')
                 return;
             }
-           
+            this.reviewData.rating = this.drating.index
             
-            this.reviewData.uploadList = this.uploadList
-            this.reviewData.AttributeInfo = this.AttributeInfo
+           // this.reviewData.uploadList = this.uploadList
+          //  this.reviewData.AttributeInfo = this.AttributeInfo
 
             const res = await this.callApi('post','/app/storeSchoolCoachReview',this.reviewData)
             if(res.status===200){
                 this.s('Review posted successfully!')
                // this.$router.push('/profile/'+this.legendData.id)
+                this.$router.push('/scoach_review/step1/'+res.data.id)
             }
             else{
                 this.swr();
@@ -249,62 +347,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.demo-upload-list{
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        text-align: center;
-        line-height: 60px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        overflow: hidden;
-        background: #fff;
-        position: relative;
-        box-shadow: 0 1px 1px rgba(0,0,0,.2);
-        margin-right: 4px;
-    }
-    .demo-upload-list img{
-        width: 100%;
-        height: 100%;
-    }
-    .demo-upload-list-cover{
-        display: none;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0,0,0,.6);
-    }
-    .demo-upload-list:hover .demo-upload-list-cover{
-        display: block;
-    }
-    .profile_picU{
-    width: 40px;
-    
-    }
-    .noReviewClass{
-        margin-top: 40px;
-    }
-    .demo-upload-list-cover i{
-        color: #fff;
-        font-size: 20px;
-        cursor: pointer;
-        margin: 0 2px;
-    }
-
-    @media only screen and (max-width: 767px) {
-
-        .sidebar {
-            width: 80%;
-            background: #fff;
-        }
-
-        .sidebar .sidebar-inner {
-            padding-right: 20px;
-        }
-    }
-</style>
-

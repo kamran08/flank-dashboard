@@ -38,6 +38,12 @@ class Review extends Model {
   imos () {
     return this.hasOne('App/Models/Reviewimo').select('review_id', Database.raw('sum(cool)   AS cool'), Database.raw('sum(funny)   AS funny'), Database.raw('sum(useful)   AS useful')).groupBy('review_id')
   }
+  healthyIndex () {
+    return this.hasMany('App/Models/ReviewAttribute', 'id','review_id')
+  }
+  // healthyIndex () {
+  //   return this.hasOne('App/Models/ReviewAttribute', 'id', 'review_id').select('school_id', Database.raw('(cast(AVG(rating) as decimal(10,2))) AS healthyIndex')).where('review_type', 'school').groupBy('review_id')
+  // }
 }
 
 module.exports = Review

@@ -84,7 +84,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-content">
+                                <div class="review-content" v-if="isLoggedIn" >
                                     <h4>Review your coach</h4>
                                     <ul>
                                         <li>

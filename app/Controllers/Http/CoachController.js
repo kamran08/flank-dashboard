@@ -46,7 +46,7 @@ class CoachController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, response }) { 
   }
 
   /**
