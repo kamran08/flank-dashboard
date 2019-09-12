@@ -903,6 +903,12 @@ a.sign-social-facebook:focus{
     color:#FF0000;
 }
 
+.group-item-right.group-item-forgot-pass {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 
 
 

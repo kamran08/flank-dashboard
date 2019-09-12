@@ -83,7 +83,7 @@
                             <ul class="sign-up-reviw">
                                 <li>
                                     <a href="#" class="header-icon">
-                                        <img src="/images/header_icon4.png" alt=""> Write a Review
+                                        <img src="/images/header_icon4.png" alt=""> Write a Review 
                                     </a>
                                 </li>
                             </ul>
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="group-item">
                                     <label >Password</label>
-                                    <nuxt-link  class="group-item-right red-alert"  to='/authentication/resetpassword' >Fogot password?</nuxt-link>
+                                    <nuxt-link  class="group-item-right red-alert group-item-forgot-pass"  to='/authentication/resetpassword' >Fogot password?</nuxt-link>
                                     <input type="password" v-model="formData.password">
                                 </div>
                                 <div class="group-item">
