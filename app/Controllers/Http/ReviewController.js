@@ -599,12 +599,17 @@ class ReviewController {
     let AttributeInfo = []
     const user_id = await auth.user.id
     let AttributeInfoAll = request.all();
+    const reviewinfo = await Review.query().where('id', AttributeInfoAll.review_id).first()
+    
+   // reviewinfo = JSON.parse(JSON.stringify(reviewinfo))
+   
     let index = '';
     for (let d of AttributeInfoAll.data) {
       if (d.isSelected == true) {
         let ob = {
           review_id: AttributeInfoAll.review_id,
           attribute_id: d.id,
+          reviewFor:  reviewinfo.reviewFor,
           user_id: user_id,
           points:  d.points,
           atIndex:  d.atIndex

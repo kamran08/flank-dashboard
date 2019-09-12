@@ -107,7 +107,7 @@ export default {
   async asyncData({app, store,redirect, params}){
     try {
         const [res1, res2] = await Promise.all([
-            app.$axios.get(`/app/attributes?atIndex=Healthy`),  
+            app.$axios.get(`/app/attributes?atIndex=Healthy`),   
             app.$axios.get(`/app/getReviewInfo/${params.id}`),
         ])
         
@@ -123,6 +123,9 @@ export default {
 		}
     },
   async created(){
+    if(this.isLoggedIn == false){
+      return this.$router.push(`/`)
+    }
    this.review_id = this.$route.params.id
   }
 }

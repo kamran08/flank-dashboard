@@ -96,7 +96,7 @@ export default {
     changeSelected(index){
       console.log(index)
       if(this.attributeInfo[index].isSelected){
-        this.attributeInfo[index].isSelected = false
+        this.attributeInfo[index].isSelected = false 
       }
       else{
         this.attributeInfo[index].isSelected = true
@@ -123,6 +123,9 @@ export default {
 		}
     },
   async created(){
+    if(this.isLoggedIn == false){
+      return this.$router.push(`/`)
+    }
    this.review_id = this.$route.params.id
   }
 }

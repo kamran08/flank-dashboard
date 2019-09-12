@@ -68,22 +68,22 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="right-list-inner-item">
+                                        <div class="right-list-inner-item" v-if="allTableData.metrice">
                                             <h4>Hs</h4>
                                             <div class="ti">
-                                                <p>0.0</p>
+                                                <p>{{ (allTableData.healthSore) ? allTableData.healthSore.toFixed(2) : 0}}</p>
                                             </div>
                                         </div>
-                                        <div class="right-list-inner-item">
+                                        <div class="right-list-inner-item" v-if="allTableData.metrice">
                                             <h4>Heali</h4>
                                             <div class="ti">
-                                                <p>{{healthSore.healthyIndex}}</p>
+                                                <p>{{ (allTableData.healthSoreIndex.healthyIndex) ? allTableData.healthSoreIndex.healthyIndex.toFixed(2) : 0}}</p>
                                             </div>
                                         </div>
-                                        <div class="right-list-inner-item">
+                                        <div class="right-list-inner-item" v-if="allTableData.metrice">
                                             <h4>Harmi</h4>
                                             <div class="ti">
-                                                <p>{{healthSore.harmfulIndex}}</p>
+                                                <p>{{ (allTableData.healthSoreIndex.harmfulIndex) ? allTableData.healthSoreIndex.harmfulIndex.toFixed(2) : 0}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                         <div class="new-inner-item-1">
                             <div class="col-md-3 col-sm-3">
                                 <div class="switch-link-content">
-                                    <div class="switch-link-title">
+                                    <div class="switch-link-title"> 
                                         <h4>Switch coach</h4>
                                     </div>
                                     <div class="switch-link-btn">
@@ -176,18 +176,18 @@
                                             <tbody>
                                                 <tr v-if="allTableData.metrice">
                                                     <td class="th-nor">Regular season</td>
-                                                    <td>{{ allTableData.healthSore }}</td>
+                                                    <td>{{ allTableData.healthSore.toFixed(2) }}</td>
                                                     <td>00</td>
                                                     <td>{{ (allTableData.metrice.PositiveReview) ? allTableData.metrice.PositiveReview : 0 }}</td>
                                                     <td>{{ (allTableData.metrice.NegativeReview) ? allTableData.metrice.NegativeReview : 0 }}</td>
                                                     <td>00%</td>
-                                                    <td>{{ (allTableData.healthSoreIndex.healthyIndex) ? allTableData.healthSoreIndex.healthyIndex : 0}}</td>
-                                                    <td>{{ (allTableData.healthSoreIndex.harmfulIndex) ? allTableData.healthSoreIndex.harmfulIndex : 0 }}</td>
+                                                    <td>{{ (allTableData.healthSoreIndex.healthyIndex) ? allTableData.healthSoreIndex.healthyIndex.toFixed(2) : 0}}</td>
+                                                    <td>{{ (allTableData.healthSoreIndex.harmfulIndex) ? allTableData.healthSoreIndex.harmfulIndex.toFixed(2) : 0 }}</td>
                                                     <td>{{ ( allTableData.metrice ) ? allTableData.metrice.PositiveReview - allTableData.metrice.NegativeReview : ''}}</td>
                                                     <td>{{ allTableData.totalCorruption }}</td>
                                                     <td>{{ allTableData.streak }}</td>
                                                     <td>{{ allTableData.last10.PositiveReview + "-" + allTableData.last10.NegativeReview }}</td>
-                                                    <td>{{ allTableData.STI }}</td>
+                                                    <td>{{ allTableData.STI.toFixed(2) }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="th-nor">Overall</td>
