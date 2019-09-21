@@ -16,7 +16,7 @@ const ProductReview = use('App/Models/ProductReview')
 const ProductImo = use('App/Models/ProductImo')
 const Attribute = use('App/Models/Attribute')
 const Helpers = use('Helpers')
-const Database = use('Database')
+const Database = use('Database') 
 /**
  * Resourceful controller for interacting with reviews
  */
@@ -32,6 +32,7 @@ class ReviewController {
    */
   async index ({ request, response, view }) {
   }
+
 
   /**
    * Render a form to be used for creating a new review.
@@ -104,27 +105,39 @@ class ReviewController {
   async show ({ params, request, response, auth }) {
     let page = request.input('page') ? request.input('page') : 1
     let str = request.input('str') ? request.input('str') : ''
-    let user_id = 0
-    // let user
-    // try {
-    //   user = await auth.getUser()
-    //   user_id = user.id
-    // } catch (error) {
-    //   //response.send('You are not logged in')
-    // }
-    let mdata = Review.query().where('reviewFor', params.id).where('review_type', 'legend')
+    let type = request.input('type') ? request.input('type') : 'legend'
+    let sort = request.input('sort') ? request.input('sort') : ''
+    let user_id = -1
+    
+    try {
+      let user = await auth.getUser()
+      user_id = user.id
+      
+    } catch (error) {
+     
+      console.log('I am in catch')
+    }
+    let mdata =  Review.query().where('reviewFor', params.id).where('review_type', type)
       .with('reviwer')
       .with('reviwer', (builder) => builder.withCount('reviews as totalreviewbyuser'))
-      .with('imos')
-      .with('images')
-    if (user_id != 0) {
-      mdata.with('imosall', (builder) => {
+      .with('imosall', (builder) => {
         builder.where('user_id', user_id)
       })
-    }
+      .with('images')
+      
+
+    
+     
+    
 
     if (str) {
       mdata.where('content', 'LIKE', '%' + str + '%')
+    }
+    if (sort) {
+      mdata.orderBy('rating', sort)
+    }
+    else{
+      mdata.orderBy('id', 'desc')
     }
     let data = await mdata.orderBy('id', 'desc')
       .paginate(page, 5)
@@ -133,21 +146,16 @@ class ReviewController {
     let tempData = JSON.parse(JSON.stringify(data))
 
     for (let r of tempData.data) {
-      if (r.imos == null) {
-        r.imos = {
+      if (r.imosall == null) {
+        r.imosall = {
           'id': 0,
           'review_id': 0,
           'cool': 0,
           'funny': 0,
           'useful': 0
         }
-      } else {
-        if (r.imosall) {
-          if (r.imosall.cool == 1) r.imos.acool = true
-          if (r.imosall.funny == 1) r.imos.afunny = true
-          if (r.imosall.useful == 1) r.imos.auseful = true
-        }
-      }
+      } 
+      
     }
 
     return tempData
@@ -320,7 +328,7 @@ class ReviewController {
       })
     }
     if (str) {
-      mdata.where('content', 'LIKE', '%' + str + '%')
+      mdata.where('content', 'LIKE', '%' + str + '%') 
     }
     let data = await mdata.orderBy('id', 'desc')
       .paginate(page, 2)
@@ -489,8 +497,22 @@ class ReviewController {
       { review_id: data.review_id, user_id: data.user_id }
 
     )
+      let key = data.key
+      delete data.key
+      if( key == 'cool') {
+        await Review.query().where('id',data.review_id).update({ official: ( Database.raw(`official + ${data['cool']}`))})
+        return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update({ cool: ( Database.raw(`cool + ${data['cool']}`)) })
+      }
+      else if( key == 'funny'){
+        await Review.query().where('id',data.review_id).update({ bravery: ( Database.raw(`bravery + ${data['funny']}`))})
+        return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update({ funny: ( Database.raw(`cool + ${data['funny']}`)) })
+      }
+     
+      await Review.query().where('id',data.review_id).update({ distinguished: ( Database.raw(`distinguished + ${data['useful']}`))})
+      return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update({ useful: ( Database.raw(`cool + ${data['useful']}`)) })
+      
 
-    return await Reviewimo.query().where('review_id', data.review_id).where('user_id', data.user_id).update(data)
+   
   }
   async atrributeConteptData ({ params }) {
     return await Database
@@ -566,7 +588,7 @@ class ReviewController {
           'id': 0,
           'review_id': 0,
           'cool': 0,
-          'funny': 0,
+          'funny': 0, 
           'useful': 0
         }
       } else {

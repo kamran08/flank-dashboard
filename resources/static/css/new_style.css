@@ -389,6 +389,12 @@ ul {
   width: 100%;
   height: 76px;
 }
+.inner-banner-2 figure {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 143px;
+}
 .inner-banner figure img {
   height: 100%;
 }

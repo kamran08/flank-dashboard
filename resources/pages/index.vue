@@ -84,14 +84,14 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="review-content" v-if="isLoggedIn" >
+                                <div class="review-content" v-if="!isLoggedIn" >
                                     <h4>Review your coach</h4>
                                     <ul>
                                         <li>
-                                            <button>Sign up</button> 
+                                            <button @click="$router.push('/signup')" >Sign up</button> 
                                         </li>
                                         <li>
-                                            <button>Log in</button>
+                                            <button @click="$router.push('/login')" >Log in</button>
                                         </li>
                                     </ul>
                                 </div>

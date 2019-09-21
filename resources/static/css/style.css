@@ -4284,3 +4284,134 @@ ul.pull-right.navbar-nav.nav li {
   transform: scaleY(1);
   height: auto;
 }
+._1health_numbers_text:before{}
+._1price {
+  display: flex;
+  flex-direction: column;
+  height: 111px;
+  overflow: hidden;
+}
+._flex_space{}
+._1price_items {
+    flex: 1 1;
+}
+
+._1health_numbers {
+  height: 200px;
+  position: relative;
+
+
+}
+
+._1health_numbers p {
+ width: 100%;
+ position: absolute;
+
+
+}
+
+._1health_numbers p:first-child {
+  top: 0;
+}
+
+._1health_numbers p:last-child {
+  top: 100%;
+}
+
+._1health_subtitle_border {
+  margin-top: 20px !important;
+}
+
+._1health_numbers_text span {
+  font-family: sans-serif;
+  font-weight: bold;
+  background: #9e9696;
+  text-align: left;
+  height: 20px;
+  display: inline-block;
+}
+
+._1health_numbers_text:before {
+  position: absolute;
+  content: '';
+  border-bottom: 1px dotted #403b3b !important;
+  width: 90% !important;
+  left: 0;
+  top: 8px;
+  z-index: -1;
+}
+.inner-item-one-cont-right {
+  flex: 0 0 20%;
+  width: 100%; }
+
+.inner-one-item-top-con {
+  align-items: center; }
+  .inner-one-item-top-con .one-top-cont-cap p {
+    margin-bottom: 0px; }
+
+.new-flank-coach-rev .coach-rev-fixed.coach-rev-fixed-one {
+  flex: 0 0 40%;
+  width: 100%; }
+
+.inner-one-item-help-area {
+  flex: 0 0 60%;
+  width: 100%; }
+  .inner-one-item-help-area h6.help-ans {
+    margin: 0px;
+    font-size: 14px;
+    color: red;
+    text-transform: capitalize; }
+  .inner-one-item-help-area p.help-text {
+    font-size: 12px;
+    line-height: 19px;
+    margin-bottom: 0px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #99999921;
+    margin-bottom: 10px; }
+
+.inner-one-item-help-btn {
+  display: flex;
+  align-items: center; }
+  .inner-one-item-help-btn a.view-question-btn {
+    font-size: 11px;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: tomato; }
+  .inner-one-item-help-btn a.helpful, .inner-one-item-help-btn .most-helpful {
+    margin: 0px 5px;
+    padding: 7px 5px;
+    background-color: #000;
+    color: #fff;
+    font-size: 10px;
+    text-transform: capitalize;
+    min-width: 58px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px; }
+    .inner-one-item-help-btn a.helpful i, .inner-one-item-help-btn .most-helpful i {
+      margin-right: 6px; }
+
+/*# sourceMappingURL=style.css.map */
+
+.inner-banner-search{
+height: auto !important;
+}
+.inner-item-reco-sec-one {
+  margin-bottom: 10px;
+}
+.inner-item-reco-sec {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 8px 0px rgba(151, 151, 151, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+.inner-one-item-help-area2{
+  flex: 0 0 60%;
+  width: 100%;
+  background: #F5F5F5;
+  border-radius: 10px;
+  border: 2px solid #EDEDED;
+  padding: 10px;
+}
+

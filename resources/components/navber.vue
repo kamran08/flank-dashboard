@@ -158,12 +158,13 @@
                                 </a>
                                 <!-- <form action="#"><input type="text" id="right-search-bar"></form> -->
                             </li>
-                            <li class="right-user">
-                                <a href="#">
+                            <li class="right-user" v-if="isLoggedIn"   >
+                                <a  @click=" isMenuOpen = (isMenuOpen == false)? true: false">
                                     <img src="/images/user.png" alt="">
                                 </a>
-                                <ul class="right-user-dropdown">
-                                    <li><a href="#">Dashboard</a></li>
+                                   <ul class="right-user-dropdown" v-if="isMenuOpen" >
+                                    <li  class="yxz_ll" ><a >{{authInfo.firstName}}</a></li>
+                                    <li class="yxz_ll" ><a @click="logout">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -226,6 +227,7 @@
                 pageOption:'',
                 sort:'',
                 div:'',
+                isMenuOpen:false,
                 
             }
         },
@@ -248,7 +250,9 @@
             }
         },
         methods:{
-          
+          menuChange(){
+              
+          },
         async searchByKey(legend = '',sort = '',div=''){
             if(legend != '')
                 this.pageOption = legend
@@ -435,8 +439,8 @@
     top: 32px !important;
     z-index: 1;
 }
-.show_logo{
-    
+.yxz_ll{
+    margin-left: 5px;
 }
 .pageOption:hover .menu_dropDown_on {display: block;}
 .pageOption:hover .menu_dropDown_on_nav {display: block;}

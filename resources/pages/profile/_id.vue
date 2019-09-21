@@ -3,7 +3,7 @@
         
         <!-- Header--> 
         
-        <!-- <div class="section-header-new">
+        <!-- <div class="section-header-new">  
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
@@ -309,7 +309,7 @@
                                                                     <CarouselItem v-if="item.images[1]">
                                                                         <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[1].url"  style="width: 100%;"></div>
                                                                     </CarouselItem>
-                                                                   <CarouselItem v-if="item.images[2]">
+                                                                   <CarouselItem v-if="item.images[2]"> 
                                                                         <div class="demo-carousel" style="width: 100%; height: 350px;"><img :src="item.images[2].url"  style="width: 100%;"></div>
                                                                     </CarouselItem>
                                                                 </Carousel>

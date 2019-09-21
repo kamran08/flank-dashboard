@@ -7,6 +7,7 @@ const Legend = use('App/Models/Legend')
 const School = use('App/Models/School')
 const SchoolCoach = use('App/Models/SchoolCoach')
 const Product = use('App/Models/Product')
+const Database = use('Database')
 var _ = require('lodash')
 
 class SearchController {
@@ -16,11 +17,15 @@ class SearchController {
     let page = request.input('page') ? request.input('page') : 1
     let price = request.input('price') ? request.input('price') : ''
     let sort = request.input('sort') ? request.input('sort') : ''
+    let rate = request.input('rate') ? request.input('rate') : ''
+    let sports = request.input('sports') ? request.input('sports') : ''
+    let attribute = request.input('attribute') ? request.input('attribute') : ''
     let div = request.input('div') ? request.input('div') : ''
     let pageOption = request.input('pageOption') ? request.input('pageOption') : 'legend'
 
     let data = {}
     if (pageOption == 'legend') {
+      console.log("i am here 9-21-2019")
       data =  Legend.query()
         .select('id')
         .select('name')
@@ -75,6 +80,21 @@ class SearchController {
         data.whereHas('school', (builder) => {
           builder.where('division', div)
         })
+      }
+      if (sports) {
+        
+        data.whereHas('school', (builder) => {
+          builder.whereIn('sport', [sports])
+        })
+      }
+      if (attribute) {
+       console.log(attribute)
+        data.whereHas('avgRating', (builder) => {
+          builder.orderBy( attribute, 'desc')
+        })
+      }
+      if (rate) {
+        data.where('avg_rating', '<=', rate)
       }
 
       if (str) {
@@ -138,6 +158,12 @@ class SearchController {
       .select('id')
       .where('name', 'LIKE', '%' + data.key + '%')
       .where('school_id',  data.school_id)
+      .fetch()
+  }
+  async getAllSports ({ request }) {
+    const data = request.all()
+    return await School.query()
+      .select(Database.raw('DISTINCT  sport'))
       .fetch()
   }
 }

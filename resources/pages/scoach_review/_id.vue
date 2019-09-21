@@ -38,14 +38,22 @@
                             <div class="write-review-box">
                                 <form v-on:submit.prevent >
                                     <div class="write-review-box-top mar_b20">
-                                        <ul class="review-star-list">
-                                        <li @mouseover="changeDataHover(1)" @mouseleave="changeDataHoverLeave"   :class="(drating.index > 0)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                        <li  @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 1)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                        <li  @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 2)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                        <li @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 3)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                        <li @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"   :class="(drating.index > 4)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                    </ul>
-                                    <span>{{(drating.text)? drating.text : 'Select your rating'}}</span>
+                                        <ul class="review-star-list" v-if="onHover" >
+                                            <li  @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(1)" :class="(drating.index > 0)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li   @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave" @click="changeOldRating(2)"  :class="(drating.index > 1)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li   @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave" @click="changeOldRating(3)"  :class="(drating.index > 2)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(4)" :class="(drating.index > 3)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(5)" :class="(drating.index > 4)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                        </ul>
+                                        <ul class="review-star-list" v-else >
+                                            <li  @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 0)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li   @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 1)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li   @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 2)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 3)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 4)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                        </ul>
+                                    <span v-if="onHover">{{(drating.text)? drating.text : 'Select your rating'}}</span>
+                                    <span v-else >{{(oldrating.text)? oldrating.text : 'Select your rating'}}</span>
                                     </div>
                                 <!-- <ul class="write-review-box-cont mar_b20">
                                     <li>Your review help us to learn about good and bad coaches. </li>
@@ -204,7 +212,8 @@ export default {
                 class:'',
                 text:'',
                 index:0,
-            }
+            },
+            onHover: false,
             
             
         }
@@ -229,6 +238,7 @@ export default {
     methods:{
         changeDataHover(index){
             this.drating.index = index
+            this.onHover = true
             if(index == 1){
                 this.drating.class = 'review-star-1'
                 this.drating.text = 'Eek! Methinks not.'
@@ -254,9 +264,34 @@ export default {
         },
         
         changeDataHoverLeave(){
+            this.onHover = false
             // this.drating.index = 0
             // this.drating.class = 0
             // this.drating.text = 0
+        },
+        changeOldRating(index){
+             this.oldrating.index = index
+            if(index == 1){
+                this.oldrating.class = 'review-star-1'
+                this.oldrating.text = 'Eek! Methinks not.'
+
+            }
+            else if(index == 2){
+                this.oldrating.class = 'review-star-2'
+                this.oldrating.text = "Meh. I've experienced better."
+            }
+            else if(index == 3){
+                this.oldrating.class = 'review-star-3'
+                this.oldrating.text = 'A-OK.'
+            }
+            else if(index == 4){
+                this.oldrating.class = 'review-star-4'
+                this.oldrating.text = "Yay! I'm a fan"
+            }
+            else if(index == 5){
+                this.oldrating.class = 'review-star-5'
+                this.oldrating.text = "Woohoo! As good as it gets!"
+            }
         },
         async postReview(){
              if(this.isLoggedIn == false){
@@ -276,7 +311,7 @@ export default {
                 this.i('Please rate this coach !')
                 return;
             }
-            this.reviewData.rating = this.drating.index
+            this.reviewData.rating = this.oldrating.index
             
            // this.reviewData.uploadList = this.uploadList
           //  this.reviewData.AttributeInfo = this.AttributeInfo
@@ -333,6 +368,7 @@ export default {
         if(this.$route.query.star){
              this.rating = parseInt(this.$route.query.star)
              this.reviewData.rating = parseInt(this.$route.query.star)
+             this.changeDataHover(parseInt(this.$route.query.star))
         }
         this.reviewData.reviewFor = this.coachData.id 
         this.reviewData.school_id = this.coachData.school_id 

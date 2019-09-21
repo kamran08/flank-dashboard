@@ -9,12 +9,13 @@
                     <div class="flank-full">
                         <div class="flank-item-1">
                             <figure>
-                                <img :src="legendData.school.logo" alt="">
+                               
+                                <img src="/image/fl_lg.png" alt="">
                             </figure>
                             <div class="flank-header-cap">
                                 <h1>Coach <br><span>{{legendData.name}}</span></h1>
                                 <ul>
-                                    <li><img src="/images/d.png" alt="">{{legendData.school.schoolName}}</li>
+                                    <li><img  :src="legendData.school.logo" alt="">{{legendData.school.schoolName}}</li>
                                     <li>&bull;</li>
                                     <li>{{legendData.school.sport}}</li>
                                 </ul>
@@ -60,11 +61,11 @@
                                             <h4>RTG</h4>
                                             <div class="review-star">
                                                 <ul>
-                                                    <li  :class="(averageRating>0)? '' : 'star-half'"><span><i class="fas fa-star"></i></span></li>
-                                                    <li :class="(averageRating>1)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
-                                                    <li :class="(averageRating>2)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
-                                                    <li :class="(averageRating>3)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
-                                                    <li :class="(averageRating>4)? '' : 'star-half'"  ><span><i class="fas fa-star"></i></span></li>
+                                                    <li  :class="(averageRating>0)? 'review-star-5' : 'star_half_1'"><span><i class="fas fa-star"></i></span></li>
+                                                    <li :class="(averageRating>1)? 'review-star-5' :  'star_half_1'" ><span><i class="fas fa-star"></i></span></li>
+                                                    <li :class="(averageRating>2)? 'review-star-5' : 'star_half_1'" ><span><i class="fas fa-star"></i></span></li>
+                                                    <li :class="(averageRating>3)? 'review-star-5' : 'star_half_1'" ><span><i class="fas fa-star"></i></span></li>
+                                                    <li :class="(averageRating>4)? 'review-star-5' : 'star_half_1'"  ><span><i class="fas fa-star"></i></span></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -107,7 +108,7 @@
 
         <div class="new-banner-section new-banner-section-1">
             <div class="container-fluid">
-                <div class="inner-banner">
+                <div class="inner-banner inner-banner-2">
                     <figure>
                         <img src="/images/long-form-example.png" alt="">
                     </figure>
@@ -237,6 +238,60 @@
                                         </div>
                                     </div> -->
                                 </div>
+                                <div class="inner-item-reco-sec inner-item-reco-sec-one">
+                                    <div class="inner-item-reco-title">
+                                        <h4>Ask The Community</h4>
+                                    </div>
+                                    <div class="inner-item-top-con inner-one-item-top-con">
+                                        <figure>
+                                            <img src="/images/sticker-3.png" alt="">
+                                        </figure>
+                                        <div class="top-con-cap one-top-cont-cap">
+                                            <p><span>Don't see your question?</span> Ask your varified audience</p>
+                                        </div>
+                                    </div>
+                                    <div class="new-flank-form">
+                                        <div class="inner-one-item-cont">
+                                            <div class="new-flank-search inner-item-one-cont-left">
+                                                <p><strong>Does this coach have college connections? if so,to what school</strong></p>
+                                            </div>
+                                            <div class="new-flank-sort inner-item-one-cont-right">
+                                                <i class="fas fa-caret-down"></i>
+                                                <div class="new-flank-img">
+                                                    <figure>
+                                                        <img src="/images/nf.png" alt="">
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="new-flank-coach-rev">
+                                            <div class="coach-rev-fixed coach-rev-fixed-one">
+                                                <figure>
+                                                    <img src="/images/fixed-img.png" alt="">
+                                                </figure>
+                                                <div class="coach-rev-fixed-content">
+                                                    <h4></h4>
+                                                    <h5></h5>
+                                                    <ul class="fixed-list">
+                                                        <li><img src="/images/mw.png" alt=""><span></span></li>
+                                                        <li><img src="/images/mstar.png" alt=""><span></span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="inner-one-item-help-area2">
+                                               <h6 class="help-ans">1.answer</h6>
+                                               <p class="help-text">
+                                                   my son palyed really well and had the skills to advance,however,the coach had on conections to help
+                                               </p>
+                                               <div class="inner-one-item-help-btn">
+                                                   <a href="#" class="view-question-btn">view questions details</a>
+                                                   <a href="#" class="helpful"><i class="fas fa-long-arrow-alt-up"></i>helpful</a>
+                                                   <a href="#" class="most-helpful"><i class="fas fa-long-arrow-alt-down"></i>most helpful</a>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="inner-item-reco-sec">
                                     <div class="inner-item-reco-title">
                                         <h4>Recommended Reviews <span>for Coach John Doe</span></h4>
@@ -252,20 +307,20 @@
                                     <div class="new-flank-form">
                                         <div class="new-flank-sort-sec">
                                             <div class="new-flank-search">
-                                                <form action="#">
+                                                <form v-on:submit.prevent>
                                                     <div class="search-new-box">
-                                                        <input type="text" placeholder="Search within the reviews">
-                                                        <button type="submit"><span><i class="fas fa-search"></i></span></button>
+                                                        <input type="text" placeholder="Search within the reviews" v-model="reviewSearch" >
+                                                        <button type="submit"  @click="SearchReviewResult" ><span><i class="fas fa-search"></i></span></button>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="new-flank-sort">
                                                 <div class="new-flank-select">
                                                     <h4>Sort by</h4>
-                                                    <select name="" id="">
-                                                        <option value="sort">Flank Sort</option>
-                                                        <option value="sort">Flank Sort</option>
-                                                        <option value="sort">Flank Sort</option>
+                                                    <select v-model="sort" @change="SearchReviewResult">
+                                                        <option value="" disabled selected>Flank Sort</option>
+                                                        <option value="desc">Top Rated</option>
+                                                        <option value="asc">Worst Rated</option>
                                                     </select>
                                                 </div>
                                                 <div class="new-flank-img">
@@ -291,14 +346,14 @@
                                             </div>
                                             <div class="coach-rev-push">
                                                 <ul class="coa-rev">
-                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                    <li><span><i class="fas fa-star"></i></span></li>
-                                                    <li><span><i class="fas fa-star"></i></span></li>
+                                                   <li @mouseover="changeDataHover(1)"    @click="reviewPageWith(1)"  @mouseleave="changeDataHoverLeave"   :class="(drating.index > 0)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                    <li  @mouseover="changeDataHover(2)"  @click="reviewPageWith(2)"  @mouseleave="changeDataHoverLeave"   :class="(drating.index > 1)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                    <li  @mouseover="changeDataHover(3)"  @click="reviewPageWith(3)"  @mouseleave="changeDataHoverLeave"   :class="(drating.index > 2)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                    <li @mouseover="changeDataHover(4)"   @click="reviewPageWith(4)"  @mouseleave="changeDataHoverLeave"   :class="(drating.index > 3)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                    <li @mouseover="changeDataHover(5)"   @click="reviewPageWith(5)"  @mouseleave="changeDataHoverLeave"   :class="(drating.index > 4)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
                                                 </ul>
                                                 <div class="start-link">
-                                                    <p>Start your review of <span>Coach John Doe</span></p>
+                                                    <p>Start your review of <span>{{legendData.name}}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +372,7 @@
                                                         <h4>{{item.reviwer.firstName}} {{item.reviwer.lastName}}</h4>
                                                         <h5>{{item.reviwer.address}}</h5>
                                                         <ul class="left-fig-link">
-                                                            <li><img src="/images/mw.png" alt=""><span>3 Friends</span></li>
+                                                            <!-- <li><img src="/images/mw.png" alt=""><span>3 Friends</span></li> -->
                                                             <li><img src="/images/mstar.png" alt=""><span>{{item.reviwer.__meta__.totalreviewbyuser}} reviews</span></li>
                                                         </ul>
                                                     </div>
@@ -325,7 +380,7 @@
                                                 <div class="review-figure-exper">
                                                     <ul>
                                                         <li>
-                                                            <img src="/images/mstar.png" alt="">
+                                                            <img src="/images/mstar.png" alt=""> 
                                                             <p><a>Share review</a></p>
                                                         </li>
                                                         <li>
@@ -346,11 +401,11 @@
                                             <div class="review-item-right">
                                                 <div class="review-item-right-rat">
                                                     <ul>
-                                                        <li  :class="(item.rating>0)? '' : 'star-half'"><span><i class="fas fa-star"></i></span></li>
-                                                        <li :class="(item.rating>1)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
-                                                        <li :class="(item.rating>2)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
-                                                        <li :class="(item.rating>3)? '' : 'star-half'" ><span><i class="fas fa-star"></i></span></li>
-                                                        <li :class="(item.rating>4)? '' : 'star-half'"  ><span><i class="fas fa-star"></i></span></li>
+                                                        <li  :class="(item.rating>0)? 'review-star-5' : 'star_half_1'"><span><i class="fas fa-star"></i></span></li>
+                                                        <li :class="(item.rating>1)? 'review-star-5' : 'star_half_1'" ><span><i class="fas fa-star"></i></span></li>
+                                                        <li :class="(item.rating>2)? 'review-star-5' : 'star_half_1'" ><span><i class="fas fa-star"></i></span></li>
+                                                        <li :class="(item.rating>3)? 'review-star-5' : 'star_half_1'" ><span><i class="fas fa-star"></i></span></li>
+                                                        <li :class="(item.rating>4)? 'review-star-5' : 'star_half_1'"  ><span><i class="fas fa-star"></i></span></li>
                                                     </ul>
                                                     <div class="review-date">
                                                         <!-- <p>5/8/2019 <span>5:25:36</span></p> -->
@@ -371,10 +426,15 @@
                                                     <p>Was this review ...?</p>
                                                     <div class="review-btn">
                                                         <ul>
-                                                            <li><img src="/images/ic1.png" alt=""><span>Official</span></li>
-                                                            <li><img src="/images/ic2.png" alt=""><span>Bravery Bagde</span></li>
-                                                            <li><img src="/images/ic3.png" alt=""><span>Distinguished</span></li>
+                                                            <li @click="reviewImo('cool',index,item)"  :class="(item.imosall.cool == 1)? 'active_imo' : ''" ><img src="/images/ic1.png" alt=""><span>Official</span> &nbsp;&nbsp;{{item.official}}</li>
+                                                            <li  @click="reviewImo('funny',index,item)" :class="(item.imosall.funny == 1)? 'active_imo' : ''" ><img src="/images/ic2.png" alt=""><span>Bravery Bagde</span> &nbsp;&nbsp;{{item.bravery}}</li>
+                                                            <li @click="reviewImo('useful',index,item)" :class="(item.imosall.useful == 1)? 'active_imo' : ''" ><img src="/images/ic3.png" alt=""><span>Distinguished</span> &nbsp;&nbsp;{{item.distinguished}}</li>
                                                         </ul>
+                                                         <!-- <template v-if="item.imos" >
+                                                                    <li   :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
+                                                                    <li  :class="(item.imos.afunny)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Funny&nbsp;&nbsp;{{item.imos.funny}}</li>
+                                                                    <li   :class="(item.imos.auseful)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Useful&nbsp;&nbsp;{{item.imos.useful}}</li>
+                                                        </template> -->
                                                         <div class="review-btn-img">
                                                             <figure>
                                                                 <img src="/images/nf.png" alt="">
@@ -402,12 +462,10 @@
 
                                     <p class="_1health_subtitle">HEALTHY</p>
 
-                                    <div class="_1health_numbers">
+                                    <div class="_1health_numbers" v-if="allTableData.healthSore">
                                         <p class="_1health_numbers_text"><span>100</span></p>
-                                        <p class="_1health_numbers_text"><span></span></p>
-                                        <p class="_1health_numbers_text _1health_numbers_text_o"><span>50</span></p>
-                                        <p class="_1health_numbers_text"><span></span></p>
-                                        <p class="_1health_numbers_text"><span>100</span></p>
+                                        <p class="_1health_numbers_text" v-bind:style="{ top: (100-allTableData.healthSore.toFixed(2))+'%'}"><span>{{ allTableData.healthSore.toFixed(1)}}</span></p>
+                                        <p class="_1health_numbers_text"><span>00</span></p>
                                     </div>
 
                                     <p class="_1health_subtitle _1health_subtitle_border">HEALTHY</p>
@@ -435,7 +493,7 @@
                                         <h4>Latest videos</h4>
                                     </div>
                                     <div class="flank-video">
-                                        <iframe src="https://www.youtube.com/embed/IV1h5qgpdFg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe src="https://player.vimeo.com/video/360654782" width="640" height="268" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                                     </div>
 
                                     <div class="playing-list">
@@ -484,7 +542,7 @@
                                 </div>
                                 <div class="flank-banner-two">
                                     <figure>
-                                        <img src="/images/worstbanner.png" alt="">
+                                        <img src="/images/worstbanner.png" alt=""> 
                                     </figure>
                                 </div>
                             </div>
@@ -535,6 +593,7 @@ export default {
             coach_index:-1,
             page:1,
             str:'',
+            sort:'',
             value2: 0,
             topReviews: [],
             
@@ -550,11 +609,11 @@ export default {
             ],
             chartOptions: {
                 chart: {
-                title: 'Company Performance',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                    title: 'Company Performance',
+                    subtitle: 'Sales, Expenses, and Profit: 2014-2017',
                 },
-                 width: 300,
-                  height: 300,
+                width: 300,
+                height: 300,
                 colors: ['#e63131', '#e46a6a'],
                 backgroundColor:'transparent',
                 vAxis:{
@@ -592,22 +651,24 @@ export default {
                    
                 },
                 trendlines: { 0: {} } ,
-
             },
-
-
-            allTableData: {}
+            allTableData: {},
+              drating:{
+                class:'',
+                index: 0
+            },
        
         }
     },
     methods:{
 
         reviewPageWith(num){
+            setTimeout(()=>{ this.$router.push(`/scoach_review/${this.$route.params.id}?star=${num}`) }, 1000)
             
         },
         async SearchReviewResult(){
            
-            const res = await this.callApi('get', `reviews/${this.$route.params.id}?str=${this.reviewSearch}`)
+            const res = await this.callApi('get', `reviews/${this.$route.params.id}?str=${this.reviewSearch}&type=school&sort=${this.sort}`)
             if(res.status===200){
                 this.reviews = res.data.data
                 this.rpagination = res.data
@@ -685,22 +746,24 @@ export default {
             let imoData = {
                 review_id:this.reviews[index].id,
             }
-            imoData[imo] = 1
+            imoData[imo] = (imoItem.imosall[imo] == 1)? -1: 1
+            imoData.key = imo
             const res = await this.callApi('post','/stoteCoachReviewImo',imoData)
             if(res.status===200){
-                this.s("you marked this review as "+imo+ "!")
+               
                 if(imo=='cool'){
-                    imoItem.cool++
-                    imoItem.acool=true
+                    imoItem.official += imoData[imo]
+                    this.s("you marked this review as Official  ")
                 }
                 else if(imo=='funny'){
-                    imoItem.funny++
-                    imoItem.afunny=true
+                    imoItem.bravery += imoData[imo]
+                     this.s("you marked this review as Bravery Bagde  ")
                 }
                 else if(imo=='useful'){
-                    imoItem.useful++
-                    imoItem.auseful = true
+                    imoItem.distinguished += imoData[imo]
+                     this.s("you marked this review as Distinguished  ")
                 }
+                  imoItem.imosall[imo] = imoData[imo]
             }
             else{
                 this.swr();
@@ -728,6 +791,31 @@ export default {
             else{
                 this.swr()
             }
+        },
+         changeDataHover(index){
+            this.drating.index = index
+            if(index == 1){
+                this.drating.class = 'review-star-1'
+
+            }
+            else if(index == 2){
+                this.drating.class = 'review-star-2'
+            }
+            else if(index == 3){
+                this.drating.class = 'review-star-3'
+            }
+            else if(index == 4){
+                this.drating.class = 'review-star-4'
+            }
+            else if(index == 5){
+                this.drating.class = 'review-star-5'
+            }
+           
+        },
+        changeDataHoverLeave(){
+            // this.drating.index = 0
+            // this.drating.class = 0
+            // this.drating.text = 0
         },
          
     },
@@ -761,9 +849,9 @@ export default {
        
         const [ res2, res4,res5,res6] = await Promise.all([
             this.callApi('get', `/app/getAdditionCoachInfo/${this.$route.params.id}`), 
-            this.callApi('get', `/app/singleSchoolCoachReview/${this.$route.params.id}`),
+            this.callApi('get', `/reviews/${this.$route.params.id}?type=school`),
             this.callApi('get', `/app/getCoachTopReviews/${this.$route.params.id}`),
-            this.callApi('get', `/app/getSimilarCoach/${this.school_id}`),
+            this.callApi('get', `/app/getSimilarCoach/${this.school_id}`), 
         ])
         if( res2.status===200 && res4.status === 200){
             
@@ -795,6 +883,13 @@ export default {
   text-overflow: ellipsis; 
   
 } */
+.star_half_1{
+    background: #c7b3b3 !important;
+}
+.active_imo{
+    background: #d32323;
+}
+
 </style>
 
 

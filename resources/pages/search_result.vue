@@ -620,7 +620,8 @@ export default {
 
         this.changeSortName(this.sort)
         
-            await this.SearchByKey()
+        await this.SearchByKey()
+
         this.isLoading = false
         // this. showCurrentPage = (Math.ceil(this.pagination.total)/(this.pagination.perPage)-this.pagination.page)
 
