@@ -6,13 +6,13 @@
                     <a href="#"><img src="/images/logo-new.png" alt=""></a>
                 </div>
                 <div class="flank-new-form">
-                    <form action="">
+                    <form v-on:submit.prevent>
                         <div class="flank-new-indi">
                             <div class="new-flank-selection">
                                 <p>All <span><i class="fas fa-caret-down"></i></span></p>
                             </div>
                             <div class="new-flank-input">
-                                <input type="text" v-model="str">
+                                <input type="text" v-model="str" v-on:change="SearchByKey" >
                             </div>
                         </div>
                         <div class="flank-new-indi">
@@ -20,11 +20,11 @@
                                 <p>Near</p>
                             </div>
                             <div class="new-flank-input">
-                                <input type="text" v-model="place">
+                                <input type="text" v-model="place" v-on:change="SearchByKey" >
                             </div>
                         </div>
                         <div class="flank-new-search">
-                            <button><span><i class="fas fa-search"></i></span></button>
+                            <button @click="SearchByKey" ><span><i class="fas fa-search"></i></span></button>
                         </div>
                     </form>
                 </div>
@@ -58,7 +58,7 @@
 
         <div class="new-search-flank">
             <div class="new-search-flank-num">
-                <p>1-16 of over 90,000 results for <span>"{{str}}"</span></p>
+                <p>1-5 of over {{pagination.total}} results for <span>"{{str}}"</span></p>
             </div>
             <div class="new-search-flank-sort">
                 <select name="" id="">
@@ -330,7 +330,7 @@
                                                     </div>
                                                 </div>
 
-                                                <p class="_2card_details_city">City/State</p>
+                                                <p class="_2card_details_city">{{item.school.city}}/{{item.school.state}}</p>
                                             </div>
                                             <p class="_2card_status _2taxt">
                                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

@@ -82,13 +82,15 @@ class SearchController {
         })
       }
       if (sports) {
+        var array = sports.split(",");
+        
         
         data.whereHas('school', (builder) => {
-          builder.whereIn('sport', [sports])
+          builder.whereIn('sport', array)
         })
       }
       if (attribute) {
-       console.log(attribute)
+       
         data.whereHas('avgRating', (builder) => {
           builder.orderBy( attribute, 'desc')
         })
@@ -100,6 +102,12 @@ class SearchController {
       if (str) {
         data.where('name', 'LIKE', '%' + str + '%')
       }
+      if (place) {
+        
+         data.whereHas('school', (builder) => {
+           builder.orderBy( 'city', place)
+         })
+       }
     }
     if (sort == 'most') {
       data.orderBy('allreview', 'desc')
