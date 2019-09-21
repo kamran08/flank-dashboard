@@ -341,7 +341,7 @@
                                                 <a href="" class="see_more">See more</a>
                                             </p>
 
-                                            <button class="_1btn">Write a Review</button>
+                                            <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button>
                                         </div>
                                     </div>
                                 </div>

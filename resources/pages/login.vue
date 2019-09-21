@@ -120,7 +120,7 @@
                                     New to Flank?
                                 </span>               
                             </p>
-                             <nuxt-link   to='/nlogin/signup' > <button class="create-btn">Create your Flank account</button></nuxt-link>
+                             <nuxt-link   to='/signup' > <button class="create-btn">Create your Flank account</button></nuxt-link>
                            
                         </div>
                     </div>

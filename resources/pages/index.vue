@@ -23,7 +23,7 @@
                                     <h4>Quick links</h4>
                                     <ul>
                                         <li>
-                                            <a @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
+                                            <a @click="$router.push(`/coach_search?pageOption=coach&div=High School`)">
                                                 <figure>
                                                     <img src="/image/High-School-Coaches.gif" alt="">
                                                 </figure>
@@ -33,7 +33,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a @click="$router.push(`/search_result?pageOption=coach&div=Junior College`)">
+                                            <a @click="$router.push(`/coach_search?pageOption=coach&div=Junior College`)">
                                                 <figure>
                                                     <img src="/image/College-Coaches.gif" alt="">
                                                 </figure>
@@ -43,7 +43,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
+                                            <a @click="$router.push(`/coach_search?pageOption=coach&div=High School`)">
                                                 <figure>
                                                     <img src="/image/Most-Connected.gif" alt="">
                                                 </figure>
@@ -53,7 +53,7 @@
                                             </a>
                                         </li> 
                                         <li>
-                                            <a @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
+                                            <a @click="$router.push(`/coach_search?pageOption=coach&div=Club/Travel`)">
                                                 <figure>
                                                     <img src="/image/Travel-Coaches.gif" alt="">
                                                 </figure>
@@ -63,7 +63,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a @click="$router.push(`/search_result?pageOption=legend`)">
+                                            <a @click="$router.push(`/coach_search?pageOption=legend`)">
                                                 <figure>
                                                     <img src="/image/Local-Coaches.gif" alt="">
                                                 </figure>
@@ -73,7 +73,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a @click="$router.push(`/search_result?pageOption=product`)">
+                                            <a @click="$router.push(`/coach_search?pageOption=product`)">
                                                 <figure>
                                                     <img src="/image/ProductsServices.gif" alt="">
                                                 </figure>
@@ -205,8 +205,8 @@
                                                         </div>
                                                     </div>
                                                     <!-- <label>Find</label> -->
-                                                    <input type="text"  v-model="searchTxt" v-on:keyup.enter="$router.push(`/search_result?str=${searchTxt}&pageOption=${pageOption}`)"  >
-                                                    <button @click="$router.push(`/search_result?str=${searchTxt}&pageOption=${pageOption}`)"><img src="/images/form-search.png" alt=""></button>
+                                                    <input type="text"  v-model="searchTxt" v-on:keyup.enter="$router.push(`/coach_search?str=${searchTxt}&pageOption=${pageOption}`)"  >
+                                                    <button @click="$router.push(`/coach_search?str=${searchTxt}&pageOption=${pageOption}`)"><img src="/images/form-search.png" alt=""></button>
                                                     <div class="form-main-dropdown">
                                                         <ul>
                                                             <li><a @click="pageOption='school'">School Name</a></li>
@@ -703,7 +703,7 @@
                                                             <img src="/image/HighSchoolCoaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=High School`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?pageOption=coach&div=High School`)">
                                                         <p>High school coaches</p>
                                                     </div> -->
                                                 </div>
@@ -716,7 +716,7 @@
                                                             <img src="/image/College-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Junior College`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?pageOption=coach&div=Junior College`)">
                                                         <p>College coaches</p>
                                                     </div> -->
                                                 </div>
@@ -729,7 +729,7 @@
                                                             <img src="/image/Travel-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=coach&div=Club/Travel`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?pageOption=coach&div=Club/Travel`)">
                                                         <p>Travel coaches</p>
                                                     </div> -->
                                                 </div>
@@ -742,7 +742,7 @@
                                                             <img src="/image/Local-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=legend`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?pageOption=legend`)">
                                                         <p>Local instructors</p>
                                                     </div> -->
                                                 </div>
@@ -755,7 +755,7 @@
                                                             <img src="/image/Best-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?sort=rated`)">
                                                         <p>Best rated coaches</p>
                                                     </div> -->
                                                 </div>
@@ -768,7 +768,7 @@
                                                             <img src="/image/Worst-Coaches.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=Worst`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?sort=Worst`)">
                                                         <p>Worst rated coaches</p>
                                                     </div> -->
                                                 </div>
@@ -781,7 +781,7 @@
                                                             <img src="/image/Most-Connected.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?sort=rated`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?sort=rated`)">
                                                         <p>Healthiest coaches</p>
                                                     </div> -->
                                                 </div>
@@ -794,7 +794,7 @@
                                                             <img src="/image/ProductsServices.gif" alt="">
                                                         </figure>
                                                     </div>
-                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/search_result?pageOption=product`)">
+                                                    <!-- <div class="activity-inner-caption" @click="$router.push(`/coach_search?pageOption=product`)">
                                                         <p>Products & services</p>
                                                     </div> -->
                                                 </div>
