@@ -133,7 +133,7 @@
                                 </div>
                             </form>
                             <p class="by">By creating an account, you agree to Conditions Flank's of Use and Privacy Notice</p>
-                            <p>Already have an account? <router-link to='/nlogin/signin' class="sign-in">Sign in</router-link></p>
+                            <p>Already have an account? <router-link to='/login' class="sign-in">Sign in</router-link></p>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -187,10 +187,11 @@ export default {
             this.formData.packType = 1
             const res = await this.callApi('post','/users',this.formData)
             if(res.status==200){
-                this.s('Registration Successfull !')
+                this.s('Registration Completed !')
+              
                
-                 this.$router.push('/nlogin/step2')
-                
+                 this.$router.push('/login')
+                  this.i('Please Login!')
             }
             else if(res.status === 400){
                 for(let d of res.data){
@@ -210,14 +211,14 @@ export default {
         },
         async goToGoogle(){
            // href="/login/facebook"
-          // window.location = '/login/FoulMethods'
-          let ob = {
+           window.location = '/authenticated/google'
+        //   let ob = {
               
-          }
-          const res = await this.callApi("get",'/login/FoulMethods')
-          if(res.status == 200){
-              console.log(res.data)
-          }
+        //   }
+        //   const res = await this.callApi("get",'/login/FoulMethods') 
+        //   if(res.status == 200){
+        //       console.log(res.data)
+        //   }
            
         },
     },
@@ -229,6 +230,11 @@ export default {
         }
     },
     created(){
+          if(this.isLoggedIn == true){
+                this.i('You Already Login!')
+                this.$router.push('/')
+                return
+            }
         this.signInfo.bColor = this.bColor1;
     }
 }

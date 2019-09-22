@@ -13,7 +13,7 @@
     });
 
     $(document).ready(function() {
-        $(window).trigger('resize');
+        $(window).trigger('resize'); 
 
         $(".right-search-icon").on("click", function() {
             $(this).toggleClass("active").siblings(".right-search-input").toggleClass("active");

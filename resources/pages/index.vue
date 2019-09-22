@@ -198,7 +198,7 @@
                                         <div class="inner-item-form">
                                             <form v-on:submit.prevent>
                                                 <div class="form-inner">
-                                                    <div class="form-inner-dropdown">
+                                                    <div class="form-inner-dropdown" @click="isDropOption = (isDropOption)? false : true" >
                                                         <div class="form-inner-drop-tit">
                                                             <label>{{(pageOption)? pageOption: 'Find'}}</label>
                                                             <span><i class="fas fa-caret-down"></i></span>
@@ -207,10 +207,10 @@
                                                     <!-- <label>Find</label> -->
                                                     <input type="text"  v-model="searchTxt" v-on:keyup.enter="$router.push(`/coach_search?str=${searchTxt}&pageOption=${pageOption}`)"  >
                                                     <button @click="$router.push(`/coach_search?str=${searchTxt}&pageOption=${pageOption}`)"><img src="/images/form-search.png" alt=""></button>
-                                                    <div class="form-main-dropdown">
+                                                    <div class="form-main-dropdown" v-if="isDropOption" >
                                                         <ul>
-                                                            <li><a @click="pageOption='school'">School Name</a></li>
-                                                            <li><a @click="pageOption='coach'">Coach Name</a></li>
+                                                            <li><a @click="pageOptionDropChange('school')">School Name</a></li>
+                                                            <li><a @click="pageOptionDropChange('coach')">Coach Name</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -998,6 +998,7 @@ export default {
       iamIndex: false,
       city:'All citys',
       allCity:[],
+      isDropOption:false,
     };
   },
   async asyncData({ app, store, redirect, params }) {
@@ -1012,6 +1013,12 @@ export default {
     }
   },
   methods: {
+    pageOptionDropChange(item){
+
+        this.pageOption= item
+        this.isDropOption = false
+       
+    },
     directToCoachWall(item){
        // return this.i();
        console.log(item)

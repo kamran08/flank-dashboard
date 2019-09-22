@@ -426,9 +426,9 @@
                                                     <p>Was this review ...?</p>
                                                     <div class="review-btn">
                                                         <ul>
-                                                            <li @click="reviewImo('cool',index,item)"  :class="(item.imosall.cool == 1)? 'active_imo' : ''" ><img src="/images/ic1.png" alt=""><span>Official</span> &nbsp;&nbsp;{{item.official}}</li>
-                                                            <li  @click="reviewImo('funny',index,item)" :class="(item.imosall.funny == 1)? 'active_imo' : ''" ><img src="/images/ic2.png" alt=""><span>Bravery Bagde</span> &nbsp;&nbsp;{{item.bravery}}</li>
-                                                            <li @click="reviewImo('useful',index,item)" :class="(item.imosall.useful == 1)? 'active_imo' : ''" ><img src="/images/ic3.png" alt=""><span>Distinguished</span> &nbsp;&nbsp;{{item.distinguished}}</li>
+                                                            <li @click="reviewImo('cool',index,item)"  :class="(item.imosall.cool >= 1)? 'active_imo' : ''" ><img src="/images/ic1.png" alt=""><span>Official</span> &nbsp;&nbsp;{{item.official}}</li>
+                                                            <li  @click="reviewImo('funny',index,item)" :class="(item.imosall.funny >= 1)? 'active_imo' : ''" ><img src="/images/ic2.png" alt=""><span>Bravery Bagde</span> &nbsp;&nbsp;{{item.bravery}}</li>
+                                                            <li @click="reviewImo('useful',index,item)" :class="(item.imosall.useful >= 1)? 'active_imo' : ''" ><img src="/images/ic3.png" alt=""><span>Distinguished</span> &nbsp;&nbsp;{{item.distinguished}}</li>
                                                         </ul>
                                                          <!-- <template v-if="item.imos" >
                                                                     <li   :class="(item.imos.acool)? 'imo_back' : ''" ><i class="fas fa-grin-beam"></i>&nbsp;Cool&nbsp;&nbsp;{{item.imos.cool}}</li>
@@ -464,7 +464,7 @@
 
                                     <div class="_1health_numbers" v-if="allTableData.healthSore">
                                         <p class="_1health_numbers_text"><span>100</span></p>
-                                        <p class="_1health_numbers_text" v-bind:style="{ top: (100-allTableData.healthSore.toFixed(2))+'%'}"><span>{{ allTableData.healthSore.toFixed(1)}}</span></p>
+                                        <p class="_1health_numbers_text" v-bind:style="{ top: (100-allTableData.healthSore.toFixed(2)  )+'%'}"><span>{{ allTableData.healthSore.toFixed(1)}}</span></p>
                                         <p class="_1health_numbers_text"><span>00</span></p>
                                     </div>
 
@@ -552,7 +552,36 @@
             </div>
         </div>
 
-        
+         <Modal title="Sign-In" v-model="loginModal">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="signcont-left">
+                           
+                            <form v-on:submit.prevent>
+                                <div class="group-item">
+                                    <label >Email</label>
+                                    <input type="email" v-model="formData.email">
+                                </div>
+                                <div class="group-item">
+                                    <label >Password</label>
+                                    <nuxt-link  class="group-item-right red-alert group-item-forgot-pass"  to='/authentication/resetpassword' >Fogot password?</nuxt-link>
+                                    <input type="password" v-model="formData.password">
+                                </div>
+                            </form>
+                            <p class="mar_b20">By continuing, you agree to Conditions Flank's of Use and Privacy Notice</p>
+                            <h5 class="mar_b30"><input type="checkbox" name="vehicle1" value="Bike"> Keep me sign in. <a href="#" class="sign-in">Details</a></h5>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div slot="footer">
+                <Button  @click="loginModal=false">Cancel</Button>
+                <Button type="info" @click="onSubmit">Login</Button>
+            </div>
+        </Modal>
 
         <footer class="new-footer">
             <div class="new-footer-top"></div>
@@ -567,6 +596,12 @@
 export default {
     data(){
         return{
+             loginModal:false,
+             formData:{
+                email:'',
+                password:'',
+                remember: false,
+            },
             imgName: '/uploads/default.png',
             askModal:false,
             answerModal:false,
@@ -666,6 +701,27 @@ export default {
             setTimeout(()=>{ this.$router.push(`/scoach_review/${this.$route.params.id}?star=${num}`) }, 1000)
             
         },
+         async onSubmit(){
+            if(this.formData.email == '') return this.i("email is empty")
+            if(this.formData.password == '') return this.i("Password is empty")
+            const res = await this.callApi('post','authentication/login',this.formData) 
+            if(res.status===200){
+                this.s("Login Successfully !")
+                this.$store.dispatch('setAuthInfo',res.data)
+
+               
+                 
+                  this.loginModal =false
+                  
+                
+            }
+            else if(res.status==401){
+                this.e(res.data.message)
+            }
+            else{
+                this.swr();
+            }
+        },
         async SearchReviewResult(){
            
             const res = await this.callApi('get', `reviews/${this.$route.params.id}?str=${this.reviewSearch}&type=school&sort=${this.sort}`)
@@ -738,15 +794,15 @@ export default {
 
         },
         async reviewImo(imo,index,imoItem){
-            if(this.isLoggedIn == false){
+             if(this.isLoggedIn == false){
                 this.i('Please login first !')
-                this.$router.push('/login');
+                this.loginModal = true
                 return
             }
             let imoData = {
                 review_id:this.reviews[index].id,
             }
-            imoData[imo] = (imoItem.imosall[imo] == 1)? -1: 1
+            imoData[imo] = (imoItem.imosall[imo] >= 1)? -1: 1
             imoData.key = imo
             const res = await this.callApi('post','/stoteCoachReviewImo',imoData)
             if(res.status===200){
@@ -825,6 +881,14 @@ export default {
                 return '0%'
             }
             return parseInt((item.totalPoints*100)/(item.points*item.totalvotes))+"%"
+        },
+        heathMeter(a){
+          
+            
+            if( a < 7) a += 5
+            if(a >93) a -= 5
+
+            return a
         }
     },
     async asyncData({app, store,redirect, params}){

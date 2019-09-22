@@ -317,7 +317,7 @@
                                         <div class="_2card_details">
                                             <div class="_2card_details_top">
                                                 <div class="_2card_details_left">
-                                                    <p class="_2title" @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}} </p>
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}} </p>
                                                     <div class="_1rating">
                                                         <ul class="_1rating_list">
                                                             <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
@@ -352,7 +352,11 @@
                                     <div class="_2coach_title">
                                         <p class="_2coach_title_one">Health Score:</p>
 
-                                        <p class="_2coach_title_two _2coach_title_two_red">+10.89 <span>91.98%</span></p>
+                                        <p class="_2coach_title_two _2coach_title_two_red"> {{ item | healthScore }}
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
                                     </div>
 
                                     <div class="_2coach_main_right_main">
@@ -854,6 +858,13 @@ export default {
         pagination: 'getPagination',
         pageOptinoInfo: 'getPageOptino'
         })
+    },
+    filters:{
+        healthScore(item){
+             let a = (item.avgRating.averageHealthy)? item.avgRating.averageHealthy : 0
+             let b = (item.avgRating.averageHarmful)? item.avgRating.averageHarmful : 0
+            return parseFloat( (parseFloat(a).toFixed(2) - parseFloat(b).toFixed(2) ) * 6.66  ).toFixed(2)
+        }
     },
    async  created(){
        

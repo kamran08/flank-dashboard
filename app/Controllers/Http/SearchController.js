@@ -95,7 +95,7 @@ class SearchController {
           builder.orderBy( attribute, 'desc')
         })
       }
-      if (rate) {
+      if (rate > 0) {
         data.where('avg_rating', '<=', rate)
       }
 

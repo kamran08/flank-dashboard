@@ -175,6 +175,36 @@
                 </div>
             </div>
         </div>
+         <Modal title="Sign-In" v-model="loginModal">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="signcont-left">
+                           
+                            <form v-on:submit.prevent>
+                                <div class="group-item">
+                                    <label >Email</label>
+                                    <input type="email" v-model="formData.email">
+                                </div>
+                                <div class="group-item">
+                                    <label >Password</label>
+                                    <nuxt-link  class="group-item-right red-alert group-item-forgot-pass"  to='/authentication/resetpassword' >Fogot password?</nuxt-link>
+                                    <input type="password" v-model="formData.password">
+                                </div>
+                            </form>
+                            <p class="mar_b20">By continuing, you agree to Conditions Flank's of Use and Privacy Notice</p>
+                            <h5 class="mar_b30"><input type="checkbox" name="vehicle1" value="Bike"> Keep me sign in. <a href="#" class="sign-in">Details</a></h5>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div slot="footer">
+                <Button  @click="loginModal=false">Cancel</Button>
+                <Button type="info" @click="onSubmit">Login</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -214,6 +244,12 @@ export default {
                 index:0,
             },
             onHover: false,
+            loginModal:false,
+             formData:{
+                email:'',
+                password:'',
+                remember: false,
+            },
             
             
         }
@@ -236,6 +272,27 @@ export default {
 		}
     },
     methods:{
+         async onSubmit(){
+            if(this.formData.email == '') return this.i("email is empty")
+            if(this.formData.password == '') return this.i("Password is empty")
+            const res = await this.callApi('post','authentication/login',this.formData) 
+            if(res.status===200){
+                this.s("Login Successfully !")
+                this.$store.dispatch('setAuthInfo',res.data)
+
+               
+                 
+                  this.loginModal =false
+                  
+                
+            }
+            else if(res.status==401){
+                this.e(res.data.message)
+            }
+            else{
+                this.swr();
+            }
+        },
         changeDataHover(index){
             this.drating.index = index
             this.onHover = true
@@ -265,9 +322,6 @@ export default {
         
         changeDataHoverLeave(){
             this.onHover = false
-            // this.drating.index = 0
-            // this.drating.class = 0
-            // this.drating.text = 0
         },
         changeOldRating(index){
              this.oldrating.index = index
@@ -296,7 +350,7 @@ export default {
         async postReview(){
              if(this.isLoggedIn == false){
                 this.i('Please login first !')
-                this.$router.push('/login');
+                this.loginModal = true
                 return
             }
             if(this.reviewData.content == ''){

@@ -59,7 +59,7 @@
                     </tr>
                   </table>
                   <h3 class="coach-table-bottom">Step 2 of 2</h3>
-                  <button class="submit-btn" @click="onSubmit" >Submit</button> <a @click="$router.push(`/scoach_review/step2/${review_id}`)" class="skip">(Skip)</a>
+                  <button class="submit-btn" @click="onSubmit" >Submit</button> <a @click="$router.push(`/school_coach/${reviewInfo.reviewFor}`)" class="skip">(Skip)</a>
                 </div>
               </div>
                <div class="col-md-6 col-sm-6 col-xs-12">

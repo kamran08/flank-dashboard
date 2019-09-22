@@ -369,6 +369,8 @@ class SchoolController {
     let data = request.all()
     const user_id = await auth.user.id
     data.reviwer_id = user_id
+    
+    
     let uploadList = []
     //const AttributeInfoAll = data.AttributeInfo
     // delete data.AttributeInfo
@@ -378,6 +380,14 @@ class SchoolController {
     data.review_type = 'school'
     const rdata = await Review.create(data)
 
+    if(data.review_type == 'school'){
+      let avg = await SchoolCoach.query().with('avgRating').where('id',data.reviewFor).first()
+      avg = JSON.parse(JSON.stringify(avg))
+      await SchoolCoach.query().where('id',data.reviewFor).update({
+        avg_rating:avg.avgRating.averageRating
+      })
+     
+    }
     // for (let i of tempUpload) {
     //   let ob = {
     //     url: i,
@@ -386,21 +396,7 @@ class SchoolController {
     //   uploadList.push(ob)
     // }
     //await ReviewImage.createMany(uploadList)
-    //let AttributeInfo = []
-    // for (let d of AttributeInfoAll) {
-    //   if (d.isPositive == '0' || d.isPositive == '1') {
-    //     let ob = {
-    //       review_id: rdata.id,
-    //       attribute_id: d.id,
-    //       user_id: user_id,
-    //       points: (d.isPositive == '0') ? (d.points * -1) : d.points
 
-    //     }
-    //     AttributeInfo.push(ob)
-    //   }
-    // }
-
-    //await ReviewAttribute.createMany(AttributeInfo)
     return rdata
   }
 
@@ -419,7 +415,7 @@ class SchoolController {
       //    .withCount('allreview as PositiveReview' ,(builder) => { builder.where('healthyIndex', '>', 'harmfulIndex')})
       // .withCount('allreview as NegativeReview' ,(builder) => { builder.where(' harmfulIndex', '>', 'healthyIndex')})
       .first()
-    let asss = await Database.raw('SELECT COUNT(id) as NegativeReview ,(SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ?) as PositiveReview   From `reviews` WHERE `healthyIndex` < `harmfulIndex` and `reviewFor` = ?', [params.id, params.id])
+    let asss = await Database.raw('SELECT (SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` < `harmfulIndex` and `reviewFor` = ?) as NegativeReview  , (SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ?) as PositiveReview ,  (cast(AVG(healthyIndex) as decimal(10,2))) AS avgHealthIndex , (cast(AVG(harmfulIndex) as decimal(10,2))) AS avgHarmfulIndex   From `reviews` WHERE   `reviewFor` = ?', [params.id, params.id,params.id])
 
     let legendData = await School.query()
       .where('id', params.id)
@@ -448,8 +444,8 @@ class SchoolController {
 
     let last10 = this.countLast10(data)
 
-    let healthSore = ((asss[0][0].PositiveReview - asss[0][0].NegativeReview) * 6.67)
-    let STI = streak + asss[0][0].PositiveReview + ((asss[0][0].PositiveReview - asss[0][0].NegativeReview) * 6.67)
+    let healthSore = ((asss[0][0].avgHealthIndex - asss[0][0].avgHarmfulIndex) * 6.66)
+    let STI = streak + asss[0][0].PositiveReview + ((asss[0][0].avgHealthIndex - asss[0][0].avgHarmfulIndex) * 6.66)
     return response.status(200).json({
       legendData: legendData,
       healthSoreIndex: healthSoreIndex,
@@ -496,15 +492,16 @@ class SchoolController {
       if (temp >= 10) {
         break
       } 
-      console.log(i.healthyIndex + " dfgdf " + i.harmfulIndex)
 
       if (i.healthyIndex >= i.harmfulIndex) {
         data.PositiveReview += 1
-        temp++
+       
       }
-
+      else {
+        data.NegativeReview += 1
+      }
+      temp++
     }
-    data.NegativeReview = 10 - data.PositiveReview
 
     return data
   }

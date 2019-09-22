@@ -135,8 +135,9 @@
                 </div>
             </div>
         </div>
+       
     </div>
-</template>
+</template> 
 <script>
 export default {
     middleware: 'guest',
@@ -147,11 +148,14 @@ export default {
                 password:'',
                 remember: false,
             },
+            
+
         }
     },
     methods:{
         async onSubmit(){
-            
+            if(this.formData.email == '') return this.i("email is empty")
+            if(this.formData.password == '') return this.i("Password is empty")
             const res = await this.callApi('post','authentication/login',this.formData) 
             if(res.status===200){
                 this.s("Login Successfully !")
@@ -177,7 +181,11 @@ export default {
         }
     },
     created(){
-      
+        if(this.isLoggedIn == true){
+                this.i('You Already Login!')
+                this.$router.push('/')
+                return
+            }
     }
 }
 </script>

@@ -645,13 +645,8 @@ class ReviewController {
     await ReviewAttribute.createMany(AttributeInfo)
     console.log(AttributeInfo.length)
     if(AttributeInfo.length>0){
-      if(index == 'Healthy')
-        await Review.query().where('id',AttributeInfoAll.review_id).update({
-          healthyIndex:AttributeInfo.length
-        })
-        else  await Review.query().where('id',AttributeInfoAll.review_id).update({
-          harmfulIndex:AttributeInfo.length
-        })
+      if(index == 'Healthy') await Database.raw('update `reviews` set `healthyIndex` = ?, `total` = ( healthyIndex - harmfulIndex ) where `id` = ?', [AttributeInfo.length,AttributeInfoAll.review_id])
+      else  await Database.raw('update `reviews` set `harmfulIndex` = ?, `total` = ( healthyIndex - harmfulIndex ) where `id` = ?', [AttributeInfo.length,AttributeInfoAll.review_id])
     }
     return response.status(200).json({
       msg: 'Atrribute Created!!',
