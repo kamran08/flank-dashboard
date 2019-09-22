@@ -189,9 +189,9 @@ export default {
             if(res.status==200){
                 this.s('Registration Completed !')
               
-               
+                window.location= '/flanker/'+res.data.id
                  this.$router.push('/login')
-                  this.i('Please Login!')
+                 
             }
             else if(res.status === 400){
                 for(let d of res.data){

@@ -55,7 +55,7 @@ class UserController {
     delete formInfo.password_confirmation
     const data = await User.create(formInfo)
 
-    //let user = await auth.query().attempt(formInfo.email, formInfo.password)
+    let user = await auth.query().attempt(formInfo.email, formInfo.password)
     return user
 
     // try {
