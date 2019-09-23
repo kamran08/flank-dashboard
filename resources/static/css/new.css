@@ -588,9 +588,16 @@ a.sign-social-facebook:focus{
 
 
 .write-review-box {
+    /* border: 1px solid #CCCCCC;
+    padding: 20px;
+    border-radius: 5px; */
+}
+
+.write-review-box-inner {
     border: 1px solid #CCCCCC;
     padding: 20px;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 .write-review-box-top{
     display: flex;
@@ -909,6 +916,32 @@ a.sign-social-facebook:focus{
     right: 0;
 }
 
+.play-coach {
+    display: flex;
+}
 
+.play-coach-input {
+    margin-left: 15px;
+}
 
+.play-coach-input ul {
+    display: table;
+}
 
+.play-coach-input ul li {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.play-coach-input ul li label {
+    font-weight: 400;
+    padding-left: 4px;
+}
+
+.play-coach-input ul li input {
+    vertical-align: text-bottom;
+}
+
+.post-btn {
+    margin-top: 10px;
+}

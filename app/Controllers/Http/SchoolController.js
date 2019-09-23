@@ -438,7 +438,7 @@ class SchoolController {
     let streak = this.countNumberOfPositiveReview(tempData)
 
 
-    let corruption = await Database.raw('SELECT COUNT(id) as totalCorruption From `review_attributes` WHERE `attribute_id` = 20 and `reviewFor` = ?', [params.id])
+    let corruption = await Database.raw('SELECT COUNT(id) as totalCorruption From `review_attributes` WHERE  (`attribute_id` = 16 or  `attribute_id` = 17)  and `reviewFor` = ?', [params.id])
 
     // let last10 = await Database.raw('SELECT COUNT(id) as NegativeReview ,(SELECT COUNT(id)  FROM `reviews` WHERE `healthyIndex` >= `harmfulIndex` and `reviewFor` = ? ORDER BY id DESC LIMIT 10) as PositiveReview From `reviews` WHERE `healthyIndex` < `harmfulIndex` and `reviewFor` = ? ORDER BY id DESC LIMIT 10 ', [params.id, params.id])
 
@@ -556,6 +556,9 @@ class SchoolController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
+  }
+  async test({ params, request, response }) {
+    return await SchoolCoach.query().where('id',123547).with('topAtrribute.info' ).first()
   }
 }
 

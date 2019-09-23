@@ -76,6 +76,7 @@ Route.get('/app/SearchByKeyProduct', 'SearchController.SearchByKeyProduct')
 Route.get('/app/SearchByKeySchool', 'SearchController.SearchByKeySchool')
 Route.get('/app/SearchByKeySchoolCoach', 'SearchController.SearchByKeySchoolCoach')
 Route.get('/app/getAllSports', 'SearchController.getAllSports')
+Route.get('/app/searchPlace', 'SearchController.searchPlace')
 
 // School --- Coaches
 Route.get('/app/schoolcoach/:id', 'SchoolController.showSchoolCoach')
@@ -116,7 +117,7 @@ Route.get('/login/facebook/image', 'SocialLoginController.getFBImage')
 // Social Login Google
 Route.get('/login/google', 'SocialLoginController.googleRedirect')
 Route.get('/login/FoulMethods', 'UserController.FoulMethods')
-Route.get('/social/test', 'SocialLoginController.test')
+Route.get('/social/test', 'SchoolController.test')
 Route.get('/social/test2', 'SocialLoginController.test2')
 Route.get('/authenticated/google', 'SocialLoginController.googleCallback')
 

@@ -62,6 +62,7 @@ class CoachController {
     const legendData = await SchoolCoach.query()
     .where('id', params.id)
     .withCount('allreview')
+    .with('topAtrribute.info' )
     .with('school')
    // .withCount('school.questions')
     .with('school', (builder) => {

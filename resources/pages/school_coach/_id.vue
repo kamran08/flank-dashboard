@@ -209,35 +209,78 @@
                                         </table>
                                     </div>
                                 </div>
+                                
+
+
+
+
+
+                                <!-- new flank -->
                                 <div class="inner-item-review-sec">
                                     <div class="left-linear-border">
 
                                     </div>
-                                    <div class="inner-item-rev-item" v-for="(item,index) in topReviews" :key="index" >
-                                        <figure>
-                                            <img src="/images/act.png" alt="">
-                                        </figure>
-                                        <div class="rev-item-caption">
-                                            <p class="readmore">"{{item.content}}"</p>
+                                    <div class="inner-item-review-title">
+                                        <h4>Review Highlights</h4>
+                                    </div>
+                                    <div class="inner-item-reco-details">
+                                        <div class="inner-item-rev-item" v-for="(item,index) in topReviews" :key="index" >
+                                            <figure>
+                                                <img src="/images/act.png" alt="">
+                                            </figure>
+                                            <div class="rev-item-caption">
+                                                <p class="readmore">"{{item.content}}"</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="inner-item-rev-item">
-                                        <figure>
-                                            <img src="/images/act.png" alt="">
-                                        </figure>
-                                        <div class="rev-item-caption">
-                                            <p>"From the AD to the coach to the friendly pitching coach you can't go wrong with playing at St. Bonaventure."</p>
-                                        </div>
-                                    </div>
-                                    <div class="inner-item-rev-item">
-                                        <figure>
-                                            <img src="/images/act.png" alt="">
-                                        </figure>
-                                        <div class="rev-item-caption">
-                                            <p>"Met coach Efren and had a friendly conversation... nice guy."</p>
-                                        </div>
-                                    </div> -->
                                 </div>
+
+                                <div class="inner-item-review-sec">
+                                    <div class="inner-item-known-title">
+                                        <h4>Known For</h4>
+                                    </div>
+                                    <div class="inner-item-known-details" v-if="legendData.topAtrribute" >
+                                        <div class="inner-item-known-item" v-for="(item,index) in legendData.topAtrribute" :key="index" >
+                                            <figure>
+                                                <img :src="item.info.image" alt="">
+                                            </figure>
+                                            <div class="known-item-caption">
+                                                <p>{{item.info.content}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="inner-item-known-item">
+                                            <figure>
+                                                <img src="/images/102.gif" alt="">
+                                            </figure>
+                                            <div class="known-item-caption">
+                                                <p>Remembers their promises</p>
+                                            </div>
+                                        </div>
+                                        <div class="inner-item-known-item">
+                                            <figure>
+                                                <img src="/images/101.gif" alt="">
+                                            </figure>
+                                            <div class="known-item-caption">
+                                                <p>Creates a Healthy Environment</p>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="inner-item-known-item">
+                                            <figure>
+                                                <img src="/images/103.gif" alt=""> 
+                                            </figure>
+                                            <div class="known-item-caption">
+                                                <p>Extension of your Parents</p>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="more-att">
+                                        <!-- <p><a href="">26 More Attributes</a></p> -->
+                                    </div>
+                                </div>
+
+
+
+
                                 <div class="inner-item-reco-sec inner-item-reco-sec-one">
                                     <div class="inner-item-reco-title">
                                         <h4>Ask The Community</h4>
@@ -247,25 +290,26 @@
                                             <img src="/images/sticker-3.png" alt="">
                                         </figure>
                                         <div class="top-con-cap one-top-cont-cap">
-                                            <p><span>Don't see your question?</span> Ask your varified audience</p>
+                                            <p>Don't see your question? <span>Ask your varified audience! <a href="">(Click Here)</a></span> </p>
                                         </div>
                                     </div>
                                     <div class="new-flank-form">
                                         <div class="inner-one-item-cont">
                                             <div class="new-flank-search inner-item-one-cont-left">
-                                                <p><strong>Does this coach have college connections? if so,to what school</strong></p>
+                                                <h4>Question:</h4>
+                                                <p>Does this coach have college connections? if so,to what school ? <span><i class="fas fa-caret-down"></i></span></p>
                                             </div>
-                                            <div class="new-flank-sort inner-item-one-cont-right">
-                                                <i class="fas fa-caret-down"></i>
+                                            <!-- <div class="new-flank-sort inner-item-one-cont-right">
+                                                
                                                 <div class="new-flank-img">
                                                     <figure>
                                                         <img src="/images/nf.png" alt="">
                                                     </figure>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="new-flank-coach-rev">
-                                            <div class="coach-rev-fixed coach-rev-fixed-one">
+                                            <!-- <div class="coach-rev-fixed coach-rev-fixed-one">
                                                 <figure>
                                                     <img src="/images/fixed-img.png" alt="">
                                                 </figure>
@@ -277,16 +321,21 @@
                                                         <li><img src="/images/mstar.png" alt=""><span></span></li>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="inner-one-item-help-area2">
                                                <h6 class="help-ans">1.answer</h6>
                                                <p class="help-text">
                                                    my son palyed really well and had the skills to advance,however,the coach had on conections to help
                                                </p>
                                                <div class="inner-one-item-help-btn">
-                                                   <a href="#" class="view-question-btn">view questions details</a>
-                                                   <a href="#" class="helpful"><i class="fas fa-long-arrow-alt-up"></i>helpful</a>
-                                                   <a href="#" class="most-helpful"><i class="fas fa-long-arrow-alt-down"></i>most helpful</a>
+                                                   <p class="view-question-btn"><a href="">View questions details</a></p>
+                                                   <div class="helpful-btn-full">
+                                                       <ul>
+                                                           <li><a href="#" class="helpful"><i class="fas fa-long-arrow-alt-up"></i>helpful</a></li>
+                                                           <li><a href="#" class="most-helpful"><i class="fas fa-long-arrow-alt-down"></i>most helpful</a></li>
+                                                       </ul>
+                                                   </div>
+                                                   
                                                </div>
                                             </div>
                                         </div>
@@ -631,6 +680,7 @@ export default {
             sort:'',
             value2: 0,
             topReviews: [],
+            
             
             chartData: [
                 ['Days', 'Ratings'],

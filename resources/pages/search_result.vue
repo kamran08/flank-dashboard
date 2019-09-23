@@ -313,7 +313,7 @@
                                         </div>
                                         <div class="sponsor-media-body">
                                             <div class="body-part-one">
-                                                <h3 > <a @click="$router.push(`school/${item.id}`)" >{{item.schoolName}} {{item.sport}} </a></h3>
+                                                <h3 > <a @click="$router.push(`school/${item.id}`)" > {{item.schoolName}} {{item.sport}} </a></h3>
                                                 <div class="badge-review">
                                                     <p>
                                                         <!-- <span class="rating-bg high"><i class="fas fa-star"></i></span>

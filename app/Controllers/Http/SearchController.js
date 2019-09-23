@@ -7,6 +7,7 @@ const Legend = use('App/Models/Legend')
 const School = use('App/Models/School')
 const SchoolCoach = use('App/Models/SchoolCoach')
 const Product = use('App/Models/Product')
+const Place = use('App/Models/Place')
 const Database = use('Database')
 var _ = require('lodash')
 
@@ -22,7 +23,7 @@ class SearchController {
     let attribute = request.input('attribute') ? request.input('attribute') : ''
     let div = request.input('div') ? request.input('div') : ''
     let pageOption = request.input('pageOption') ? request.input('pageOption') : 'legend'
-
+    
     let data = {}
     if (pageOption == 'legend') {
       console.log("i am here 9-21-2019")
@@ -72,16 +73,21 @@ class SearchController {
         data.orWhere('division', 'LIKE', '%' + place + '%')
       }
     } else if (pageOption == 'coach') {
+
       data =  SchoolCoach.query()
         .with('avgRating')
+        .with('topAtrribute.info' )
         .withCount('allreview as allreview')
         .with('school')
+
       if (div) {
+        console.log('div')
         data.whereHas('school', (builder) => {
           builder.where('division', div)
         })
       }
       if (sports) {
+        console.log('sports')
         var array = sports.split(",");
         
         
@@ -90,28 +96,31 @@ class SearchController {
         })
       }
       if (attribute) {
-       
+       console.log('attribute')
         data.whereHas('avgRating', (builder) => {
           builder.orderBy( attribute, 'desc')
         })
       }
       if (rate > 0) {
+        console.log("rate")
         data.where('avg_rating', '<=', rate)
       }
 
       if (str) {
+        
+        console.log('str')
         data.where('name', 'LIKE', '%' + str + '%')
       }
       if (place) {
-        
+        console.log('place')
          data.whereHas('school', (builder) => {
-           builder.orderBy( 'city', place)
+           builder.where('city', 'LIKE', '%' + place + '%')
          })
        }
     }
     if (sort == 'most') {
       data.orderBy('allreview', 'desc')
-    }
+     }
     let mdata = await data.paginate(page, 5)
     mdata = mdata.toJSON()
     let tempData = JSON.parse(JSON.stringify(mdata))
@@ -123,15 +132,23 @@ class SearchController {
         }
       }
     }
-    if (sort == 'rated') {
-      tempData.data = _.orderBy(tempData.data, 'avgRating.averageRating', 'desc')
-    } else if (sort == 'Worst') {
-      tempData.data = _.orderBy(tempData.data, 'avgRating.averageRating', 'ASC')
-    }
+
+    // if (sort == 'rated') {
+    //   tempData.data = _.orderBy(tempData.data, 'avgRating.averageRating', 'desc')
+    // } else if (sort == 'Worst') {
+    //   tempData.data = _.orderBy(tempData.data, 'avgRating.averageRating', 'ASC')
+    // }
 
     return tempData
   }
 
+  async searchPlace ({ request }) {
+   
+    let place = request.input('place') ? request.input('place') : ''
+    return await Place.query()
+      .where('name', 'LIKE', '%' + place+ '%')
+      .fetch()
+  }
   async SearchByKeyCoach ({ request }) {
     const data = request.all()
     return await Legend.query()

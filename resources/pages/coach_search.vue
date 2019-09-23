@@ -9,19 +9,35 @@
                     <form v-on:submit.prevent>
                         <div class="flank-new-indi">
                             <div class="new-flank-selection">
-                                <p>All <span><i class="fas fa-caret-down"></i></span></p>
+                                <p  @click="isStringMenu = (isStringMenu)? false : true" style="cursor:pointer;" > {{(pageOption)? pageOption: 'All'}} <span><i class="fas fa-caret-down"></i></span></p>
+                                <div class="new-flank-selection-dropdown" v-if="isStringMenu"  >
+                                    <ul>
+                                        <li><a @click="pageOptionDropChange('school')">School</a></li>
+                                        <li><a @click="pageOptionDropChange('coach')">Coach</a></li>
+                                        <li><a @click="pageOptionDropChange('legend')">Legend</a></li>
+                                        <li><a @click="pageOptionDropChange('product')">Coach</a></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="new-flank-input">
-                                <input type="text" v-model="str" v-on:change="SearchByKey" >
+                                <input type="text" v-model="str" v-on:keyup="SearchByKey" >
                             </div>
                         </div>
                         <div class="flank-new-indi">
                             <div class="new-flank-selection">
-                                <p>Near</p>
+                                <p>City</p>
                             </div>
                             <div class="new-flank-input">
-                                <input type="text" v-model="place" v-on:change="SearchByKey" >
+                                <input type="text" v-model="place" v-on:keyup="searchPlace" >
+                                <div class="new-flank-indi-dropdown" v-if="allPlaces.length>0 && place != ''" >
+                                    <ul class="ssrolable" >
+                                        <li v-for="(item,index) in allPlaces" :key="index" >
+                                            <a @click="letChangePlace(item)">{{item.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+                            
                         </div>
                         <div class="flank-new-search">
                             <button @click="SearchByKey" ><span><i class="fas fa-search"></i></span></button>
@@ -75,6 +91,7 @@
                 <div class="new-flank-sidebar-list">
                     <h3>Department</h3>
                     <ul class="pad-list">
+                        <li @click="chnageType('school')" ><a :class="(pageOption == 'school')? 'active_coach': ''">Schools</a></li>
                         <li @click="chnageType('coach', 'High School')" ><a :class="(pageOption == 'coach' && div == 'High School')? 'active_coach': ''">High school coaches</a></li>
                         <li @click="chnageType('coach', 'Junior College')" ><a :class="(pageOption == 'coach' && div == 'Junior College')? 'active_coach': ''">College coaches</a></li>
                         <li @click="chnageType('coach', 'all')" ><a :class="(pageOption == 'coach' && div == 'all')? 'active_coach': ''">Professional sports</a></li>
@@ -301,7 +318,9 @@
                         </div>
                     </div>
                 </div>
+
                 <div v-if="!isLoading && searchData.length>0" >
+
                     <div class="_1coach_items" v-if="pageOptinoInfo == 'coach'"  v-for="(item,index) in searchData" :key="index"  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
@@ -359,10 +378,37 @@
                                         </p>
                                     </div>
 
-                                    <div class="_2coach_main_right_main">
+                                    <div class="_2coach_main_right_main"  v-if="item.topAtrribute.length>0">
                                         <p class="_2coach_main_right_title">Known for:</p>
 
-                                        <ul class="_2coach_main_right_list">
+                                        <ul class="coach-main-known-list"  >
+                                            <li  v-for="(item,index) in item.topAtrribute" :key="index">
+                                                <figure>
+                                                    <img :src="item.info.image" alt="">
+                                                </figure>
+                                                <p>{{item.info.content}}</p>
+                                            </li>
+                                            <!-- <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li> -->
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
                                             <li>
                                                 <i class="fab fa-algolia"></i>
                                                 Health Score 55 out of 100
@@ -404,18 +450,15 @@
                                                 <i class="fab fa-algolia"></i>
                                                 Paking Private Lot
                                             </li>
-                                        </ul>
+                                        </ul> -->
                                     </div>
                                 </div>
                                 <!-- Right -->
                             </div>
                         </div>
                     </div>
-               
-                
-
-                    <div class="_1coach_items" v-if="pageOptinoInfo == 'legend'" v-for="(item,index) in searchData" :key="index" >
-                        <p class="worst yellow">Best Rated</p>
+                    <div class="_1coach_items" v-if="pageOptinoInfo == 'school'"  v-for="(item,index) in searchData" :key="index"  >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
                             <div class="row">
@@ -429,20 +472,20 @@
                                         <div class="_2card_details">
                                             <div class="_2card_details_top">
                                                 <div class="_2card_details_left">
-                                                    <p class="_2title">Our Top Choice</p>
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school/${item.id}`)" >{{item.schoolName}} {{item.sport}} </p>
                                                     <div class="_1rating">
                                                         <ul class="_1rating_list">
-                                                            <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                            <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                            <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                            <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                            <li class=""><i class="fas fa-star"></i></li>
-                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
 
-                                                <p class="_2card_details_city">City/State</p>
+                                                <p class="_2card_details_city">{{item.city}}/{{item.state}}</p>
                                             </div>
                                             <p class="_2card_status _2taxt">
                                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -453,7 +496,7 @@
                                                 <a href="" class="see_more">See more</a>
                                             </p>
 
-                                            <button class="_1btn">Write a Review</button>
+                                            <!-- <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -464,13 +507,44 @@
                                     <div class="_2coach_title">
                                         <p class="_2coach_title_one">Health Score:</p>
 
-                                        <p class="_2coach_title_two">+10.89 <span>91.98%</span></p>
+                                        <p class="_2coach_title_two _2coach_title_two_red"> 10.00
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
                                     </div>
 
                                     <div class="_2coach_main_right_main">
                                         <p class="_2coach_main_right_title">Known for:</p>
 
-                                        <ul class="_2coach_main_right_list">
+                                        <ul class="coach-main-known-list">
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
                                             <li>
                                                 <i class="fab fa-algolia"></i>
                                                 Health Score 55 out of 100
@@ -483,7 +557,7 @@
 
                                             <li>
                                                 <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
+                                            Accepts Credit Cards Yes
                                             </li>
 
                                             <li>
@@ -512,16 +586,290 @@
                                                 <i class="fab fa-algolia"></i>
                                                 Paking Private Lot
                                             </li>
-                                        </ul>
+                                        </ul> -->
                                     </div>
                                 </div>
                                 <!-- Right -->
                             </div>
                         </div>
                     </div>
-                 
+                    <div class="_1coach_items" v-if="pageOptinoInfo == 'legend'"  v-for="(item,index) in searchData" :key="index"  >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
-                    <div class="_1coach_items" v-if="pageOptinoInfo == 'product'" v-for="(item,index) in searchData" :key="index" >
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/profile/${item.id}`)" >{{item.name}} - </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.address}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <!-- <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right">
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red">10.00
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list">
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="_1coach_items" v-if="pageOptinoInfo == 'product'"  v-for="(item,index) in searchData" :key="index"  >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/product/${item.id}`)" >{{item.name}} </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.address}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <!-- <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right"> 
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red"> 10.00
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list">
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                 <div class="_1coach_items"  >
                         <div class="_1coach_barch">
                             <p class="worst black">Flank's <span>Chocie</span></p>
                             <p class="_1title">Higly rated, sustainable instructors that benefit the players communities where they coach</p>
@@ -635,7 +983,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
                
 
@@ -678,6 +1025,7 @@ export default {
             sstr:1,
             splace:1,
             sports:[],
+            allPlaces:[],
             allSports:[],
             filterFlag:false,
             pageOption: 'coach',
@@ -685,6 +1033,7 @@ export default {
             showCurrentPage:0,
             sort:'normal',
             isLoading:true,
+            isStringMenu:false,
             dropName:'',
             div:'High School',
             drating:{
@@ -785,6 +1134,13 @@ export default {
             this.changeSortName(item)
             this.SearchByKey()
         },
+        pageOptionDropChange(item){
+
+            this.pageOption= item
+            this.isStringMenu = false
+            this.SearchByKey()
+        
+        },  
         changeSortName(item){
             if(item == 'normal')
                 this.dropName = 'Recomended'
@@ -832,26 +1188,26 @@ export default {
                 this.isLoading = false
             }
         },
+        async searchPlace(){
+             const res = await this.callApi('get', `/app/searchPlace?place=${this.place}`)
+            if(res.status === 200){
+               this.allPlaces = res.data
+            }
+            else{
+                this.swr();
+                this.isLoading = false
+            }
+        },
         filterFlagAction(){
             this.filterFlag = (this.filterFlag)? false : true
+        },
+        letChangePlace(item){
+           this.place = item.name
+           this.allPlaces = []
+           this.SearchByKey();
         }
 
     },
-//      async asyncData({app, store,redirect, params,query}){
-//         try {
-//             let
-//             let {data} = await app.$axios.get(`/app/SearchData?place=${query.place}&str=${query.str}&pageOption=legend`)
-          
-//             return{
-//                 searchData : data.data,
-//                 pagination : data,
-               
-
-//             }
-// 		}catch (error) {
-//             return redirect('/')
-// 		}
-//    },
     computed: {
         ...mapGetters({
         searchData: 'getSearchData',
@@ -904,5 +1260,9 @@ export default {
 .active_coach{
     color: red !important;
 }
-
+.ssrolable{
+	max-height: 250px;
+    overflow: auto;
+    z-index: 111;
+}
 </style>

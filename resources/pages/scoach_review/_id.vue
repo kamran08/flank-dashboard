@@ -37,33 +37,44 @@
                             </div>
                             <div class="write-review-box">
                                 <form v-on:submit.prevent >
-                                    <div class="write-review-box-top mar_b20">
-                                        <ul class="review-star-list" v-if="onHover" >
-                                            <li  @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(1)" :class="(drating.index > 0)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li   @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave" @click="changeOldRating(2)"  :class="(drating.index > 1)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li   @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave" @click="changeOldRating(3)"  :class="(drating.index > 2)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(4)" :class="(drating.index > 3)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(5)" :class="(drating.index > 4)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                        </ul>
-                                        <ul class="review-star-list" v-else >
-                                            <li  @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 0)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li   @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 1)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li   @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 2)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 3)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                            <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 4)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
-                                        </ul>
-                                    <span v-if="onHover">{{(drating.text)? drating.text : 'Select your rating'}}</span>
-                                    <span v-else >{{(oldrating.text)? oldrating.text : 'Select your rating'}}</span>
+                                    <div class="write-review-box-inner">
+                                        <div class="write-review-box-top mar_b20">
+                                            <ul class="review-star-list" v-if="onHover" >
+                                                <li  @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(1)" :class="(drating.index > 0)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li   @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave" @click="changeOldRating(2)"  :class="(drating.index > 1)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li   @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave" @click="changeOldRating(3)"  :class="(drating.index > 2)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(4)" :class="(drating.index > 3)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRating(5)" :class="(drating.index > 4)? drating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            </ul>
+                                            <ul class="review-star-list" v-else >
+                                                <li  @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 0)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li   @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 1)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li   @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 2)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 3)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                                <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 4)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
+                                            </ul>
+                                        <span v-if="onHover">{{(drating.text)? drating.text : 'Select your rating'}}</span>
+                                        <span v-else >{{(oldrating.text)? oldrating.text : 'Select your rating'}}</span>
+                                        </div>
+                                    <!-- <ul class="write-review-box-cont mar_b20">
+                                        <li>Your review help us to learn about good and bad coaches. </li>
+                                        <li>You have been lied to. </li>
+                                        <li>You have been lied to. </li>
+                                        <li>You have been lied to. </li>
+                                        <li>You have been lied to. </li>
+                                    </ul> -->
+                                    <div class="write-review-input-box">    
+                                        <textarea  v-model="reviewData.content" name="" id="" cols="30" rows="10" placeholder="Your review help us to learn about good and bad coaches"></textarea>   
                                     </div>
-                                <!-- <ul class="write-review-box-cont mar_b20">
-                                    <li>Your review help us to learn about good and bad coaches. </li>
-                                    <li>You have been lied to. </li>
-                                    <li>You have been lied to. </li>
-                                    <li>You have been lied to. </li>
-                                    <li>You have been lied to. </li>
-                                </ul> -->
-                                <div class="write-review-input-box">    
-                                    <textarea  v-model="reviewData.content" name="" id="" cols="30" rows="10" placeholder="Your review help us to learn about good and bad coaches"></textarea>   
+                                </div>
+                                <div class="play-coach">
+                                    <p>Do you actively play for this coach?</p>
+                                    <div class="play-coach-input">
+                                        <ul>
+                                            <li><input type="radio" id="coach1"  name="coach"><label for="#coach1">Yes</label></li>
+                                            <li><input type="radio" id="coach2" name="coach"><label for="#coach2">No</label></li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <button class="block-btn post-btn" @click="postReview">Post Review</button>
                                </form>
