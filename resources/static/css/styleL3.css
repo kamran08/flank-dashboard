@@ -617,7 +617,7 @@ a.sign-social-facebook:focus {
 
 .new-flank-nav {
   background: #000;
-  z-index: 1111;
+  z-index: 11;
   position: relative;
 }
 
@@ -674,7 +674,7 @@ a.sign-social-facebook:focus {
 }
 
 .new-flank-selection {
-  flex: 0 0 16%;
+  flex: 0 0 18%;
   background: #f4f4f4;
   border-radius: 5px 0 0 5px;
   padding: 5px;

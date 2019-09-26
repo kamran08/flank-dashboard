@@ -32,6 +32,9 @@ class Legend extends Model {
   // avgRating () {
   //   return this.hasOne('App/Models/Review', 'id', 'reviewFor')
   // }
+  topAtrribute () {
+    return this.hasMany('App/Models/ReviewAttribute', 'id', 'reviewFor').where('review_type', 'legend').select( 'reviewFor' , 'attribute_id', Database.raw('COUNT(id) as total')).groupBy('attribute_id').limit(4);
+  }
 
 }
 

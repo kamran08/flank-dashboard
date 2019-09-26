@@ -25,14 +25,9 @@ class SearchController {
     let pageOption = request.input('pageOption') ? request.input('pageOption') : 'legend'
     
     let data = {}
+   
     if (pageOption == 'legend') {
-      console.log("i am here 9-21-2019")
       data =  Legend.query()
-        .select('id')
-        .select('name')
-        .select('phone')
-        .select('address')
-        .select('img')
         .with('avgRating')
         .withCount('totalReview as allreview')
 
@@ -40,8 +35,14 @@ class SearchController {
         data.where('name', 'LIKE', '%' + str + '%')
       }
       if (place) {
-        data.where('address', 'LIKE', '%' + place + '%')
+        data.where('city', 'LIKE', '%' + place + '%')
       }
+
+      similar = Legend.query() 
+                      .with('avgRating')
+                      .withCount('totalReview as allreview')
+                      .where('city', 'LIKE', '%' + place + '%')
+
     }    else if (pageOption == 'product') {
       data =  Product.query()
         .with('avgRating')
@@ -78,60 +79,127 @@ class SearchController {
         .with('avgRating')
         .with('topAtrribute.info' )
         .withCount('allreview as allreview')
+        
         .with('school')
 
       if (div) {
-        console.log('div')
         data.whereHas('school', (builder) => {
           builder.where('division', div)
         })
       }
       if (sports) {
-        console.log('sports')
         var array = sports.split(",");
-        
-        
         data.whereHas('school', (builder) => {
           builder.whereIn('sport', array)
         })
       }
       if (attribute) {
-       console.log('attribute')
         data.whereHas('avgRating', (builder) => {
           builder.orderBy( attribute, 'desc')
         })
       }
       if (rate > 0) {
-        console.log("rate")
         data.where('avg_rating', '<=', rate)
       }
 
       if (str) {
-        
-        console.log('str')
         data.where('name', 'LIKE', '%' + str + '%')
       }
       if (place) {
-        console.log('place')
          data.whereHas('school', (builder) => {
            builder.where('city', 'LIKE', '%' + place + '%')
          })
        }
+
+      
     }
     if (sort == 'most') {
       data.orderBy('allreview', 'desc')
      }
-    let mdata = await data.paginate(page, 5)
+    let mdata = await data.paginate(page, 10)
     mdata = mdata.toJSON()
     let tempData = JSON.parse(JSON.stringify(mdata))
+    let similar = {};
+    let ids = [];
+    let school_ids = 0
+    let states = 0
+     if(tempData.data.length>0){
 
-    for (let d of tempData.data) {
-      if (d.avgRating == null) {
-        d.avgRating = {
-          averageRating: 0
+      for (let d of tempData.data) {
+        if (d.avgRating == null) {
+          d.avgRating = {
+            averageRating: 0 
+          };
         }
+        ids.push(d.id)
+       
       }
-    }
+      if(pageOption == 'coach'){
+        
+        states = tempData.data[0].school.state
+        school_ids = tempData.data[0].school.id
+        console.log("i am here")
+        console.log(states)
+        console.log(school_ids)
+        similar = await SchoolCoach.query() 
+                              .with('avgRating')
+                              .with('topAtrribute.info' )
+                              .withCount('allreview as allreview')
+                              .with('school')
+                              .whereHas('school', (builder) => {
+                                builder.where('state',states)
+                               // builder.orWhere('city',  place)
+                              })
+                              .whereNotIn('id',ids)
+                              .limit(40).fetch()
+        }
+       
+        else if(pageOption == 'legend'){
+          states = tempData.data[0].state
+          similar = await Legend.query() 
+                                .with('avgRating')
+                                .with('topAtrribute.info' )
+                                .withCount('allreview as allreview')
+                                .where( (builder) => {
+                                  builder.where('city', 'LIKE', '%' + place + '%')
+                                  builder.orWhere('state', 'LIKE', '%' + states + '%')
+                                })
+                                
+                                .whereNotIn('id',ids).limit(40).fetch()
+        }
+        else if(pageOption == 'school'){
+          school_ids = tempData.data[0].id
+          states = tempData.data[0].state
+          similar = await SchoolCoach.query() 
+                                .with('avgRating')
+                                .with('topAtrribute.info' )
+                                .withCount('allreview as allreview')
+                                .where('school_id',   school_ids)
+                                .whereHas('school', (builder) => {
+                                  builder.where('city', 'LIKE', '%' + place + '%')
+                                  builder.orWhere('state', 'LIKE', '%' + states + '%')
+                                  
+                                })
+                                
+                                .limit(40).fetch()
+        }
+
+        similar = JSON.parse(JSON.stringify(similar))
+          for (let d of similar) {
+            if (d.avgRating == null) {
+              d.avgRating = {
+                averageRating: 0 
+              };
+            }
+    
+          
+          }
+      }
+        
+
+
+
+     
 
     // if (sort == 'rated') {
     //   tempData.data = _.orderBy(tempData.data, 'avgRating.averageRating', 'desc')
@@ -139,7 +207,11 @@ class SearchController {
     //   tempData.data = _.orderBy(tempData.data, 'avgRating.averageRating', 'ASC')
     // }
 
-    return tempData
+   
+    return response.status(200).json({
+      mainData : tempData,
+      similarData: similar
+    })
   }
 
   async searchPlace ({ request }) {

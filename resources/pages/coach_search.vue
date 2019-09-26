@@ -15,20 +15,20 @@
                                         <li><a @click="pageOptionDropChange('school')">School</a></li>
                                         <li><a @click="pageOptionDropChange('coach')">Coach</a></li>
                                         <li><a @click="pageOptionDropChange('legend')">Legend</a></li>
-                                        <li><a @click="pageOptionDropChange('product')">Coach</a></li>
+                                        <li><a @click="pageOptionDropChange('product')">Products</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="new-flank-input">
-                                <input type="text" v-model="str" v-on:keyup="SearchByKey" >
+                                <input type="text" v-model="str" @enter="SearchByKey" >
                             </div>
                         </div>
-                        <div class="flank-new-indi">
+                        <div class="flank-new-indi" v-if=" pageOption != 'product' "  >
                             <div class="new-flank-selection">
                                 <p>City</p>
                             </div>
-                            <div class="new-flank-input">
-                                <input type="text" v-model="place" v-on:keyup="searchPlace" >
+                            <div class="new-flank-input" >
+                                <input type="text" v-model="place" v-on:keyup="searchPlace" @enter="SearchByKey"  >
                                 <div class="new-flank-indi-dropdown" v-if="allPlaces.length>0 && place != ''" >
                                     <ul class="ssrolable" >
                                         <li v-for="(item,index) in allPlaces" :key="index" >
@@ -74,7 +74,7 @@
 
         <div class="new-search-flank">
             <div class="new-search-flank-num">
-                <p>1-5 of over {{pagination.total}} results for <span>"{{str}}"</span></p>
+                <p v-if="showStr" >  1-5 of over {{pagination.total}} results for <span>"{{showStr}}"</span></p>
             </div>
             <div class="new-search-flank-sort">
                 <select name="" id="">
@@ -145,8 +145,9 @@
                      </CheckboxGroup>
                 </div>
             </div>
-            <div class="new-flank-content">
-                <div class="new-flank-content-rev">
+            <div class="new-flank-content"    >
+
+                <div class="new-flank-content-rev" v-if="!isLoading && searchData.length>0"  >
                     <div class="new-content-rev-title">
                         <h2>Your past reviews</h2>
                         <p><a href="">See all past reviews</a></p>
@@ -184,141 +185,6 @@
                     </div>
                 </div>
 
-                <div class="_1coach_items">
-                    <div class="_1coach_top">
-                        <div class="_1coach_top_pic">
-                            <img class="_1coach_top_img" src="images/fla.png" alt="" title="">
-                        </div>
-
-                        <div class="_1coach_top_right">
-                            <p class="_1title">Editorial recommendations</p>
-
-                            <p class="_1coach_top_by">By <a href="">Flank</a> | </p>
-                        </div>
-                    </div>
-
-                    <div class="_1coach_main">
-                        <div class="row">
-                            <div class="col-xl-12 col-md-6 col-lg-3">
-                                <div class="_1coach_main_one">
-                                    <p class="_1title">Best Coach Reviews: The Ultimate List</p>
-
-                                    <p class="_1coach_time">Sept,11,2019</p>
-
-                                    <p class="_1coach_status">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                        officia deserunt mollit anim id est laborum.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Card Items -->
-                            <div class="col-xl-12 col-md-6 col-lg-3">
-                                <div class="_1card">
-                                    <p class="_2title">Our Top Choice</p>
-
-                                    <p class="_1card_subtitle">Coach Name - Sport Type City/State</p>
-
-                                    <div class="_1card_pic">
-                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
-                                    </div>
-
-                                    <div class="_1card_details">
-                                        <p class="_3title">Coach Name - Sport Type City/State</p>
-                                        <div class="_1rating">
-                                            <ul class="_1rating_list">
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class=""><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
-                                            </ul>
-                                        </div>
-                                        <p class="_1card_tag">67.0 Health Seore</p>
-                                        <p class="_1text">
-                                            When you're after a true empowering coach
-                                            , coach Jhon Doe nails all the healthy coaching attributes.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card Items -->
-
-                            <!-- Card Items -->
-                            <div class="col-xl-12 col-md-6 col-lg-3">
-                                <div class="_1card">
-                                    <p class="_2title">Our Top Choice</p>
-
-                                    <p class="_1card_subtitle">Coach Name - Sport Type City/State</p>
-
-                                    <div class="_1card_pic">
-                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
-                                    </div>
-
-                                    <div class="_1card_details">
-                                        <p class="_3title">Coach Name - Sport Type City/State</p>
-                                        <div class="_1rating">
-                                            <ul class="_1rating_list">
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class=""><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
-                                            </ul>
-                                        </div>
-                                        <p class="_1card_tag">67.0 Health Seore</p>
-                                        <p class="_1text">
-                                            When you're after a true empowering coach
-                                            , coach Jhon Doe nails all the healthy coaching attributes.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card Items -->
-
-                            <!-- Card Items -->
-                            <div class="col-xl-12 col-md-6 col-lg-3">
-                                <div class="_1card">
-                                    <p class="_2title">Our Top Choice</p>
-
-                                    <p class="_1card_subtitle">Coach Name - Sport Type City/State</p>
-
-                                    <div class="_1card_pic">
-                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
-                                    </div>
-
-                                    <div class="_1card_details">
-                                        <p class="_3title">Coach Name - Sport Type City/State</p>
-                                        <div class="_1rating">
-                                            <ul class="_1rating_list">
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class=""><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
-                                            </ul>
-                                        </div>
-                                        <p class="_1card_tag">67.0 Health Seore</p>
-                                        <p class="_1text">
-                                            When you're after a true empowering coach
-                                            , coach Jhon Doe nails all the healthy coaching attributes.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card Items -->
-                        </div>
-                    </div>
-                </div>
-
                 <div v-if="!isLoading && searchData.length>0" >
 
                     <div class="_1coach_items" v-if="pageOptinoInfo == 'coach'"  v-for="(item,index) in searchData" :key="index"  >
@@ -336,7 +202,7 @@
                                         <div class="_2card_details">
                                             <div class="_2card_details_top">
                                                 <div class="_2card_details_left">
-                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}} </p>
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}}  </p>
                                                     <div class="_1rating">
                                                         <ul class="_1rating_list">
                                                             <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
@@ -867,127 +733,1094 @@
                     </div>
                 </div>
 
-
-
-                 <div class="_1coach_items"  >
-                        <div class="_1coach_barch">
-                            <p class="worst black">Flank's <span>Chocie</span></p>
-                            <p class="_1title">Higly rated, sustainable instructors that benefit the players communities where they coach</p>
+                <div class="_1coach_items">
+                    <div class="_1coach_top">
+                        <div class="_1coach_top_pic">
+                            <img class="_1coach_top_img" src="images/fla.png" alt="" title="">
                         </div>
 
-                        <div class="_2coach_main">
-                            <div class="row">
-                                <!-- Card -->
-                                <div class="col-xl-12 col-md-3 col-lg-3">
-                                    <div class="_1card">
-                                        <p class="_1card_star">4 Stars & Up</p>
+                        <div class="_1coach_top_right">
+                            <p class="_1title">Editorial recommendations</p>
 
-                                        <div class="_1card_pic">
-                                            <img class="_1card_img" src="/images/ps.png" alt="" title="">
-                                        </div>
-
-                                        <div class="_1card_details">
-                                            <p class="_3title">Coach Name - Sport Type City/State</p>
-                                            <div class="_1rating">
-                                                <ul class="_1rating_list">
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class=""><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-
-                                <!-- Card -->
-                                <div class="col-xl-12 col-md-3 col-lg-3">
-                                    <div class="_1card">
-                                        <p class="_1card_star">4 Stars & Up</p>
-
-                                        <div class="_1card_pic">
-                                            <img class="_1card_img" src="/images/ps.png" alt="" title="">
-                                        </div>
-
-                                        <div class="_1card_details">
-                                            <p class="_3title">Coach Name - Sport Type City/State</p>
-                                            <div class="_1rating">
-                                                <ul class="_1rating_list">
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class=""><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-
-                                <!-- Card -->
-                                <div class="col-xl-12 col-md-3 col-lg-3">
-                                    <div class="_1card">
-                                        <p class="_1card_star">4 Stars & Up</p>
-
-                                        <div class="_1card_pic">
-                                            <img class="_1card_img" src="/images/ps.png" alt="" title="">
-                                        </div>
-
-                                        <div class="_1card_details">
-                                            <p class="_3title">Coach Name - Sport Type City/State</p>
-                                            <div class="_1rating">
-                                                <ul class="_1rating_list">
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class=""><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-
-                                <!-- Card -->
-                                <div class="col-xl-12 col-md-3 col-lg-3">
-                                    <div class="_1card">
-                                        <p class="_1card_star">4 Stars & Up</p>
-
-                                        <div class="_1card_pic">
-                                            <img class="_1card_img" src="/images/ps.png" alt="" title="">
-                                        </div>
-
-                                        <div class="_1card_details">
-                                            <p class="_3title">Coach Name - Sport Type City/State</p>
-                                            <div class="_1rating">
-                                                <ul class="_1rating_list">
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                    <li class=""><i class="fas fa-star"></i></li>
-                                                    <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card -->
-                            </div>
+                            <p class="_1coach_top_by">By <a href="">Flank</a> | </p>
                         </div>
                     </div>
 
-               
+                    <div class="_1coach_main">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-6 col-lg-3">
+                                <div class="_1coach_main_one">
+                                    <p class="_1title">Best Coach Reviews: The Ultimate List</p>
+
+                                    <p class="_1coach_time">Sept,11,2019</p>
+
+                                    <p class="_1coach_status">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                                        officia deserunt mollit anim id est laborum.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Card Items -->
+                            <div class="col-xl-12 col-md-6 col-lg-3">
+                                <div class="_1card">
+                                    <p class="_2title">Our Top Choice</p>
+
+                                    <p class="_1card_subtitle">Coach Name - Sport Type City/State</p>
+
+                                    <div class="_1card_pic">
+                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
+                                    </div>
+
+                                    <div class="_1card_details">
+                                        <p class="_3title">Coach Name - Sport Type City/State</p>
+                                        <div class="_1rating">
+                                            <ul class="_1rating_list">
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                            </ul>
+                                        </div>
+                                        <p class="_1card_tag">67.0 Health Seore</p>
+                                        <p class="_1text">
+                                            When you're after a true empowering coach
+                                            , coach Jhon Doe nails all the healthy coaching attributes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card Items -->
+
+                            <!-- Card Items -->
+                            <div class="col-xl-12 col-md-6 col-lg-3">
+                                <div class="_1card">
+                                    <p class="_2title">Our Top Choice</p>
+
+                                    <p class="_1card_subtitle">Coach Name - Sport Type City/State</p>
+
+                                    <div class="_1card_pic">
+                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
+                                    </div>
+
+                                    <div class="_1card_details">
+                                        <p class="_3title">Coach Name - Sport Type City/State</p>
+                                        <div class="_1rating">
+                                            <ul class="_1rating_list">
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                            </ul>
+                                        </div>
+                                        <p class="_1card_tag">67.0 Health Seore</p>
+                                        <p class="_1text">
+                                            When you're after a true empowering coach
+                                            , coach Jhon Doe nails all the healthy coaching attributes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card Items -->
+
+                            <!-- Card Items -->
+                            <div class="col-xl-12 col-md-6 col-lg-3">
+                                <div class="_1card">
+                                    <p class="_2title">Our Top Choice</p>
+
+                                    <p class="_1card_subtitle">Coach Name - Sport Type City/State</p>
+
+                                    <div class="_1card_pic">
+                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
+                                    </div>
+
+                                    <div class="_1card_details">
+                                        <p class="_3title">Coach Name - Sport Type City/State</p>
+                                        <div class="_1rating">
+                                            <ul class="_1rating_list">
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                            </ul>
+                                        </div>
+                                        <p class="_1card_tag">67.0 Health Seore</p>
+                                        <p class="_1text">
+                                            When you're after a true empowering coach
+                                            , coach Jhon Doe nails all the healthy coaching attributes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card Items -->
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="!isLoading && searchData.length>0" >
+
+                    <div class="_1coach_items"   v-for="(item,index) in similar" :key="index" v-if="pageOptinoInfo == 'coach' && ((index%2) == 0)"  >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}} </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.school.city}}/{{item.school.state}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right">
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red"> {{ item | healthScore }}
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main"  v-if="item.topAtrribute.length>0">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list"  >
+                                            <li  v-for="(item,index) in item.topAtrribute" :key="index">
+                                                <figure>
+                                                    <img :src="item.info.image" alt="">
+                                                </figure>
+                                                <p>{{item.info.content}}</p>
+                                            </li>
+                                            <!-- <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li> -->
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="_1coach_items" v-for="(item,index) in similar" :key="index"  v-if="pageOptinoInfo == 'school' && ((index%2) == 0) "  >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school/${item.id}`)" >{{item.schoolName}} {{item.sport}} </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.city}}/{{item.state}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <!-- <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right">
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red"> 10.00
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list">
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="_1coach_items" v-for="(item,index) in similar" :key="index"  v-if="pageOptinoInfo == 'legend' && ((index%2) == 0)   "  >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/profile/${item.id}`)" >{{item.name}} - </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.address}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <!-- <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right">
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red">10.00
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list">
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+
+                <div class="_1coach_items"  >
+                    <div class="_1coach_barch">
+                        <p class="worst black">Flank's <span>Chocie</span></p>
+                        <p class="_1title">Higly rated, sustainable instructors that benefit the players communities where they coach</p>
+                    </div>
+
+                    <div class="_2coach_main">
+                        <div class="row">
+                            <!-- Card -->
+                            <div class="col-xl-12 col-md-3 col-lg-3">
+                                <div class="_1card">
+                                    <p class="_1card_star">4 Stars & Up</p>
+
+                                    <div class="_1card_pic">
+                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
+                                    </div>
+
+                                    <div class="_1card_details">
+                                        <p class="_3title">Coach Name - Sport Type City/State</p>
+                                        <div class="_1rating">
+                                            <ul class="_1rating_list">
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card -->
+
+                            <!-- Card -->
+                            <div class="col-xl-12 col-md-3 col-lg-3">
+                                <div class="_1card">
+                                    <p class="_1card_star">4 Stars & Up</p>
+
+                                    <div class="_1card_pic">
+                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
+                                    </div>
+
+                                    <div class="_1card_details">
+                                        <p class="_3title">Coach Name - Sport Type City/State</p>
+                                        <div class="_1rating">
+                                            <ul class="_1rating_list">
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card -->
+
+                            <!-- Card -->
+                            <div class="col-xl-12 col-md-3 col-lg-3">
+                                <div class="_1card">
+                                    <p class="_1card_star">4 Stars & Up</p>
+
+                                    <div class="_1card_pic">
+                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
+                                    </div>
+
+                                    <div class="_1card_details">
+                                        <p class="_3title">Coach Name - Sport Type City/State</p>
+                                        <div class="_1rating">
+                                            <ul class="_1rating_list">
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card -->
+
+                            <!-- Card -->
+                            <div class="col-xl-12 col-md-3 col-lg-3">
+                                <div class="_1card">
+                                    <p class="_1card_star">4 Stars & Up</p>
+
+                                    <div class="_1card_pic">
+                                        <img class="_1card_img" src="/images/ps.png" alt="" title="">
+                                    </div>
+
+                                    <div class="_1card_details">
+                                        <p class="_3title">Coach Name - Sport Type City/State</p>
+                                        <div class="_1rating">
+                                            <ul class="_1rating_list">
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card -->
+                        </div>
+                    </div>
+                </div>
+
+                 <div v-if="!isLoading && searchData.length>0" >
+
+                    <div class="_1coach_items"  v-for="(item,index) in searchData" :key="index" v-if="pageOptinoInfo == 'coach' && ((index%2) != 0)"   >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}}  </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.school.city}}/{{item.school.state}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right">
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red"> {{ item | healthScore }}
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main"  v-if="item.topAtrribute.length>0">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list"  >
+                                            <li  v-for="(item,index) in item.topAtrribute" :key="index">
+                                                <figure>
+                                                    <img :src="item.info.image" alt="">
+                                                </figure>
+                                                <p>{{item.info.content}}</p>
+                                            </li>
+                                            <!-- <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li> -->
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="_1coach_items" v-for="(item,index) in searchData" :key="index"  v-if="pageOptinoInfo == 'school' && ((index%2) != 0)" >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school/${item.id}`)" >{{item.schoolName}} {{item.sport}} </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.city}}/{{item.state}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <!-- <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right">
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red"> 10.00
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list">
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="_1coach_items"  v-for="(item,index) in searchData" :key="index"  v-if="pageOptinoInfo == 'legend' && ((index%2) != 0)" >
+                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+
+                        <div class="_2coach_main">
+                            <div class="row">
+                                <!-- Left -->
+                                <div class="col-xl-12 col-md-12 col-lg-7 _2coach_main_left">
+                                    <div class="_2card">
+                                        <div class="_2card_pic">
+                                            <img class="_2card_img" src="/images/ps.png" alt="" title="">
+                                        </div>
+
+                                        <div class="_2card_details">
+                                            <div class="_2card_details_top">
+                                                <div class="_2card_details_left">
+                                                    <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/profile/${item.id}`)" >{{item.name}} - </p>
+                                                    <div class="_1rating">
+                                                        <ul class="_1rating_list">
+                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <p class="_2card_details_city">{{item.address}}</p>
+                                            </div>
+                                            <p class="_2card_status _2taxt">
+                                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u"
+                                            </p>
+
+                                            <p>
+                                                <a href="" class="see_more">See more</a>
+                                            </p>
+
+                                            <!-- <button @click="$router.push(`/scoach_review/${item.id}`)" class="_1btn">Write a Review</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Left -->
+
+                                <!-- Right -->
+                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right">
+                                    <div class="_2coach_title">
+                                        <p class="_2coach_title_one">Health Score:</p>
+
+                                        <p class="_2coach_title_two _2coach_title_two_red">10.00
+                                            
+                                            <!-- <span>91.98%</span> -->
+                                        
+                                        </p>
+                                    </div>
+
+                                    <div class="_2coach_main_right_main">
+                                        <p class="_2coach_main_right_title">Known for:</p>
+
+                                        <ul class="coach-main-known-list">
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/plus.gif" alt="">
+                                                </figure>
+                                                <p>Health Score<span>55 out of 100</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                            <li>
+                                                <figure>
+                                                    <img src="/images/veh.gif" alt="">
+                                                </figure>
+                                                <p>Delivery<span>No</span></p>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                            Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul>
+
+                                        <ul class="_2coach_main_right_list">
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Health Score 55 out of 100
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Delivery No
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Accepts Credit Cards Yes
+                                            </li>
+
+                                            <li>
+                                                <i class="fab fa-algolia"></i>
+                                                Paking Private Lot
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                                <!-- Right -->
+                            </div>
+                        </div>
+                    </div>
+                   >
+                </div>
 
                
 
+               
+
+                
+                
+                
+                
+                
+                
                 <div class="_1reiew_box">
                     <p class="_1reiew_box_title">Tell us how can improve</p>
 
@@ -1012,11 +1845,12 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex' 
 export default {
     data(){
         return{
             str:'',
+            showStr:'',
             place:'',
             page:1,
             flag:1,
@@ -1027,6 +1861,7 @@ export default {
             sports:[],
             allPlaces:[],
             allSports:[],
+            similar:[],
             filterFlag:false,
             pageOption: 'coach',
             iam:false,
@@ -1153,13 +1988,18 @@ export default {
         },
         async SearchByKey(){
 
+            if(this.pageOption != 'product'){
+                if(this.str == '' ) return this.i("Please Write a name")
+                if(this.place == '') return this.i("Please Write a City")
+            }
+
             const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&pageOption=${this.pageOption}&sort=${this.sort}&div=${this.div}&rate=${this.oldrating.index}&sports=${this.sports}&attribute=${this.attribute}`)
             if(res.status === 200){
                 this.$store.commit('setPageOptino', this.pageOption )
-                this.$store.commit('setSearchData', res.data.data)
-                delete res.data.data
-                this.$store.commit('setPagination', res.data )
-                
+                this.$store.commit('setSearchData', res.data.mainData.data)
+                delete res.data.mainData.data
+                this.$store.commit('setPagination', res.data.mainData )
+                 this.similar = res.data.similarData
                 this.sstr = this.str
                 this.splace = this.place
                 this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
@@ -1178,6 +2018,7 @@ export default {
                 this.$store.commit('setSearchData', res.data.data)
                 delete res.data.data
                 this.$store.commit('setPagination', res.data )
+               
                 this.sstr = this.str
                 this.splace = this.place
                 this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
@@ -1204,7 +2045,7 @@ export default {
         letChangePlace(item){
            this.place = item.name
            this.allPlaces = []
-           this.SearchByKey();
+          // this.SearchByKey();
         }
 
     },
@@ -1228,7 +2069,7 @@ export default {
         this.str = (this.$route.query.str)? this.$route.query.str :''
         this.pageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'coach'
         this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
-        this.div = (this.$route.query.div)? this.$route.query.div :'High School'
+        this.div = (this.$route.query.div)? this.$route.query.div :''
        
 
         this.changeSortName(this.sort)

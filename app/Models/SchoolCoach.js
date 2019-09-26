@@ -16,6 +16,9 @@ class SchoolCoach extends Model {
   allreview () {
     return this.hasMany('App/Models/Review', 'id', 'reviewFor').where('review_type', 'school')
   }
+  allreviewLimit () {
+    return this.hasOne('App/Models/Review', 'id', 'reviewFor').where('review_type', 'school')
+  }
   topAtrribute () {
     return this.hasMany('App/Models/ReviewAttribute', 'id', 'reviewFor').select( 'reviewFor' , 'attribute_id', Database.raw('COUNT(id) as total')).groupBy('attribute_id').limit(4);
   }
