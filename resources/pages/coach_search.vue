@@ -150,7 +150,7 @@
                     <div class="new-find-section">
                         <div class="">
                             <div class="new-find-inner">
-                                <h3>No Results for fasdfasdfasd <span>Brentwood, Los Angeles, CA</span></h3>
+                                <h3>No Results for '{{str}}'  near <span>{{place}}</span></h3>
                                 <div class="new-find-pagi">
                                     <ul>
                                         <li><a href="">Los Angeles, CA</a></li>
@@ -2016,10 +2016,10 @@ export default {
                 this.i('Please rate this coach !')
                 return;
             }
-            this.step3Form.rating = this.oldrating.rating
+            this.step3Form.rating = this.oldrating.index
             if(this.newCoach.name){
                 this.step3Form.reviewFor =this.newCoach.id
-                this.step3Form.rating = this.newCoach.school_id
+                this.step3Form.school_id = this.newCoach.school_id
                
             }
             else {

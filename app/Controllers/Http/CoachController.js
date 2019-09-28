@@ -52,7 +52,8 @@ class CoachController {
     delete data.name;
     data.isConfirmed = false;
     let school = await School.create(data)
-
+    school = JSON.parse(JSON.stringify(school))
+    console.log(school)
     let coachob = {
       'school_id': school.id,
       'name': name
