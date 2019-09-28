@@ -53,8 +53,8 @@
                                                 <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 3)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
                                                 <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"   :class="(oldrating.index > 4)? oldrating.class: ''"  ><span><i class="fas fa-star"></i></span></li>
                                             </ul>
-                                        <span v-if="onHover">{{(drating.text)? drating.text : 'Select your rating'}}</span>
-                                        <span v-else >{{(oldrating.text)? oldrating.text : 'Select your rating'}}</span>
+                                            <span v-if="onHover">{{(drating.text)? drating.text : 'Select your rating'}}</span>
+                                            <span v-else >{{(oldrating.text)? oldrating.text : 'Select your rating'}}</span>
                                         </div>
                                     <!-- <ul class="write-review-box-cont mar_b20">
                                         <li>Your review help us to learn about good and bad coaches. </li>
@@ -256,7 +256,7 @@ export default {
             },
             onHover: false,
             loginModal:false,
-             formData:{
+            formData:{
                 email:'',
                 password:'',
                 remember: false,

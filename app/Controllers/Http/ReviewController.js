@@ -15,6 +15,7 @@ const ReviewAttribute = use('App/Models/ReviewAttribute')
 const ProductReview = use('App/Models/ProductReview')
 const ProductImo = use('App/Models/ProductImo')
 const Attribute = use('App/Models/Attribute')
+const SchoolCoach = use('App/Models/SchoolCoach')
 const Helpers = use('Helpers')
 const Database = use('Database') 
 /**
@@ -647,7 +648,19 @@ class ReviewController {
     if(AttributeInfo.length>0){
       if(index == 'Healthy') await Database.raw('update `reviews` set `healthyIndex` = ?, `total` = ( healthyIndex - harmfulIndex ) where `id` = ?', [AttributeInfo.length,AttributeInfoAll.review_id])
       else  await Database.raw('update `reviews` set `harmfulIndex` = ?, `total` = ( healthyIndex - harmfulIndex ) where `id` = ?', [AttributeInfo.length,AttributeInfoAll.review_id])
+      let avg = await SchoolCoach.query().with('avgRating').where('id',reviewinfo.reviewFor).first()
+      avg = JSON.parse(JSON.stringify(avg))
+      await SchoolCoach.query().where('id',reviewinfo.reviewFor).update({
+        avg_rating:avg.avgRating.averageRating,
+        totalRating:avg.avgRating.totalRating,
+        totalHarmful:avg.avgRating.totalHarmful,
+        averageHealthy:avg.avgRating.averageHealthy,
+        totalHealthy:avg.avgRating.totalHealthy,
+        averageHarmful:avg.avgRating.averageHarmful,
+        
+      })
     }
+   
     return response.status(200).json({
       msg: 'Atrribute Created!!',
       

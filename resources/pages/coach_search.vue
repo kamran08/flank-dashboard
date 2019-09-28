@@ -145,9 +145,59 @@
                      </CheckboxGroup>
                 </div>
             </div>
-            <div class="new-flank-content"    >
+            <div class=" col-md-10" v-if="str != '' && place != '' && searchData.length == 0 && onTest == true ">
+                <div>
+                    <div class="new-find-section">
+                        <div class="">
+                            <div class="new-find-inner">
+                                <h3>No Results for fasdfasdfasd <span>Brentwood, Los Angeles, CA</span></h3>
+                                <div class="new-find-pagi">
+                                    <ul>
+                                        <li><a href="">Los Angeles, CA</a></li>
+                                        <li><span><i class="fas fa-chevron-right"></i></span><a href="">Brentwood</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="suggestion-result">
+                                    <div class="suggestion-inner">
+                                        <h3>Suggestions for improving the results</h3>
+                                        <div class="suggestion-inner-list">
+                                            <ul>
+                                                <li>Try a larger search area.</li>
+                                                <li>Try a different location.</li>
+                                                <li>Check the spelling or try alternate spellings.</li>
+                                                <li>Try a more general search e.g. "pizza" instead of "pepperoni"</li>
+                                            </ul>
+                                        </div>
+                                        <div class="suggestion-container">
+                                            <div class="suggestion-container-inner">
+                                                <div class="suggestion-container-left">
+                                                    <h3>Not here? Tell us what we're missing.</h3>
+                                                    <p>If the bussiness you are looking for isn't here, add it!</p>
+                                                </div>
+                                                <div class="suggestion-container-right">
+                                                    <button @click="addNew.modal = true" >Add a School/Coach</button>
+                                                </div>
+                                            </div>
+                                            <div class="suggestion-container-text">
+                                                <p>Got search feedback? <a href="#">Help us improve</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-flank-content" v-else  >
 
-                <div class="new-flank-content-rev" v-if="!isLoading && searchData.length>0"  >
+                <div class="new-flank-content-rev" v-if="!isLoading && searchData.length>0 && searchData[0].allreviewLimit != null "  >
                     <div class="new-content-rev-title">
                         <h2>Your past reviews</h2>
                         <p><a href="">See all past reviews</a></p>
@@ -155,31 +205,31 @@
                     <div class="new-content-rev-details">
                         <div class="new-content-rev-left">
                             <div class="new-best-rated rated-red">
-                                <p>Best rated</p>
+                                <p>{{ (searchData[0].avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
                             </div>
                             <figure>
                                 <img src="/images/ps.png" alt="">
                             </figure>
                         </div>
                         <div class="new-content-rev-right">
-                            <h2>Coach name - sport type</h2>
-                            <p>School name</p>
-                            <span class="city-s">City/State</span>
+                            <h2>{{ searchData[0].name}} -  {{ searchData[0].school.sport}}  </h2>
+                            <p>{{ searchData[0].school.schoolName}}</p>
+                            <span class="city-s">{{searchData[0].school.city}}/{{searchData[0].school.state}}</span>
                             <div class="new-content-star">
                                 <ul>
-                                    <li><span class="bg"><i class="fas fa-star"></i></span></li>
-                                    <li><span><i class="fas fa-star"></i></span></li>
-                                    <li><span><i class="fas fa-star"></i></span></li>
-                                    <li><span><i class="fas fa-star"></i></span></li>
-                                    <li><span><i class="fas fa-star"></i></span></li>
+                                    <li><span :class="( searchData[0].allreviewLimit.rating>0)? 'bg' : ''" ><i class="fas fa-star"></i></span></li>
+                                    <li><span :class="( searchData[0].allreviewLimit.rating>1)? 'bg' : ''" ><i class="fas fa-star"></i></span></li>
+                                    <li><span :class="( searchData[0].allreviewLimit.rating>2)? 'bg' : ''" ><i class="fas fa-star"></i></span></li>
+                                    <li><span :class="( searchData[0].allreviewLimit.rating>3)? 'bg' : ''" ><i class="fas fa-star"></i></span></li>
+                                    <li><span :class="( searchData[0].allreviewLimit.rating>4)? 'bg' : ''" ><i class="fas fa-star"></i></span></li>
                                 </ul>
-                                <p><span><i class="fas fa-chevron-down"></i></span><a href="">12</a></p>
+                                <p><span><i class="fas fa-chevron-down"></i></span><a href="">1</a></p>
                             </div>
                             <div class="new-comment-para">
-                                <p>"This coach is not fance - he's unpretentious and has a few simple rules to follow. I appreciate that. The drilles are innovative, fresh and generous. My..." <a href="">Read more</a></p>
+                                <p>"{{searchData[0].allreviewLimit.content}}" <a href="">Read more</a></p>
                             </div>
                             <div class="new-comment-btn">
-                                <button>Write a Review</button>
+                                <button @click="$router.push(`/scoach_review/${searchData[0].id}`)" >Write a Review</button>
                             </div>
                         </div>
                     </div>
@@ -205,12 +255,12 @@
                                                     <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}}  </p>
                                                     <div class="_1rating">
                                                         <ul class="_1rating_list">
-                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                                            <li :class="(item.avg_rating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -244,9 +294,9 @@
                                         </p>
                                     </div>
 
-                                    <div class="_2coach_main_right_main"  v-if="item.topAtrribute.length>0">
+                                    <div class="_2coach_main_right_main"  @click="$router.push(`/school_coach/${item.id}`)" >
                                         <p class="_2coach_main_right_title">Known for:</p>
-
+                                            <!-- 
                                         <ul class="coach-main-known-list"  >
                                             <li  v-for="(item,index) in item.topAtrribute" :key="index">
                                                 <figure>
@@ -254,7 +304,7 @@
                                                 </figure>
                                                 <p>{{item.info.content}}</p>
                                             </li>
-                                            <!-- <li>
+                                            <li>
                                                 <figure>
                                                     <img src="/images/plus.gif" alt="">
                                                 </figure>
@@ -271,8 +321,22 @@
                                                     <img src="/images/veh.gif" alt="">
                                                 </figure>
                                                 <p>Delivery<span>No</span></p>
-                                            </li> -->
-                                        </ul>
+                                            </li>
+                                        </ul> -->
+                                        <div class="known-for-list">
+                                            <ul>
+                                                <li><img src="/attribute/1.png" alt=""><span>Health Score</span></li>
+                                                <li><img src="/attribute/2.png" alt=""><span>Great Communicator</span></li>
+                                                <li><img src="/attribute/3.png" alt=""><span>Creates a Healthy Environment</span></li>
+                                                <li><img src="/attribute/4.png" alt=""><span>Pushes you to be Better</span></li>
+                                                <li><img src="/attribute/5.png" alt=""><span>Extension of your Parents</span></li>
+                                                <li><img src="/attribute/6.png" alt=""><span>Earns your Respect</span></li>
+                                                <li><img src="/attribute/7.png" alt=""><span>Remembers their promises</span></li>
+                                                <li><img src="/attribute/8.png" alt=""><span>Adaptable</span></li>
+                                                <li><img src="/attribute/9.png" alt=""><span>Natures your talents</span></li>
+                                                <li><img src="/attribute/10.png" alt=""><span>Rides the storm</span></li>
+                                            </ul>
+                                        </div>
 
                                         <!-- <ul class="_2coach_main_right_list">
                                             <li>
@@ -380,80 +444,7 @@
                                         </p>
                                     </div>
 
-                                    <div class="_2coach_main_right_main">
-                                        <p class="_2coach_main_right_title">Known for:</p>
-
-                                        <ul class="coach-main-known-list">
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul> -->
-                                    </div>
+                               
                                 </div>
                                 <!-- Right -->
                             </div>
@@ -519,7 +510,7 @@
                                     <div class="_2coach_main_right_main">
                                         <p class="_2coach_main_right_title">Known for:</p>
 
-                                        <ul class="coach-main-known-list">
+                                        <!-- <ul class="coach-main-known-list">
                                             <li>
                                                 <figure>
                                                     <img src="/images/plus.gif" alt="">
@@ -543,52 +534,24 @@
                                                     <img src="/images/veh.gif" alt="">
                                                 </figure>
                                                 <p>Delivery<span>No</span></p>
-                                            </li>
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
                                             </li>
                                         </ul> -->
+                                         <div class="known-for-list">
+                                            <ul>
+                                                <li><img src="/attribute/1.png" alt=""><span>Health Score</span></li>
+                                                <li><img src="/attribute/2.png" alt=""><span>Great Communicator</span></li>
+                                                <li><img src="/attribute/3.png" alt=""><span>Creates a Healthy Environment</span></li>
+                                                <li><img src="/attribute/4.png" alt=""><span>Pushes you to be Better</span></li>
+                                                <li><img src="/attribute/5.png" alt=""><span>Extension of your Parents</span></li>
+                                                <li><img src="/attribute/6.png" alt=""><span>Earns your Respect</span></li>
+                                                <li><img src="/attribute/7.png" alt=""><span>Remembers their promises</span></li>
+                                                <li><img src="/attribute/8.png" alt=""><span>Adaptable</span></li>
+                                                <li><img src="/attribute/9.png" alt=""><span>Natures your talents</span></li>
+                                                <li><img src="/attribute/10.png" alt=""><span>Rides the storm</span></li>
+                                            </ul>
+                                        </div>
+
+                                        
                                     </div>
                                 </div>
                                 <!-- Right -->
@@ -650,81 +613,6 @@
                                             <!-- <span>91.98%</span> -->
                                         
                                         </p>
-                                    </div>
-
-                                    <div class="_2coach_main_right_main">
-                                        <p class="_2coach_main_right_title">Known for:</p>
-
-                                        <ul class="coach-main-known-list">
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul> -->
                                     </div>
                                 </div>
                                 <!-- Right -->
@@ -888,12 +776,12 @@
                                                     <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}} </p>
                                                     <div class="_1rating">
                                                         <ul class="_1rating_list">
-                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                                            <li :class="(item.avg_rating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -927,79 +815,31 @@
                                         </p>
                                     </div>
 
-                                    <div class="_2coach_main_right_main"  v-if="item.topAtrribute.length>0">
+                                    <div class="_2coach_main_right_main"   @click="$router.push(`/school_coach/${item.id}`)">
                                         <p class="_2coach_main_right_title">Known for:</p>
 
-                                        <ul class="coach-main-known-list"  >
+                                        <!-- <ul class="coach-main-known-list"  >
                                             <li  v-for="(item,index) in item.topAtrribute" :key="index">
                                                 <figure>
                                                     <img :src="item.info.image" alt="">
                                                 </figure>
                                                 <p>{{item.info.content}}</p>
                                             </li>
-                                            <!-- <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li> -->
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
                                         </ul> -->
+                                         <div class="known-for-list">
+                                            <ul>
+                                                <li><img src="/attribute/1.png" alt=""><span>Health Score</span></li>
+                                                <li><img src="/attribute/2.png" alt=""><span>Great Communicator</span></li>
+                                                <li><img src="/attribute/3.png" alt=""><span>Creates a Healthy Environment</span></li>
+                                                <li><img src="/attribute/4.png" alt=""><span>Pushes you to be Better</span></li>
+                                                <li><img src="/attribute/5.png" alt=""><span>Extension of your Parents</span></li>
+                                                <li><img src="/attribute/6.png" alt=""><span>Earns your Respect</span></li>
+                                                <li><img src="/attribute/7.png" alt=""><span>Remembers their promises</span></li>
+                                                <li><img src="/attribute/8.png" alt=""><span>Adaptable</span></li>
+                                                <li><img src="/attribute/9.png" alt=""><span>Natures your talents</span></li>
+                                                <li><img src="/attribute/10.png" alt=""><span>Rides the storm</span></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Right -->
@@ -1061,81 +901,6 @@
                                             <!-- <span>91.98%</span> -->
                                         
                                         </p>
-                                    </div>
-
-                                    <div class="_2coach_main_right_main">
-                                        <p class="_2coach_main_right_title">Known for:</p>
-
-                                        <ul class="coach-main-known-list">
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul> -->
                                     </div>
                                 </div>
                                 <!-- Right -->
@@ -1199,7 +964,7 @@
                                         </p>
                                     </div>
 
-                                    <div class="_2coach_main_right_main">
+                                    <!-- <div class="_2coach_main_right_main">
                                         <p class="_2coach_main_right_title">Known for:</p>
 
                                         <ul class="coach-main-known-list">
@@ -1228,51 +993,7 @@
                                                 <p>Delivery<span>No</span></p>
                                             </li>
                                         </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul> -->
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- Right -->
                             </div>
@@ -1309,7 +1030,7 @@
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class=""><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span>10</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1320,7 +1041,7 @@
                             <!-- Card -->
                             <div class="col-xl-12 col-md-3 col-lg-3">
                                 <div class="_1card">
-                                    <p class="_1card_star">4 Stars & Up</p>
+                                    <p class="_1card_star">3 Stars & Up</p>
 
                                     <div class="_1card_pic">
                                         <img class="_1card_img" src="/images/ps.png" alt="" title="">
@@ -1333,9 +1054,9 @@
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class=""><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1346,7 +1067,7 @@
                             <!-- Card -->
                             <div class="col-xl-12 col-md-3 col-lg-3">
                                 <div class="_1card">
-                                    <p class="_1card_star">4 Stars & Up</p>
+                                    <p class="_1card_star">2 Stars & Up</p>
 
                                     <div class="_1card_pic">
                                         <img class="_1card_img" src="/images/ps.png" alt="" title="">
@@ -1358,10 +1079,10 @@
                                             <ul class="_1rating_list">
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class=""><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span>10</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1372,7 +1093,7 @@
                             <!-- Card -->
                             <div class="col-xl-12 col-md-3 col-lg-3">
                                 <div class="_1card">
-                                    <p class="_1card_star">4 Stars & Up</p>
+                                    <p class="_1card_star">1 Stars & Up</p>
 
                                     <div class="_1card_pic">
                                         <img class="_1card_img" src="/images/ps.png" alt="" title="">
@@ -1383,11 +1104,11 @@
                                         <div class="_1rating">
                                             <ul class="_1rating_list">
                                                 <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_active"><i class="fas fa-star"></i></li>
                                                 <li class=""><i class="fas fa-star"></i></li>
-                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 2,472</li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class=""><i class="fas fa-star"></i></li>
+                                                <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1418,12 +1139,12 @@
                                                     <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/school_coach/${item.id}`)" >{{item.name}} -  {{item.school.sport}}  </p>
                                                     <div class="_1rating">
                                                         <ul class="_1rating_list">
-                                                            <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
-                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> 10</li>
+                                                            <li :class="(item.avg_rating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>2)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>3)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li :class="(item.avg_rating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
+                                                            <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -1457,79 +1178,33 @@
                                         </p>
                                     </div>
 
-                                    <div class="_2coach_main_right_main"  v-if="item.topAtrribute.length>0">
+                                    <div class="_2coach_main_right_main"   @click="$router.push(`/school_coach/${item.id}`)">
                                         <p class="_2coach_main_right_title">Known for:</p>
 
-                                        <ul class="coach-main-known-list"  >
+                                        <!-- <ul class="coach-main-known-list"  >
                                             <li  v-for="(item,index) in item.topAtrribute" :key="index">
                                                 <figure>
                                                     <img :src="item.info.image" alt="">
                                                 </figure>
                                                 <p>{{item.info.content}}</p>
                                             </li>
-                                            <!-- <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li> -->
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
+                                          
                                         </ul> -->
+
+                                         <div class="known-for-list">
+                                            <ul>
+                                                <li><img src="/attribute/1.png" alt=""><span>Health Score</span></li>
+                                                <li><img src="/attribute/2.png" alt=""><span>Great Communicator</span></li>
+                                                <li><img src="/attribute/3.png" alt=""><span>Creates a Healthy Environment</span></li>
+                                                <li><img src="/attribute/4.png" alt=""><span>Pushes you to be Better</span></li>
+                                                <li><img src="/attribute/5.png" alt=""><span>Extension of your Parents</span></li>
+                                                <li><img src="/attribute/6.png" alt=""><span>Earns your Respect</span></li>
+                                                <li><img src="/attribute/7.png" alt=""><span>Remembers their promises</span></li>
+                                                <li><img src="/attribute/8.png" alt=""><span>Adaptable</span></li>
+                                                <li><img src="/attribute/9.png" alt=""><span>Natures your talents</span></li>
+                                                <li><img src="/attribute/10.png" alt=""><span>Rides the storm</span></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Right -->
@@ -1593,80 +1268,7 @@
                                         </p>
                                     </div>
 
-                                    <div class="_2coach_main_right_main">
-                                        <p class="_2coach_main_right_title">Known for:</p>
-
-                                        <ul class="coach-main-known-list">
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul> -->
-                                    </div>
+                                    
                                 </div>
                                 <!-- Right -->
                             </div>
@@ -1728,81 +1330,6 @@
                                         
                                         </p>
                                     </div>
-
-                                    <div class="_2coach_main_right_main">
-                                        <p class="_2coach_main_right_title">Known for:</p>
-
-                                        <ul class="coach-main-known-list">
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/plus.gif" alt="">
-                                                </figure>
-                                                <p>Health Score<span>55 out of 100</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                            <li>
-                                                <figure>
-                                                    <img src="/images/veh.gif" alt="">
-                                                </figure>
-                                                <p>Delivery<span>No</span></p>
-                                            </li>
-                                        </ul>
-
-                                        <!-- <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                            Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul>
-
-                                        <ul class="_2coach_main_right_list">
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Health Score 55 out of 100
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Delivery No
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Accepts Credit Cards Yes
-                                            </li>
-
-                                            <li>
-                                                <i class="fab fa-algolia"></i>
-                                                Paking Private Lot
-                                            </li>
-                                        </ul> -->
-                                    </div>
                                 </div>
                                 <!-- Right -->
                             </div>
@@ -1810,16 +1337,6 @@
                     </div>
                    >
                 </div>
-
-               
-
-               
-
-                
-                
-                
-                
-                
                 
                 <div class="_1reiew_box">
                     <p class="_1reiew_box_title">Tell us how can improve</p>
@@ -1840,7 +1357,422 @@
         <footer class="new-footer">
             <div class="new-footer-top"></div>
         </footer>
-        
+        <Modal width="850px"  v-model="addNew.modal"  :closable='false' >
+           <div class="sss">
+                <div class="">
+                    <div class="bulid-section build-section-1" v-if="addNew.step == 1" >
+                        <div class="build-section-title">
+                            <h3>Build together</h3>
+                            <div class="build-close" style="cursor:pointer;" @click="addNew.modal = false" >
+                                <img src="/images/Step-1.png" alt="">
+                            </div>
+                        </div>
+                        <div class="build-section-inner">
+                            <div class="build-section-inner-top">
+                                <div class="build-left">
+                                    <div class="build-item-box active">
+                                        <div class="build-item-box-active">
+                                            <span>1</span>
+                                        </div>
+                                        <p>Add School/Coach</p>
+                                    </div>
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <span>2</span>
+                                        </div>
+                                        <p>Registration</p>
+                                    </div>
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <span>3</span>
+                                        </div>
+                                        <p>Submit Review</p>
+                                    </div>
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <span>4</span>
+                                        </div>
+                                        <p>Confirmation</p>
+                                    </div>
+                                </div>
+                                <div class="build-right">
+                                    <div class="build-right-title">
+                                        <h3>What are you working on?</h3>
+                                        <p>* We’ll guide you step-by-step to add the school/coach you need.</p>
+                                    </div>
+                                    <div class="build-right-form">
+                                        <p>(Avg. Time of Completion - 2 minutes)</p>
+                                        <div class="build-right-form-inner">
+                                            <form action="#">
+                                                <div class="build-input">
+                                                    <label for="">School name <span class="required">*</span></label>
+                                                    <input type="text" v-model="step1Form.schoolName" >
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">Coach name <span class="required">*</span></label>
+                                                    <input type="text" v-model="step1Form.name" >
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">City <span class="required">*</span></label>
+                                                    <input type="text" v-model="step1Form.city" >
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">Division <span class="required">*</span></label>
+                                                    <select name="" id="" v-model="step1Form.division" >
+                                                        <option value="Club/Travel">Club/Travel</option>
+                                                        <option value="FL">FL</option>
+                                                        <option value="High School">High School</option>
+                                                        <option value="Junior College">Junior College</option>
+                                                        <option value="MCLA">MCLA</option>
+                                                        <option value="MO">MO</option>
+                                                        <option value="NAIA">NAIA</option>
+                                                        <option value="NCAA DI">NCAA DI</option>
+                                                        <option value="NCAA DII">NCAA DII</option>
+                                                        <option value="NCAA DIII">NCAA DIII</option>
+                                                    </select>
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">State <span class="required">*</span></label>
+                                                    <input type="text" v-model="step1Form.state" >
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">Sport </label>
+                                                    <select name="" id="" v-model="step1Form.sport" >
+                                                        <option v-for="(item,index) in allSports" :key="index" :value="item.sport">{{item.sport}}</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                            </form>
+                                            <div class="build-redirect" >
+                                                <p>Information submitted on this site is subject to the <a href="#">Privacy Policy.</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="build-section-inner-bottom">
+                                <div class="build-cancel">
+                                    <p>Cancel</p>
+                                </div>
+                                <div class="build-btn">
+                                    <ul>
+                                        <li><button>Back</button></li>
+                                        <li class="go-btn"><button>Next</button></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="bulid-section build-section-2"  v-if="addNew.step == 2">
+                        <div class="build-section-title">
+                            <h3>Build together</h3>
+                            <div class="build-close" style="cursor:pointer;" @click="addNew.modal = false" >
+                                <img src="/images/Step-1.png" alt="">
+                            </div>
+                        </div>
+                        <div class="build-section-inner">
+                            <div class="build-section-inner-top">
+                                <div class="build-left">
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <!-- <span>1</span> -->
+                                            <img src="/images/conf.png" alt="">
+                                        </div>
+                                        <p>Add School/Coach</p>
+                                    </div>
+                                    <div class="build-item-box active">
+                                        <div class="build-item-box-active">
+                                            <span>2</span>
+                                        </div>
+                                        <p>Registration/Login</p>
+                                    </div>
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <span>3</span>
+                                        </div>
+                                        <p>Submit Review</p>
+                                    </div>
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <span>4</span>
+                                        </div>
+                                        <p>Confirmation</p>
+                                    </div>
+                                </div>
+                                <div class="build-right">
+                                    <div class="build-right-title">
+                                        <h3>What are you working on?</h3>
+                                        <p>* We’ll guide you step-by-step to add the school/coach you need.</p>
+                                    </div>
+                                    <div class="build-right-form">
+                                        <p>(Avg. Time of Completion - 2 minutes)</p>
+                                        <div class="build-right-form-inner" v-if="addNew.isReg " >
+                                            <form action="#">
+                                                <div class="build-input">
+                                                    <label for="">Your First name <span class="required">*</span></label>
+                                                    <input type="text" v-model="step2Form.firstName" >
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">Your Last name <span class="required">*</span></label>
+                                                    <input type="text" v-model="step2Form.lastName">
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">Email <span class="required">*</span></label>
+                                                    <input type="email" v-model="step2Form.email">
+                                                </div>
+                                                <!-- <div class="build-input">
+                                                    <label for="">Division <span class="required">*</span></label>
+                                                    <select name="" id="">
+                                                        <option value="one"></option>
+                                                        <option value="one"></option>
+                                                        <option value="one"></option>
+                                                        <option value="one"></option>
+                                                    </select>
+                                                </div> -->
+                                                <div class="build-input">
+                                                    <label for="">Password <span class="required">*</span></label>
+                                                    <input type="password" v-model="step2Form.password">
+                                                </div>
+                                                <div class="build-input">
+                                                    <label for="">Re-enter password <span class="required">*</span></label>
+                                                    <input type="password" v-model="step2Form.password_confirmation">
+                                                </div>
+                                                <!-- <div class="build-input">
+                                                    <label for="">Sport </label>
+                                                    <select name="" id="">
+                                                        <option value="one"></option>
+                                                        <option value="one"></option>
+                                                        <option value="one"></option>
+                                                        <option value="one"></option>
+                                                    </select>
+                                                </div> -->
+                                            </form>
+                                            <div class="build-redirect">
+                                                <p>Already have an account Please <a @click="addNew.isReg = false" > Login .</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="build-right-form-inner" v-else>
+                                            <form action="#">
+                                               
+                                                <div class="build-input">
+                                                    <label for="">Email <span class="required">*</span></label>
+                                                    <input type="email" v-model="formData.email">
+                                                </div>
+                                               
+                                                <div class="build-input">
+                                                    <label for="">Password <span class="required">*</span></label>
+                                                    <input type="password" v-model="formData.password">
+                                                </div>
+                                            </form>
+                                            <div class="build-redirect">
+                                                <p>Don't have any account. Please <a @click="addNew.isReg = true" >Register</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="build-section-inner-bottom">
+                                <div class="build-cancel">
+                                    <p>Cancel</p>
+                                </div>
+                                <div class="build-btn">
+                                    <ul>
+                                        <li class="go-btn"><button>Submit</button></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="bulid-section build-section-2"  v-if="addNew.step == 3">
+                        <div class="build-section-title">
+                            <h3>Build together</h3>
+                            <div class="build-close" style="cursor:pointer;" @click="addNew.modal = false" >
+                                <img src="/images/Step-1.png" alt="">
+                            </div>
+                        </div>
+                        <div class="build-section-inner">
+                            <div class="build-section-inner-top">
+                                <div class="build-left">
+                                    <div class="build-item-box active">
+                                        <div class="build-box-round">
+                                            <!-- <span>1</span> -->
+                                            <img src="/images/conf.png" alt="">
+                                        </div>
+                                        <p>Your work</p>
+                                    </div>
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <!-- <span>1</span> -->
+                                            <img src="/images/conf.png" alt="">
+                                        </div>
+                                        <p>Registration/Login</p>
+                                    </div>
+                                    <div class="build-item-box active">
+                                        <div class="build-item-box-active">
+                                            <span>3</span>
+                                        </div>
+                                        <p>Submit Review</p>
+                                    </div>
+                                    <div class="build-item-box">
+                                        <div class="build-box-round">
+                                            <span>4</span>
+                                        </div>
+                                        <p>Confirmation</p>
+                                    </div>
+                                </div>
+                                <div class="build-right">
+                                    <div class="build-right-title">
+                                        <h3>What are you working on?</h3>
+                                        <p>* We’ll guide you step-by-step to add the school/coach you need.</p>
+                                    </div>
+                                    <div class="build-right-form">
+                                        <p>(Avg. Time of Completion - 2 minutes)</p>
+                                        <div class="build-right-form-inner build-right-form-non">
+                                            <form action="#">
+                                                <div class="build-review">
+                                                    <div v-if="onHover" >
+                                                        <ul>
+                                                            <li  @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(1)" :class="(drating.index > 0)? drating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li  @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(2)" :class="(drating.index > 1)? drating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li  @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(3)" :class="(drating.index > 2)? drating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li  @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(4)" :class="(drating.index > 3)? drating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li  @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(5)" :class="(drating.index > 4)? drating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                        </ul>
+                                                        <p>Select your rating</p>
+                                                    </div>
+                                                    <div v-else>
+                                                        <ul>
+                                                            <li @mouseover="changeDataHover(1)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(1)" :class="(oldrating.index > 0)? oldrating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li @mouseover="changeDataHover(2)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(2)" :class="(oldrating.index > 1)? oldrating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li @mouseover="changeDataHover(3)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(3)" :class="(oldrating.index > 2)? oldrating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li @mouseover="changeDataHover(4)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(4)" :class="(oldrating.index > 3)? oldrating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                            <li @mouseover="changeDataHover(5)"   @mouseleave="changeDataHoverLeave"  @click="changeOldRatingV2(5)" :class="(oldrating.index > 4)? oldrating.class: ''" ><span    ><i class="fas fa-star"></i></span></li>
+                                                        </ul>
+                                                        <p>Select your rating</p>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="build-textarea">
+                                                    <textarea v-model="step3Form.content" name="" id="" rows="10" placeholder="Your review helps others learn about good and bad coaches.
+
+                                                    You have been lied to. 
+                                                    Your values don't count.
+                                                    They don't take you seriously.                                                                                                                                                                                                                                                                     
+                                                    You owe this to yourself"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="build-section-inner-bottom">
+                                <div class="build-cancel">
+                                    <p>Cancel</p>
+                                </div>
+                                <div class="build-btn">
+                                    <ul>
+                                        <li class="go-btn"><button>Submit</button></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="bulid-section build-section-2"  v-if="addNew.step == 4">
+                        <div class="build-section-title">
+                            <h3>Build together</h3>
+                           <div class="build-close" style="cursor:pointer;" @click="addNew.modal = false" >
+                                <img src="/images/Step-1.png" alt="">
+                            </div>
+                        </div>
+                        <div class="build-section-inner">
+                            <div class="build-section-inner-top">
+                                <div class="build-left">
+                                    <div class="build-item-box ">
+                                        <div class="build-box-round">
+                                            <!-- <span>1</span> -->
+                                            <img src="/images/conf.png" alt="">
+                                        </div>
+                                        <p>Add School/Coach</p>
+                                    </div>
+                                    <div class="build-item-box ">
+                                        <div class="build-box-round">
+                                            <!-- <span>2</span> -->
+                                            <img src="/images/conf.png" alt="">
+                                        </div>
+                                        <p>Registration/Login</p>
+                                    </div>
+                                    <div class="build-item-box ">
+                                        <div class="build-box-round">
+                                            <!-- <span>2</span> -->
+                                            <img src="/images/conf.png" alt="">
+                                        </div>
+                                        <p>Submit Review</p>
+                                    </div>
+                                    <div class="build-item-box active">
+                                        <div class="build-item-box-active">
+                                            <!-- <span>3</span> -->
+                                            <img src="/images/conf.png" alt="">
+                                        </div>
+                                        <p>Confirmation</p>
+                                    </div>
+                                </div>
+                                <div class="build-right">
+                                    <div class="build-right-title">
+                                        <h3>What are you working on?</h3>
+                                        <p>* We’ll guide you step-by-step to add the school/coach you need.</p>
+                                    </div>
+                                    <div class="build-right-form">
+                                        <div class="build-right-form-inner build-right-form-non">
+                                            <div class="build-confirmation-text">
+                                                <h3>Great! Way to Flank! <br> Your review has been submitted</h3>
+                                                <p>Please allow us 24-48 hours to pull your information into one place, and see your low risk insight instantly benefit the player communities where you play(ed).</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="build-section-inner-bottom">
+                                <div class="build-cancel">
+                                    <p>Cancel</p>
+                                </div>
+                                <div class="build-btn">
+                                    <ul>
+                                        <li class="go-btn"><button>Continue Browsing</button></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+           </div>
+           <div slot="footer">
+               <div v-if="addNew.step == 1" class="mFooter" >
+                   <p class="mCancel"  @click="addNew.modal=false">Cancel</p>
+                    
+                    <Button class="mNext" @click="addNewItem">Next</Button>
+               </div>
+               <div v-if="addNew.step == 2" class="mFooter" >
+                   <p class="mCancel"  @click="addNew.modal=false">Cancel</p>
+                    <Button  class="mBack" @click="addNew.modal=false">Back</Button>
+
+                    <Button v-if="addNew.isReg"  class="mNext" @click="register">Next</Button>
+                    <Button v-else class="mNext" @click="login">Next</Button>
+               </div>
+                
+               <div v-if="addNew.step == 3" class="mFooter"  >
+                    <p class="mCancel"  @click="addNew.modal=false">Cancel</p>
+                    
+                    <Button class="mNext" @click="reviewSubmit">Submit</Button>
+               </div>
+                
+               <div v-if="addNew.step == 4" class="mFooter"  >
+                   
+                     <Button class="mNext" @click="addNew.modal=false">Continue Browsing</Button>
+               </div>
+                
+               
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -1882,6 +1814,44 @@ export default {
                 index:0,
             },
             onHover: false,
+            onTest: false,
+            addNew:{
+                step:1,
+                modal:false,
+                onHover:false,
+                isReg: true
+            },
+            step1Form:{
+                schoolName:'',
+                city:'',
+                division:'',
+                state:'',
+                sport:'',
+                name:'',
+
+            },
+             step2Form:{
+                firstName:'',
+                lastName:'',
+                email:'',
+                password:'',
+                
+                password_confirmation :'',
+                birthday:'',
+                packType:''
+            },
+            step3Form:{
+                reviewFor:'',
+                school_id:'',
+                content:"",
+                rating:'',
+            },
+            newCoach:{},
+             formData:{
+                email:'',
+                password:'',
+                remember: false,
+            },
 
         }
     },
@@ -1939,6 +1909,141 @@ export default {
              this.SearchByKey()
 
         },
+        changeOldRatingV2(index){
+             this.oldrating.index = index
+            if(index == 1){
+                this.oldrating.class = 'review-star-1'
+                this.oldrating.text = 'Eek! Methinks not.'
+
+            }
+            else if(index == 2){
+                this.oldrating.class = 'review-star-2'
+                this.oldrating.text = "Meh. I've experienced better."
+            }
+            else if(index == 3){
+                this.oldrating.class = 'review-star-3'
+                this.oldrating.text = 'A-OK.'
+            }
+            else if(index == 4){
+                this.oldrating.class = 'review-star-4'
+                this.oldrating.text = "Yay! I'm a fan"
+            }
+            else if(index == 5){
+                this.oldrating.class = 'review-star-5'
+                this.oldrating.text = "Woohoo! As good as it gets!"
+            }
+
+            
+
+        },
+        async  addNewItem(){
+            if(this.step1Form.schoolName == '') return this.i("All Fields are required!")
+            if(this.step1Form.city == '') return this.i("All Fields are required!")
+            if(this.step1Form.division == '') return this.i("All Fields are required!")
+            if(this.step1Form.name == '') return this.i("All Fields are required!")
+            if(this.step1Form.sport == '') return this.i("All Fields are required!")
+            if(this.step1Form.state == '') return this.i("All Fields are required!")
+            const res = await this.callApi('post','/coaches',this.step1Form)
+
+            if(res.status == 200){
+                this.newCoach = res.data
+                this.i("New Coach Created !")
+                if(this.isLoggedIn) this.addNew.step = 3
+                else this.addNew.step = 2
+            }
+            else{
+                this.swr()
+                this.addNew.modal = false
+            }
+            
+        },
+        async register(){
+
+             if(this.step2Form.firstName == '') return this.i("Frist name is empty!")
+            if(this.step2Form.lastName == '') return this.i("Last name is empty!")
+            if(this.step2Form.email == '') return this.i("Email  is empty!")
+            if(this.step2Form.password == '') return this.i("Password  is empty!")
+             if(this.step2Form.password_confirmation  !==  this.step2Form.password) return this.i("Password Doesn't match !")
+                
+            this.step2Form.packType = 1
+            const res = await this.callApi('post','/users',this.step2Form)
+            if(res.status==200){
+                this.s('Registration Completed !')
+                this.$store.dispatch('setAuthInfo',res.data)
+                this.addNew.step = 3
+                 
+            }
+            else if(res.status === 400){
+                for(let d of res.data){
+            
+                    this.e(d.message)
+                }
+            }
+            else{
+                console.log(res)
+                this.swr()
+            }
+        },
+        async login(){
+            if(this.formData.email == '') return this.i("email is empty")
+            if(this.formData.password == '') return this.i("Password is empty")
+            const res = await this.callApi('post','authentication/login',this.formData) 
+            if(res.status===200){
+                this.s("Login Successfully !")
+                this.$store.dispatch('setAuthInfo',res.data)
+
+               
+                 
+                 this.addNew.step = 3
+                  
+                
+            }
+            else if(res.status==401){
+                this.e(res.data.message)
+            }
+            else{
+                this.swr();
+            }
+        },
+        async reviewSubmit(){
+             
+            
+            if(this.step3Form.content == ''){
+                this.i("You must write something in the review box!")
+                return
+            }
+            if(this.drating.index == 0 ){
+                this.i('Please rate this coach !')
+                return;
+            }
+            this.step3Form.rating = this.oldrating.rating
+            if(this.newCoach.name){
+                this.step3Form.reviewFor =this.newCoach.id
+                this.step3Form.rating = this.newCoach.school_id
+               
+            }
+            else {
+                 this.addNew.modal = false
+               
+                return this.swr()
+            }
+          
+            
+           // this.reviewData.uploadList = this.uploadList
+          //  this.reviewData.AttributeInfo = this.AttributeInfo
+
+            const res = await this.callApi('post','/app/storeSchoolCoachReview',this.step3Form)
+            if(res.status===200){
+                this.s('Review posted successfully!')
+                this.addNew.step = 4
+            }
+            else{
+                this.swr();
+            }
+           
+            
+        },
+        
         changeDataHoverLeave(){
             this.onHover = false
             // this.drating.index = 0
@@ -2001,7 +2106,9 @@ export default {
                 this.$store.commit('setPagination', res.data.mainData )
                  this.similar = res.data.similarData
                 this.sstr = this.str
+                this.showStr = this.str
                 this.splace = this.place
+                this.onTest = true
                 this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
                 this.isLoading = false
             }
@@ -2021,6 +2128,7 @@ export default {
                
                 this.sstr = this.str
                 this.splace = this.place
+                
                 this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
                 this.isLoading = false
             }
@@ -2045,7 +2153,7 @@ export default {
         letChangePlace(item){
            this.place = item.name
            this.allPlaces = []
-          // this.SearchByKey();
+           this.SearchByKey();
         }
 
     },
@@ -2088,6 +2196,12 @@ export default {
 </script>
 
 <style>
+.ivu-modal-body {
+    padding: 0px !important;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
 .active_ON{
     background: #0096d8 !important;
     color: #fff !important;
@@ -2105,5 +2219,41 @@ export default {
 	max-height: 250px;
     overflow: auto;
     z-index: 111;
+}
+.mFooter{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.mCancel{
+    cursor: pointer;
+    color: #d32323;
+    padding: 0 15px;
+    font-size: 14px;
+}
+.mBack{
+    background: rgb(253, 254, 255) !important;
+    color:  rgb(211, 35, 35) !important;
+    font-weight: 500 !important;
+    font-size: 13px;
+    border: 1px solid  rgb(211, 35, 35) !important;
+}
+.mNext{
+    background: rgb(211, 35, 35) !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+    font-size: 13px;
+}
+.build-item-box-active{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #fff;
+    margin: auto;
+    border: 1px solid #d32323;
 }
 </style>

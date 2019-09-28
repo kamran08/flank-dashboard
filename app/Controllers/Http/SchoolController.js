@@ -9,6 +9,7 @@
 const School = use('App/Models/School')
 const SchoolCoach = use('App/Models/SchoolCoach')
 const Attribute = use('App/Models/Attribute')
+const Place = use('App/Models/Place')
 const ReviewImage = use('App/Models/ReviewImage')
 const Review = use('App/Models/Review')
 const ReviewAttribute = use('App/Models/ReviewAttribute')
@@ -381,10 +382,17 @@ class SchoolController {
     const rdata = await Review.create(data)
 
     if(data.review_type == 'school'){
+
       let avg = await SchoolCoach.query().with('avgRating').where('id',data.reviewFor).first()
       avg = JSON.parse(JSON.stringify(avg))
       await SchoolCoach.query().where('id',data.reviewFor).update({
-        avg_rating:avg.avgRating.averageRating
+        avg_rating:avg.avgRating.averageRating,
+        totalRating:avg.avgRating.totalRating,
+        totalHarmful:avg.avgRating.totalHarmful,
+        averageHealthy:avg.avgRating.averageHealthy,
+        totalHealthy:avg.avgRating.totalHealthy,
+        averageHarmful:avg.avgRating.averageHarmful,
+        
       })
      
     }
@@ -558,7 +566,11 @@ class SchoolController {
   async destroy({ params, request, response }) {
   }
   async test({ params, request, response }) {
-    return await SchoolCoach.query().where('id',123547).with('topAtrribute.info' ).first()
+    let place = await  Database.raw('SELECT * FROM `places` ORDER by name asc')
+
+   // return await Place.createMany(place[0])
+   return place
+    
   }
 }
 

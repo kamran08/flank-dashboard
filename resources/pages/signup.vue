@@ -178,6 +178,7 @@ export default {
     },
     methods:{
         async onSubmit(){
+            
             if(this.formData.firstName == '') return this.i("Frist name is empty!")
             if(this.formData.lastName == '') return this.i("Last name is empty!")
             if(this.formData.email == '') return this.i("Email  is empty!")

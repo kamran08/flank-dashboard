@@ -29,7 +29,7 @@ module.exports = {
   // },
   plugins: [
     '~plugins/vuecommon',
-    '~plugins/ivuew',
+    {src: '~plugins/ivuew', ssr: false},
     '~plugins/googlechart'
     // {src: '~plugins/clickout', ssr: false},
   ],
@@ -67,7 +67,8 @@ module.exports = {
       { rel: 'stylesheet', href: '/css/new_style.css' },
       { rel: 'stylesheet', href: '/css/new.css' },
       { rel: 'stylesheet', href: '/css/responsive.css' },
-      { rel: 'stylesheet', href: '/css/styleL3.css' }
+      { rel: 'stylesheet', href: '/css/styleL3.css' },
+      { rel: 'stylesheet', href: '/css/styleL4.css' }
 
     ],
     script: [

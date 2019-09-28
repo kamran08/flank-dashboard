@@ -1,0 +1,574 @@
+@font-face {
+    font-family: cera-pro-normal-black-italic, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Black\ Italic.woff);
+    src: url(../fonts/Cera\ Pro\ Black\ Italic.otf); }
+  @font-face {
+    font-family: cera-pro-normal-black, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Black.otf);
+    src: url(../fonts/Cera\ Pro\ Black.woff); }
+  @font-face {
+    font-family: cera-pro-normal-bold-italic, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Bold\ Italic.otf);
+    src: url(../fonts/Cera\ Pro\ Bold\ Italic.woff); }
+  @font-face {
+    font-family: ceraPro;
+    src: url(../fonts/Cera\ Pro\ Bold.otf);
+    src: url(../fonts/Cera\ Pro\ Bold.woff); }
+  @font-face {
+    font-family: cera-pro-normal-italic, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Italic.otf); }
+  @font-face {
+    font-family: cera-pro-normal-light-italic, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Light\ Italic.otf);
+    src: url(../fonts/Cera\ Pro\ Light\ Italic.woff); }
+  @font-face {
+    font-family: cera-pro-normal-light, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Light.otf);
+    src: url(../fonts/Cera\ Pro\ Light.woff); }
+  @font-face {
+    font-family: cera-pro-normal-medium-italic, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Medium\ Italic.otf);
+    src: url(../fonts/Cera\ Pro\ Medium\ Italic.woff); }
+  @font-face {
+    font-family: cera-pro-normal-medium, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Medium.otf);
+    src: url(../fonts/Cera\ Pro\ Medium.woff); }
+  @font-face {
+    font-family: cera-pro-normal-regular-italic, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Regular\ Italic.woff); }
+  @font-face {
+    font-family: cera-pro-normal-thin-italic, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Thin\ Italic.otf);
+    src: url(../fonts/Cera\ Pro\ Thin\ Italic.woff); }
+  @font-face {
+    font-family: cera-pro-normal-thin, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Thin.otf);
+    src: url(../fonts/Cera\ Pro\ Thin.woff); }
+  @font-face {
+    font-family: cera-pro-normal-thin, Mates, sans;
+    src: url(../fonts/Cera\ Pro\ Thin.otf);
+    src: url(../fonts/Cera\ Pro\ Thin.woff); }
+  @font-face {
+    font-family: cera-pro-normal, Mates, sans;
+    src: url(../fonts/Cera\ Pro.otf);
+    src: url(../fonts/Cera\ Pro.woff); }
+  a {
+    text-decoration: none;
+    color: #7A7B7D; }
+  
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+    font-family: Cerapro;
+  }
+  
+  .new-find-section {
+    background: #f5f5f5;
+    padding: 40px 10px;
+    border-bottom: 1px solid #e6e6e6;
+  }
+  
+  .new-find-inner h3 {
+        margin: 0;
+        color: #000;
+        font-size: 18px;
+        font-weight: 600; 
+  }
+  
+  .new-find-inner h3 span {
+    font-weight: 400;
+  }
+  
+  .new-find-pagi {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .new-find-pagi ul {
+    display: table;
+  
+  }
+  
+  .new-find-pagi ul li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .new-find-pagi ul li span {
+    margin-right: 5px;
+  }
+  
+  .new-find-pagi ul li a {
+    color: #0088cc;
+  }
+  
+  /* suggestion result */
+  
+  .suggestion-result {
+    margin-top: 20px;
+  }
+  
+  .suggestion-inner h3 {
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .suggestion-inner ul {
+    margin-top: 10px;
+  }
+  
+  .suggestion-inner-list ul li {
+    list-style: none;
+  }
+  
+  .suggestion-inner-list ul li:first-child {
+    color: #0088cc;
+  }
+  
+  .suggestion-container {
+    border: 1px solid #e5e5e5;
+    padding: 12px;
+    border-radius: 3px;
+    margin-top: 10px;
+  }
+  
+  .suggestion-container-inner {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .suggestion-container-left {
+    flex: 0 0 70%;
+    width: 100%;
+  }
+  
+  .suggestion-container-left  h3 {
+    color: #e51837;
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+  
+  .suggestion-container-right {
+    flex: 0 0 30%;
+    width: 100%;
+    text-align: right;
+  }
+  
+  .suggestion-container-right button {
+    padding: 6px 10px;
+    background: #e51837;
+    color: #000;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    outline: 0;
+    font-size: 13px;
+  }
+  
+  .suggestion-container-text {
+    padding-top: 12px;
+  }
+  
+  .suggestion-container-text p a {
+    color: #0088cc;
+  }
+  
+  /* build 1 */
+  
+  .bulid-section {
+    margin-top: 20px;
+    border: 1px solid #B5B7B9;
+  }
+  
+  .build-section-title {
+    background: #D32323;
+    padding: 15px 20px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .build-section-title h3 {
+    color: #fff;
+    text-transform: capitalize;
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .build-close img {
+    width: 20px;
+  }
+  
+  .build-section-inner-top {
+    display: flex;
+    flex-flow: row;
+  }
+  
+  .build-left {
+    flex: 0 0 25%;
+    width: 100%;
+    background: #f5f5f5;
+    padding: 25px 0;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+  
+  
+  .build-item-box {
+    margin-bottom: 20px;
+    filter: opacity(0.5);
+    -webkit-filter: opacity(0.5);
+  }
+  
+  .build-item-box.active {
+    filter: none;
+    -webkit-filter: none;
+  }
+  
+  .build-box-round {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #fff;
+    margin: auto;
+  }
+  
+  .build-box-round span {
+    color: #000;
+  }
+  
+  .build-box-round img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .build-item-box p {
+    margin-top: 5px;
+    text-transform: capitalize;
+  }
+  
+  .build-right {
+    padding: 25px;
+    flex: 0 0 75%;
+    width: 100%;
+  }
+  
+  .build-right-title  h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .build-right-title  p {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 15px;
+  }
+  
+  .build-right-form {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    margin-top: 30px;
+  }
+  
+  .build-right-form p {
+    font-size: 11px;
+  }
+  
+  .build-right-form-inner {
+    width: 85%;
+    background: #F0F5F8;
+    border: 2px solid #F0F5F8;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  
+  @media only screen and (max-width: 620px) {
+    .build-section-inner-top {
+      display: flex;
+      flex-flow: column;
+    }
+  
+    .build-left {
+      flex: 0 0 25%;
+      width: 100%;
+      background: #f5f5f5;
+      padding: 25px 0;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+  
+    .build-right-form-inner {
+      width: 100%;
+      background: #F0F5F8;
+      border: 2px solid #F0F5F8;
+      border-radius: 5px;
+      padding: 20px;
+    }
+  }
+  
+  .build-right-form-inner form {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .build-input {
+    display: flex;
+    flex-flow: column;
+    flex: 0 0 48%;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  @media only screen and (max-width: 420px) {
+  
+    .build-input {
+      display: flex;
+      flex-flow: column;
+      flex: 0 0 100%;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+  
+  .build-input label {
+    font-weight: 400;
+    font-size: 13px;
+    margin: 0;
+    text-transform: capitalize;
+  }
+  
+  .build-input input {
+    border: 1px solid #C3CAD2;
+    border-radius: 3px;
+    margin-top: 5px;
+    outline: 0;
+    padding: 3px 5px;
+    width: 100%;
+    background: #fff;
+  }
+  
+  .build-input select {
+    border: 1px solid #C3CAD2;
+    border-radius: 3px;
+    margin-top: 5px;
+    outline: 0;
+    padding: 3px 5px;
+    -webkit-appearance: none;
+    background: url(../images/form-step.png) right 0.75rem center no-repeat;
+    background-size: 15px;
+    background-color: #fff;
+    width: 100%;
+  }
+  
+  .build-redirect {
+    text-align: center;
+  }
+  
+  .build-redirect p {
+    margin: 0;
+    font-size: 11px;
+  }
+  
+  .build-redirect p a {
+    color: #0088cc;
+  }
+  
+  .build-section-inner-bottom {
+    border-top: 1px solid #B5B7B9;
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    justify-content: flex-end;
+    padding: 5px 25px;
+  }
+  
+  .build-cancel p {
+    cursor: pointer;
+    margin: 0;
+  }
+  
+  .build-cancel p:hover {
+    color: #0088cc;
+  }
+  
+  .build-btn {
+    margin-left: 20px;
+  }
+  
+  .build-btn ul {
+    display: table;
+  }
+  
+  .build-btn ul li {
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  .build-btn ul li:first-child {
+    margin-left: 0;
+  }
+  
+  .build-btn ul li button {
+    outline: 0;
+    padding: 5px 15px;
+    border-radius: 3px;
+    border: 1px solid #0088cc;
+    background: #fff;
+  }
+  
+  .go-btn button {
+    background: #0088cc !important;
+    color: #fff !important;
+  }
+  
+  .build-review {
+    display: flex;
+    flex-flow: row;
+    flex: 0 0 100%;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .build-review p {
+    margin: 0;
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .build-review ul {
+    display: table;
+  }
+  
+  .build-review ul li {
+    display: inline-block;
+    background: #CCCCCC;
+    color: #fff;
+    height: 25px;
+    width: 25px;
+    font-size: 13px;
+    margin-right: 3px;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .build-review ul li.active {
+    background: #0088cc;
+  }
+  
+  .build-review ul li span i {
+    vertical-align: sub;
+  }
+  
+  .build-textarea {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+  
+  .build-textarea textarea {
+    width: 100%;
+    outline: 0;
+    border: 0;
+    resize: vertical;
+  }
+  
+  .build-textarea textarea::placeholder {
+    color: #B4B5AF;
+  }
+  
+  .build-right-form-non {
+    background: #fff;
+  }
+  
+  .build-confirmation-text {
+    flex: 0 0 100%;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .build-confirmation-text  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .build-confirmation-text  p {
+    font-size: 14px;
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  /* new known for */
+
+.known-for-list {  
+    flex: 1;
+  }
+  
+  .known-for-list ul {  
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .known-for-list li {  
+    list-style: none;
+    flex: 0 0 50%;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .known-for-list li:nth-child(3) {  
+    opacity: 0.8;
+  }
+  .known-for-list li:nth-child(4) {  
+    opacity: 0.8;
+  }
+  .known-for-list li:nth-child(5) {  
+    opacity: 0.6;
+  }
+  .known-for-list li:nth-child(6) {  
+    opacity: 0.6;
+  }
+  .known-for-list li:nth-child(7) {  
+    opacity: 0.4;
+  }
+  .known-for-list li:nth-child(8) {  
+    opacity: 0.4;
+  }
+  .known-for-list li:nth-child(9) {  
+    opacity: 0.2;
+  }
+  .known-for-list li:nth-child(10) {  
+    opacity: 0.2;
+  }
+  
+  .known-for-list li img {  
+    width: 13px;
+    margin-right: 3px;
+  }
+  
+  .known-for-list li span {  
+    color: #737373;
+  }

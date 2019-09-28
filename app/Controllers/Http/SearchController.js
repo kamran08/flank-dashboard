@@ -74,9 +74,9 @@ class SearchController {
         data.orWhere('division', 'LIKE', '%' + place + '%')
       }
     } else if (pageOption == 'coach') {
-
-      data =  SchoolCoach.query()
-        .with('avgRating')
+      console.log("this is Coach")
+      data =   SchoolCoach.query()
+        .with('allreviewLimit')
         .with('topAtrribute.info' )
         .withCount('allreview as allreview')
         
@@ -94,9 +94,7 @@ class SearchController {
         })
       }
       if (attribute) {
-        data.whereHas('avgRating', (builder) => {
-          builder.orderBy( attribute, 'desc')
-        })
+        data.orderBy( attribute, 'desc')
       }
       if (rate > 0) {
         data.where('avg_rating', '<=', rate)
@@ -113,13 +111,14 @@ class SearchController {
 
       
     }
-    if (sort == 'most') {
-      data.orderBy('allreview', 'desc')
-     }
+    // if (sort == 'most') {
+    //   data.orderBy('allreview', 'desc')
+    //  }
     let mdata = await data.paginate(page, 10)
     mdata = mdata.toJSON()
     let tempData = JSON.parse(JSON.stringify(mdata))
     let similar = {};
+    let flankChoice = {};
     let ids = [];
     let school_ids = 0
     let states = 0

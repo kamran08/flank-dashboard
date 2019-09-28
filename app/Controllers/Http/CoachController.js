@@ -47,6 +47,21 @@ class CoachController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) { 
+    let data = request.all()
+    let name = data.name;
+    delete data.name;
+    data.isConfirmed = false;
+    let school = await School.create(data)
+
+    let coachob = {
+      'school_id': school.id,
+      'name': name
+    }
+  return   await SchoolCoach.create(coachob)
+
+
+
+  
   }
 
   /**
