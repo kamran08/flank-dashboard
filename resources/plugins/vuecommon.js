@@ -19,7 +19,13 @@ Vue.mixin({
   computed: {
     ...mapGetters({
       authInfo: 'getAuthInfo',
-      isLoggedIn: 'getIsLoggedIn'
+      isLoggedIn: 'getIsLoggedIn',
+      searchData: 'getSearchData',
+      pagination: 'getPagination',
+      pageOption: 'getPageOptino',
+      str: 'getStr',
+      place: 'getPlace',
+      similar: 'getSimilar'
     })
   }
 })

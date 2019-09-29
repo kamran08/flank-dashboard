@@ -103,9 +103,10 @@
                                             <div class="recent-activity-part-inner">
                                                 <div class="activ-thumb" @click="directToCoachWall(item)" style="cursor: pointer;" >
                                                     <figure>
-                                                        <img v-if="item.review_type == 'school'"  :src="item.school.logo"  alt="">
-                                                        <img v-if="item.review_type == 'product'" :src="item.product.img"  alt="">
-                                                        <img   v-if="item.review_type == 'legend'"  :src="item.legend.img"  alt="">
+                                                        <img v-if="item.review_type == 'school'"  :src="(item.school.logo != null)? item.school.logo : '/images/defult_coach.png'"  alt="">
+                                                        <img v-if="item.review_type == 'product'" :src="(item.product.img)? item.product.img : '/images/defult_coach.png'" alt="">
+                                                        <img   v-if="item.review_type == 'legend'"  :src="(item.legend.img)? item.legend.img : '/images/defult_coach.png'"   alt="">
+                                                        
                                                     </figure>
                                                 </div>
                                                 <div class="activ-det">

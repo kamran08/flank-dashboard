@@ -1,76 +1,6 @@
 <template>
     <div class="flank-container">
-        <div class="new-flank-nav">
-            <div class="new-flank-nav-con">
-                <div class="flank-new-brand">
-                    <a href="#"><img src="/images/logo-new.png" alt=""></a>
-                </div>
-                <div class="flank-new-form">
-                    <form v-on:submit.prevent>
-                        <div class="flank-new-indi">
-                            <div class="new-flank-selection">
-                                <p  @click="isStringMenu = (isStringMenu)? false : true" style="cursor:pointer;" > {{(pageOption)? pageOption: 'All'}} <span><i class="fas fa-caret-down"></i></span></p>
-                                <div class="new-flank-selection-dropdown" v-if="isStringMenu"  >
-                                    <ul>
-                                        <li><a @click="pageOptionDropChange('school')">School</a></li>
-                                        <li><a @click="pageOptionDropChange('coach')">Coach</a></li>
-                                        <li><a @click="pageOptionDropChange('legend')">Legend</a></li>
-                                        <li><a @click="pageOptionDropChange('product')">Products</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="new-flank-input">
-                                <input type="text" v-model="str" @enter="SearchByKey" >
-                            </div>
-                        </div>
-                        <div class="flank-new-indi" v-if=" pageOption != 'product' "  >
-                            <div class="new-flank-selection">
-                                <p>City</p>
-                            </div>
-                            <div class="new-flank-input" >
-                                <input type="text" v-model="place" v-on:keyup="searchPlace" @enter="SearchByKey"  >
-                                <div class="new-flank-indi-dropdown" v-if="allPlaces.length>0 && place != ''" >
-                                    <ul class="ssrolable" >
-                                        <li v-for="(item,index) in allPlaces" :key="index" >
-                                            <a @click="letChangePlace(item)">{{item.name}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="flank-new-search">
-                            <button @click="SearchByKey" ><span><i class="fas fa-search"></i></span></button>
-                        </div>
-                    </form>
-                </div>
-                <div class="flank-new-autho">
-                    <div class="autho-in">
-                        <button>Log in</button>
-                    </div>
-                    <div class="autho-up">
-                        <button>Sign Up</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <nav class="new-flank-header-nav">
-            <div class="container">
-                <div class="header-nav-indi">
-                    <ul class="header-nav-indi-left">
-                        <li class="active"><a href=""><img src="/images/new-ic-1.png" alt="">HS Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
-                        <li><a href=""><img src="/images/new-ic-2.png" alt="">CC Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
-                        <li><a href=""><img src="/images/new-ic-3.png" alt="">Local Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
-                        <li><a href="">More<span><i class="fas fa-chevron-down"></i></span></a></li>
-                    </ul>
-                    <ul class="header-nav-indi-right">
-                        <li class="active"><a href=""><img src="/images/new-ic-4.png" alt="">Write a Review<span><i class="fas fa-chevron-down"></i></span></a></li>
-                        <li><a href=""><img src="/images/new-ic-5.png" alt="">For Business<span><i class="fas fa-chevron-down"></i></span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        
 
         <div class="new-search-flank">
             <div class="new-search-flank-num">
@@ -92,6 +22,7 @@
                     <h3>Department</h3>
                     <ul class="pad-list">
                         <li @click="chnageType('school')" ><a :class="(pageOption == 'school')? 'active_coach': ''">Schools</a></li>
+                        <li @click="chnageType('coach', '')" ><a :class="(pageOption == 'coach' && div == '')? 'active_coach': ''">All Coach</a></li>
                         <li @click="chnageType('coach', 'High School')" ><a :class="(pageOption == 'coach' && div == 'High School')? 'active_coach': ''">High school coaches</a></li>
                         <li @click="chnageType('coach', 'Junior College')" ><a :class="(pageOption == 'coach' && div == 'Junior College')? 'active_coach': ''">College coaches</a></li>
                         <li @click="chnageType('coach', 'all')" ><a :class="(pageOption == 'coach' && div == 'all')? 'active_coach': ''">Professional sports</a></li>
@@ -145,7 +76,7 @@
                      </CheckboxGroup>
                 </div>
             </div>
-            <div class=" col-md-10" v-if="str != '' && place != '' && searchData.length == 0 && onTest == true ">
+            <div class=" col-md-10" v-if="str != '' && place != '' && searchData.length == 0  ">
                 <div>
                     <div class="new-find-section">
                         <div class="">
@@ -197,7 +128,7 @@
             </div>
             <div class="new-flank-content" v-else  >
 
-                <div class="new-flank-content-rev" v-if="!isLoading && searchData.length>0 && searchData[0].allreviewLimit != null "  >
+                <div class="new-flank-content-rev" v-if=" searchData.length>0 && searchData[0].allreviewLimit != null "  >
                     <div class="new-content-rev-title">
                         <h2>Your past reviews</h2>
                         <p><a href="">See all past reviews</a></p>
@@ -235,9 +166,9 @@
                     </div>
                 </div>
 
-                <div v-if="!isLoading && searchData.length>0" >
+                <div v-if="searchData.length>0" >
 
-                    <div class="_1coach_items" v-if="pageOptinoInfo == 'coach'"  v-for="(item,index) in searchData" :key="index"  >
+                    <div class="_1coach_items" v-if="pageOption == 'coach'"  v-for="(item,index) in searchData" :key="index"  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -387,7 +318,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_1coach_items" v-if="pageOptinoInfo == 'school'"  v-for="(item,index) in searchData" :key="index"  >
+                    <div class="_1coach_items" v-if="pageOption == 'school'"  v-for="(item,index) in searchData" :key="index"  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -450,7 +381,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_1coach_items" v-if="pageOptinoInfo == 'legend'"  v-for="(item,index) in searchData" :key="index"  >
+                    <div class="_1coach_items" v-if="pageOption == 'legend'"  v-for="(item,index) in searchData" :key="index"  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -558,7 +489,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_1coach_items" v-if="pageOptinoInfo == 'product'"  v-for="(item,index) in searchData" :key="index"  >
+                    <div class="_1coach_items" v-if="pageOption == 'product'"  v-for="(item,index) in searchData" :key="index"  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -756,9 +687,9 @@
                     </div>
                 </div>
 
-                <div v-if="!isLoading && searchData.length>0" >
+                <div v-if="searchData.length>0" >
 
-                    <div class="_1coach_items"   v-for="(item,index) in similar" :key="index" v-if="pageOptinoInfo == 'coach' && ((index%2) == 0)"  >
+                    <div class="_1coach_items"   v-for="(item,index) in similar" :key="index" v-if="pageOption == 'coach' && ((index%2) == 0)"  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -846,7 +777,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_1coach_items" v-for="(item,index) in similar" :key="index"  v-if="pageOptinoInfo == 'school' && ((index%2) == 0) "  >
+                    <div class="_1coach_items" v-for="(item,index) in similar" :key="index"  v-if="pageOption == 'school' && ((index%2) == 0) "  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -907,7 +838,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_1coach_items" v-for="(item,index) in similar" :key="index"  v-if="pageOptinoInfo == 'legend' && ((index%2) == 0)   "  >
+                    <div class="_1coach_items" v-for="(item,index) in similar" :key="index"  v-if="pageOption == 'legend' && ((index%2) == 0)   "  >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -1119,9 +1050,9 @@
                     </div>
                 </div>
 
-                 <div v-if="!isLoading && searchData.length>0" >
+                 <div v-if="searchData.length>0" >
 
-                    <div class="_1coach_items"  v-for="(item,index) in searchData" :key="index" v-if="pageOptinoInfo == 'coach' && ((index%2) != 0)"   >
+                    <div class="_1coach_items"  v-for="(item,index) in searchData" :key="index" v-if="pageOption == 'coach' && ((index%2) != 0)"   >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -1211,7 +1142,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_1coach_items" v-for="(item,index) in searchData" :key="index"  v-if="pageOptinoInfo == 'school' && ((index%2) != 0)" >
+                    <div class="_1coach_items" v-for="(item,index) in searchData" :key="index"  v-if="pageOption == 'school' && ((index%2) != 0)" >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -1274,7 +1205,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_1coach_items"  v-for="(item,index) in searchData" :key="index"  v-if="pageOptinoInfo == 'legend' && ((index%2) != 0)" >
+                    <div class="_1coach_items"  v-for="(item,index) in searchData" :key="index"  v-if="pageOption == 'legend' && ((index%2) != 0)" >
                         <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
 
                         <div class="_2coach_main">
@@ -1516,7 +1447,7 @@
                                                     <label for="">Your Last name <span class="required">*</span></label>
                                                     <input type="text" v-model="step2Form.lastName">
                                                 </div>
-                                                <div class="build-input">
+                                                <div class="build-input full_input">
                                                     <label for="">Email <span class="required">*</span></label>
                                                     <input type="email" v-model="step2Form.email">
                                                 </div>
@@ -1554,12 +1485,12 @@
                                         <div class="build-right-form-inner" v-else>
                                             <form action="#">
                                                
-                                                <div class="build-input">
+                                                <div class="build-input full_input">
                                                     <label for="">Email <span class="required">*</span></label>
                                                     <input type="email" v-model="formData.email">
                                                 </div>
                                                
-                                                <div class="build-input">
+                                                <div class="build-input full_input">
                                                     <label for="">Password <span class="required">*</span></label>
                                                     <input type="password" v-model="formData.password">
                                                 </div>
@@ -1781,9 +1712,9 @@ import {mapGetters} from 'vuex'
 export default {
     data(){
         return{
-            str:'',
+            
             showStr:'',
-            place:'',
+           
             page:1,
             flag:1,
             price:'',
@@ -1791,18 +1722,17 @@ export default {
             sstr:1,
             splace:1,
             sports:[],
-            allPlaces:[],
+            
             allSports:[],
-            similar:[],
             filterFlag:false,
-            pageOption: 'coach',
+            
             iam:false,
             showCurrentPage:0,
             sort:'normal',
             isLoading:true,
-            isStringMenu:false,
+            
             dropName:'',
-            div:'High School',
+            div:'',
             drating:{
                 class:'',
                 text:'Select your rating',
@@ -2052,7 +1982,8 @@ export default {
 
         },
         chnageType(item , division=''){
-            this.pageOption = item
+            this.$store.commit('setPageOption', item )
+          
             this.div = division
             this.SearchByKey()
         },
@@ -2074,16 +2005,10 @@ export default {
             this.changeSortName(item)
             this.SearchByKey()
         },
-        pageOptionDropChange(item){
-
-            this.pageOption= item
-            this.isStringMenu = false
-            this.SearchByKey()
         
-        },  
         changeSortName(item){
             if(item == 'normal')
-                this.dropName = 'Recomended'
+                this.dropName = 'Recomended' 
             else if(item == 'most')
                 this.dropName = 'Most Reviewed'
             else if(item == 'rated')
@@ -2100,69 +2025,25 @@ export default {
 
             const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&pageOption=${this.pageOption}&sort=${this.sort}&div=${this.div}&rate=${this.oldrating.index}&sports=${this.sports}&attribute=${this.attribute}`)
             if(res.status === 200){
-                this.$store.commit('setPageOptino', this.pageOption )
-                this.$store.commit('setSearchData', res.data.mainData.data)
+               this.$store.commit('setSearchData', res.data.mainData.data)
                 delete res.data.mainData.data
                 this.$store.commit('setPagination', res.data.mainData )
-                 this.similar = res.data.similarData
+                this.$store.commit('setSimilar', res.data.similarData )
                 this.sstr = this.str
                 this.showStr = this.str
                 this.splace = this.place
                 this.onTest = true
                 this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
-                this.isLoading = false
             }
             else{
                 this.swr();
-                this.isLoading = false
             }
         },
-        async paginateDataInfo(e){
-            this.page = e
-             const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.str}&page=${this.page}&pageOption=${this.pageOption}&price=${this.price}&sort=${this.sort}`)
-            if(res.status === 200){
-                 this.$store.commit('setPageOptino', this.pageOption )
-                this.$store.commit('setSearchData', res.data.data)
-                delete res.data.data
-                this.$store.commit('setPagination', res.data )
-               
-                this.sstr = this.str
-                this.splace = this.place
-                
-                this.showCurrentPage = (Math.ceil((this.pagination.total)/(this.pagination.perPage)))
-                this.isLoading = false
-            }
-            else{
-                this.swr();
-                this.isLoading = false
-            }
-        },
-        async searchPlace(){
-             const res = await this.callApi('get', `/app/searchPlace?place=${this.place}`)
-            if(res.status === 200){
-               this.allPlaces = res.data
-            }
-            else{
-                this.swr();
-                this.isLoading = false
-            }
-        },
+        
+        
         filterFlagAction(){
             this.filterFlag = (this.filterFlag)? false : true
         },
-        letChangePlace(item){
-           this.place = item.name
-           this.allPlaces = []
-           this.SearchByKey();
-        }
-
-    },
-    computed: {
-        ...mapGetters({
-        searchData: 'getSearchData',
-        pagination: 'getPagination',
-        pageOptinoInfo: 'getPageOptino'
-        })
     },
     filters:{
         healthScore(item){
@@ -2173,21 +2054,22 @@ export default {
     },
    async  created(){
        
-        this.place = (this.$route.query.place)? this.$route.query.place : ''
-        this.str = (this.$route.query.str)? this.$route.query.str :''
-        this.pageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'coach'
+        let tempPlace = (this.$route.query.place)? this.$route.query.place : ''
+        this.$store.commit('setPlace', tempPlace )
+        let tempStr = (this.$route.query.str)? this.$route.query.str :''
+        this.$store.commit('setStr', tempStr )
+        let tempPageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'coach'
+        this.$store.commit('setPageOptino', tempPageOption )
+
         this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
         this.div = (this.$route.query.div)? this.$route.query.div :''
-       
-
-        this.changeSortName(this.sort)
         
         await this.SearchByKey()
+
         const res = await this.callApi("get",'/app/getAllSports')
         if(res.status == 200){
             this.allSports = res.data
         }
-        this.isLoading = false
         // this. showCurrentPage = (Math.ceil(this.pagination.total)/(this.pagination.perPage)-this.pagination.page)
 
     }
@@ -2255,5 +2137,8 @@ export default {
     background: #fff;
     margin: auto;
     border: 1px solid #d32323;
+}
+.full_input{
+    flex: 0 0 100%;
 }
 </style>

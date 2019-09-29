@@ -68,6 +68,9 @@ class SearchController {
       if (str) {
         data.where('schoolName', 'LIKE', '%' + str + '%')
       }
+      if (rate > 0) {
+        data.where('avgRating.averageRating', '<=', rate)
+      }
       if (place) {
         data.where('city', 'LIKE', '%' + place + '%')
         data.orWhere('state', 'LIKE', '%' + place + '%')

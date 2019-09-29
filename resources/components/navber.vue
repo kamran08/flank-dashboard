@@ -120,7 +120,7 @@
                </div>
             </div>
         </header> -->
-        <div class="new-top-nav"> 
+        <!-- <div class="new-top-nav"> 
             <div class="container-fluid">
                 <div class="new-top-nav-inner">
                     <div class="new-top-nav-left">
@@ -156,7 +156,7 @@
                                          <input type="text" v-model="searchTxt"  v-on:keyup.enter="searchByKey()" >
                                     </div>
                                 </a>
-                                <!-- <form action="#"><input type="text" id="right-search-bar"></form> -->
+                               
                             </li>
                             <li class="right-user" v-if="isLoggedIn"   >
                                 <a  @click=" isMenuOpen = (isMenuOpen == false)? true: false">
@@ -182,14 +182,96 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+        <div class="new-flank-nav">
+            <div class="new-flank-nav-con">
+                <div class="flank-new-brand">
+                    <a @click="$router.push('/')"><img src="/images/logo-new.png" alt=""></a>
+                </div>
+                <div class="flank-new-form">
+                    <form v-on:submit.prevent>
+                        <div class="flank-new-indi">
+                            <div class="new-flank-selection">
+                                <p  @click="isStringMenu = (isStringMenu)? false : true" style="cursor:pointer;" > {{(pageOption)? pageOption: 'All'}} <span><i class="fas fa-caret-down"></i></span></p>
+                                <div class="new-flank-selection-dropdown" v-if="isStringMenu"  >
+                                    <ul>
+                                        <li><a @click="pageOptionDropChange('school')">School</a></li>
+                                        <li><a @click="pageOptionDropChange('coach')">Coach</a></li>
+                                        <li><a @click="pageOptionDropChange('legend')">Legend</a></li>
+                                        <li><a @click="pageOptionDropChange('product')">Products</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="new-flank-input">
+                                <input type="text" v-model="tStr" @enter="SearchByKey" >
+                            </div>
+                        </div>
+                        <div class="flank-new-indi" v-if=" pageOption != 'product' "  >
+                            <div class="new-flank-selection">
+                                <p>City</p>
+                            </div>
+                            <div class="new-flank-input" >
+                                <input type="text" v-model="tPlace" v-on:keyup="searchPlace" @enter="SearchByKey"  > 
+                                <div class="new-flank-indi-dropdown" v-if="allPlaces.length>0 && tPlace != ''" >
+                                    <ul class="ssrolable" >
+                                        <li v-for="(item,index) in allPlaces" :key="index" >
+                                            <a @click="letChangePlace(item)">{{item.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flank-new-search">
+                            <button @click="SearchByKey" ><span><i class="fas fa-search"></i></span></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="flank-new-autho" v-if="!isLoggedIn" >
+                    <div class="autho-in">
+                        <button @click="$router.push('/login')">Log in</button>
+                    </div>
+                    <div class="autho-up">
+                        <button @click="$router.push('/signup')">Sign Up</button>
+                    </div>
+                </div>
+                <div class="flank-new-autho" v-else>
+                    <div class="autho-in">
+                        <button @click="logout" >Logout</button>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-</div>
+
+        <nav class="new-flank-header-nav">
+            <div class="container">
+                <div class="header-nav-indi">
+                    <ul class="header-nav-indi-left">
+                        <li class="active"><a href=""><img src="/images/new-ic-1.png" alt="">HS Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li><a href=""><img src="/images/new-ic-2.png" alt="">CC Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li><a href=""><img src="/images/new-ic-3.png" alt="">Local Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li><a href="">More<span><i class="fas fa-chevron-down"></i></span></a></li>
+                    </ul>
+                    <ul class="header-nav-indi-right">
+                        <li class="active"><a href=""><img src="/images/new-ic-4.png" alt="">Write a Review<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li><a href=""><img src="/images/new-ic-5.png" alt="">For Business<span><i class="fas fa-chevron-down"></i></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>    
+    </div>
 </template>
 
 <script>
-    export default {
+    export default { 
         data(){
             return{
+                isStringMenu:false,
+                tStr:'',
+                tPlace:'',
+                allPlaces:[],
+
+
                 packType:0,
                 legend_id:0,
                 reviewModal:false,
@@ -224,58 +306,61 @@
                 iamIndex:false,
                 searchTxt:'',
                 addressTxt:'',
-                pageOption:'',
+               
                 sort:'',
                 div:'',
                 isMenuOpen:false,
                 
             }
         },
-        async asyncData({app, store,redirect, params}){
-            try {
-                let {data} = await app.$axios.get(`/legends/${params.id}`)
+        methods:{
+            menuChange(){
+              
+            },
+            letChangePlace(item){
+                this.tPlace = item.name
+                this.$store.commit('setPlace', item.name )
+                this.allPlaces = []
+                this.SearchByKey();
+            },
+            async searchPlace(){
+                this.$store.commit('setPlace', this.tPlace )
+                const res = await this.callApi('get', `/app/searchPlace?place=${this.place}`)
+                if(res.status === 200){
+                this.allPlaces = res.data
+                }
+                else{
+                    this.swr();
+                    this.isLoading = false
+                }
+            },
+             pageOptionDropChange(item){
+                this.$store.commit('setPageOptino', item )
+                this.isStringMenu = false
+                this.SearchByKey()
             
-                return{
-                    legendData : data.legend,
-                    userData : data.user,
-                    averageRating : data.averageRating,
-                    healthPulse : data.healthPulse,
-                    AttributeInfo : data.AttributeInfo,
-                    totalReview : data.legend.__meta__.totalReview_count
+            }, 
+            async SearchByKey(){
+                if(this.pageOption != 'product'){
+                    if(this.tStr == '' ) return this.i("Please Write a name")
+                    if(this.place == '') return this.i("Please Write a City")
+                }
+
+                const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.tStr}&pageOption=${this.pageOption}`)
+                if(res.status === 200){
+                    
+                    this.$store.commit('setSearchData', res.data.mainData.data)
+                    delete res.data.mainData.data
+                    this.$store.commit('setPagination', res.data.mainData )
+                    this.$store.commit('setSimilar', res.data.similarData )
+                    this.$store.commit('setStr', this.tStr )
                     
                 }
-            }catch (error) {
-                console.log(error)
-                return redirect('/')
-            }
-        },
-        methods:{
-          menuChange(){
-              
-          },
-        async searchByKey(legend = '',sort = '',div=''){
-            if(legend != '')
-                this.pageOption = legend
-            if(sort != '')
-                this.sort = sort
-            if(div != '')
-                this.div = div
-            if(this.pageOption == '') this.pageOption = 'legend'
-            const res = await this.callApi('get', `/app/SearchData?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}&div=${this.div}`)
-            console.log("pamramiter Key")
-            if(res.status === 200){
-               
-                
-                this.$store.commit('setSearchData', res.data.data)
-                delete res.data.data
-                this.$store.commit('setPagination', res.data )
-                this.$store.commit('setPageOptino', this.pageOption )
-                this.$router.push(`/search_result?place=${this.addressTxt}&str=${this.searchTxt}&pageOption=${this.pageOption}&sort=${this.sort}&div=${this.div}`)
-            }
-            else{
-                this.swr();
-            }
-        },
+                else{
+                    this.swr();
+                   
+                }
+            },
             closeModal(){
                 this.rData.for=0
                 this.rData.key=''
@@ -398,7 +483,24 @@
                 }
             },
         },
-
+        // async asyncData({app, store,redirect, params}){
+        //     try {
+        //         let {data} = await app.$axios.get(`/legends/${params.id}`)
+            
+        //         return{
+        //             legendData : data.legend,
+        //             userData : data.user,
+        //             averageRating : data.averageRating,
+        //             healthPulse : data.healthPulse,
+        //             AttributeInfo : data.AttributeInfo,
+        //             totalReview : data.legend.__meta__.totalReview_count
+                    
+        //         }
+        //     }catch (error) {
+        //         console.log(error)
+        //         return redirect('/')
+        //     }
+        // },
         async created(){
             // let d = new Date('2019-08-11');
             // d.setDate(d.getDate() + 60);
@@ -409,13 +511,13 @@
             // let today = `${d.getFullYear()}-${monthNumber}-${dayNumber}`
             // console.log(today)
 
-             if(this.isLoggedIn){
-                 this.packType = this.authInfo.packType
-                 const res = await this.callApi('get',`/app/getLegendId/${this.authInfo.id}`)
-                 if(res.status===200){
-                     this.legend_id = res.data.id
-                 }
-             } 
+            //  if(this.isLoggedIn){
+            //      this.packType = this.authInfo.packType
+            //      const res = await this.callApi('get',`/app/getLegendId/${this.authInfo.id}`)
+            //      if(res.status===200){
+            //          this.legend_id = res.data.id
+            //      }
+            //  } 
         }
     }
 </script>

@@ -4,7 +4,11 @@ export const state = () => ({
   showNavber: true,
   searchData: [],
   pagination: {},
-  pageOptino: 'legend'
+  similar: {},
+  pageOptino: 'coach',
+  str: '',
+  place: '',
+  
 })
 
 export const getters = {
@@ -19,6 +23,15 @@ export const getters = {
   },
   getSearchData (state) {
     return state.searchData
+  },
+  getStr (state) {
+    return state.str
+  },
+  getPlace (state) {
+    return state.place
+  },
+  getSimilar (state) {
+    return state.similar
   },
   getPagination (state) {
     return state.pagination
@@ -37,6 +50,15 @@ export const mutations = {
   },
   setSearchData (state, data) {
     state.searchData = data
+  },
+  setSimilar (state, data) {
+    state.simiar = data
+  },
+  setStr (state, data) {
+    state.str = data
+  },
+  setPlace (state, data) {
+    state.place = data
   },
   setPagination (state, data) {
     state.pagination = data
