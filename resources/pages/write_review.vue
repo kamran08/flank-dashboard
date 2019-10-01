@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-sm-8 padding-left-0">
                                             <div class="single-coaches-right">
-                                               <h4 class="single-coaches-right-title" @click="$router.push(`/school_coach/${item.id}`)"   >{{item.name}}</h4>
+                                               <h4 class="single-coaches-right-title" @click="$router.push(`/scoach_review/${item.id}`)"   >{{item.name}}</h4>
                                                <p class="single-coaches-right-sub">{{item.school.sport}}</p>
                                                <p class="single-coaches-right-sub">{{item.school.schoolName}}</p>
                                                <p class="single-coaches-right-sub">{{item.school.city}}/{{item.school.state}}</p>

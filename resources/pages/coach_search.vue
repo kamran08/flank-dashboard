@@ -27,11 +27,11 @@
                         <li @click="chnageType('coach', 'Junior College')" ><a :class="(pageOption == 'coach' && div == 'Junior College')? 'active_coach': ''">College coaches</a></li>
                         <li @click="chnageType('coach', 'all')" ><a :class="(pageOption == 'coach' && div == 'all')? 'active_coach': ''">Professional sports</a></li>
                         <li @click="chnageType('coach', 'Club/Travel')" ><a :class="(pageOption == 'coach' && div == 'Club/Travel')? 'active_coach': ''">Travel team coaches</a></li>
-                        <li @click="chnageType('legend')" ><a :class="(pageOption == 'legend' )? 'active_coach': ''">Local instructors</a></li>
+                        <!-- <li @click="chnageType('legend')" ><a :class="(pageOption == 'legend' )? 'active_coach': ''">Local instructors</a></li> -->
                         <li @click="chnageType('product')" ><a :class="(pageOption == 'product' )? 'active_coach': ''">Products & services</a></li>
                     </ul>
                 </div>
-                <div class="new-flank-sidebar-list">
+                <div class="new-flank-sidebar-list" v-if="pageOption != 'product'" >
                     <h3>Avg customer review</h3>
                     <ul>
                         <li>
@@ -52,7 +52,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="new-flank-sidebar-list">
+                <div class="new-flank-sidebar-list"  v-if="pageOption != 'product'">
                     <h3>Attributes</h3>
                     <ul>
                         <li>
@@ -63,7 +63,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="new-flank-sidebar-list">
+                <div class="new-flank-sidebar-list"  v-if="pageOption != 'product' ">
                     <h3>Sport type</h3>
                      <CheckboxGroup v-model="sports" @on-change="SearchByKey">
                     <ul v-if="allSports.length">
@@ -127,8 +127,8 @@
                 </div>
             </div>
             <div class="new-flank-content" v-else  >
-
-                <div class="new-flank-content-rev" v-if=" searchData.length>0 && searchData[0].allreviewLimit != null "  >
+                <div v-if="pageOption != 'product'">
+                    <div class="new-flank-content-rev" v-if=" searchData.length>0 && searchData[0].allreviewLimit != null "  >
                     <div class="new-content-rev-title">
                         <h2>Your past reviews</h2>
                         <p><a href="">See all past reviews</a></p>
@@ -165,6 +165,8 @@
                         </div>
                     </div>
                 </div>
+                </div>
+                
 
                 <div v-if="searchData.length>0" >
 
@@ -490,7 +492,9 @@
                         </div>
                     </div>
                     <div class="_1coach_items" v-if="pageOption == 'product'"  v-for="(item,index) in searchData" :key="index"  >
-                        <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p>
+                        <p class="worst yellow">Product & Service</p>
+
+                        <!-- <p class="worst yellow">{{ (item.avg_rating>=3)? 'Best Rated' : 'Worst Rated'}}</p> -->
 
                         <div class="_2coach_main">
                             <div class="row">
@@ -505,7 +509,7 @@
                                             <div class="_2card_details_top">
                                                 <div class="_2card_details_left">
                                                     <p class="_2title" style=" cursor: pointer; "  @click="$router.push(`/product/${item.id}`)" >{{item.name}} </p>
-                                                    <div class="_1rating">
+                                                    <!-- <div class="_1rating">
                                                         <ul class="_1rating_list">
                                                             <li :class="(item.avgRating.averageRating>0)? '_1rating_active' : ''"><i class="fas fa-star"></i></li>
                                                             <li :class="(item.avgRating.averageRating>1)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
@@ -514,7 +518,7 @@
                                                             <li :class="(item.avgRating.averageRating>4)? '_1rating_active' : ''" ><i class="fas fa-star"></i></li>
                                                             <li class="_1rating_num"><span> <i class="fas fa-chevron-down"></i> </span> {{item.__meta__.allreview}}</li>
                                                         </ul>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
 
                                                 <p class="_2card_details_city">{{item.address}}</p>
@@ -535,24 +539,24 @@
                                 <!-- Left -->
 
                                 <!-- Right -->
-                                <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right"> 
+                                <!-- <div class="col-xl-12 col-md-12 col-lg-5 _2coach_main_right"> 
                                     <div class="_2coach_title">
                                         <p class="_2coach_title_one">Health Score:</p>
 
                                         <p class="_2coach_title_two _2coach_title_two_red"> 10.00
                                             
-                                            <!-- <span>91.98%</span> -->
+                                            
                                         
                                         </p>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- Right -->
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="_1coach_items">
+                <div class="_1coach_items" v-if="pageOption != 'product'" >
                     <div class="_1coach_top">
                         <div class="_1coach_top_pic">
                             <img class="_1coach_top_img" src="images/fla.png" alt="" title="">
@@ -935,7 +939,7 @@
 
 
 
-                <div class="_1coach_items"  >
+                <div class="_1coach_items"  v-if="pageOption != 'product'" >
                     <div class="_1coach_barch">
                         <p class="worst black">Flank's <span>Chocie</span></p>
                         <p class="_1title">Higly rated, sustainable instructors that benefit the players communities where they coach</p>
@@ -2059,7 +2063,7 @@ export default {
         let tempStr = (this.$route.query.str)? this.$route.query.str :''
         this.$store.commit('setStr', tempStr )
         let tempPageOption = (this.$route.query.pageOption)? this.$route.query.pageOption :'coach'
-        this.$store.commit('setPageOptino', tempPageOption )
+        this.$store.commit('setPageOption', tempPageOption )
 
         this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
         this.div = (this.$route.query.div)? this.$route.query.div :''

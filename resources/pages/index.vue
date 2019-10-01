@@ -1026,7 +1026,7 @@ export default {
       // this.tabindex = 0
     },
     pageOptionDropChange(item){ 
-         this.$store.commit('setPageOptino', item )
+         this.$store.commit('setPageOption', item )
         this.isDropOption = false
        
     },

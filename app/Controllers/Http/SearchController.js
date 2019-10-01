@@ -44,22 +44,14 @@ class SearchController {
                       .where('city', 'LIKE', '%' + place + '%')
 
     }    else if (pageOption == 'product') {
-      data =  Product.query()
-        .with('avgRating')
-        .withCount(' reviewsall as allreview')
 
+      data =  Product.query()
       if (str) {
         data.where('name', 'LIKE', '%' + str + '%')
         data.orWhere('category', 'LIKE', '%' + str + '%')
         data.orWhere('description', 'LIKE', '%' + str + '%')
       }
-      if (price) {
-        data.where('price', '<=', price)
-      }
-
-      // if (place) {
-      //   data.where('address', 'LIKE', '%' + place + '%')
-      // }
+      
     }    else if (pageOption == 'school') {
       data =  School.query()
         .with('avgRating')
@@ -128,6 +120,7 @@ class SearchController {
      if(tempData.data.length>0){
 
       for (let d of tempData.data) {
+        console.log("from produt")
         if (d.avgRating == null) {
           d.avgRating = {
             averageRating: 0 
@@ -137,12 +130,8 @@ class SearchController {
        
       }
       if(pageOption == 'coach'){
-        
         states = tempData.data[0].school.state
         school_ids = tempData.data[0].school.id
-        console.log("i am here")
-        console.log(states)
-        console.log(school_ids)
         similar = await SchoolCoach.query() 
                               .with('avgRating')
                               .with('topAtrribute.info' )
@@ -185,8 +174,8 @@ class SearchController {
                                 
                                 .limit(40).fetch()
         }
-
-        similar = JSON.parse(JSON.stringify(similar))
+        if( pageOption != "product"){
+          similar = JSON.parse(JSON.stringify(similar))
           for (let d of similar) {
             if (d.avgRating == null) {
               d.avgRating = {
@@ -196,6 +185,7 @@ class SearchController {
     
           
           }
+        }
       }
         
 

@@ -197,7 +197,7 @@
                                     <ul>
                                         <li><a @click="pageOptionDropChange('school')">School</a></li>
                                         <li><a @click="pageOptionDropChange('coach')">Coach</a></li>
-                                        <li><a @click="pageOptionDropChange('legend')">Legend</a></li>
+                                        <!-- <li><a @click="pageOptionDropChange('legend')">Legend</a></li> -->
                                         <li><a @click="pageOptionDropChange('product')">Products</a></li>
                                     </ul>
                                 </div>
@@ -253,7 +253,7 @@
                         <li><a @click="SearchByKeyV2('coach')">More<span><i class="fas fa-chevron-down"></i></span></a></li>
                     </ul>
                     <ul class="header-nav-indi-right">
-                        <li class="active"><a @click="$route.push('/write_review')"><img src="/images/new-ic-4.png" alt="">Write a Review<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li class="active"><a @click="$router.push('/write_review')"><img src="/images/new-ic-4.png" alt="">Write a Review<span><i class="fas fa-chevron-down"></i></span></a></li>
                         <li><a href=""><img src="/images/new-ic-5.png" alt="">For Business<span><i class="fas fa-chevron-down"></i></span></a></li>
                     </ul>
                 </div>

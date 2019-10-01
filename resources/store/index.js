@@ -63,7 +63,7 @@ export const mutations = {
   setPagination (state, data) {
     state.pagination = data
   },
-  setPageOptino (state, data) {
+  setPageOption (state, data) {
     state.pageOptino = data
   }
 }
