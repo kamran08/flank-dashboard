@@ -223,6 +223,30 @@ class SearchController {
       .where('name', 'LIKE', '%' + place+ '%')
       .fetch()
   }
+  async searchCoachForReview ({ request }) {
+   
+    let place = request.input('place') ? request.input('place') : ''
+    let txt = request.input('txt') ? request.input('txt') : ''
+    let page = request.input('page') ? request.input('page') : 1
+
+    let data = SchoolCoach.query()
+        .withCount('allreview as allreview')
+        .with('school')
+
+      if (place) {
+        data.whereHas('school', (builder) => {
+          builder.where('city', 'LIKE', '%' + place + '%')
+         // builder.orWhere('state', place)
+          
+        })
+      }
+      if (txt) {
+        data.where('name', 'LIKE', '%' + txt + '%')
+      }
+
+      return await data.paginate(page,20)
+   
+  }
   async SearchByKeyCoach ({ request }) {
     const data = request.all()
     return await Legend.query()

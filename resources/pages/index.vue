@@ -196,18 +196,18 @@
                                         <figure>
                                             <img src="/images/header_0.jpg" alt="">
                                         </figure>
-                                        <div class="inner-item-form">
+                                        <div class="inner-item-form"  >
                                             <form v-on:submit.prevent>
-                                                <div class="form-inner">
-                                                    <div class="form-inner-dropdown" @click="isDropOption = (isDropOption)? false : true" >
+                                                <div class="form-inner" @focusout="handleFocusOut" @focus="handleFocus"  :tabindex="tabindex">
+                                                    <div class="form-inner-dropdown" @click="isDropOption = (isDropOption)? false : true"      >
                                                         <div class="form-inner-drop-tit">
                                                             <label>{{(pageOption)? pageOption: 'Find'}}</label>
                                                             <span><i class="fas fa-caret-down"></i></span>
                                                         </div>
                                                     </div>
                                                     <!-- <label>Find</label> -->
-                                                    <input type="text"  v-model="searchTxt" v-on:keyup.enter="$router.push(`/coach_search?str=${searchTxt}&pageOption=${pageOption}`)"  >
-                                                    <button @click="$router.push(`/coach_search?str=${searchTxt}&pageOption=${pageOption}`)"><img src="/images/form-search.png" alt=""></button>
+                                                    <input type="text"  v-model="searchTxt" v-on:keyup.enter="goToCoachSearch"  > 
+                                                    <button @click="goToCoachSearch"><img src="/images/form-search.png" alt=""></button>
                                                     <div class="form-main-dropdown" v-if="isDropOption" >
                                                         <ul>
                                                             <li><a @click="pageOptionDropChange('school')">School Name</a></li>
@@ -974,7 +974,7 @@ export default {
     return {
       name: "",
       searchTxt: "",
-      pageOption: "",
+      
       addressTxt: "",
       openSearchDrop: false,
       schoolCoaches: [],
@@ -1000,6 +1000,7 @@ export default {
       city:'All citys',
       allCity:[],
       isDropOption:false,
+    tabindex:0
     };
   },
   async asyncData({ app, store, redirect, params }) {
@@ -1014,11 +1015,24 @@ export default {
     }
   },
   methods: {
-    pageOptionDropChange(item){
-
-        this.pageOption= item
+    handleFocus(){
+      // console.log('handleFocus')
+      // this.show_user_option=false
+      this.tabindex = -1
+    },
+    handleFocusOut(){
+      // console.log('handleFocusOut')
+      this.isDropOption=false
+      // this.tabindex = 0
+    },
+    pageOptionDropChange(item){ 
+         this.$store.commit('setPageOptino', item )
         this.isDropOption = false
        
+    },
+    goToCoachSearch(){
+        this.$store.commit('setStr', this.searchTxt )
+        this.$router.push(`/coach_search?str=${this.str}&pageOption=${this.pageOption}`)
     },
     directToCoachWall(item){
        // return this.i();

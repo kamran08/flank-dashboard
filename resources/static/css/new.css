@@ -490,11 +490,20 @@ a.sign-social-facebook:focus{
     margin-bottom: 30px!important;
 }
 .single-coaches-left {
-    background-color: #FF0000;
-    padding: 20px;
+    /* background-color: #FF0000; */
+    padding: 10px;
     border-radius: 5px 0px 0px 5px;
     border: 1px solid #FF0000;
-    height: 124px;
+    height: 135px;
+}
+
+.single-coaches-left figure {
+    width: 100%;
+    height: 100%;
+}
+.single-coaches-left figure img {
+    width: 100%;
+    height: 100%;
 }
 .single-coaches-left-title {
     color: #fff;
@@ -524,12 +533,12 @@ a.sign-social-facebook:focus{
     font-size: 11px;
 }
 .single-coaches-right {
-    padding: 20px;
+    padding: 14px 20px 20px 20px;
     background-color: #fff;
     border: 1px solid #ccccccdb;
     border-left: 0;
     border-radius: 0px 5px 5px 0px;
-    height: 124px;
+    height: 135px;
 }
 
 
@@ -790,6 +799,10 @@ a.sign-social-facebook:focus{
 }
 .single-coaches-right-sub {
     color: #494949;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 

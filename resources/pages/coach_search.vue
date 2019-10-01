@@ -2064,6 +2064,8 @@ export default {
         this.sort = (this.$route.query.sort)? this.$route.query.sort :'normal'
         this.div = (this.$route.query.div)? this.$route.query.div :''
         
+        this.showStr = this.str
+        this.splace = this.place
         await this.SearchByKey()
 
         const res = await this.callApi("get",'/app/getAllSports')
