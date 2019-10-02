@@ -573,7 +573,46 @@
     color: #737373;
   }
 
-
+  a:hover{
+    text-decoration: none;
+}
+a:focus {
+    text-decoration: none;
+    outline: none;
+}
+input:focus, button{
+    outline:none;
+}
+input[type="checkbox"] {
+    cursor: pointer;
+}
+p {
+    line-height: 22px;
+}
+body{
+    scroll-behavior: smooth;
+}
+.padding-left-0 {
+    padding-left: 0 !important;
+}
+.padding-right-0 {
+    padding-right: 0 !important;
+}
+.p_r0 {
+    padding-right: 0;
+}
+.padd_tb40{
+    padding: 40px 0px;
+}
+.mar_b10{
+    margin-bottom: 10px;
+}
+.mar_b20{
+    margin-bottom: 20px;
+}
+.mar_b30{
+    margin-bottom: 30px;
+}
 
   /* newn ew new new nwe new flank profile */
 

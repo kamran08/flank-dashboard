@@ -14,12 +14,6 @@
                             <h2>Write a Review</h2>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-3 col-xs-12">
-                        <ul class="header-login">
-                            <li><a href="">Log in</a></li>
-                            <li><a href="">Sign Up</a></li> 
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

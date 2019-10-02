@@ -197,7 +197,7 @@
                                     <ul>
                                         <li><a @click="pageOptionDropChange('school')">School</a></li>
                                         <li><a @click="pageOptionDropChange('coach')">Coach</a></li>
-                                        <li><a @click="pageOptionDropChange('legend')">Legend</a></li>
+                                        <!-- <li><a @click="pageOptionDropChange('legend')">Legend</a></li> -->
                                         <li><a @click="pageOptionDropChange('product')">Products</a></li>
                                     </ul>
                                 </div>
@@ -247,13 +247,13 @@
             <div class="container">
                 <div class="header-nav-indi">
                     <ul class="header-nav-indi-left">
-                        <li class="active"><a href=""><img src="/images/new-ic-1.png" alt="">HS Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
-                        <li><a href=""><img src="/images/new-ic-2.png" alt="">CC Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
-                        <li><a href=""><img src="/images/new-ic-3.png" alt="">Local Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
-                        <li><a href="">More<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li class="active"><a @click="SearchByKeyV2('coach','High School')"><img src="/images/new-ic-1.png" alt="">HS Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li><a @click="SearchByKeyV2('coach','Junior College')"><img src="/images/new-ic-2.png" alt="">CC Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li><a @click="SearchByKeyV2('coach','Club/Travel')"><img src="/images/new-ic-3.png" alt="">Local Coaches<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li><a @click="SearchByKeyV2('coach')">More<span><i class="fas fa-chevron-down"></i></span></a></li>
                     </ul>
                     <ul class="header-nav-indi-right">
-                        <li class="active"><a href=""><img src="/images/new-ic-4.png" alt="">Write a Review<span><i class="fas fa-chevron-down"></i></span></a></li>
+                        <li class="active"><a @click="$router.push('/write_review')"><img src="/images/new-ic-4.png" alt="">Write a Review<span><i class="fas fa-chevron-down"></i></span></a></li>
                         <li><a href=""><img src="/images/new-ic-5.png" alt="">For Business<span><i class="fas fa-chevron-down"></i></span></a></li>
                     </ul>
                 </div>
@@ -344,6 +344,7 @@
                 if(this.pageOption != 'product'){
                     if(this.tStr == '' ) return this.i("Please Write a name")
                     if(this.place == '') return this.i("Please Write a City")
+                    this.$router.push('/coach_search')
                 }
 
                 const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.tStr}&pageOption=${this.pageOption}`)
@@ -354,6 +355,26 @@
                     this.$store.commit('setPagination', res.data.mainData )
                     this.$store.commit('setSimilar', res.data.similarData )
                     this.$store.commit('setStr', this.tStr )
+                    this.$router.push('/coach_search')
+                    
+                }
+                else{
+                    this.swr();
+                   
+                }
+            },
+            async SearchByKeyV2(page = 'coach',div = ''){
+               
+                
+                const res = await this.callApi('get', `/app/SearchData?place=${this.place}&str=${this.tStr}&pageOption=${page}&div=${div}`)
+                if(res.status === 200){
+                    
+                    this.$store.commit('setSearchData', res.data.mainData.data)
+                    delete res.data.mainData.data
+                    this.$store.commit('setPagination', res.data.mainData )
+                    this.$store.commit('setSimilar', res.data.similarData )
+                    this.$store.commit('setStr', this.tStr )
+                    this.$router.push('/coach_search')
                     
                 }
                 else{
@@ -483,24 +504,6 @@
                 }
             },
         },
-        // async asyncData({app, store,redirect, params}){
-        //     try {
-        //         let {data} = await app.$axios.get(`/legends/${params.id}`)
-            
-        //         return{
-        //             legendData : data.legend,
-        //             userData : data.user,
-        //             averageRating : data.averageRating,
-        //             healthPulse : data.healthPulse,
-        //             AttributeInfo : data.AttributeInfo,
-        //             totalReview : data.legend.__meta__.totalReview_count
-                    
-        //         }
-        //     }catch (error) {
-        //         console.log(error)
-        //         return redirect('/')
-        //     }
-        // },
         async created(){
             // let d = new Date('2019-08-11');
             // d.setDate(d.getDate() + 60);
