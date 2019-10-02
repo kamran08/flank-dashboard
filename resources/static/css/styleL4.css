@@ -1227,3 +1227,219 @@
     margin-right: 5px !important;
   }
 }
+
+/* updated on 2nd oct at 11:05am for flank advertising */
+
+.advertising-section  {
+  padding: 50px 0;
+  background: #4ecdc5;
+}
+
+.advertising-header h2 {
+  color: #000;
+  font-weight: 900;
+  margin-bottom: 20px !important;
+}
+
+.advertising-header p {
+  color: #000;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.advertising-content {
+  margin-top: 40px;
+}
+
+.advertising-content-item {
+  margin-top: 20px;
+}
+
+.advertising-content-item h3 {
+  font-weight: 400;
+  color: #000;
+  min-height: 70px;
+}
+
+.advertising-content-item p {
+  font-weight: 400;
+  color: #000;
+  font-size: 15px;
+  margin-top: 15px;
+  line-height: 19px;
+}
+
+
+.advertising-content button {
+  font-weight: 400;
+  color: #fff;
+  font-size: 15px;
+  margin-top: 20px;
+  background: #ff0000;
+  border: 1px solid #000;
+  padding: 5px 15px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.advertising-item-pad {
+  padding-right: 45px;
+}
+
+.advertising-content-item figure {
+  width: 100%;
+}
+
+.advertising-content-item figure img {
+  width: 100%;
+}
+
+.ad-section {
+  padding: 30px 0;
+}
+
+.ad-section-sidebar {
+  margin-top: 15px;
+}
+
+.ad-sidebar-item {
+  margin-bottom: 35px;
+}
+
+.ad-sidebar-item h3 {
+  font-size: 18px;
+  color: #000;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.ad-sidebar-list ul {
+  display: flex;
+  flex-flow: column;
+  margin-top: 15px;
+}
+
+.ad-sidebar-list ul li {
+  width: 100%;
+  list-style: none;
+}
+
+.ad-sidebar-list ul li a {
+  width: 100%;
+  display: block;
+  border-top: 1px solid #e6e6e6;
+  padding: 12px;
+  color: #000;
+  font-size: 14px;
+}
+
+.ad-sidebar-list ul li a:hover {
+  background: #f5f5f5;
+}
+
+.ad-sidebar-list ul li:last-child a {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.ad-section-content {
+  margin-top: 15px;
+}
+
+.ad-section-content-title h2 {
+  text-transform: capitalize;
+  color: #000;
+  font-size: 25px;
+}
+
+.ad-section-content-title p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  margin-top: 10px;
+  line-height: 17px;
+}
+
+.ad-section-content-inner {
+  margin-top: 20px;
+}
+
+.ad-section-content-inner .row {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.ad-section-img-item {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.ad-section-img-item figure {
+  width: 100%;
+}
+
+.ad-section-img-item figure img {
+  width: 100%;
+}
+
+.ad-section-content-grid {
+  margin-top: 35px;
+}
+
+.ad-section-grid-item {
+  margin-top: 20px;
+}
+
+.ad-section-grid-item h3 {
+  font-size: 17px;
+  color: #CB0005;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.ad-section-grid-item p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+}
+
+.ad-grid-item-img {
+  display: flex;
+  flex-flow: row;
+  margin-top: 20px;
+}
+
+.ad-grid-img-in {
+  flex: 0 0 24%;
+  width: 100%;
+  margin-right: 3px;
+}
+
+.ad-grid-img-in img {
+  width: 100%;
+}
+
+.ad-section-btn {
+  margin-top: 25px;
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 3px;
+}
+
+.ad-section-btn-in button {
+  background: #ff0000;
+  color: #fff;
+  border: 0;
+  padding: 8px 18px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 767px) {
+
+  .ad-small figure {
+    width: 50%;
+    margin: auto;
+  }
+}
