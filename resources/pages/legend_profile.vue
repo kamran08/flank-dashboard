@@ -214,6 +214,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="inner-item-review-sec">
                                     <div class="left-linear-border">
 
@@ -248,7 +249,39 @@
                                 </div>
 
                                 <div class="new-divider"></div>
-
+                                <div class="inner-item-review-sec">
+                                    <div class="inner-item-known-title">
+                                        <h4>Known For</h4></div>
+                                    <div class="inner-item-known-details">
+                                        <div class="inner-item-known-item">
+                                            <figure><img src="/attribute/4.png" alt=""></figure>
+                                            <div class="known-item-caption">
+                                                <p>CREATES A HEALTHY ENVIRONMENT</p>
+                                            </div>
+                                        </div>
+                                        <div class="inner-item-known-item">
+                                            <figure><img src="/attribute/5.png" alt=""></figure>
+                                            <div class="known-item-caption">
+                                                <p>PUSHES YOU TO BE BETTER
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="inner-item-known-item">
+                                            <figure><img src="/attribute/6.png" alt=""></figure>
+                                            <div class="known-item-caption">
+                                                <p>LOVE THE GAMEQUICK HEALS FOR GAME</p>
+                                            </div>
+                                        </div>
+                                        <div class="inner-item-known-item">
+                                            <figure><img src="/attribute/1.png" alt=""></figure>
+                                            <div class="known-item-caption">
+                                                <p>EXTENSION OF YOUR PARENTS</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="more-att"></div>
+                                </div>
+                                 <div class="new-divider"></div>
                                 <div class="inner-item-reco-sec inner-item-reco-sec-one">
                                     <div class="inner-item-reco-title">
                                         <h4>Ask The Community</h4>

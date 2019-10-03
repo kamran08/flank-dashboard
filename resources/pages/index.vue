@@ -939,12 +939,12 @@
                                     <div class="flank-daily-content">
                                         <h2>Get the best of FLANK sent to your inbox</h2>
                                         <p>The FLANK Daily delivers the most important team predictions for your team.</p>
-                                        <form action="#">
+                                        <form v-on:submit.prevent>
                                             <div class="fla-form-full">
-                                                <input type="text" placeholder="Email Address">
+                                                <input type="text" placeholder="Email Address" v-model="flankDaily.email" >
                                             </div>
                                             <div class="fla-form-button">
-                                                <button>Sign me up!</button>
+                                                <button @click="emailSubcription"> Sign me up!</button>
                                             </div>
                                         </form>
                                         <div class="priv">
@@ -1000,7 +1000,10 @@ export default {
       city:'All citys',
       allCity:[],
       isDropOption:false,
-    tabindex:0
+        tabindex:0,
+        flankDaily:{
+            email:''
+        }
     };
   },
   async asyncData({ app, store, redirect, params }) {
@@ -1015,6 +1018,18 @@ export default {
     }
   },
   methods: {
+    async  emailSubcription(){
+
+        if(this.flankDaily.email == '') return this.i("Please enter Email Frist !")
+        const res = await this.callApi('post','/app/emailSubscription', this.flankDaily)
+        if(res.status == 200){
+            this.s("You have Subscribed to Flank Daily !")
+            this.flankDaily.email = ''
+        }
+        else{
+            this.swr();
+        }
+    },
     handleFocus(){
       // console.log('handleFocus')
       // this.show_user_option=false

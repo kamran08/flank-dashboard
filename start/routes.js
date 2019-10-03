@@ -19,6 +19,11 @@ Route.resource('users', 'UserController').validator(new Map([
   [['users.store'], ['StoreUser']]
   // [['users.update'], ['UpdateUser']]
 ]))
+// Home Routes
+
+Route.post('/app/emailSubscription', 'HomeController.storeEmailSubscription')
+
+// Authentication route
 Route.post('/authentication/login', 'UserController.userLogin').middleware(['guest'])
 Route.get('/logout', 'UserController.logout')
 Route.get('/password/email', 'UserController.sendResetLinkEmail')
