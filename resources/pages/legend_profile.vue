@@ -247,6 +247,8 @@
                                     </div>
                                 </div>
 
+                                <div class="new-divider"></div>
+
                                 <div class="inner-item-reco-sec inner-item-reco-sec-one">
                                     <div class="inner-item-reco-title">
                                         <h4>Ask The Community</h4>

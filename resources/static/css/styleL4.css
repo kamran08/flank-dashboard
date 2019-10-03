@@ -1848,3 +1848,8 @@ body{
   font-weight: 600;
   margin-left: 10px;
 }
+
+.new-divider {
+  border-top: 2px solid #d9d9d9;
+    margin: 15px 0;
+}
