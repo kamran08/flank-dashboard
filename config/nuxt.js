@@ -15,7 +15,7 @@ module.exports = {
   ],
   
   axios: {
-   baseURL: 'https://goflank.com/'
+   baseURL: 'https://dashboard.goflank.com/'
    
   },
   // build: {
@@ -55,26 +55,14 @@ module.exports = {
         type: 'image/x-icon',
         href: 'favicon.ico'
       },
-      // { rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' }
+       { rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' },
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.7.2/css/all.css' },
-      { rel: 'stylesheet', href: '/css/custom-plugin.css' },
-      { rel: 'stylesheet', href: '/css/owl.carousel.min.css' },
-      { rel: 'stylesheet', href: '/css/owl.theme.default.min.css' },
 
      
-      { rel: 'stylesheet', href: '/css/style.css' },
-      { rel: 'stylesheet', href: '/css/style_one.css' },
-      { rel: 'stylesheet', href: '/css/new_style.css' },
-      { rel: 'stylesheet', href: '/css/new.css' },
-      { rel: 'stylesheet', href: '/css/responsive.css' },
-      { rel: 'stylesheet', href: '/css/styleL3.css' },
-      { rel: 'stylesheet', href: '/css/styleL4.css' }
+      { rel: 'stylesheet', href: '/css/main.css' },
 
     ],
     script: [
-      { src: '/js/plugin-js/jquery-1.12.0.min.js' },
-      { src: '/js/plugin-js/owl.carousel.min.js' },
-      { src: '/js/plugin-js/custom.js' },
       { src: '/js/script.js' }
     ]
 

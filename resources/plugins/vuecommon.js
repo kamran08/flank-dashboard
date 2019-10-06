@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {mapGetters} from 'vuex'
-
+import _ from 'lodash'
 Vue.mixin({
   methods: {
     async callApi (method, url, dataObj) {

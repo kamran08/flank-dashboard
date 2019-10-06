@@ -66,16 +66,11 @@ export default {
         async onSubmit(){
             if(this.formData.email == '') return this.i("email is empty")
             if(this.formData.password == '') return this.i("Password is empty")
-            const res = await this.callApi('post','authentication/login',this.formData) 
+            const res = await this.callApi('post','/login',this.formData) 
             if(res.status===200){
                 this.s("Login Successfully !")
                 this.$store.dispatch('setAuthInfo',res.data)
-                if(this.authInfo.packType==2){
-                     window.location ='/profile/'+this.authInfo.id
-                }
-                else{
-                     window.location= '/flanker/'+this.authInfo.id
-                }
+                this.$router.push('/');
             }
             else if(res.status==401){
                 this.e(res.data.message)
@@ -91,13 +86,98 @@ export default {
         }
     },
     created(){
-        if(this.isLoggedIn == true){
-                this.i('You Already Login!')
-                this.$router.push('/')
-                return
-            }
+        if(this.isLoggedIn == true){ return this.$router.push('/')
+        
+        
+        
+        
+        }
     }
 }
 </script>
+<style scoped>
+.body{
+    background: #fff
+}
+.padd_tb40{
+    padding: 40px 0px;
+}
+.signcont-left {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #000;
+}
+.create-account {
+    margin: 0px 0px 10px 0px;
+}
+.group-item {
+    margin-bottom: 18px;
+    position: relative;
+}
+.group-item input {
+    width: 100%;
+    outline: none;
+    border: 1px solid #ddd;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+.group-item-right.group-item-forgot-pass {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.mar_b20 {
+    margin-bottom: 20px;
+}
+.mar_b30 {
+    margin-bottom: 30px;
+}
+.input[type="checkbox"] {
+    cursor: pointer;
+}
+.sign-in {
+    color: #E51937;
+}
+.new-flank {
+    position: relative;
+    text-align: center;
+}
+.new-flank .new-flank-cont {
+    background-color: #fff;
+    padding: 0 10px;
+    color: #A7A7A7;
+}
+.new-flank:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #A7A7A7;
+    top: 50%;
+    left: 0;
+    z-index: -1;
+}
+.create-btn {
+    padding: 4px 6px;
+    width: 100%;
+    background-color: #EBECF0;
+    border: 1px solid #B9B9B9;
+    border-radius: 4px;
+    transition: .5s;
+}
+.signcont-right {
+    text-align: center;
+}
+.signcont-img {
+    padding: 100px 40px;
+}
+.signcont-right img {
+    max-width: 100%;
+}
+p {
+    line-height: 22px;
+}
+</style>
 
 
