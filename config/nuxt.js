@@ -13,10 +13,10 @@ module.exports = {
     // With options
 
   ],
-  
+
   axios: {
-   baseURL: 'https://dashboard.goflank.com/'
-   
+    baseURL: 'https://dashboard.goflank.com/'
+
   },
   // build: {
   //   plugins: [
@@ -29,7 +29,7 @@ module.exports = {
   // },
   plugins: [
     '~plugins/vuecommon',
-    {src: '~plugins/ivuew', ssr: false},
+    { src: '~plugins/ivuew', ssr: false },
     '~plugins/googlechart'
     // {src: '~plugins/clickout', ssr: false},
   ],
@@ -55,11 +55,10 @@ module.exports = {
         type: 'image/x-icon',
         href: 'favicon.ico'
       },
-       { rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' },
+      { rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' },
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.7.2/css/all.css' },
 
-     
-      { rel: 'stylesheet', href: '/css/main.css' },
+      { rel: 'stylesheet', href: '/css/main.css' }
 
     ],
     script: [

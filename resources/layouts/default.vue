@@ -30,6 +30,9 @@
                             <MenuItem name="/schedule" :to="'/schedule'">
                                 <Icon type="ios-analytics" />Hours Edit
                             </MenuItem>
+                            <MenuItem name="/images" :to="'/images'">
+                                <Icon type="ios-analytics" />Images
+                            </MenuItem>
                             <!-- <Submenu name="1">
                                     <template slot="title">
                                         <Icon type="ios-menu" />

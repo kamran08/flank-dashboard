@@ -1,55 +1,59 @@
 <template>
-  <div>
-      
-
-      <h4>This admin Index</h4>
-        
-    </div>
+	<div>
+		<div class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
+            <div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
+                <div class="_overflow _table_div">
+                    <table class="_table">
+                        <tr>
+                            <th>Num</th>
+                            <th>Total Profile Views</th>
+                            <th>Total Contact Clicked</th>
+                        </tr>
+                            <!-- ITEMS -->
+                        <tr >
+                            <template >
+                                <td>{{data.id}}</td>
+                                <td>{{data.views}}</td>
+                                <td>{{data.contact_views}}</td>
+                            </template>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
-
 
 <script>
 export default {
-  data() {
-    return {
-   
-    };
-  },
-//   async asyncData({ app, store, redirect, params }) {
-//     try {
-//       let { data } = await app.$axios.get(`/legends`);
-
-//       return {
-//         legendList: data
-//       };
-//     } catch (error) {
-//       //return redirect('/404')
-//     }
-//   },
-  methods: {
-
-  },
-  async created() {
-
-    // if(this.$route.query.login == 'success') this.i("Login Successful !")
-    // const [res1, res2,res4, res3] = await Promise.all([
-    //   this.callApi("get", `/app/getSchoolcoaches`),
-    //   this.callApi("get", `/app/reviewOfTheDay`),
-    //   this.callApi("get", `/app/recentCitys`),
-    //   this.callApi("get", `/app/getRecentReview`)
-    // ]);
-    // if (res1.status === 200 && res2.status == 200) {
-    //   this.schoolCoaches = res1.data;
-    //   this.review_of_day = res2.data;
-    //   this.recentReview = res3.data;
-    //   this.allCity = res4.data;
-    //   // this.review_of_day.bestReview = res2.data.bestReview
-    //   this.loading = false;
-    // } else {
-    //   this.swr();
-    //   this.loading = false;
-    // }
-
-  }
-};
+    data(){
+		return{
+			data:[],
+			
+		}
+	},
+    methods:{
+        
+    },
+    
+    async created(){
+        const res = await this.callApi('get','/app/user')
+		if( res.status == 200){
+			this.data = res.data
+		} else {
+			this.swr()
+		}
+		this.isLoading = false
+	},
+}
 </script>
+
+
+

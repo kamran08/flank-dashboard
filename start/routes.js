@@ -31,6 +31,13 @@ Route.put('/app/user', 'AdminController.updateUser')
 Route.get('/app/hours', 'AdminController.indexHours')
 Route.put('/app/hours', 'AdminController.updateHours')
 
+// Imames
+
+Route.get('/app/legend_images', 'AdminController.indexLegendImages')
+Route.post('/app/upload-review-file', 'AdminController.storeLegendImages')
+Route.delete('/app/legend_images', 'AdminController.deleteLegendImages')
+// Upload Photos
+//Route.post('/app/upload-review-file', 'HomeController.uploadReviewFile')
 
 
 Route.get('app/initdata', 'HomeController.initdata')
