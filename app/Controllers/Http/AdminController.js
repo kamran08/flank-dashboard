@@ -58,7 +58,7 @@ class AdminController {
     if (!profilePic.moved()) {
       return profilePic.error()
     }
-    let upFile = `/uploads/${name}`
+    let upFile = `https://dashboard.goflank.com/uploads/${name}`
     let ob = {
       url: upFile,
       legend_id: legend.id
