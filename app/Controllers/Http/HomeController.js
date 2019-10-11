@@ -7,10 +7,7 @@ const Database = use('Database')
 class HomeController {
   // Flank Daily Email Subscription
 
-  async storeEmailSubscription ({ request }) {
-    let data = request.all()
-        return EmailSubscription.create(data)
-  }
+  
   async userLogin ({ request, response, auth, session }) {
     const data = request.all()
 
@@ -30,7 +27,7 @@ class HomeController {
 
     try {
       let user = await auth.query().attempt(data.email, data.password)
-      return user
+      return User.query().with('legend').where('id',user.id).first();
     } catch (e) {
       return response.status(401).json({
         'message': 'Invalid  password. Please try again.'
@@ -49,8 +46,10 @@ class HomeController {
   async initdata ({ request, response, auth }) {
     try {
       const user = await auth.getUser()
+      const legend = await User.query().with('legend').where('id',user.id).first();
       return {
-        user: user
+        user: legend
+      //  user: user
       }
     } catch (error) {
       console.log(error.message)

@@ -65,7 +65,8 @@ module.exports = {
   cookie: {
     httpOnly: true,
     sameSite: true,
-    path: '/'
+    path: '/',
+    domain: '.goflank.com'
   },
 
   /*

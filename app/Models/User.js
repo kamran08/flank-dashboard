@@ -30,6 +30,9 @@ class User extends Model {
   reviews () {
     return this.hasMany('App/Models/Review', 'id', 'reviwer_id').limit(3)
   }
+  legend () {
+    return this.belongsTo('App/Models/Legend', 'id', 'user_id')
+  }
   ratinginfo () {
     return this.hasMany('App/Models/Review', 'id', 'reviwer_id').select('id', 'reviwer_id', 'rating')
   }

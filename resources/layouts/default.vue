@@ -12,9 +12,7 @@
                 <!--~~~~~~~~ MENU CONTENT ~~~~~~~~-->
                 <div class="_1side_menu_content">
                     <div class="_1side_menu_img_name">
-                        <img class="_1side_menu_img" src="/images/sticker-3.png" alt="" title="">
-
-                        <p class="_1side_menu_name">Admin</p>
+                        <p class="_1side_menu_name">{{authInfo.firstName}} {{authInfo.lastName}}</p> 
                     </div>
 
                     <!--~~~ MENU LIST ~~~~~~-->
@@ -117,6 +115,9 @@
                     <ul class="_2menu_main_ul_list_ul">
                         <li >
                             <p>Home</p>
+                        </li>
+                        <li >
+                            <p> <a :href="`https://goflank.com/local_instructor/${authInfo.legend.id}`">Go To Profile</a> </p>
                         </li>
                         <li >
                             <p @click="logout" >Logout</p>
