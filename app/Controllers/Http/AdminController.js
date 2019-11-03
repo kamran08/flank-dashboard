@@ -3,6 +3,7 @@ const User = use('App/Models/User')
 const Legend = use('App/Models/Legend')
 const LegendImage = use('App/Models/LegendImage')
 const BusniessHour = use('App/Models/BusniessHour')
+const LegendBussniessInfo = use('App/Models/LegendBussniessInfo')
 const Helpers = use('Helpers')
 const Database = use('Database')
 class AdminController {
@@ -17,6 +18,7 @@ class AdminController {
 
     return await Legend.query().where('user_id', user_id).update(data)
   }
+  
 
   // Legend Hours
   async indexHours ({ auth }) {

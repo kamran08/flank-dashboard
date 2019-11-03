@@ -28,8 +28,14 @@
                             <MenuItem name="/schedule" :to="'/schedule'">
                                 <Icon type="ios-analytics" />Hours Edit
                             </MenuItem>
+                            <MenuItem name="/bussniess" :to="'/bussniess'">
+                                <Icon type="ios-analytics" />Bussniess Info Edit
+                            </MenuItem>
                             <MenuItem name="/images" :to="'/images'">
                                 <Icon type="ios-analytics" />Images
+                            </MenuItem>
+                            <MenuItem name="/about" :to="'/about'">
+                                <Icon type="ios-analytics" />About
                             </MenuItem>
                             <!-- <Submenu name="1">
                                     <template slot="title">
