@@ -48,6 +48,11 @@
                                         <td v-else >{{user.phone}}</td>
                                     </tr>
                                     <tr>
+                                        <td>About</td>
+                                        <td v-if="isEdit" ><Input type="textarea" :autosize="{minRows: 2,maxRows: 5}"   v-model="edit_data.about" /></td>
+                                        <td v-else >{{user.about}}</td>
+                                    </tr>
+                                    <tr>
                                         <td>Action</td>
                                         <td v-if="isEdit" >
                                             <button @click="updateItem" class="_btn _action_btn edit_btn1" type="button">Save</button>

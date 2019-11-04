@@ -3461,3 +3461,11 @@ color:white;}
 .{}
 /*======= 20.Invoice end ======*/
 
+._pointer{
+  cursor: pointer;
+  color: rgb(34, 194, 69);
+}
+._pointer_red{
+  cursor: pointer;
+  color: red;
+}

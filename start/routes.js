@@ -30,16 +30,17 @@ Route.put('/app/user', 'AdminController.updateUser')
 
 Route.get('/app/hours', 'AdminController.indexHours')
 Route.put('/app/hours', 'AdminController.updateHours')
+// Hours
+
+Route.get('/app/schedules', 'AdminController.indexSchedules')
+Route.delete('/app/schedules', 'AdminController.deleteSchedules')
 // Bussniess Info
 
 Route.get('/app/bussniess', 'AdminController.indexBussniess')
-Route.Post('/app/bussniess', 'AdminController.storeBussniess')
+Route.post('/app/bussniess', 'AdminController.storeBussniess')
 Route.put('/app/bussniess', 'AdminController.updateBussniess')
 Route.delete('/app/bussniess', 'AdminController.deleteBussniess')
-// Aboout
 
-Route.get('/app/about', 'AdminController.indexAbout')
-Route.put('/app/about', 'AdminController.updateAbout')
 
 // Imames
 

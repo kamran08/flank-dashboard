@@ -25,7 +25,7 @@
                             <MenuItem name="/profile" :to="'/profile'">
                                 <Icon type="ios-analytics" />Profile Edit
                             </MenuItem>
-                            <MenuItem name="/schedule" :to="'/schedule'">
+                            <MenuItem name="/hours" :to="'/hours'">
                                 <Icon type="ios-analytics" />Hours Edit
                             </MenuItem>
                             <MenuItem name="/bussniess" :to="'/bussniess'">
@@ -34,8 +34,8 @@
                             <MenuItem name="/images" :to="'/images'">
                                 <Icon type="ios-analytics" />Images
                             </MenuItem>
-                            <MenuItem name="/about" :to="'/about'">
-                                <Icon type="ios-analytics" />About
+                            <MenuItem name="/schedule" :to="'/schedule'">
+                                <Icon type="ios-analytics" />Schedule Request
                             </MenuItem>
                             <!-- <Submenu name="1">
                                     <template slot="title">

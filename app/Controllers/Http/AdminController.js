@@ -4,6 +4,7 @@ const Legend = use('App/Models/Legend')
 const LegendImage = use('App/Models/LegendImage')
 const BusniessHour = use('App/Models/BusniessHour')
 const LegendBussniessInfo = use('App/Models/LegendBussniessInfo')
+const LegendSchedule = use('App/Models/LegendSchedule')
 const Helpers = use('Helpers')
 const Database = use('Database')
 class AdminController {
@@ -72,6 +73,46 @@ class AdminController {
     let data = request.all()
     return await LegendImage.query().where('id', data.id).delete()
   }
+
+    // Legend Bussniess
+    async indexBussniess ({ auth }) {
+      const user_id = await auth.user.id
+      return LegendBussniessInfo.query().where('user_id', user_id).fetch()
+    }
+    async storeBussniess ({ request, auth }) {
+      const data = request.all()
+      console.log("yes yes yes")
+      const user_id = await auth.user.id
+      const user = await Legend.query().where('user_id', user_id).first()
+      data.user_id = user_id
+      data.legend_id = user.id
+  
+      return await LegendBussniessInfo.create(data)
+    }
+    async updateBussniess ({ request, auth }) {
+      const data = request.all()
+      const user_id = await auth.user.id
+  
+      return await LegendBussniessInfo.query().where('id', data.id).update(data)
+    }
+    async deleteBussniess ({ request, auth }) {
+      const data = request.all()
+      const user_id = await auth.user.id
+  
+      return await LegendBussniessInfo.query().where('id', data.id).delete(data)
+    }
+
+      // Legend Schedules
+    async indexSchedules ({ auth }) {
+      const user_id = await auth.user.id
+      return LegendSchedule.query().where('user_id', user_id).orderBy('id','desc').fetch()
+    }
+    async deleteSchedules ({ request, auth }) {
+      const data = request.all()
+      const user_id = await auth.user.id
+
+      return await LegendSchedule.query().where('id', data.id).delete();
+    }
 }
 
 module.exports = AdminController
