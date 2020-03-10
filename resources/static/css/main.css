@@ -3469,3 +3469,111 @@ color:white;}
   cursor: pointer;
   color: red;
 }
+/* Calendar */
+.month {
+  padding: 32px 25px;
+  width: 100%;
+  background: #13a4d2c2;
+  text-align: center;
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month li {
+  cursor: pointer;
+}
+
+.month ul li {
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  float: left;
+  padding-top: 10px;
+}
+
+.month .next {
+  float: right;
+  padding-top: 10px;
+}
+
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color: #ddd;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 13.6%;
+  color: #666;
+  text-align: center;
+}
+
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #777;
+  cursor: pointer;
+}
+
+.days li .active_day {
+  padding: 5px;
+  background: #13a4d2c2;
+  color: white !important
+}
+
+
+
+.time_slot_list li {
+  display: inline-block;
+  padding: 14px 10px;
+  background-color: #eee;
+  margin: 10px 10px 0px 0px;
+  font-size: 15px;
+  width: 149px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.time_slot_list li:nth-child(4n) {
+  margin-right: 0px;
+}
+
+.active_slot {
+  background-color: red !important;
+  color: #fff;
+}
+
+.page_title {
+  font-size: 50px;
+}
+
+.appoinment_page .bg_layer::before {
+  opacity: .5;
+}
+ .active_day {
+    padding: 5px;
+    background: #13a4d2c2;
+    color: white !important
+  }
+  ._content{
+    margin-left: 300px;
+    padding: 0px 15px;
+  }

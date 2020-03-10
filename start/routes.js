@@ -47,6 +47,10 @@ Route.delete('/app/bussniess', 'AdminController.deleteBussniess')
 Route.get('/app/legend_images', 'AdminController.indexLegendImages')
 Route.post('/app/upload-review-file', 'AdminController.storeLegendImages')
 Route.delete('/app/legend_images', 'AdminController.deleteLegendImages')
+Route.get('/all-time-setting', 'AdminController.getAlltimesetting')
+Route.get('/get-all-time-slot', 'AdminController.createTimeslot')
+Route.post('/store-all-time-setting', 'AdminController.storeAllTimeSetting')
+Route.post('/create-new-booking', 'AdminController.newBooking')
 // Upload Photos
 //Route.post('/app/upload-review-file', 'HomeController.uploadReviewFile')
 

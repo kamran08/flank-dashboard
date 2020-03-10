@@ -1,10 +1,13 @@
 'use strict'
 const User = use('App/Models/User')
 const Legend = use('App/Models/Legend')
+const TimeSetting = use('App/Models/TimeSetting')
 const LegendImage = use('App/Models/LegendImage')
 const BusniessHour = use('App/Models/BusniessHour')
+const Booking = use('App/Models/Booking')
 const LegendBussniessInfo = use('App/Models/LegendBussniessInfo')
 const LegendSchedule = use('App/Models/LegendSchedule')
+const moment = require('moment');
 const Helpers = use('Helpers')
 const Database = use('Database')
 class AdminController {
@@ -112,6 +115,86 @@ class AdminController {
       const user_id = await auth.user.id
 
       return await LegendSchedule.query().where('id', data.id).delete();
+    }
+    async getAlltimesetting ({ request, auth }) {
+      const user_id = await auth.user.id
+        console.log(user_id)
+      return await BusniessHour.query().where('legend_id', user_id).fetch()
+    }
+    async storeAllTimeSetting ({ request, auth }) {
+        const data = request.all()
+         const user_id = await auth.user.id
+        BusniessHour.query().where('legend_id', user_id).delete();
+        // return data
+        for(let i in data){
+          delete data[i].isOn
+          delete data[i].id
+          data[i].legend_id = user_id
+           await BusniessHour.create(data[i])
+        }
+         return data
+    }
+    
+    async createTimeslot ({ request, auth }) {
+        const data = request.all()
+       
+        let start = new Date(data.start)
+        let today = data.day
+        let end = new Date(data.end)
+        let duration = data.duration
+         let slotData = []
+         let diff = (start.getTime() - end.getTime()) / 1000;
+         diff /= (60);
+         diff = Math.abs(Math.round(diff));
+         let s
+         let en
+         let e
+         for (let i = 0; i < diff; i += duration) {
+           s = moment(start).format('hh:mm a');
+           en = new Date(start.getTime() + duration * 60000);
+           e = moment(en).format('hh:mm a');
+           let ob ={
+             slot: s + '-' + e,
+             book:false,
+           }
+            slotData.push(ob)
+           start = new Date(start.getTime() + duration * 60000);
+
+         }
+        const id = await auth.user.id
+         let data2 = await Booking.query().where('day', today).where('legend_id', id).where('date',data.date).fetch();
+         data2 = JSON.parse(JSON.stringify(data2))
+        //  return data2
+         
+         for (let i = 0; i <slotData.length; i++) {
+           let k = -1
+            
+            for (let j=0; j<data2.length; j++) {
+              
+                if (slotData[i].slot == data2[j].time) {
+                   k = j
+                  
+                }
+            }
+            if (k != -1) slotData[i].book = true
+         }
+      
+         return slotData
+
+    }
+    async newBooking ({ request, auth }) {
+         const data = request.all()
+         const id = await auth.user.id
+         let ob ={
+           time: data.slot,
+           legend_id: id,
+           day: data.day,
+           name: data.name,
+           contact: data.contact,
+           date: data.date,
+         }
+         let ok = await Booking.create(ob) 
+         return ok
     }
 }
 
