@@ -37,6 +37,9 @@
                             <MenuItem name="/schedule" :to="'/schedule'">
                                 <Icon type="ios-analytics" />Schedule Request
                             </MenuItem>
+                            <MenuItem name="booking" :to="'/booking'">
+                                <Icon type="ios-analytics" />Appointment
+                            </MenuItem>
                             <!-- <Submenu name="1">
                                     <template slot="title">
                                         <Icon type="ios-menu" />
