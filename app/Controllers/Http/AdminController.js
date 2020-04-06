@@ -130,7 +130,7 @@ class AdminController {
           delete data[i].isOn
           delete data[i].id
           data[i].legend_id = user_id
-           await BusniessHour.create(data[i])
+           await TimeSetting.create(data[i])
         }
          return data
     }
