@@ -119,12 +119,12 @@ class AdminController {
     async getAlltimesetting ({ request, auth }) {
       const user_id = await auth.user.id
         console.log(user_id)
-      return await BusniessHour.query().where('legend_id', user_id).fetch()
+      return await TimeSetting.query().where('legend_id', user_id).fetch()
     }
     async storeAllTimeSetting ({ request, auth }) {
         const data = request.all()
          const user_id = await auth.user.id
-        BusniessHour.query().where('legend_id', user_id).delete();
+        TimeSetting.query().where('legend_id', user_id).delete();
         // return data
         for(let i in data){
           delete data[i].isOn

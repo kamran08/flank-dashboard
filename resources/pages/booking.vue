@@ -466,7 +466,7 @@ export default {
          this.SelectedIndex = index
          this.alldata[index].day
          console.log(this.alldata[index])
-         this.i(index)
+        //  this.i(index)
     },
     clearData(){
       this.tempData = []
