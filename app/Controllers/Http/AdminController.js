@@ -127,7 +127,7 @@ class AdminController {
         TimeSetting.query().where('legend_id', user_id).delete();
         // return data
         for(let i in data){
-          delete data[i].isOn
+          // delete data[i].isOn
           delete data[i].id
           data[i].legend_id = user_id
            await TimeSetting.create(data[i])
