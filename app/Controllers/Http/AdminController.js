@@ -108,7 +108,8 @@ class AdminController {
       // Legend Schedules
     async indexSchedules ({ auth }) {
       const user_id = await auth.user.id
-      return LegendSchedule.query().where('user_id', user_id).orderBy('id','desc').fetch()
+      return Booking.query().orderBy('id', 'desc').fetch()
+      // return LegendSchedule.query().where('user_id', user_id).orderBy('id','desc').fetch()
     }
     async deleteSchedules ({ request, auth }) {
       const data = request.all()

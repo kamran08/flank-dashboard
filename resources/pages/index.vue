@@ -48,7 +48,7 @@ export default {
 		if( res.status == 200){
 			this.data = res.data
 		} else {
-			this.swr()
+			// this.swr()
 		}
 		this.isLoading = false
 	},
